@@ -1,0 +1,1237 @@
+# LANGUAGE translation of CakePHP Application
+# Copyright YEAR NAME <EMAIL@ADDRESS>
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"POT-Creation-Date: 2023-07-28 03:38+0000\n"
+"PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
+"Last-Translator: NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+
+#: ./templates/Institutes/add.php:11
+#: ./templates/Institutes/edit.php:11
+#: ./templates/Institutes/index.php:16
+#: ./templates/Institutes/view.php:10
+#: ./templates/Institutes/view.php:38
+#: ./templates/Institutes/view.php:68
+#: ./templates/Modules/add.php:11
+#: ./templates/Modules/edit.php:11
+#: ./templates/Modules/index.php:16
+#: ./templates/Modules/view.php:10
+#: ./templates/Modules/view.php:38
+#: ./templates/Roles/add.php:11
+#: ./templates/Roles/edit.php:11
+#: ./templates/Roles/index.php:16
+#: ./templates/Roles/view.php:10
+#: ./templates/Roles/view.php:39
+#: ./templates/Roles/view.php:72
+#: ./templates/SchoolCourses/add.php:15
+#: ./templates/SchoolCourses/edit.php:15
+#: ./templates/SchoolCourses/index.php:20
+#: ./templates/SchoolCourses/view.php:10
+#: ./templates/SchoolCourses/view.php:56
+#: ./templates/SchoolCourses/view.php:96
+#: ./templates/SchoolLevels/add.php:10
+#: ./templates/SchoolLevels/edit.php:10
+#: ./templates/SchoolLevels/index.php:16
+#: ./templates/SchoolLevels/view.php:10
+#: ./templates/Students/add.php:13
+#: ./templates/Students/edit.php:13
+#: ./templates/Students/index.php:29
+#: ./templates/Students/view.php:10
+#: ./templates/Students/view.php:94
+#: ./templates/Students/view.php:125
+#: ./templates/Subjects/add.php:11
+#: ./templates/Subjects/edit.php:11
+#: ./templates/Subjects/index.php:37
+#: ./templates/Subjects/view.php:10
+#: ./templates/Subjects/view.php:137
+#: ./templates/Teachers/add.php:12
+#: ./templates/Teachers/edit.php:12
+#: ./templates/Teachers/index.php:25
+#: ./templates/Teachers/view.php:10
+#: ./templates/Terms/add.php:11
+#: ./templates/Terms/edit.php:11
+#: ./templates/Terms/index.php:21
+#: ./templates/Terms/view.php:10
+#: ./templates/Terms/view.php:71
+#: ./templates/Users/add.php:11
+#: ./templates/Users/edit.php:11
+#: ./templates/Users/index.php:22
+#: ./templates/Users/view.php:10
+#: ./templates/Users/view.php:75
+#: ./templates/Users/view.php:122
+msgid "Actions"
+msgstr ""
+
+#: ./templates/Institutes/add.php:12
+#: ./templates/Institutes/edit.php:17
+#: ./templates/Institutes/view.php:13
+msgid "List Institutes"
+msgstr ""
+
+#: ./templates/Institutes/add.php:19
+msgid "Add Institute"
+msgstr ""
+
+#: ./templates/Institutes/add.php:25
+#: ./templates/Institutes/edit.php:30
+#: ./templates/Modules/add.php:25
+#: ./templates/Modules/edit.php:30
+#: ./templates/Roles/add.php:25
+#: ./templates/Roles/edit.php:30
+#: ./templates/SchoolCourses/add.php:34
+#: ./templates/SchoolCourses/edit.php:39
+#: ./templates/SchoolLevels/add.php:23
+#: ./templates/SchoolLevels/edit.php:28
+#: ./templates/Students/add.php:38
+#: ./templates/Students/edit.php:43
+#: ./templates/Subjects/add.php:45
+#: ./templates/Subjects/edit.php:50
+#: ./templates/Teachers/add.php:31
+#: ./templates/Teachers/edit.php:36
+#: ./templates/Terms/add.php:27
+#: ./templates/Terms/edit.php:32
+#: ./templates/Users/add.php:29
+#: ./templates/Users/edit.php:34
+msgid "Submit"
+msgstr ""
+
+#: ./templates/Institutes/edit.php:13
+#: ./templates/Institutes/index.php:27
+#: ./templates/Institutes/view.php:47
+#: ./templates/Institutes/view.php:82
+#: ./templates/Modules/edit.php:13
+#: ./templates/Modules/index.php:27
+#: ./templates/Modules/view.php:47
+#: ./templates/Roles/edit.php:13
+#: ./templates/Roles/index.php:27
+#: ./templates/Roles/view.php:49
+#: ./templates/Roles/view.php:88
+#: ./templates/SchoolCourses/edit.php:17
+#: ./templates/SchoolCourses/index.php:35
+#: ./templates/SchoolCourses/view.php:67
+#: ./templates/SchoolCourses/view.php:118
+#: ./templates/SchoolLevels/edit.php:12
+#: ./templates/SchoolLevels/index.php:27
+#: ./templates/Students/edit.php:15
+#: ./templates/Students/index.php:53
+#: ./templates/Students/view.php:107
+#: ./templates/Students/view.php:136
+#: ./templates/Subjects/edit.php:13
+#: ./templates/Subjects/index.php:69
+#: ./templates/Subjects/view.php:155
+#: ./templates/Teachers/edit.php:14
+#: ./templates/Teachers/index.php:45
+#: ./templates/Terms/edit.php:13
+#: ./templates/Terms/index.php:37
+#: ./templates/Terms/view.php:93
+#: ./templates/Users/edit.php:13
+#: ./templates/Users/index.php:39
+#: ./templates/Users/view.php:97
+#: ./templates/Users/view.php:140
+msgid "Delete"
+msgstr ""
+
+#: ./templates/Institutes/edit.php:15
+#: ./templates/Institutes/index.php:27
+#: ./templates/Institutes/view.php:12
+#: ./templates/Institutes/view.php:47
+#: ./templates/Institutes/view.php:82
+#: ./templates/Modules/edit.php:15
+#: ./templates/Modules/index.php:27
+#: ./templates/Modules/view.php:12
+#: ./templates/Modules/view.php:47
+#: ./templates/Roles/edit.php:15
+#: ./templates/Roles/index.php:27
+#: ./templates/Roles/view.php:12
+#: ./templates/Roles/view.php:49
+#: ./templates/Roles/view.php:88
+#: ./templates/SchoolCourses/edit.php:19
+#: ./templates/SchoolCourses/index.php:35
+#: ./templates/SchoolCourses/view.php:12
+#: ./templates/SchoolCourses/view.php:67
+#: ./templates/SchoolCourses/view.php:118
+#: ./templates/SchoolLevels/edit.php:14
+#: ./templates/SchoolLevels/index.php:27
+#: ./templates/SchoolLevels/view.php:12
+#: ./templates/Students/edit.php:17
+#: ./templates/Students/index.php:53
+#: ./templates/Students/view.php:12
+#: ./templates/Students/view.php:107
+#: ./templates/Students/view.php:136
+#: ./templates/Subjects/edit.php:15
+#: ./templates/Subjects/index.php:69
+#: ./templates/Subjects/view.php:12
+#: ./templates/Subjects/view.php:155
+#: ./templates/Teachers/edit.php:16
+#: ./templates/Teachers/index.php:45
+#: ./templates/Teachers/view.php:12
+#: ./templates/Terms/edit.php:15
+#: ./templates/Terms/index.php:37
+#: ./templates/Terms/view.php:12
+#: ./templates/Terms/view.php:93
+#: ./templates/Users/edit.php:15
+#: ./templates/Users/index.php:39
+#: ./templates/Users/view.php:12
+#: ./templates/Users/view.php:97
+#: ./templates/Users/view.php:140
+msgid "Are you sure you want to delete # {0}?"
+msgstr ""
+
+#: ./templates/Institutes/edit.php:24
+#: ./templates/Institutes/view.php:11
+msgid "Edit Institute"
+msgstr ""
+
+#: ./templates/Institutes/index.php:8
+#: ./templates/Institutes/view.php:14
+msgid "New Institute"
+msgstr ""
+
+#: ./templates/Institutes/index.php:9
+msgid "Institutes"
+msgstr ""
+
+#: ./templates/Institutes/index.php:25
+#: ./templates/Institutes/view.php:45
+#: ./templates/Institutes/view.php:80
+#: ./templates/Modules/index.php:25
+#: ./templates/Modules/view.php:45
+#: ./templates/Roles/index.php:25
+#: ./templates/Roles/view.php:47
+#: ./templates/Roles/view.php:86
+#: ./templates/SchoolCourses/index.php:33
+#: ./templates/SchoolCourses/view.php:65
+#: ./templates/SchoolCourses/view.php:116
+#: ./templates/SchoolLevels/index.php:25
+#: ./templates/Students/index.php:51
+#: ./templates/Students/view.php:105
+#: ./templates/Students/view.php:134
+#: ./templates/Subjects/index.php:67
+#: ./templates/Subjects/view.php:153
+#: ./templates/Teachers/index.php:43
+#: ./templates/Terms/index.php:35
+#: ./templates/Terms/view.php:91
+#: ./templates/Users/index.php:37
+#: ./templates/Users/view.php:95
+#: ./templates/Users/view.php:138
+msgid "View"
+msgstr ""
+
+#: ./templates/Institutes/index.php:26
+#: ./templates/Institutes/view.php:46
+#: ./templates/Institutes/view.php:81
+#: ./templates/Modules/index.php:26
+#: ./templates/Modules/view.php:46
+#: ./templates/Roles/index.php:26
+#: ./templates/Roles/view.php:48
+#: ./templates/Roles/view.php:87
+#: ./templates/SchoolCourses/index.php:34
+#: ./templates/SchoolCourses/view.php:66
+#: ./templates/SchoolCourses/view.php:117
+#: ./templates/SchoolLevels/index.php:26
+#: ./templates/Students/index.php:52
+#: ./templates/Students/view.php:106
+#: ./templates/Students/view.php:135
+#: ./templates/Subjects/index.php:68
+#: ./templates/Subjects/view.php:154
+#: ./templates/Teachers/index.php:44
+#: ./templates/Terms/index.php:36
+#: ./templates/Terms/view.php:92
+#: ./templates/Users/index.php:38
+#: ./templates/Users/view.php:96
+#: ./templates/Users/view.php:139
+msgid "Edit"
+msgstr ""
+
+#: ./templates/Institutes/index.php:36
+#: ./templates/Modules/index.php:36
+#: ./templates/Roles/index.php:36
+#: ./templates/SchoolCourses/index.php:44
+#: ./templates/SchoolLevels/index.php:36
+#: ./templates/Students/index.php:62
+#: ./templates/Subjects/index.php:78
+#: ./templates/Teachers/index.php:54
+#: ./templates/Terms/index.php:46
+#: ./templates/Users/index.php:48
+msgid "first"
+msgstr ""
+
+#: ./templates/Institutes/index.php:37
+#: ./templates/Modules/index.php:37
+#: ./templates/Roles/index.php:37
+#: ./templates/SchoolCourses/index.php:45
+#: ./templates/SchoolLevels/index.php:37
+#: ./templates/Students/index.php:63
+#: ./templates/Subjects/index.php:79
+#: ./templates/Teachers/index.php:55
+#: ./templates/Terms/index.php:47
+#: ./templates/Users/index.php:49
+msgid "previous"
+msgstr ""
+
+#: ./templates/Institutes/index.php:39
+#: ./templates/Modules/index.php:39
+#: ./templates/Roles/index.php:39
+#: ./templates/SchoolCourses/index.php:47
+#: ./templates/SchoolLevels/index.php:39
+#: ./templates/Students/index.php:65
+#: ./templates/Subjects/index.php:81
+#: ./templates/Teachers/index.php:57
+#: ./templates/Terms/index.php:49
+#: ./templates/Users/index.php:51
+msgid "next"
+msgstr ""
+
+#: ./templates/Institutes/index.php:40
+#: ./templates/Modules/index.php:40
+#: ./templates/Roles/index.php:40
+#: ./templates/SchoolCourses/index.php:48
+#: ./templates/SchoolLevels/index.php:40
+#: ./templates/Students/index.php:66
+#: ./templates/Subjects/index.php:82
+#: ./templates/Teachers/index.php:58
+#: ./templates/Terms/index.php:50
+#: ./templates/Users/index.php:52
+msgid "last"
+msgstr ""
+
+#: ./templates/Institutes/index.php:42
+#: ./templates/Modules/index.php:42
+#: ./templates/Roles/index.php:42
+#: ./templates/SchoolCourses/index.php:50
+#: ./templates/SchoolLevels/index.php:42
+#: ./templates/Students/index.php:68
+#: ./templates/Subjects/index.php:84
+#: ./templates/Teachers/index.php:60
+#: ./templates/Terms/index.php:52
+#: ./templates/Users/index.php:54
+msgid "Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total"
+msgstr ""
+
+#: ./templates/Institutes/view.php:12
+msgid "Delete Institute"
+msgstr ""
+
+#: ./templates/Institutes/view.php:22
+#: ./templates/Institutes/view.php:37
+#: ./templates/Modules/view.php:22
+#: ./templates/Modules/view.php:37
+#: ./templates/Roles/view.php:22
+#: ./templates/Roles/view.php:66
+#: ./templates/SchoolCourses/view.php:22
+#: ./templates/SchoolCourses/view.php:82
+#: ./templates/SchoolLevels/view.php:22
+#: ./templates/Students/view.php:22
+#: ./templates/Students/view.php:89
+#: ./templates/Students/view.php:122
+#: ./templates/Subjects/view.php:26
+#: ./templates/Subjects/view.php:127
+#: ./templates/Teachers/view.php:22
+#: ./templates/Terms/view.php:57
+#: ./templates/Users/view.php:26
+#: ./templates/Users/view.php:61
+#: ./templates/Users/view.php:112
+msgid "Name"
+msgstr ""
+
+#: ./templates/Institutes/view.php:26
+#: ./templates/Institutes/view.php:36
+#: ./templates/Institutes/view.php:61
+#: ./templates/Modules/view.php:26
+#: ./templates/Modules/view.php:36
+#: ./templates/Roles/view.php:26
+#: ./templates/Roles/view.php:36
+#: ./templates/Roles/view.php:63
+#: ./templates/SchoolCourses/view.php:38
+#: ./templates/SchoolCourses/view.php:52
+#: ./templates/SchoolCourses/view.php:81
+#: ./templates/SchoolLevels/view.php:26
+#: ./templates/Students/view.php:62
+#: ./templates/Students/view.php:88
+#: ./templates/Students/view.php:121
+#: ./templates/Subjects/view.php:50
+#: ./templates/Subjects/view.php:126
+#: ./templates/Teachers/view.php:50
+#: ./templates/Terms/view.php:30
+#: ./templates/Terms/view.php:56
+#: ./templates/Users/view.php:38
+#: ./templates/Users/view.php:60
+#: ./templates/Users/view.php:111
+msgid "Id"
+msgstr ""
+
+#: ./templates/Institutes/view.php:31
+msgid "Related School Levels"
+msgstr ""
+
+#: ./templates/Institutes/view.php:56
+msgid "Related Terms"
+msgstr ""
+
+#: ./templates/Institutes/view.php:62
+#: ./templates/Terms/view.php:22
+msgid "Description"
+msgstr ""
+
+#: ./templates/Institutes/view.php:63
+#: ./templates/SchoolCourses/view.php:53
+#: ./templates/Terms/view.php:34
+msgid "Start"
+msgstr ""
+
+#: ./templates/Institutes/view.php:64
+#: ./templates/SchoolCourses/view.php:54
+#: ./templates/Terms/view.php:38
+msgid "End"
+msgstr ""
+
+#: ./templates/Institutes/view.php:65
+#: ./templates/Roles/view.php:69
+#: ./templates/SchoolCourses/view.php:92
+#: ./templates/Students/view.php:74
+#: ./templates/Subjects/view.php:106
+#: ./templates/Subjects/view.php:133
+#: ./templates/Teachers/view.php:58
+#: ./templates/Terms/view.php:42
+#: ./templates/Terms/view.php:67
+#: ./templates/Users/view.php:46
+#: ./templates/Users/view.php:71
+#: ./templates/Users/view.php:118
+msgid "Created"
+msgstr ""
+
+#: ./templates/Institutes/view.php:66
+#: ./templates/Roles/view.php:70
+#: ./templates/SchoolCourses/view.php:93
+#: ./templates/Students/view.php:78
+#: ./templates/Subjects/view.php:110
+#: ./templates/Subjects/view.php:134
+#: ./templates/Teachers/view.php:62
+#: ./templates/Terms/view.php:46
+#: ./templates/Terms/view.php:68
+#: ./templates/Users/view.php:50
+#: ./templates/Users/view.php:72
+#: ./templates/Users/view.php:119
+msgid "Modified"
+msgstr ""
+
+#: ./templates/Institutes/view.php:67
+msgid "Institute Id"
+msgstr ""
+
+#: ./templates/Modules/add.php:12
+#: ./templates/Modules/edit.php:17
+#: ./templates/Modules/view.php:13
+msgid "List Modules"
+msgstr "Ver Modulos"
+
+#: ./templates/Modules/add.php:19
+msgid "Add Module"
+msgstr "Agregar Modulo"
+
+#: ./templates/Modules/edit.php:24
+#: ./templates/Modules/view.php:11
+msgid "Edit Module"
+msgstr "Editar Modulo"
+
+#: ./templates/Modules/index.php:8
+#: ./templates/Modules/view.php:14
+msgid "New Module"
+msgstr "Nuevo Modulo"
+
+#: ./templates/Modules/index.php:9
+msgid "Modules"
+msgstr "Modulos"
+
+#: ./templates/Modules/view.php:12
+msgid "Delete Module"
+msgstr ""
+
+#: ./templates/Modules/view.php:31
+msgid "Related Permissions"
+msgstr ""
+
+#: ./templates/Roles/add.php:12
+#: ./templates/Roles/edit.php:17
+#: ./templates/Roles/view.php:13
+msgid "List Roles"
+msgstr ""
+
+#: ./templates/Roles/add.php:19
+msgid "Add Role"
+msgstr ""
+
+#: ./templates/Roles/edit.php:24
+#: ./templates/Roles/view.php:11
+msgid "Edit Role"
+msgstr ""
+
+#: ./templates/Roles/index.php:8
+#: ./templates/Roles/view.php:14
+msgid "New Role"
+msgstr ""
+
+#: ./templates/Roles/index.php:9
+msgid "Roles"
+msgstr ""
+
+#: ./templates/Roles/view.php:12
+msgid "Delete Role"
+msgstr ""
+
+#: ./templates/Roles/view.php:31
+msgid "Related Modules Permissions"
+msgstr ""
+
+#: ./templates/Roles/view.php:37
+msgid "Module Id"
+msgstr ""
+
+#: ./templates/Roles/view.php:38
+msgid "Permission Id"
+msgstr ""
+
+#: ./templates/Roles/view.php:58
+msgid "Related Users"
+msgstr ""
+
+#: ./templates/Roles/view.php:64
+#: ./templates/Users/view.php:22
+msgid "Username"
+msgstr ""
+
+#: ./templates/Roles/view.php:65
+msgid "Password"
+msgstr ""
+
+#: ./templates/Roles/view.php:67
+#: ./templates/Subjects/view.php:131
+#: ./templates/Teachers/view.php:38
+#: ./templates/Users/view.php:30
+#: ./templates/Users/view.php:116
+msgid "Celular"
+msgstr ""
+
+#: ./templates/Roles/view.php:68
+#: ./templates/Subjects/view.php:94
+#: ./templates/Subjects/view.php:132
+#: ./templates/Teachers/view.php:54
+#: ./templates/Users/view.php:42
+#: ./templates/Users/view.php:117
+msgid "Active"
+msgstr ""
+
+#: ./templates/Roles/view.php:71
+msgid "Role Id"
+msgstr ""
+
+#: ./templates/SchoolCourses/add.php:16
+#: ./templates/SchoolCourses/edit.php:21
+#: ./templates/SchoolCourses/view.php:13
+msgid "List School Courses"
+msgstr ""
+
+#: ./templates/SchoolCourses/add.php:23
+msgid "Add School Course"
+msgstr ""
+
+#: ./templates/SchoolCourses/edit.php:28
+#: ./templates/SchoolCourses/view.php:11
+msgid "Edit School Course"
+msgstr ""
+
+#: ./templates/SchoolCourses/index.php:8
+#: ./templates/SchoolCourses/view.php:14
+msgid "New School Course"
+msgstr ""
+
+#: ./templates/SchoolCourses/index.php:9
+#: ./templates/layout/default.php:9
+msgid "School Courses"
+msgstr "Cursos Escolares"
+
+#: ./templates/SchoolCourses/view.php:12
+msgid "Delete School Course"
+msgstr ""
+
+#: ./templates/SchoolCourses/view.php:26
+msgid "Subject"
+msgstr ""
+
+#: ./templates/SchoolCourses/view.php:30
+msgid "Teacher"
+msgstr ""
+
+#: ./templates/SchoolCourses/view.php:34
+#: ./templates/Students/view.php:54
+msgid "Term"
+msgstr ""
+
+#: ./templates/SchoolCourses/view.php:42
+#: ./templates/Students/view.php:90
+#: ./templates/Subjects/view.php:54
+msgid "Capacity"
+msgstr ""
+
+#: ./templates/SchoolCourses/view.php:47
+msgid "Related Schedules"
+msgstr ""
+
+#: ./templates/SchoolCourses/view.php:55
+msgid "Day Id"
+msgstr ""
+
+#: ./templates/SchoolCourses/view.php:76
+#: ./templates/Terms/view.php:51
+#: ./templates/Users/view.php:55
+msgid "Related Students"
+msgstr ""
+
+#: ./templates/SchoolCourses/view.php:83
+#: ./templates/Students/view.php:26
+#: ./templates/Subjects/view.php:128
+#: ./templates/Teachers/view.php:26
+#: ./templates/Terms/view.php:58
+#: ./templates/Users/view.php:62
+#: ./templates/Users/view.php:113
+msgid "Last Name"
+msgstr ""
+
+#: ./templates/SchoolCourses/view.php:84
+#: ./templates/Students/view.php:30
+#: ./templates/Subjects/view.php:129
+#: ./templates/Teachers/view.php:30
+#: ./templates/Terms/view.php:59
+#: ./templates/Users/view.php:63
+#: ./templates/Users/view.php:114
+msgid "Second Last Name"
+msgstr ""
+
+#: ./templates/SchoolCourses/view.php:85
+#: ./templates/Students/view.php:34
+#: ./templates/Terms/view.php:60
+#: ./templates/Users/view.php:64
+msgid "Curp"
+msgstr ""
+
+#: ./templates/SchoolCourses/view.php:86
+#: ./templates/Students/view.php:38
+#: ./templates/Subjects/view.php:130
+#: ./templates/Teachers/view.php:34
+#: ./templates/Terms/view.php:61
+#: ./templates/Users/view.php:65
+#: ./templates/Users/view.php:115
+msgid "Email"
+msgstr ""
+
+#: ./templates/SchoolCourses/view.php:87
+#: ./templates/Students/view.php:66
+#: ./templates/Terms/view.php:62
+#: ./templates/Users/view.php:66
+msgid "Level"
+msgstr ""
+
+#: ./templates/SchoolCourses/view.php:88
+#: ./templates/Students/view.php:42
+#: ./templates/Subjects/view.php:30
+#: ./templates/Terms/view.php:26
+#: ./templates/Terms/view.php:63
+#: ./templates/Users/view.php:67
+msgid "Institute"
+msgstr ""
+
+#: ./templates/SchoolCourses/view.php:89
+#: ./templates/Students/view.php:46
+#: ./templates/Terms/view.php:64
+#: ./templates/Users/view.php:68
+msgid "Group"
+msgstr ""
+
+#: ./templates/SchoolCourses/view.php:90
+#: ./templates/Students/view.php:50
+#: ./templates/Subjects/view.php:22
+#: ./templates/Terms/view.php:65
+#: ./templates/Users/view.php:69
+msgid "Id Number"
+msgstr ""
+
+#: ./templates/SchoolCourses/view.php:91
+#: ./templates/Students/view.php:70
+#: ./templates/Terms/view.php:66
+#: ./templates/Users/view.php:70
+msgid "Birth Date"
+msgstr ""
+
+#: ./templates/SchoolCourses/view.php:94
+#: ./templates/Students/view.php:93
+#: ./templates/Terms/view.php:69
+#: ./templates/Users/view.php:73
+msgid "Term Id"
+msgstr ""
+
+#: ./templates/SchoolCourses/view.php:95
+#: ./templates/Subjects/view.php:136
+#: ./templates/Terms/view.php:70
+#: ./templates/Users/view.php:74
+#: ./templates/Users/view.php:121
+msgid "User Id"
+msgstr ""
+
+#: ./templates/SchoolLevels/add.php:11
+#: ./templates/SchoolLevels/edit.php:16
+#: ./templates/SchoolLevels/view.php:13
+msgid "List School Levels"
+msgstr ""
+
+#: ./templates/SchoolLevels/add.php:18
+msgid "Add School Level"
+msgstr ""
+
+#: ./templates/SchoolLevels/edit.php:23
+#: ./templates/SchoolLevels/view.php:11
+msgid "Edit School Level"
+msgstr ""
+
+#: ./templates/SchoolLevels/index.php:8
+#: ./templates/SchoolLevels/view.php:14
+msgid "New School Level"
+msgstr ""
+
+#: ./templates/SchoolLevels/index.php:9
+msgid "School Levels"
+msgstr ""
+
+#: ./templates/SchoolLevels/view.php:12
+msgid "Delete School Level"
+msgstr ""
+
+#: ./templates/Students/add.php:14
+#: ./templates/Students/edit.php:19
+#: ./templates/Students/view.php:13
+msgid "List Students"
+msgstr ""
+
+#: ./templates/Students/add.php:21
+msgid "Add Student"
+msgstr ""
+
+#: ./templates/Students/edit.php:26
+#: ./templates/Students/view.php:11
+msgid "Edit Student"
+msgstr ""
+
+#: ./templates/Students/index.php:8
+#: ./templates/Students/view.php:14
+msgid "New Student"
+msgstr ""
+
+#: ./templates/Students/index.php:9
+msgid "Students"
+msgstr ""
+
+#: ./templates/Students/view.php:12
+msgid "Delete Student"
+msgstr ""
+
+#: ./templates/Students/view.php:58
+#: ./templates/Teachers/view.php:46
+msgid "User"
+msgstr ""
+
+#: ./templates/Students/view.php:83
+msgid "Related School Courses"
+msgstr ""
+
+#: ./templates/Students/view.php:91
+msgid "Subjet Id"
+msgstr ""
+
+#: ./templates/Students/view.php:92
+msgid "Teacher Id"
+msgstr ""
+
+#: ./templates/Students/view.php:116
+msgid "Related Courses"
+msgstr ""
+
+#: ./templates/Students/view.php:123
+msgid "Cost"
+msgstr ""
+
+#: ./templates/Students/view.php:124
+msgid "Student Id"
+msgstr ""
+
+#: ./templates/Subjects/add.php:12
+#: ./templates/Subjects/edit.php:17
+#: ./templates/Subjects/view.php:13
+msgid "List Subjects"
+msgstr "Mostrar Academias"
+
+#: ./templates/Subjects/add.php:19
+msgid "Add Subject"
+msgstr "Agregar Academia"
+
+#: ./templates/Subjects/edit.php:24
+#: ./templates/Subjects/view.php:11
+msgid "Edit Subject"
+msgstr "Editar Academia"
+
+#: ./templates/Subjects/index.php:8
+#: ./templates/Subjects/view.php:14
+msgid "New Subject"
+msgstr "Nueva Academia"
+
+#: ./templates/Subjects/index.php:9
+#: ./templates/layout/default.php:9
+msgid "Subjects"
+msgstr "Academias"
+
+#: ./templates/Subjects/view.php:12
+msgid "Delete Subject"
+msgstr "Borrar Academia"
+
+#: ./templates/Subjects/view.php:34
+msgid "Genero"
+msgstr ""
+
+#: ./templates/Subjects/view.php:38
+msgid "Tipo Academia"
+msgstr ""
+
+#: ./templates/Subjects/view.php:42
+msgid "Criterio Academia"
+msgstr ""
+
+#: ./templates/Subjects/view.php:46
+msgid "Grade Level"
+msgstr ""
+
+#: ./templates/Subjects/view.php:58
+msgid "Anio Nacimiento Minimo"
+msgstr ""
+
+#: ./templates/Subjects/view.php:62
+msgid "Anio Nacimiento Maximo"
+msgstr ""
+
+#: ./templates/Subjects/view.php:66
+msgid "Grado Minimo"
+msgstr ""
+
+#: ./templates/Subjects/view.php:70
+msgid "Grado Maximo"
+msgstr ""
+
+#: ./templates/Subjects/view.php:74
+msgid "Costo Normal"
+msgstr ""
+
+#: ./templates/Subjects/view.php:78
+msgid "Costo Material"
+msgstr ""
+
+#: ./templates/Subjects/view.php:82
+msgid "Costo Cumbres"
+msgstr ""
+
+#: ./templates/Subjects/view.php:86
+msgid "Costo Segundo Semestre"
+msgstr ""
+
+#: ./templates/Subjects/view.php:90
+msgid "Costo Externos"
+msgstr ""
+
+#: ./templates/Subjects/view.php:98
+msgid "Seleccionado"
+msgstr ""
+
+#: ./templates/Subjects/view.php:102
+msgid "Pago Obligatorio"
+msgstr ""
+
+#: ./templates/Subjects/view.php:115
+msgid "Descripcion"
+msgstr ""
+
+#: ./templates/Subjects/view.php:121
+#: ./templates/Users/view.php:106
+msgid "Related Teachers"
+msgstr ""
+
+#: ./templates/Subjects/view.php:135
+#: ./templates/Users/view.php:120
+msgid "Modules Id"
+msgstr ""
+
+#: ./templates/Teachers/add.php:13
+#: ./templates/Teachers/edit.php:18
+#: ./templates/Teachers/view.php:13
+msgid "List Teachers"
+msgstr ""
+
+#: ./templates/Teachers/add.php:20
+msgid "Add Teacher"
+msgstr ""
+
+#: ./templates/Teachers/edit.php:25
+#: ./templates/Teachers/view.php:11
+msgid "Edit Teacher"
+msgstr ""
+
+#: ./templates/Teachers/index.php:8
+#: ./templates/Teachers/view.php:14
+msgid "New Teacher"
+msgstr ""
+
+#: ./templates/Teachers/index.php:9
+msgid "Teachers"
+msgstr "Profesores"
+
+#: ./templates/Teachers/view.php:12
+msgid "Delete Teacher"
+msgstr ""
+
+#: ./templates/Teachers/view.php:42
+msgid "Module"
+msgstr ""
+
+#: ./templates/Terms/add.php:12
+#: ./templates/Terms/edit.php:17
+#: ./templates/Terms/view.php:13
+msgid "List Terms"
+msgstr ""
+
+#: ./templates/Terms/add.php:19
+msgid "Add Term"
+msgstr ""
+
+#: ./templates/Terms/edit.php:24
+#: ./templates/Terms/view.php:11
+msgid "Edit Term"
+msgstr ""
+
+#: ./templates/Terms/index.php:8
+#: ./templates/Terms/view.php:14
+msgid "New Term"
+msgstr ""
+
+#: ./templates/Terms/index.php:9
+msgid "Terms"
+msgstr ""
+
+#: ./templates/Terms/view.php:12
+msgid "Delete Term"
+msgstr ""
+
+#: ./templates/Users/add.php:12
+#: ./templates/Users/edit.php:17
+#: ./templates/Users/view.php:13
+msgid "List Users"
+msgstr ""
+
+#: ./templates/Users/add.php:19
+msgid "Add User"
+msgstr ""
+
+#: ./templates/Users/edit.php:24
+#: ./templates/Users/view.php:11
+msgid "Edit User"
+msgstr ""
+
+#: ./templates/Users/index.php:8
+#: ./templates/Users/view.php:14
+msgid "New User"
+msgstr ""
+
+#: ./templates/Users/index.php:9
+msgid "Users"
+msgstr ""
+
+#: ./templates/Users/login.php:3
+msgid "Iniciar sesión"
+msgstr ""
+
+#: ./templates/Users/login.php:11
+msgid "Este campo es requerido"
+msgstr ""
+
+#: ./templates/Users/login.php:22
+msgid "Login"
+msgstr "Iniciar sesión"
+
+#: ./templates/Users/login.php:26
+msgid "¿Olvidó la contraseña?"
+msgstr ""
+
+#: ./templates/Users/view.php:12
+msgid "Delete User"
+msgstr ""
+
+#: ./templates/Users/view.php:34
+msgid "Role"
+msgstr ""
+
+#: ./templates/layout/default.php:72
+msgid "Home"
+msgstr ""
+
+#: ./templates/layout/default.php:94
+msgid "Mis Documentos"
+msgstr ""
+
+#: ./templates/layout/default.php:95
+msgid "Buzón de solicitudes"
+msgstr ""
+
+#: ./templates/layout/default.php:114
+msgid "Firma Autógrafa"
+msgstr ""
+
+#: ./templates/layout/default.php:115
+msgid "Series y Folios"
+msgstr ""
+
+#: ./templates/layout/default.php:116
+msgid "Mi Perfil"
+msgstr ""
+
+#: ./templates/layout/default.php:206
+msgid "Configurar perfil"
+msgstr ""
+
+#: ./templates/layout/default.php:207
+msgid "Configurar efirma"
+msgstr ""
+
+#: ./templates/layout/default.php:223
+msgid " Back"
+msgstr " Atrás"
+
+#: ./templates/layout/default.php:267
+msgid "Cancel"
+msgstr "Cancelar"
+
+#: ./templates/layout/default.php:268
+msgid "Logout"
+msgstr "Cerrar sesión"
+
+#: ./templates/layout/error.php:38
+msgid "Back"
+msgstr "Atrás"
+
+#: ./src/Controller/InstitutesController.php:53
+#: ./src/Controller/InstitutesController.php:78
+msgid "The institute has been saved."
+msgstr ""
+
+#: ./src/Controller/InstitutesController.php:57
+#: ./src/Controller/InstitutesController.php:82
+msgid "The institute could not be saved. Please, try again."
+msgstr ""
+
+#: ./src/Controller/InstitutesController.php:100
+msgid "The institute has been deleted."
+msgstr ""
+
+#: ./src/Controller/InstitutesController.php:102
+msgid "The institute could not be deleted. Please, try again."
+msgstr ""
+
+#: ./src/Controller/ModulesController.php:56
+#: ./src/Controller/ModulesController.php:82
+msgid "The module has been saved."
+msgstr ""
+
+#: ./src/Controller/ModulesController.php:60
+#: ./src/Controller/ModulesController.php:86
+msgid "The module could not be saved. Please, try again."
+msgstr ""
+
+#: ./src/Controller/ModulesController.php:105
+msgid "The module has been deleted."
+msgstr ""
+
+#: ./src/Controller/ModulesController.php:107
+msgid "The module could not be deleted. Please, try again."
+msgstr ""
+
+#: ./src/Controller/RolesController.php:55
+#: ./src/Controller/RolesController.php:81
+msgid "The role has been saved."
+msgstr ""
+
+#: ./src/Controller/RolesController.php:59
+#: ./src/Controller/RolesController.php:85
+msgid "The role could not be saved. Please, try again."
+msgstr ""
+
+#: ./src/Controller/RolesController.php:105
+msgid "The role has been deleted."
+msgstr ""
+
+#: ./src/Controller/RolesController.php:107
+msgid "The role could not be deleted. Please, try again."
+msgstr ""
+
+#: ./src/Controller/SchoolCoursesController.php:56
+#: ./src/Controller/SchoolCoursesController.php:85
+msgid "The school course has been saved."
+msgstr ""
+
+#: ./src/Controller/SchoolCoursesController.php:60
+#: ./src/Controller/SchoolCoursesController.php:89
+msgid "The school course could not be saved. Please, try again."
+msgstr ""
+
+#: ./src/Controller/SchoolCoursesController.php:111
+msgid "The school course has been deleted."
+msgstr ""
+
+#: ./src/Controller/SchoolCoursesController.php:113
+msgid "The school course could not be deleted. Please, try again."
+msgstr ""
+
+#: ./src/Controller/SchoolLevelsController.php:53
+#: ./src/Controller/SchoolLevelsController.php:77
+msgid "The school level has been saved."
+msgstr ""
+
+#: ./src/Controller/SchoolLevelsController.php:57
+#: ./src/Controller/SchoolLevelsController.php:81
+msgid "The school level could not be saved. Please, try again."
+msgstr ""
+
+#: ./src/Controller/SchoolLevelsController.php:98
+msgid "The school level has been deleted."
+msgstr ""
+
+#: ./src/Controller/SchoolLevelsController.php:100
+msgid "The school level could not be deleted. Please, try again."
+msgstr ""
+
+#: ./src/Controller/StudentsController.php:56
+#: ./src/Controller/StudentsController.php:83
+msgid "The student has been saved."
+msgstr ""
+
+#: ./src/Controller/StudentsController.php:60
+#: ./src/Controller/StudentsController.php:87
+msgid "The student could not be saved. Please, try again."
+msgstr ""
+
+#: ./src/Controller/StudentsController.php:107
+msgid "The student has been deleted."
+msgstr ""
+
+#: ./src/Controller/StudentsController.php:109
+msgid "The student could not be deleted. Please, try again."
+msgstr ""
+
+#: ./src/Controller/SubjectsController.php:53
+#: ./src/Controller/SubjectsController.php:78
+msgid "The subject has been saved."
+msgstr ""
+
+#: ./src/Controller/SubjectsController.php:57
+#: ./src/Controller/SubjectsController.php:82
+msgid "The subject could not be saved. Please, try again."
+msgstr ""
+
+#: ./src/Controller/SubjectsController.php:100
+msgid "The subject has been deleted."
+msgstr ""
+
+#: ./src/Controller/SubjectsController.php:102
+msgid "The subject could not be deleted. Please, try again."
+msgstr ""
+
+#: ./src/Controller/TeachersController.php:56
+#: ./src/Controller/TeachersController.php:82
+msgid "The teacher has been saved."
+msgstr ""
+
+#: ./src/Controller/TeachersController.php:60
+#: ./src/Controller/TeachersController.php:86
+msgid "The teacher could not be saved. Please, try again."
+msgstr ""
+
+#: ./src/Controller/TeachersController.php:105
+msgid "The teacher has been deleted."
+msgstr ""
+
+#: ./src/Controller/TeachersController.php:107
+msgid "The teacher could not be deleted. Please, try again."
+msgstr ""
+
+#: ./src/Controller/TermsController.php:56
+#: ./src/Controller/TermsController.php:81
+msgid "The term has been saved."
+msgstr ""
+
+#: ./src/Controller/TermsController.php:60
+#: ./src/Controller/TermsController.php:85
+msgid "The term could not be saved. Please, try again."
+msgstr ""
+
+#: ./src/Controller/TermsController.php:103
+msgid "The term has been deleted."
+msgstr ""
+
+#: ./src/Controller/TermsController.php:105
+msgid "The term could not be deleted. Please, try again."
+msgstr ""
+
+#: ./src/Controller/UsersController.php:84
+#: ./src/Controller/UsersController.php:110
+msgid "The user has been saved."
+msgstr ""
+
+#: ./src/Controller/UsersController.php:88
+#: ./src/Controller/UsersController.php:114
+msgid "The user could not be saved. Please, try again."
+msgstr ""
+
+#: ./src/Controller/UsersController.php:133
+msgid "The user has been deleted."
+msgstr ""
+
+#: ./src/Controller/UsersController.php:135
+msgid "The user could not be deleted. Please, try again."
+msgstr ""
+
+#: ./src/Controller/UsersController.php:155
+msgid "Your account has been disabled. Please see your system administrator."
+msgstr ""
+
+#: ./src/Controller/UsersController.php:160
+msgid "Invalid username or password"
+msgstr ""
+
+msgid "Subjects List"
+msgstr "Lista de academias"
+
+msgid "Teachers List"
+msgstr "Lista de profesores"
+
+msgid "Teachers"
+msgstr "Profesores"
+
+msgid "Cake Description"
+msgstr "Preinscripción a Academias"
+
+msgid "Application Title"
+msgstr "Academias"
+
+msgid "Application Copyright"
+msgstr "Cssoft"
+

@@ -1,0 +1,60 @@
+/**
+ * pantone 121c (amarillo) hex #fdda46
+ * pantone 432c (negro) hex #323e48
+*/
+.bg-gradient-primary {
+  background-color: #5B7F95;
+  background-image: linear-gradient(180deg, #5B7F95	 10%, #5B7F95 100%);
+  background-size: cover;
+}
+
+.text-primary-cm {
+	color: #5B7F95 !important;
+}
+
+.card-header {
+    background-color: #fdda46;
+}
+
+#wrapper #content-wrapper {
+	background-color: #ececec;
+}
+
+.page-header-compact .page-header-content .page-header-title {
+    font-size: 1rem;
+}
+
+.nav-borders .nav-link.active {
+    color: #0061f2;
+    border-bottom-color: #0061f2;
+}
+
+.nav-borders .nav-link {
+    color: #69707a;
+    border-bottom-width: 0.125rem;
+    border-bottom-style: solid;
+    border-bottom-color: transparent;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    padding-left: 0;
+    padding-right: 0;
+    margin-left: 1rem;
+    margin-right: 1rem;
+}
+
+.ms-0 {
+    margin-left: 0 !important;
+}
+
+.nav-link {
+    display: block;
+    padding: var(--bs-nav-link-padding-y) var(--bs-nav-link-padding-x);
+    font-size: var(--bs-nav-link-font-size);
+    font-weight: var(--bs-nav-link-font-weight);
+    color: var(--bs-nav-link-color);
+    transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out;
+}
+
+a {
+	color: #586978;
+}
