@@ -19,10 +19,28 @@ class SchoolCoursesController extends AppController
     public function index()
     {
         $this->Authorization->skipAuthorization();
-        $this->paginate = [
+        
+        $query = $this->SchoolCourses->Students->find('list')
+            ->select(['school_level'])
+            ->where(
+                ['user_id' => $this->Authentication->getIdentity()->getIdentifier()]
+            )
+            ->all();
+            // pr($query);die();
+        $school_level = $query->count() > 0 ? $query->first() : '';
+        $schoolCourses = $this->SchoolCourses->find('all')
+            // ->where(['SubjectsSchoolLevels.name' => $school_level])
+            ->contain(['Subjects', 'Teachers', 'Terms'])
+            ->innerJoinWith('SchoolLevels', function ($q) use ($school_level) {
+                return $q->where(['SchoolLevels.name' => $school_level]);
+            })
+            ->all();
+
+        // pr($schoolCourses);die();
+        /*$this->paginate = [
             'contain' => ['Subjects', 'Teachers', 'Terms'],
         ];
-        $schoolCourses = $this->paginate($this->SchoolCourses);
+        $schoolCourses = $this->paginate($this->SchoolCourses);*/
 
         $this->set(compact('schoolCourses'));
     }
@@ -96,7 +114,8 @@ class SchoolCoursesController extends AppController
         $terms = $this->SchoolCourses->Terms->find('list', ['limit' => 200])->all();
         $schedules = $this->SchoolCourses->Schedules->find('list', ['limit' => 200])->all();
         $students = $this->SchoolCourses->Students->find('list', ['limit' => 200])->all();
-        $this->set(compact('schoolCourse', 'subjects', 'teachers', 'terms', 'schedules', 'students'));
+        $schoolLevels = $this->SchoolCourses->SchoolLevels->find('list', ['limit' => 200])->all();
+        $this->set(compact('schoolCourse', 'subjects', 'teachers', 'terms', 'schedules', 'students', 'schoolLevels'));
     }
 
     /**

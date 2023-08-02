@@ -71,5 +71,6 @@ class Subject extends Entity
         'created' => true,
         'modified' => true,
         'teachers' => true,
+        'school_levels' => true,
     ];
 }

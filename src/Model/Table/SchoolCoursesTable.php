@@ -69,6 +69,10 @@ class SchoolCoursesTable extends Table
             'targetForeignKey' => 'student_id',
             'joinTable' => 'school_courses_students',
         ]);
+
+        $this->belongsToMany('SchoolLevels', [
+            'joinTable' => 'school_courses_school_levels',
+        ]);
     }
 
     /**

@@ -199,7 +199,7 @@ class StudentsController extends AppController
                     );
                 }
                 $worksheet->setCellValue('K' . $i, $this->request->getData('term_id'));
-                $worksheet->setCellValue('L' . $i, $user_table[1]->id);
+                $worksheet->setCellValue('L' . $i, $user_table[$i-2]->id);
             }
 
             // pr( strtotime($var) );
