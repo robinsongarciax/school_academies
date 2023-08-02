@@ -46,11 +46,21 @@
                             </tr>
                             <tr>
                                 <th><?= __('Term') ?></th>
-                                <td><?= $schoolCourse->has('term') ? $this->Html->link($schoolCourse->term->id, ['controller' => 'Terms', 'action' => 'view', $schoolCourse->term->id]) : '' ?></td>
+                                <td><?= $schoolCourse->has('term') ? $this->Html->link($schoolCourse->term->description, ['controller' => 'Terms', 'action' => 'view', $schoolCourse->term->id]) : '' ?></td>
                             </tr>
                             <tr>
                                 <th><?= __('Capacity') ?></th>
                                 <td><?= $this->Number->format($schoolCourse->capacity) ?></td>
+                            </tr>
+                            <tr>
+                                <th><?= $schoolCourse->subject->criterio_academia ?></th>
+                                <?php if ($schoolCourse->subject->criterio_academia == 'GRADO ESCOLAR') : ?>
+                                    <td>M&iacute;nimo <?= $this->Number->format($schoolCourse->subject->grado_minimo) ?> <br>
+                                        M&aacute;ximo <?= $this->Number->format($schoolCourse->subject->grado_maximo) ?></td>
+                                <?php else: ?>
+                                    <td>M&iacute;nimo <?= $this->Number->format($schoolCourse->subject->anio_nacimiento_minimo) ?> <br>
+                                        M&aacute;ximo <?= $this->Number->format($schoolCourse->subject->anio_nacimiento_maximo) ?></td>
+                                <?php endif; ?>
                             </tr>
                         </table>
                     </div>
