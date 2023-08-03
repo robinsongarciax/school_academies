@@ -19,28 +19,36 @@ class SchoolCoursesController extends AppController
     public function index()
     {
         $this->Authorization->skipAuthorization();
-        
-        $query = $this->SchoolCourses->Students->find('list')
-            ->select(['school_level'])
-            ->where(
-                ['user_id' => $this->Authentication->getIdentity()->getIdentifier()]
-            )
-            ->all();
-            // pr($query);die();
-        $school_level = $query->count() > 0 ? $query->first() : '';
-        $schoolCourses = $this->SchoolCourses->find('all')
-            // ->where(['SubjectsSchoolLevels.name' => $school_level])
-            ->contain(['Subjects', 'Teachers', 'Terms'])
-            ->innerJoinWith('SchoolLevels', function ($q) use ($school_level) {
-                return $q->where(['SchoolLevels.name' => $school_level]);
-            })
-            ->all();
-
-        // pr($schoolCourses);die();
-        /*$this->paginate = [
-            'contain' => ['Subjects', 'Teachers', 'Terms'],
-        ];
-        $schoolCourses = $this->paginate($this->SchoolCourses);*/
+        if ($this->Authentication->getIdentity()->role->name == 'ALUMNO' ) {
+            // Traer los datos del estudiante
+            $query = $this->SchoolCourses->Students->find()
+                ->select(['sl_id' => 'sl.id', 'sex'])
+                ->join([
+                    'table' => 'school_levels',
+                    'alias' => 'sl',
+                    'type' => 'INNER',
+                    'conditions' => 'sl.name = school_level'
+                ])
+                ->where(
+                    ['user_id' => $this->Authentication->getIdentity()->getIdentifier()]
+                )->all();
+            $row = $query->first();
+            $school_level_id = $row->sl_id;
+            $sex = $row->sex;
+            
+            // Traer los cursos relacionados con el grado escolar, sexo y la edad del estudiante
+            $schoolCourses = $this->SchoolCourses->find('all')
+                ->contain(['Subjects', 'Teachers', 'Terms'])
+                ->innerJoinWith('Subjects.SchoolLevels', function ($q) use ($school_level_id) {
+                    return $q->where(['SchoolLevels.id' => $school_level_id]);
+                })
+                ->where(['Subjects.sex IN' => [$sex, 'X']])
+                ->all();
+        } else {
+            $schoolCourses = $this->SchoolCourses->find('all')
+                ->contain(['Subjects', 'Teachers', 'Terms'])
+                ->all();
+        }
 
         $this->set(compact('schoolCourses'));
     }

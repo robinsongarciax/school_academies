@@ -73,8 +73,9 @@
                         </div>
                     </div>
                     <?php
-                    echo $this->Form->control('active', ['value' => '1', 'hidden' => true, 'label' => false]);
+                    echo $this->Form->control('school_levels._ids', ['options' => $schoolLevels, 'class' => 'form-select']);
                     echo $this->Form->control('teachers._ids', ['options' => $teachers, 'class' => 'form-select']);
+                    echo $this->Form->control('active', ['value' => '1', 'hidden' => true, 'label' => false]);
                 ?>
             <?= $this->Form->button(__('Submit')) ?>
             <?= $this->Form->end() ?>

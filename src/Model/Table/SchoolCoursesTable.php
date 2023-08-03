@@ -70,9 +70,6 @@ class SchoolCoursesTable extends Table
             'joinTable' => 'school_courses_students',
         ]);
 
-        $this->belongsToMany('SchoolLevels', [
-            'joinTable' => 'school_courses_school_levels',
-        ]);
     }
 
     /**
