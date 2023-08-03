@@ -40,7 +40,6 @@
                     echo $this->Form->control('capacity');
                     echo $this->Form->control('price');
                     echo $this->Form->control('subjet_id', ['options' => $subjects]);
-                    echo $this->Form->control('school_levels._ids', ['options' => $schoolLevels]);
                     echo $this->Form->control('teacher_id', ['options' => $teachers]);
                     echo $this->Form->control('term_id', ['options' => $terms]);
                 ?>

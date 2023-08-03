@@ -9,5 +9,8 @@ return [
 	'checkbox' => '<div class="col-sm-10"><input type="checkbox" name="{{name}}" value="{{value}}"{{attrs}}></div>',
 	'file' => '<div class="col-sm-10"><input class="form-control" type="file" name="{{name}}"{{attrs}}></div>',
 	'button' => '<button {{attrs}} class="btn btn-primary">{{text}}</button>',
-	'selectMultiple' => '<div class="col-sm-10"><select name="{{name}}[]" multiple="multiple"{{attrs}}>{{content}}</select></div>'
+	'selectMultiple' => '<div class="col-sm-10"><select name="{{name}}[]" multiple="multiple"{{attrs}}>{{content}}</select></div>',
+
+	// 'nestingLabel' => '{{hidden}}{{input}}<label{{attrs}}>{{text}}</label>',
+    // 'formGroup' => '{{input}}{{label}}',
 ];

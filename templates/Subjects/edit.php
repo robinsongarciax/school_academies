@@ -67,13 +67,18 @@
                         </div>
                     </div>
                     <div id="collapseSchoolGrade" class="collapse" aria-labelledby="headingSchoolGrade">
-                        <div class="bg-white py-2 collapse-inner rounded">
-                            <?= $this->Form->control('grado_minimo') ?>
-                            <?= $this->Form->control('grado_maximo') ?>
+
+                        <div class="bg-white py-2 collapse-inner rounded" style="padding-left:.75rem;">
+                                <?= $this->Form->control('school_levels._ids', [
+                                    'templates' => 'multichecked_form',
+                                    'options' => $schoolLevels,
+                                    'multiple' => 'checkbox',
+                                    'label' => false
+                                ]) ?>
                         </div>
                     </div>
                     <?php
-                    echo $this->Form->control('school_levels._ids', ['options' => $schoolLevels, 'class' => 'form-select']);
+
                     echo $this->Form->control('teachers._ids', ['options' => $teachers, 'class' => 'form-select']);
                     echo $this->Form->control('active', ['value' => '1', 'hidden' => true, 'label' => false]);
                 ?>
