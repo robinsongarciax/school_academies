@@ -57,6 +57,7 @@ class StudentsTable extends Table
         $this->belongsTo('Users', [
             'foreignKey' => 'user_id',
             'joinType' => 'INNER',
+            'dependent' => true
         ]);
         $this->hasMany('Courses', [
             'foreignKey' => 'student_id',

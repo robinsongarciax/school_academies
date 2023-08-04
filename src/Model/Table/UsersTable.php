@@ -54,7 +54,7 @@ class UsersTable extends Table
             'joinType' => 'INNER',
         ]);
         $this->hasMany('Students', [
-            'foreignKey' => 'user_id',
+            'foreignKey' => 'user_id'
         ]);
         $this->hasMany('Teachers', [
             'foreignKey' => 'user_id',
@@ -120,7 +120,7 @@ class UsersTable extends Table
 
     public function findForAuthentication(Query $query, array $options): Query
     {
-        return $query->contain(['Roles' => 
+        return $query->contain(['Roles' =>
                 ['ModulesPermissions' => ['Permissions', 'Modules']]
             ]);
     }

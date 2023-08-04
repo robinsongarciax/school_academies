@@ -38,9 +38,22 @@
                         'hidden' => true, 'label' => false
                     ]);
                 ?>
+                <label for = "eliminar_todo">
+                    <?php echo $this->Form->checkbox('eliminar', ['hiddenField' => false, 'id'=>'eliminar_todo']); ?>
+                    Eliminar todo
+                </label>
+
             </fieldset>
-            <?= $this->Form->button(__('Submit')) ?>
+            <?= $this->Form->button(__('Submit'), ['id'=>'submit']) ?>
             <?= $this->Form->end() ?>
         </div>
     </div>
 </div>
+
+<?= $this->Html->script([
+        'vendor/jquery/jquery.min']) ?>
+<script>
+    $(document).ready(function(){
+
+    });
+</script>
