@@ -58,3 +58,21 @@
 a {
 	color: #586978;
 }
+
+#welcome-logo {
+    width: 100px;
+}
+
+@media (min-width: 768px) {
+    #welcome-logo {
+        width: 256px;
+    }
+}
+
+@media (max-width: 576px) {
+    .sidebar {
+        position: fixed;
+        z-index: 100;
+        margin-top: 70px;
+    }
+}

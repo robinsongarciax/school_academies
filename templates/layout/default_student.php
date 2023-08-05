@@ -61,11 +61,11 @@ $cakeDescription = __('Cake Description');;
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
-            <?= $this->Html->link($this->Html->image('cake-logo.png', ['alt' => 'Cumbres Mérida']),
+            <!-- <?= $this->Html->link($this->Html->image('cake-logo.png', ['alt' => 'Cumbres Mérida']),
                 ['controller' => 'Pages', 'action' => 'display', 'home'],
                 ['class' => 'sidebar-brand d-flex align-items-center justify-content-center',
                     'escape' => false
-                ]) ?>
+                ]) ?> -->
 
             <!-- Divider -->
             <hr class="sidebar-divider my-0">
@@ -86,18 +86,16 @@ $cakeDescription = __('Cake Description');;
             </div>
 
             <!-- Nav Item - Pages Collapse Menu -->
-            <li class="nav-item <?= ($controller == 'Documents' || $controller == 'Teachers') ? 'active' : ''?>">
+            <li class="nav-item <?= ($controller == 'SchoolCourses' || $controller == 'Teachers') ? 'active' : ''?>">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseOne"
                     aria-expanded="true" aria-controls="collapseOne">
                     <i class="fas fa-fw fa-chalkboard"></i>
                     <span><?= __('Subjects') ?></span>
                 </a>
-                <div id="collapseOne" class="collapse <?= ($controller == 'Subjects' || $controller == 'Teachers') ? 'show' : ''?>" aria-labelledby="headingOne" data-parent="#accordionSidebar">
+                <div id="collapseOne" class="collapse <?= ($controller == 'Subjects' || $controller == 'Teachers' || $controller == 'SchoolCourses') ? 'show' : ''?>" aria-labelledby="headingOne" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header"><?= __('School Courses') ?></h6>
-                        <?= $this->Html->link(__('School Courses'), ['controller' => 'SchoolCourses', 'action' => 'index'], ['class' => 'collapse-item' . ($action == 'Documents_index' ? ' active' : '')]) ?>
-                        <?= $this->Html->link(__('Subjects'), ['controller' => 'Subjects', 'action' => 'index'], ['class' => 'collapse-item' . ($controller == 'Subjects' ? ' active' : '')]) ?>
-                        <?= $this->Html->link(__('Teachers'), ['controller' => 'Teachers', 'action' => 'index'], ['class' => 'collapse-item' . ($controller == 'Teachers' ? ' active' : '')]) ?>
+                        <?= $this->Html->link(__('School Courses'), ['controller' => 'SchoolCourses', 'action' => 'index'], ['class' => 'collapse-item' . ($controller == 'SchoolCourses' ? ' active' : '')]) ?>
                     </div>
                 </div>
             </li>
@@ -129,8 +127,10 @@ $cakeDescription = __('Cake Description');;
 
                 <!-- Topbar -->
                 <nav class="navbar navbar-expand navbar-light bg-white topbar static-top shadow">
-                    <?= $this->Html->link("<i class=\"fas fa-backward fa-sm text-gray-50\"></i>" . __(' Back'), 'javascript:history.back()', ['class' => '', 'escape' => false]) ?>
-                    <!-- Sidebar Toggle (Topbar) -->
+                    <div class="text-center d-none d-md-inline">
+                        <?= $this->Html->link("<i class=\"fas fa-backward fa-sm text-gray-50\"></i>" . __(' Back'), 'javascript:history.back()', ['class' => '', 'escape' => false]) ?>
+                        <!-- Sidebar Toggle (Topbar) -->
+                    </div>
                     <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
                         <i class="fa fa-bars"></i>
                     </button>
