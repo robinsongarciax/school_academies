@@ -21,29 +21,19 @@ class SchoolCoursesController extends AppController
         $this->Authorization->skipAuthorization();
         if ($this->Authentication->getIdentity()->role->name == 'ALUMNO' ) {
             // Traer los datos del estudiante
-            $query = $this->SchoolCourses->Students->find()
-                ->select(['sl_id' => 'sl.id', 'sex'])
-                ->join([
-                    'table' => 'school_levels',
-                    'alias' => 'sl',
-                    'type' => 'INNER',
-                    'conditions' => 'sl.name = school_level'
-                ])
-                ->where(
-                    ['user_id' => $this->Authentication->getIdentity()->getIdentifier()]
-                )->all();
+            $query = $this->SchoolCourses->Students->find('StudentInfo', [
+                'user_id' => $this->Authentication->getIdentity()->getIdentifier()
+            ])->all();
+
             $row = $query->first();
-            $school_level_id = $row->sl_id;
-            $sex = $row->sex;
+
+            $options = [
+                'school_level_id' => $row->sl_id,
+                'sex' => $row->sex
+            ];
             
             // Traer los cursos relacionados con el grado escolar, sexo y la edad del estudiante
-            $schoolCourses = $this->SchoolCourses->find('all')
-                ->contain(['Subjects', 'Teachers', 'Terms'])
-                ->innerJoinWith('Subjects.SchoolLevels', function ($q) use ($school_level_id) {
-                    return $q->where(['SchoolLevels.id' => $school_level_id]);
-                })
-                ->where(['Subjects.sex IN' => [$sex, 'X']])
-                ->all();
+            $schoolCourses = $this->SchoolCourses->find('CoursesForStudent', $options)->all();
         } else {
             $schoolCourses = $this->SchoolCourses->find('all')
                 ->contain(['Subjects', 'Teachers', 'Terms'])
@@ -144,5 +134,25 @@ class SchoolCoursesController extends AppController
         }
 
         return $this->redirect(['action' => 'index']);
+    }
+
+    public function signup() {
+        $this->Authorization->skipAuthorization();
+        $user_id = $this->Authentication->getIdentity()->getIdentifier();
+        if ($this->Authentication->getIdentity()->role->name == 'ALUMNO' ) {
+            $query = $this->SchoolCourses->Students->find('StudentInfo', [
+                'user_id' => $user_id
+            ])->all();
+            $row = $query->first();
+
+            $options = [
+                'school_level_id' => $row->sl_id,
+                'sex' => $row->sex
+            ];
+            
+            // Traer los cursos relacionados con el grado escolar, sexo y la edad del estudiante
+            $schoolCourses = $this->SchoolCourses->find('CoursesForStudent', $options)->all();
+        }
+        $this->set(compact('schoolCourses'));
     }
 }

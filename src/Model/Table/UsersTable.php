@@ -118,6 +118,7 @@ class UsersTable extends Table
         return $rules;
     }
 
+    // Option to check permissions
     public function findForAuthentication(Query $query, array $options): Query
     {
         return $query->contain(['Roles' => 

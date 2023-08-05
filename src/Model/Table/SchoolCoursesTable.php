@@ -126,4 +126,16 @@ class SchoolCoursesTable extends Table
 
         return $rules;
     }
+
+    public function findCoursesForStudent(Query $query, array $options) {
+        $school_level_id = $options['school_level_id'];
+        $sex = $options['sex'];
+        $query = $query
+            ->contain(['Subjects', 'Teachers', 'Terms'])
+            ->innerJoinWith('Subjects.SchoolLevels', function ($q) use ($school_level_id) {
+                return $q->where(['SchoolLevels.id' => $school_level_id]);
+            })
+            ->where(['Subjects.sex IN' => [$sex, 'X']]);
+        return $query;
+    }
 }
