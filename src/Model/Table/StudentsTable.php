@@ -146,4 +146,20 @@ class StudentsTable extends Table
 
         return $rules;
     }
+
+    public function findStudentInfo(Query $query, array $options) {
+
+        $query = $query
+            ->select(['sl_id' => 'sl.id', 'sex'])
+            ->join([
+                'table' => 'school_levels',
+                'alias' => 'sl',
+                'type' => 'INNER',
+                'conditions' => 'sl.name = school_level'
+            ])
+            ->where(
+                ['user_id' => $options['user_id']]
+            );
+        return $query;
+    }
 }
