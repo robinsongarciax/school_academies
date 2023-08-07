@@ -34,9 +34,8 @@
                             <th><?= $this->Paginator->sort('sex') ?></th>
                             <th><?= $this->Paginator->sort('tipo_academia') ?></th>
                             <th><?= $this->Paginator->sort('criterio_academia') ?></th>
-                            <th><?= $this->Paginator->sort('active') ?></th>
-                            <th><?= $this->Paginator->sort('created') ?></th>
-                            <th><?= $this->Paginator->sort('modified') ?></th>
+                            <th><?= $this->Paginator->sort('pago_obligatorio') ?></th>
+                            
                             <th class="actions"><?= __('Actions') ?></th>
                         </tr>
                     </thead>
@@ -48,9 +47,7 @@
                             <td><?= h($subject->sex) ?></td>
                             <td><?= h($subject->tipo_academia) ?></td>
                             <td><?= h($subject->criterio_academia) ?></td>
-                            <td><?= $subject->active === null ? '' : $this->Number->format($subject->active) ?></td>
-                            <td><?= h($subject->created) ?></td>
-                            <td><?= h($subject->modified) ?></td>
+                            <td><?= $subject->pago_obligatorio === 1 ? 'Sí' : 'No' ?></td>
                             <td class="actions">
                                 <?= $this->Html->link(__('View'), ['action' => 'view', $subject->id]) ?>
                                 <?= $this->Html->link(__('Edit'), ['action' => 'edit', $subject->id]) ?>
