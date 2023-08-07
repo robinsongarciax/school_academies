@@ -92,7 +92,7 @@ $cakeDescription = __('Cake Description');;
                     <i class="fas fa-fw fa-chalkboard"></i>
                     <span><?= __('Subjects') ?></span>
                 </a>
-                <div id="collapseOne" class="collapse <?= ($controller == 'Subjects' || $controller == 'Teachers' || $controller == 'SchoolCourses') ? 'show' : ''?>" aria-labelledby="headingOne" data-parent="#accordionSidebar">
+                <div id="collapseOne" class="collapse <?= ($controller == 'Pages' || $controller == 'SchoolCourses') ? 'show' : ''?>" aria-labelledby="headingOne" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header"><?= __('School Courses') ?></h6>
                         <?= $this->Html->link(__('Course Registration'), ['controller' => 'SchoolCourses', 'action' => 'courseRegistration'], ['class' => 'collapse-item' . ($controller == 'SchoolCourses' ? ' active' : '')]) ?>
@@ -107,14 +107,6 @@ $cakeDescription = __('Cake Description');;
             <div class="text-center d-none d-md-inline">
                 <button class="rounded-circle border-0" id="sidebarToggle"></button>
             </div>
-
-            <!-- Sidebar Message -->
-            <!-- <div class="sidebar-card d-none d-lg-flex">
-
-                <img class="sidebar-card-illustration mb-2" src="img/undraw_rocket.svg" alt="...">
-                <p class="text-center mb-2"><strong>Powered by</strong></p>
-                <a class="btn btn-success btn-sm" href="https://cssoft.mx">CodeStudio!</a>
-            </div> -->
 
         </ul>
         <!-- End of Sidebar -->

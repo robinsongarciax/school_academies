@@ -135,15 +135,7 @@ class SchoolCoursesTable extends Table
             ->innerJoinWith('Subjects.SchoolLevels', function ($q) use ($school_level_id) {
                 return $q->where(['SchoolLevels.id' => $school_level_id]);
             })
-            ->join([
-                'table' => 'school_courses_students',
-                'alias' => 'scs',
-                'type' => 'LEFT',
-                'conditions' => 'scs.school_course_id = SchoolCourses.id'
-            ])
-            ->where(['Subjects.sex IN' => [$sex, 'X'],
-                'scs.student_id <>' => $student_id
-            ]);
+            ->where(['Subjects.sex IN' => [$sex, 'X']]);
         return $query;
     }
 }

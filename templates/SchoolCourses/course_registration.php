@@ -3,6 +3,16 @@
  * @var \App\View\AppView $this
  * @var iterable<\App\Model\Entity\SchoolCourse> $schoolCourses
  */
+
+$arr_coursesSignedup = [];
+// pr($studentCourses);
+foreach ($studentCourses as $studentCourse) {
+    $school_course = $studentCourse->SchoolCoursesStudents;
+    $arr_coursesSignedup[$school_course['school_course_id']] = [
+        'school_courses_students_id' => $school_course['id'],
+        'is_confirmed' => $school_course['is_confirmed'],
+    ];
+}
 ?>
 <header class="page-header page-header-compact page-header-light border-bottom bg-white mb-4">
     <div class="container-fluid px-4">
@@ -82,7 +92,26 @@
                             <td><?= $friday ?></td>
                             <td><?= $saturday ?></td>
                             <td class="actions">
-                                <?= $this->Form->postLink(__('Signup'), ['action' => 'signup', $schoolCourse->id]) ?>
+                                <?php if (array_key_exists($schoolCourse->id, $arr_coursesSignedup)) :
+                                    $course_signedup = $arr_coursesSignedup[$schoolCourse->id];
+                                    $school_courses_students_id = $course_signedup['school_courses_students_id'];
+                                    if ($course_signedup['is_confirmed'] === '1') :
+                                    ?>
+                                        <?= $this->Form->postLink(__('Confirm'), [
+                                            'controller' => 'SchoolCoursesStudents',
+                                            'action' => 'confirm', $school_courses_students_id]) ?>
+
+                                        <?= $this->Form->postLink(__('Dropout'), [
+                                            'controller' => 'SchoolCoursesStudents',
+                                            'action' => 'delete', $school_courses_students_id]) ?>
+                                    <?php else: ?>
+                                        <?= $this->Form->postLink(__('Print Form'), [
+                                            'controller' => 'SchoolCoursesStudents',
+                                            'action' => 'printForm', $school_courses_students_id]) ?>
+                                    <?php endif; ?>
+                                <?php else: ?>
+                                    <?= $this->Form->postLink(__('Signup'), ['action' => 'signup', $schoolCourse->id]) ?>
+                                <?php endif; ?>
                             </td>
                         </tr>
                         <?php endforeach; ?>

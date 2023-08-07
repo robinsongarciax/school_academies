@@ -157,9 +157,10 @@ class SchoolCoursesController extends AppController
             $schoolCourses = $this->SchoolCourses->find('CoursesForStudent', $options)
                 ->contain(['Subjects', 'Teachers', 'Terms', 'Schedules'])
                 ->all();
-            // pr($schoolCourses);die();
+            $studentCourses = $this->SchoolCourses->Students->find('StudentCourses', ['student_id' => $row->student_id])->all()->toList();
         }
-        $this->set(compact('schoolCourses'));
+
+        $this->set(compact('schoolCourses', 'studentCourses'));
     }
 
     public function signup($id = null) {

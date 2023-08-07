@@ -161,4 +161,18 @@ class StudentsTable extends Table
             );
         return $query;
     }
+
+    public function findStudentCourses(Query $query, array $options) {
+        $query = $query
+            ->select(['SchoolCoursesStudents.school_course_id', 
+                'SchoolCoursesStudents.id', 
+                'SchoolCoursesStudents.is_confirmed', 
+            ])
+            ->innerJoin(['SchoolCoursesStudents' => 'school_courses_students'],
+                [
+                    'SchoolCoursesStudents.student_id = Students.id'
+                ])
+            ->where(['Students.id' => $options['student_id']]);
+        return $query;
+    }
 }
