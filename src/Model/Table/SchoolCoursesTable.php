@@ -130,11 +130,20 @@ class SchoolCoursesTable extends Table
     public function findCoursesForStudent(Query $query, array $options) {
         $school_level_id = $options['school_level_id'];
         $sex = $options['sex'];
+        $student_id = $options['student_id'];
         $query = $query
             ->innerJoinWith('Subjects.SchoolLevels', function ($q) use ($school_level_id) {
                 return $q->where(['SchoolLevels.id' => $school_level_id]);
             })
-            ->where(['Subjects.sex IN' => [$sex, 'X']]);
+            ->join([
+                'table' => 'school_courses_students',
+                'alias' => 'scs',
+                'type' => 'LEFT',
+                'conditions' => 'scs.school_course_id = SchoolCourses.id'
+            ])
+            ->where(['Subjects.sex IN' => [$sex, 'X'],
+                'scs.student_id <>' => $student_id
+            ]);
         return $query;
     }
 }

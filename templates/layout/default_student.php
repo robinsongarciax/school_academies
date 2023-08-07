@@ -172,11 +172,7 @@ $cakeDescription = __('Cake Description');;
                                 <?= $this->Html->image('undraw_profile.svg', ["class" => "img-profile rounded-circle"]) ?>
                             </a>
                             <!-- Dropdown - User Information -->
-                            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
-                                aria-labelledby="userDropdown">
-                                <?= $this->Html->link("<i class=\"fas fa-user fa-sm fa-fw mr-2 text-gray-400\"></i>" . __('Configurar perfil'), ['controller' => 'Users', 'action' => 'edit', $this->Identity->get('id')], ['class' => 'dropdown-item', 'escape' => false]) ?>
-                                <?= $this->Html->link("<i class=\"fas fa-efirma fa-sm fa-fw mr-2 text-gray-400\"></i>" . __('Configurar efirma'), ['controller' => 'Efirmas', 'action' => 'index', $this->Identity->get('id')], ['class' => 'dropdown-item', 'escape' => false]) ?>
-                                <div class="dropdown-divider"></div>
+                            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
                                 <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
                                     <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Cerrar sesi&oacute;n

@@ -149,7 +149,7 @@ class StudentsTable extends Table
     public function findStudentInfo(Query $query, array $options) {
 
         $query = $query
-            ->select(['sl_id' => 'sl.id', 'sex'])
+            ->select(['sl_id' => 'sl.id', 'sex', 'student_id' => 'Students.id'])
             ->join([
                 'table' => 'school_levels',
                 'alias' => 'sl',

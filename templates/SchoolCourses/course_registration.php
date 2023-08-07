@@ -82,7 +82,7 @@
                             <td><?= $friday ?></td>
                             <td><?= $saturday ?></td>
                             <td class="actions">
-                                <?= $this->Form->postLink(__('Singup'), ['action' => 'signup', $schoolCourse->id]) ?>
+                                <?= $this->Form->postLink(__('Signup'), ['action' => 'signup', $schoolCourse->id]) ?>
                             </td>
                         </tr>
                         <?php endforeach; ?>
