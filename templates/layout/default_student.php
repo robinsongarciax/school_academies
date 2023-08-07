@@ -95,7 +95,7 @@ $cakeDescription = __('Cake Description');;
                 <div id="collapseOne" class="collapse <?= ($controller == 'Subjects' || $controller == 'Teachers' || $controller == 'SchoolCourses') ? 'show' : ''?>" aria-labelledby="headingOne" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header"><?= __('School Courses') ?></h6>
-                        <?= $this->Html->link(__('Course Registration'), ['controller' => 'SchoolCourses', 'action' => 'signup'], ['class' => 'collapse-item' . ($controller == 'SchoolCourses' ? ' active' : '')]) ?>
+                        <?= $this->Html->link(__('Course Registration'), ['controller' => 'SchoolCourses', 'action' => 'courseRegistration'], ['class' => 'collapse-item' . ($controller == 'SchoolCourses' ? ' active' : '')]) ?>
                     </div>
                 </div>
             </li>

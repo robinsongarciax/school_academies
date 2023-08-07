@@ -59,4 +59,16 @@ class SchoolCoursePolicy
     {
         return $user->isModulePermission($this->module, 'View');
     }
+
+    /**
+     * Check if $user can sign-up SchoolCourse
+     *
+     * @param \Authorization\IdentityInterface $user The user.
+     * @param \App\Model\Entity\SchoolCourse $schoolCourse
+     * @return bool
+     */
+    public function canSignup(IdentityInterface $user, SchoolCourse $schoolCourse)
+    {
+        return $user->isModulePermission($this->module, 'Edit');
+    }
 }
