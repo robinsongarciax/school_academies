@@ -95,7 +95,7 @@ foreach ($studentCourses as $studentCourse) {
                                 <?php if (array_key_exists($schoolCourse->id, $arr_coursesSignedup)) :
                                     $course_signedup = $arr_coursesSignedup[$schoolCourse->id];
                                     $school_courses_students_id = $course_signedup['school_courses_students_id'];
-                                    if ($course_signedup['is_confirmed'] === '1') :
+                                    if ($course_signedup['is_confirmed'] === 0) :
                                     ?>
                                         <?= $this->Form->postLink(__('Confirm'), [
                                             'controller' => 'SchoolCoursesStudents',

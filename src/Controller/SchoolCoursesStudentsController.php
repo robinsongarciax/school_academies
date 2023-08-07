@@ -29,7 +29,7 @@ class SchoolCoursesStudentsController extends AppController
             $this->Flash->error(__('The school courses student could not be deleted. Please, try again.'));
         }
 
-        return $this->redirect(['controller' => 'SchoolCourses','action' => 'courseRegistration']);
+        return $this->redirect($this->referer());
     }
 
     /**
