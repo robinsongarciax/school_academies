@@ -152,7 +152,7 @@ class SubjectsTable extends Table
             ->allowEmptyString('seleccionado');
 
         $validator
-            ->allowEmptyString('pago_obligatorio');
+            ->notEmptyString('pago_obligatorio');
 
         return $validator;
     }

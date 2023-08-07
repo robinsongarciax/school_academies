@@ -92,10 +92,10 @@ $cakeDescription = __('Cake Description');;
                     <i class="fas fa-fw fa-chalkboard"></i>
                     <span><?= __('Subjects') ?></span>
                 </a>
-                <div id="collapseOne" class="collapse <?= ($controller == 'Subjects' || $controller == 'Teachers' || $controller == 'SchoolCourses') ? 'show' : ''?>" aria-labelledby="headingOne" data-parent="#accordionSidebar">
+                <div id="collapseOne" class="collapse <?= ($controller == 'Pages' || $controller == 'SchoolCourses') ? 'show' : ''?>" aria-labelledby="headingOne" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header"><?= __('School Courses') ?></h6>
-                        <?= $this->Html->link(__('Course Registration'), ['controller' => 'SchoolCourses', 'action' => 'signup'], ['class' => 'collapse-item' . ($controller == 'SchoolCourses' ? ' active' : '')]) ?>
+                        <?= $this->Html->link(__('Course Registration'), ['controller' => 'SchoolCourses', 'action' => 'courseRegistration'], ['class' => 'collapse-item' . ($controller == 'SchoolCourses' ? ' active' : '')]) ?>
                     </div>
                 </div>
             </li>
@@ -107,14 +107,6 @@ $cakeDescription = __('Cake Description');;
             <div class="text-center d-none d-md-inline">
                 <button class="rounded-circle border-0" id="sidebarToggle"></button>
             </div>
-
-            <!-- Sidebar Message -->
-            <!-- <div class="sidebar-card d-none d-lg-flex">
-
-                <img class="sidebar-card-illustration mb-2" src="img/undraw_rocket.svg" alt="...">
-                <p class="text-center mb-2"><strong>Powered by</strong></p>
-                <a class="btn btn-success btn-sm" href="https://cssoft.mx">CodeStudio!</a>
-            </div> -->
 
         </ul>
         <!-- End of Sidebar -->
@@ -172,11 +164,7 @@ $cakeDescription = __('Cake Description');;
                                 <?= $this->Html->image('undraw_profile.svg', ["class" => "img-profile rounded-circle"]) ?>
                             </a>
                             <!-- Dropdown - User Information -->
-                            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
-                                aria-labelledby="userDropdown">
-                                <?= $this->Html->link("<i class=\"fas fa-user fa-sm fa-fw mr-2 text-gray-400\"></i>" . __('Configurar perfil'), ['controller' => 'Users', 'action' => 'edit', $this->Identity->get('id')], ['class' => 'dropdown-item', 'escape' => false]) ?>
-                                <?= $this->Html->link("<i class=\"fas fa-efirma fa-sm fa-fw mr-2 text-gray-400\"></i>" . __('Configurar efirma'), ['controller' => 'Efirmas', 'action' => 'index', $this->Identity->get('id')], ['class' => 'dropdown-item', 'escape' => false]) ?>
-                                <div class="dropdown-divider"></div>
+                            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
                                 <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
                                     <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Cerrar sesi&oacute;n

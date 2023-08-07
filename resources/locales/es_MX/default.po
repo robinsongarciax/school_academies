@@ -568,7 +568,7 @@ msgstr ""
 
 #: ./templates/SchoolCourses/view.php:30
 msgid "Teacher"
-msgstr ""
+msgstr "Profesor (a)"
 
 #: ./templates/SchoolCourses/view.php:34
 #: ./templates/Students/view.php:54
@@ -1234,4 +1234,37 @@ msgstr "Academias"
 
 msgid "Application Copyright"
 msgstr "Cssoft"
+
+msgid "Course Registration"
+msgstr "Preinscripciones"
+
+msgid "School Course List"
+msgstr "Lista de academias disponibles"
+
+msgid "Academy"
+msgstr "Academia"
+
+msgid "Teacher"
+msgstr "Profesor (a)"
+
+msgid "Monday"
+msgstr "Lunes"
+
+msgid "Tuesday"
+msgstr "Martes"
+
+msgid "Wednesday"
+msgstr "Miércoles"
+
+msgid "Thursday"
+msgstr "Jueves"
+
+msgid "Friday"
+msgstr "Viernes"
+
+msgid "Saturday"
+msgstr "Sábado"
+
+msgid "Signup"
+msgstr "Inscribirse"
 

@@ -34,12 +34,17 @@
             <?= $this->Form->create($subject) ?>
             <?php
                     echo $this->Form->control('name');
-                    echo $this->Form->control('institute');
+                    echo $this->Form->control('institute',
+                        ['options' => [
+                            'Preescolar' => 'Preescolar',
+                            'Primaria' => 'Primaria',
+                            'Secundaria' => 'Secundaria'
+                        ]]);
                     echo $this->Form->control('sex', 
                         ['options' => [
-                            'FEMENINO' => 'FEMENINO', 
-                            'MASCULINO' => 'MASCULINO', 
-                            'MIXTO' => 'MIXTO']
+                            'F' => 'FEMENINO', 
+                            'M' => 'MASCULINO', 
+                            'X' => 'MIXTO']
                         ]);
                     echo $this->Form->control('tipo_academia', 
                         ['options' => [
@@ -78,7 +83,12 @@
                         </div>
                     </div>
                     <?php
-
+                    echo $this->Form->control('pago_obligatorio', 
+                        ['options' => [
+                            '1' => 'Sí', 
+                            '0' => 'No',
+                            ]
+                        ]);
                     echo $this->Form->control('teachers._ids', ['options' => $teachers, 'class' => 'form-select']);
                     echo $this->Form->control('active', ['value' => '1', 'hidden' => true, 'label' => false]);
                 ?>
