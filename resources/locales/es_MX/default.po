@@ -1158,3 +1158,9 @@ msgstr "Descartar"
 msgid "Print Form"
 msgstr "Imprimir Constancia"
 
+msgid "Are you sure you want to register for {0}?"
+msgstr "Al realizar está acción quedará inscrito a la academia de {0}. ¿Desea continuar?"
+
+msgid "Accept"
+msgstr "Aceptar"
+
