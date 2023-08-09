@@ -18,7 +18,7 @@ class StudentsController extends AppController
 {
 
     /**
-     * El rol 3 es para alumnos 
+     * El rol 3 es para alumnos
      */
     private $studentsRole = 4;
 
@@ -63,7 +63,7 @@ class StudentsController extends AppController
         if ($this->request->is('post')) {
             $request_data = $this->request->getData();
             $student = $this->Students->patchEntity($student, $request_data);
-            
+
             // $student_user = $this->Students->Users->newEmptyEntity();
             // $student_user->name = trim($request_data['name']);
             // $student_user->username = $request_data['curp'];
@@ -153,6 +153,10 @@ class StudentsController extends AppController
         $this->Authorization->authorize($student);
 
         if ($this->request->is('post')) {
+            $eliminar = $this->request->getData('eliminar');
+            if($eliminar){
+                $this->deleteAll();
+            }
             $students_file = $this->request->getData('file');
             $stream = $students_file->getStream();
             $tmpFilePath = $stream->getMetadata('uri');
@@ -194,7 +198,7 @@ class StudentsController extends AppController
             for ($i = 2; $i <= $last_row; $i++) {
                 $e_value = $worksheet->getCell('E' . $i)->getValue();
                 if ($e_value != null && !empty($e_value) ) {
-                    $worksheet->setCellValue('E' . $i, 
+                    $worksheet->setCellValue('E' . $i,
                         date('Y-m-d', strtotime(str_replace('/', '-', $e_value)))
                     );
                 }
@@ -222,10 +226,17 @@ class StudentsController extends AppController
                 ]
             ]);
             $this->Flash->success(__('The students has been imported correctly.'));
-            
+
         }
 
         $terms = $this->Students->Terms->find('list', ['limit' => 200])->all();
         $this->set(compact('student', 'terms'));
+    }
+
+    private function deleteAll(){
+        $this->Students->deleteAll([]);
+        $_users = $this->getTableLocator()->get('Users');
+        $query = $_users->query();
+        $query->delete()->where(['role_id'=>4])->execute();
     }
 }

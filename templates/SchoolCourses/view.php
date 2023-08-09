@@ -78,6 +78,10 @@
                     <h6 class="m-0 font-weight-bold text-primary-cm"><?= __('Related Schedules') ?></h6>
                 </div>
                 <div class="card-body">
+                    <!-- Button trigger modal -->
+                    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#exampleModal">
+                        Agregar horario
+                    </button>
                     <?php if (!empty($schoolCourse->schedules)) : ?>
                     <div class="table-responsive">
                         <table class="table" width="100%" cellspacing="0">
@@ -87,20 +91,18 @@
                                 <th><?= __('End') ?></th>
                                 <th class="actions"><?= __('Actions') ?></th>
                             </tr>
-                            
+
                             <?php foreach ($schoolCourse->schedules as $schedules) : ?>
                             <tr>
-                                <td><?= h($schedules->day_name) ?></td>
+                                <td><?= h($schedules->day->name) ?></td>
                                 <td><?= h($schedules->start) ?></td>
                                 <td><?= h($schedules->end) ?></td>
                                 <td class="actions">
-                                    <?= $this->Html->link(__('View'), ['controller' => 'Schedules', 'action' => 'view', $schedules->id]) ?>
-                                    <?= $this->Html->link(__('Edit'), ['controller' => 'Schedules', 'action' => 'edit', $schedules->id]) ?>
                                     <?= $this->Form->postLink(__('Delete'), ['controller' => 'Schedules', 'action' => 'delete', $schedules->id], ['confirm' => __('Are you sure you want to delete # {0}?', $schedules->id)]) ?>
                                 </td>
                             </tr>
                             <?php endforeach; ?>
-                            
+
                         </table>
                     </div>
                     <?php else: ?>
@@ -144,4 +146,35 @@
             </div>
         </div>
     </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+      <?= $this->Form->create($schedule, ['action'=>'/school_academies/schedules/add']) ?>
+            <fieldset>
+                <legend><?= __('Add Schedule') ?></legend>
+                <?php
+                    echo $this->Form->control('day_id', ['options' => $days]);
+                    echo $this->Form->control('start');
+                    echo $this->Form->control('end');
+                    echo $this->Form->control('id', ['value' => $schoolCourse->id]);
+                ?>
+            </fieldset>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+        <button type="submit" class="btn btn-primary">Guardar</button>
+        <?= $this->Form->end() ?>
+      </div>
+    </div>
+  </div>
 </div>
