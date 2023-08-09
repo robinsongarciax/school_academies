@@ -103,41 +103,8 @@ msgstr ""
 msgid "Submit"
 msgstr ""
 
-#: ./templates/Institutes/edit.php:13
-#: ./templates/Institutes/index.php:27
-#: ./templates/Institutes/view.php:47
-#: ./templates/Institutes/view.php:82
-#: ./templates/Modules/edit.php:13
-#: ./templates/Modules/index.php:27
-#: ./templates/Modules/view.php:47
-#: ./templates/Roles/edit.php:13
-#: ./templates/Roles/index.php:27
-#: ./templates/Roles/view.php:49
-#: ./templates/Roles/view.php:88
-#: ./templates/SchoolCourses/edit.php:17
-#: ./templates/SchoolCourses/index.php:35
-#: ./templates/SchoolCourses/view.php:67
-#: ./templates/SchoolCourses/view.php:118
-#: ./templates/SchoolLevels/edit.php:12
-#: ./templates/SchoolLevels/index.php:27
-#: ./templates/Students/edit.php:15
-#: ./templates/Students/index.php:53
-#: ./templates/Students/view.php:107
-#: ./templates/Students/view.php:136
-#: ./templates/Subjects/edit.php:13
-#: ./templates/Subjects/index.php:69
-#: ./templates/Subjects/view.php:155
-#: ./templates/Teachers/edit.php:14
-#: ./templates/Teachers/index.php:45
-#: ./templates/Terms/edit.php:13
-#: ./templates/Terms/index.php:37
-#: ./templates/Terms/view.php:93
-#: ./templates/Users/edit.php:13
-#: ./templates/Users/index.php:39
-#: ./templates/Users/view.php:97
-#: ./templates/Users/view.php:140
 msgid "Delete"
-msgstr ""
+msgstr "Eliminar"
 
 #: ./templates/Institutes/edit.php:15
 #: ./templates/Institutes/index.php:27
@@ -199,109 +166,23 @@ msgstr ""
 msgid "Institutes"
 msgstr ""
 
-#: ./templates/Institutes/index.php:25
-#: ./templates/Institutes/view.php:45
-#: ./templates/Institutes/view.php:80
-#: ./templates/Modules/index.php:25
-#: ./templates/Modules/view.php:45
-#: ./templates/Roles/index.php:25
-#: ./templates/Roles/view.php:47
-#: ./templates/Roles/view.php:86
-#: ./templates/SchoolCourses/index.php:33
-#: ./templates/SchoolCourses/view.php:65
-#: ./templates/SchoolCourses/view.php:116
-#: ./templates/SchoolLevels/index.php:25
-#: ./templates/Students/index.php:51
-#: ./templates/Students/view.php:105
-#: ./templates/Students/view.php:134
-#: ./templates/Subjects/index.php:67
-#: ./templates/Subjects/view.php:153
-#: ./templates/Teachers/index.php:43
-#: ./templates/Terms/index.php:35
-#: ./templates/Terms/view.php:91
-#: ./templates/Users/index.php:37
-#: ./templates/Users/view.php:95
-#: ./templates/Users/view.php:138
 msgid "View"
-msgstr ""
+msgstr "Ver"
 
-#: ./templates/Institutes/index.php:26
-#: ./templates/Institutes/view.php:46
-#: ./templates/Institutes/view.php:81
-#: ./templates/Modules/index.php:26
-#: ./templates/Modules/view.php:46
-#: ./templates/Roles/index.php:26
-#: ./templates/Roles/view.php:48
-#: ./templates/Roles/view.php:87
-#: ./templates/SchoolCourses/index.php:34
-#: ./templates/SchoolCourses/view.php:66
-#: ./templates/SchoolCourses/view.php:117
-#: ./templates/SchoolLevels/index.php:26
-#: ./templates/Students/index.php:52
-#: ./templates/Students/view.php:106
-#: ./templates/Students/view.php:135
-#: ./templates/Subjects/index.php:68
-#: ./templates/Subjects/view.php:154
-#: ./templates/Teachers/index.php:44
-#: ./templates/Terms/index.php:36
-#: ./templates/Terms/view.php:92
-#: ./templates/Users/index.php:38
-#: ./templates/Users/view.php:96
-#: ./templates/Users/view.php:139
 msgid "Edit"
-msgstr ""
+msgstr "Editar"
 
-#: ./templates/Institutes/index.php:36
-#: ./templates/Modules/index.php:36
-#: ./templates/Roles/index.php:36
-#: ./templates/SchoolCourses/index.php:44
-#: ./templates/SchoolLevels/index.php:36
-#: ./templates/Students/index.php:62
-#: ./templates/Subjects/index.php:78
-#: ./templates/Teachers/index.php:54
-#: ./templates/Terms/index.php:46
-#: ./templates/Users/index.php:48
 msgid "first"
-msgstr ""
+msgstr "inicio"
 
-#: ./templates/Institutes/index.php:37
-#: ./templates/Modules/index.php:37
-#: ./templates/Roles/index.php:37
-#: ./templates/SchoolCourses/index.php:45
-#: ./templates/SchoolLevels/index.php:37
-#: ./templates/Students/index.php:63
-#: ./templates/Subjects/index.php:79
-#: ./templates/Teachers/index.php:55
-#: ./templates/Terms/index.php:47
-#: ./templates/Users/index.php:49
 msgid "previous"
-msgstr ""
+msgstr "anterior"
 
-#: ./templates/Institutes/index.php:39
-#: ./templates/Modules/index.php:39
-#: ./templates/Roles/index.php:39
-#: ./templates/SchoolCourses/index.php:47
-#: ./templates/SchoolLevels/index.php:39
-#: ./templates/Students/index.php:65
-#: ./templates/Subjects/index.php:81
-#: ./templates/Teachers/index.php:57
-#: ./templates/Terms/index.php:49
-#: ./templates/Users/index.php:51
 msgid "next"
-msgstr ""
+msgstr "siguiente"
 
-#: ./templates/Institutes/index.php:40
-#: ./templates/Modules/index.php:40
-#: ./templates/Roles/index.php:40
-#: ./templates/SchoolCourses/index.php:48
-#: ./templates/SchoolLevels/index.php:40
-#: ./templates/Students/index.php:66
-#: ./templates/Subjects/index.php:82
-#: ./templates/Teachers/index.php:58
-#: ./templates/Terms/index.php:50
-#: ./templates/Users/index.php:52
 msgid "last"
-msgstr ""
+msgstr "último"
 
 #: ./templates/Institutes/index.php:42
 #: ./templates/Modules/index.php:42
@@ -1266,5 +1147,20 @@ msgid "Saturday"
 msgstr "Sábado"
 
 msgid "Signup"
-msgstr "Inscribirse"
+msgstr "Inscribirme"
+
+msgid "Confirm"
+msgstr "Confirmar"
+
+msgid "Dropout"
+msgstr "Descartar"
+
+msgid "Print Form"
+msgstr "Imprimir Constancia"
+
+msgid "Are you sure you want to register for {0}?"
+msgstr "Al realizar está acción quedará inscrito a la academia de {0}. ¿Desea continuar?"
+
+msgid "Accept"
+msgstr "Aceptar"
 

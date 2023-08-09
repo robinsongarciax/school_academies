@@ -117,33 +117,19 @@
                         <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                             <tr>
                                 <th><?= __('Name') ?></th>
-                                <th><?= __('Last Name') ?></th>
-                                <th><?= __('Second Last Name') ?></th>
                                 <th><?= __('Curp') ?></th>
-                                <th><?= __('Email') ?></th>
-                                <th><?= __('Level') ?></th>
-                                <th><?= __('Institute') ?></th>
-                                <th><?= __('Group') ?></th>
-                                <th><?= __('Id Number') ?></th>
-                                <th><?= __('Birth Date') ?></th>
+                                <th><?= __('School Level') ?></th>
+                                <th><?= __('School Group') ?></th>
                                 <th class="actions"><?= __('Actions') ?></th>
                             </tr>
                             <?php foreach ($schoolCourse->students as $students) : ?>
                             <tr>
                                 <td><?= h($students->name) ?></td>
-                                <td><?= h($students->last_name) ?></td>
-                                <td><?= h($students->second_last_name) ?></td>
                                 <td><?= h($students->curp) ?></td>
-                                <td><?= h($students->email) ?></td>
-                                <td><?= h($students->level) ?></td>
-                                <td><?= h($students->institute) ?></td>
-                                <td><?= h($students->group) ?></td>
-                                <td><?= h($students->id_number) ?></td>
-                                <td><?= h($students->birth_date) ?></td>
+                                <td><?= h($students->school_level) ?></td>
+                                <td><?= h($students->school_group) ?></td>
                                 <td class="actions">
-                                    <?= $this->Html->link(__('View'), ['controller' => 'Students', 'action' => 'view', $students->id]) ?>
-                                    <?= $this->Html->link(__('Edit'), ['controller' => 'Students', 'action' => 'edit', $students->id]) ?>
-                                    <?= $this->Form->postLink(__('Delete'), ['controller' => 'Students', 'action' => 'delete', $students->id], ['confirm' => __('Are you sure you want to delete # {0}?', $students->id)]) ?>
+                                    <?= $this->Form->postLink(__('Delete'), ['controller' => 'SchoolCoursesStudents', 'action' => 'delete', $students->_joinData->id], ['confirm' => __('Are you sure you want to delete to {0}?', $students->name)]) ?>
                                 </td>
                             </tr>
                             <?php endforeach; ?>

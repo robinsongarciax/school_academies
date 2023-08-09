@@ -34,6 +34,7 @@
             <?= $this->Form->create($subject) ?>
             <?php
                     echo $this->Form->control('name');
+                    echo $this->Form->control('description');
                     echo $this->Form->control('institute',
                         ['options' => [
                             'Preescolar' => 'Preescolar',
@@ -88,6 +89,13 @@
                             '1' => 'Sí', 
                             '0' => 'No',
                             ]
+                        ]);
+                    echo $this->Form->control('is_visible',
+                        ['options' => [
+                            '1' => 'Sí', 
+                            '0' => 'No',
+                            ],
+                            'label' => 'Visible para los alumnos'
                         ]);
                     echo $this->Form->control('teachers._ids', ['options' => $teachers, 'class' => 'form-select']);
                     echo $this->Form->control('active', ['value' => '1', 'hidden' => true, 'label' => false]);

@@ -59,7 +59,8 @@ class SubjectsController extends AppController
             $this->Flash->error(__('The subject could not be saved. Please, try again.'));
         }
         $teachers = $this->Subjects->Teachers->find('list', ['limit' => 200])->all();
-        $this->set(compact('subject', 'teachers'));
+        $schoolLevels = $this->Subjects->SchoolLevels->find('list', ['limit' => 200])->all();
+        $this->set(compact('subject', 'teachers', 'schoolLevels'));
     }
 
     /**

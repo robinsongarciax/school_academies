@@ -83,7 +83,7 @@ class SubjectsTable extends Table
 
         $validator
             ->scalar('institute')
-            ->allowEmptyString('institute');
+            ->notEmptyString('institute');
 
         $validator
             ->scalar('sex')

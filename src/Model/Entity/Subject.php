@@ -68,6 +68,7 @@ class Subject extends Entity
         'active' => true,
         'seleccionado' => true,
         'pago_obligatorio' => true,
+        'is_visible' => true,
         'created' => true,
         'modified' => true,
         'teachers' => true,

@@ -42,7 +42,6 @@ $cakeDescription = __('Cake Description');;
 
     <?= $this->fetch('meta') ?>
     <?= $this->fetch('css') ?>
-    <?= $this->fetch('script') ?>
 </head>
 <body>
     <?php $controller = $this->request->getParam('controller'); ?>
@@ -238,6 +237,8 @@ $cakeDescription = __('Cake Description');;
         'demo/datatables-demo.js',
         'sb-admin-2',
         'admin-app']) ?>
+        
+    <?= $this->fetch('script') ?>
 
         <!-- 'https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js' -->
 </body>

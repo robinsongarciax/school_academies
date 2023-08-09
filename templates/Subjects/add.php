@@ -31,12 +31,18 @@
                 <legend><?= __('Add Subject') ?></legend>
                 <?php
                     echo $this->Form->control('name');
-                    echo $this->Form->control('institute');
+                    echo $this->Form->control('description');
+                    echo $this->Form->control('institute',
+                        ['options' => [
+                            'Preescolar' => 'Preescolar',
+                            'Primaria' => 'Primaria',
+                            'Secundaria' => 'Secundaria'
+                        ]]);
                     echo $this->Form->control('sex', 
                         ['options' => [
-                            'FEMENINO' => 'FEMENINO', 
-                            'MASCULINO' => 'MASCULINO', 
-                            'MIXTO' => 'MIXTO']
+                            'F' => 'FEMENINO', 
+                            'M' => 'MASCULINO', 
+                            'X' => 'MIXTO']
                         ]);
                     echo $this->Form->control('tipo_academia', 
                         ['options' => [
@@ -52,6 +58,7 @@
                             'default' => 'AÑO DE NACIMIENTO',
                             'id' => 'criterio_academia'
                         ]);
+                    
                     ?>
                     <!-- Option for año de nacimiento -->
                     <div id="collapseBirthDate" class="collapse show" aria-labelledby="headingBirthDate">
@@ -63,15 +70,32 @@
                         </div>
                     </div>
                     <div id="collapseSchoolGrade" class="collapse" aria-labelledby="headingSchoolGrade">
-                        <div class="bg-white py-2 collapse-inner rounded">
-                            <?= $this->Form->control('grado_minimo') ?>
-                            <?= $this->Form->control('grado_maximo') ?>
+
+                        <div class="bg-white py-2 collapse-inner rounded" style="padding-left:.75rem;">
+                                <?= $this->Form->control('school_levels._ids', [
+                                    'templates' => 'multichecked_form',
+                                    'options' => $schoolLevels,
+                                    'multiple' => 'checkbox',
+                                    'label' => false
+                                ]) ?>
                         </div>
                     </div>
                     <?php
-                    echo $this->Form->control('description');
-                    echo $this->Form->control('active', ['value' => '1', 'hidden' => true, 'label' => false]);
+                    echo $this->Form->control('pago_obligatorio', 
+                        ['options' => [
+                            '1' => 'Sí', 
+                            '0' => 'No',
+                            ]
+                        ]);
+                    echo $this->Form->control('is_visible',
+                        ['options' => [
+                            '1' => 'Sí', 
+                            '0' => 'No',
+                            ],
+                            'label' => 'Visible para los alumnos'
+                        ]);
                     echo $this->Form->control('teachers._ids', ['options' => $teachers, 'class' => 'form-select']);
+                    echo $this->Form->control('active', ['value' => '1', 'hidden' => true, 'label' => false]);
                 ?>
             </fieldset>
             <?= $this->Form->button(__('Submit')) ?>
