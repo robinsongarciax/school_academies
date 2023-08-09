@@ -44,16 +44,11 @@
                 </label>
 
             </fieldset>
-            <?= $this->Form->button(__('Submit'), ['id'=>'submit']) ?>
+            <button class="btn btn-primary" type="submit">
+                <?= __('Submit') ?>
+            </button>
+
             <?= $this->Form->end() ?>
         </div>
     </div>
 </div>
-
-<?= $this->Html->script([
-        'vendor/jquery/jquery.min']) ?>
-<script>
-    $(document).ready(function(){
-
-    });
-</script>

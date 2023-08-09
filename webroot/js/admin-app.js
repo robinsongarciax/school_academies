@@ -8,16 +8,16 @@
           $('.sidebar .collapse').collapse('hide');
         };
     }
-    
-    $('#criterio_academia-año-de-nacimiento').on('change', function(e) { 
-        if($(this).is(':checked')) { 
+
+    $('#criterio_academia-año-de-nacimiento').on('change', function(e) {
+        if($(this).is(':checked')) {
             $('#collapseBirthDate').addClass('show');
             $('#collapseSchoolGrade').removeClass('show');
         }
     });
-    
-    $('#criterio_academia-grado-escolar').on('change', function(e) { 
-        if($(this).is(':checked')) { 
+
+    $('#criterio_academia-grado-escolar').on('change', function(e) {
+        if($(this).is(':checked')) {
             $('#collapseBirthDate').removeClass('show');
             $('#collapseSchoolGrade').addClass('show');
         }
@@ -27,4 +27,9 @@
         $('#collapseBirthDate').removeClass('show');
         $('#collapseSchoolGrade').addClass('show');
     }
+
+    $('form').on('submit', function(){
+        $("button[type=submit]").attr("disabled", "true");
+        $("button[type=submit]").html('<span id="loading-span" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Cargando...')
+    });
 })(jQuery); // End of use strict
