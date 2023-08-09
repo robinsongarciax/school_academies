@@ -116,6 +116,7 @@ class SchoolCoursesController extends AppController
         $subjects = $this->SchoolCourses->Subjects->find('list', ['limit' => 200])->all();
         $teachers = $this->SchoolCourses->Teachers->find('list', ['limit' => 200])->all();
         $terms = $this->SchoolCourses->Terms->find('list', ['limit' => 200])->all();
+        $schedules = $this->SchoolCourses->Schedules->find('list', ['limit' => 200])->all();
         $students = $this->SchoolCourses->Students->find('list', ['limit' => 200])->all();
         $this->set(compact('schoolCourse', 'subjects', 'teachers', 'terms', 'schedules', 'students'));
     }
