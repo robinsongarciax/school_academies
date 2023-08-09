@@ -90,12 +90,10 @@
 
                             <?php foreach ($schoolCourse->schedules as $schedules) : ?>
                             <tr>
-                                <td><?= h($schedules->day_name) ?></td>
+                                <td><?= h($schedules->day->name) ?></td>
                                 <td><?= h($schedules->start) ?></td>
                                 <td><?= h($schedules->end) ?></td>
                                 <td class="actions">
-                                    <?= $this->Html->link(__('View'), ['controller' => 'Schedules', 'action' => 'view', $schedules->id]) ?>
-                                    <?= $this->Html->link(__('Edit'), ['controller' => 'Schedules', 'action' => 'edit', $schedules->id]) ?>
                                     <?= $this->Form->postLink(__('Delete'), ['controller' => 'Schedules', 'action' => 'delete', $schedules->id], ['confirm' => __('Are you sure you want to delete # {0}?', $schedules->id)]) ?>
                                 </td>
                             </tr>
@@ -157,20 +155,21 @@
         </button>
       </div>
       <div class="modal-body">
-      <?= $this->Form->create($schedule) ?>
+      <?= $this->Form->create($schedule, ['action'=>'/school_academies/schedules/add']) ?>
             <fieldset>
                 <legend><?= __('Add Schedule') ?></legend>
                 <?php
+                    echo $this->Form->control('day_id', ['options' => $days]);
                     echo $this->Form->control('start');
                     echo $this->Form->control('end');
-                    echo $this->Form->control('day_id', ['options' => $days]);
                     echo $this->Form->control('id', ['value' => $schoolCourse->id]);
                 ?>
             </fieldset>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+        <button type="submit" class="btn btn-primary">Guardar</button>
+        <?= $this->Form->end() ?>
       </div>
     </div>
   </div>

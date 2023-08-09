@@ -55,13 +55,14 @@ class SchoolCoursesController extends AppController
     public function view($id = null)
     {
         $schoolCourse = $this->SchoolCourses->get($id, [
-            'contain' => ['Subjects', 'Teachers', 'Terms', 'Schedules', 'Students'],
+            'contain' => ['Subjects', 'Teachers', 'Terms', 'Schedules.Days', 'Students'],
         ]);
         $this->Authorization->authorize($schoolCourse);
 
-        $days = $this->SchoolCourses->Schedules->find('list', ['limit' => 200])->all();
-
-        $this->set(compact('schoolCourse', 'schedule', 'days'));
+        $days = $this->SchoolCourses->Schedules->Days->find('list', ['limit' => 200])->all();
+        $schoolCourses = $this->SchoolCourses->Schedules->SchoolCourses->find('list', ['limit' => 200])->all();
+        $schedule = $this->SchoolCourses->Schedules->newEmptyEntity();
+        $this->set(compact('schoolCourse', 'schedule', 'days', 'schoolCourses'));
     }
 
     /**
@@ -115,7 +116,6 @@ class SchoolCoursesController extends AppController
         $subjects = $this->SchoolCourses->Subjects->find('list', ['limit' => 200])->all();
         $teachers = $this->SchoolCourses->Teachers->find('list', ['limit' => 200])->all();
         $terms = $this->SchoolCourses->Terms->find('list', ['limit' => 200])->all();
-        $schedules = $this->dataSchedulesCombo($this->SchoolCourses->Schedules->find('all', ['limit' => 200])->contain(['Days'])->all()->toArray());
         $students = $this->SchoolCourses->Students->find('list', ['limit' => 200])->all();
         $this->set(compact('schoolCourse', 'subjects', 'teachers', 'terms', 'schedules', 'students'));
     }

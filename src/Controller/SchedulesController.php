@@ -54,11 +54,14 @@ class SchedulesController extends AppController
         $this->Authorization->skipAuthorization();
         $schedule = $this->Schedules->newEmptyEntity();
         if ($this->request->is('post')) {
-            $schedule = $this->Schedules->patchEntity($schedule, $this->request->getData());
+            $data = $this->request->getData();
+            $data['school_courses']['_ids'][] = $data['id'];
+            unset($data['id']);
+            $schedule = $this->Schedules->patchEntity($schedule, $data);
             if ($this->Schedules->save($schedule)) {
                 $this->Flash->success(__('The schedule has been saved.'));
 
-                return $this->redirect(['action' => 'index']);
+                return $this->redirect($this->referer());
             }
             $this->Flash->error(__('The schedule could not be saved. Please, try again.'));
         }
@@ -112,6 +115,6 @@ class SchedulesController extends AppController
             $this->Flash->error(__('The schedule could not be deleted. Please, try again.'));
         }
 
-        return $this->redirect(['action' => 'index']);
+        return $this->redirect($this->referer());
     }
 }
