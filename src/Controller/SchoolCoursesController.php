@@ -120,14 +120,6 @@ class SchoolCoursesController extends AppController
         $this->set(compact('schoolCourse', 'subjects', 'teachers', 'terms', 'schedules', 'students'));
     }
 
-    private function dataSchedulesCombo($schedules){
-        $data = [];
-        foreach($schedules  as $schedule){
-            $data[$schedule['id']] = $schedule['day']['name'] . ' ' . $schedule['start'] . ' - ' . $schedule['end'];
-        }
-        return $data;
-    }
-
     /**
      * Delete method
      *
