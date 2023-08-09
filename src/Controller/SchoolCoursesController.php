@@ -5,9 +5,7 @@ namespace App\Controller;
 
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
-
-use Cake\ORM\TableRegistry;
-use Cake\Filesystem\File;
+use Cake\Http\CallbackStream;
 
 /**
  * SchoolCourses Controller
@@ -194,8 +192,6 @@ class SchoolCoursesController extends AppController
     public function exportRelatedStudents($schoolCourseId){
         $this->Authorization->skipAuthorization();
 
-        $fileName = "tmp/".date("ymdHis").".xlsx";
-
         $row = 5;
         $headers = [
             "A" => "Colegio",
@@ -249,9 +245,15 @@ class SchoolCoursesController extends AppController
             $sheet->setCellValue($col.$row, $student[$key]);
         endforeach;
 
-        // Save the spreadsheet in the webroot folder
+        $fileName = $schoolCourse['name'].'_'.date("ymdHis").".xlsx";
         $writer = new Xlsx($spreadsheet);
-        $writer->save($fileName);
-        exit;
+
+        $stream = new CallbackStream(function () use ($writer) {
+            $writer->save('php://output');
+        });
+        $response = $this->response;
+        return $response->withType('xlsx')
+            ->withHeader('Content-Disposition', "attachment;filename=\"{$fileName}\"")
+            ->withBody($stream);
     }
 }
