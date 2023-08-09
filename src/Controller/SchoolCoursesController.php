@@ -3,6 +3,12 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
+
+use Cake\ORM\TableRegistry;
+use Cake\Filesystem\File;
+
 /**
  * SchoolCourses Controller
  *
@@ -183,5 +189,69 @@ class SchoolCoursesController extends AppController
             $this->Flash->error(__('The school course could not be taken. Please, try again.'));
         }
         return $this->redirect(['action' => 'courseRegistration']);
+    }
+
+    public function exportRelatedStudents($schoolCourseId){
+        $this->Authorization->skipAuthorization();
+
+        $fileName = "tmp/".date("ymdHis").".xlsx";
+
+        $row = 5;
+        $headers = [
+            "A" => "Colegio",
+            "B" => "Clave Identificacion Alumno",
+            "C" => "Nombre del Alumno",
+            "D" => "Sexo",
+            "E" => "Fecha Nacimiento",
+            "F" => "Seccion",
+            "G" => "Grado",
+            "H" => "Grupo"
+        ];
+        $col_header = [
+            "institute" => "A",
+            "curp" => "B",
+            "name" => "C",
+            "sex" => "D",
+            "birth_date" => "E",
+            "level" => "F",
+            "school_level" => "G",
+            "school_group" => "H"
+        ];
+
+        $schoolCourse = $this->SchoolCourses->get($schoolCourseId, [
+            'contain' => ['Students', 'Teachers', 'Terms']
+        ]);
+
+        // Create a new spreadsheet
+        $spreadsheet = new Spreadsheet();
+        // Add value in a sheet inside of that spreadsheet.
+        // // (It's possible to have multiple sheets in a single spreadsheet)
+        $sheet = $spreadsheet->getActiveSheet();
+
+        //SCHOOL COURSE INFO
+        $sheet->setCellValue("A1", "ACADEMIA");
+        $sheet->setCellValue("A2", "PROFESOR");
+        $sheet->setCellValue("A3", "CURSO");
+        $sheet->setCellValue("B1", $schoolCourse['name']);
+        $sheet->setCellValue("B2", $schoolCourse->teacher['name']);
+        $sheet->setCellValue("B3", $schoolCourse->term['description']);
+
+        //HEADERS
+        foreach($headers as $key=>$header):
+            $sheet->setCellValue($key.$row, $header);
+            $sheet->getColumnDimension($key)->setAutoSize(true);
+        endforeach;
+
+        //DATA
+        foreach($schoolCourse->students as $student):
+            $row++;
+            foreach($col_header as $key=>$col)
+            $sheet->setCellValue($col.$row, $student[$key]);
+        endforeach;
+
+        // Save the spreadsheet in the webroot folder
+        $writer = new Xlsx($spreadsheet);
+        $writer->save($fileName);
+        exit;
     }
 }
