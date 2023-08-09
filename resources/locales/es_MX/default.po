@@ -1119,6 +1119,9 @@ msgstr "Cssoft"
 msgid "Course Registration"
 msgstr "Preinscripciones"
 
+msgid "Registration to "
+msgstr "Inscripciones a "
+
 msgid "School Course List"
 msgstr "Lista de academias disponibles"
 
@@ -1163,4 +1166,10 @@ msgstr "Al realizar está acción quedará inscrito a la academia de {0}. ¿Dese
 
 msgid "Accept"
 msgstr "Aceptar"
+
+msgid "Available Students"
+msgstr "Alumnos Disponibles"
+
+msgid "Students Enrolled"
+msgstr "Alumnos Inscritos"
 
