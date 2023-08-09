@@ -31,7 +31,7 @@ class SchoolCoursesController extends AppController
                 'school_level_id' => $row->sl_id,
                 'sex' => $row->sex
             ];
-            
+
             // Traer los cursos relacionados con el grado escolar, sexo y la edad del estudiante
             $schoolCourses = $this->SchoolCourses->find('CoursesForStudent', $options)
                 ->contain(['Subjects', 'Teachers', 'Terms'])
@@ -58,7 +58,10 @@ class SchoolCoursesController extends AppController
             'contain' => ['Subjects', 'Teachers', 'Terms', 'Schedules', 'Students'],
         ]);
         $this->Authorization->authorize($schoolCourse);
-        $this->set(compact('schoolCourse'));
+
+        $days = $this->SchoolCourses->Schedules->find('list', ['limit' => 200])->all();
+
+        $this->set(compact('schoolCourse', 'schedule', 'days'));
     }
 
     /**
@@ -152,7 +155,7 @@ class SchoolCoursesController extends AppController
                 'sex' => $row->sex,
                 'student_id' => $row->student_id
             ];
-            
+
             // Traer los cursos relacionados con el grado escolar, sexo y la edad del estudiante
             $schoolCourses = $this->SchoolCourses->find('CoursesForStudent', $options)
                 ->contain(['Subjects', 'Teachers', 'Terms', 'Schedules'])
