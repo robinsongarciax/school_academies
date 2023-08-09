@@ -115,9 +115,17 @@ class SchoolCoursesController extends AppController
         $subjects = $this->SchoolCourses->Subjects->find('list', ['limit' => 200])->all();
         $teachers = $this->SchoolCourses->Teachers->find('list', ['limit' => 200])->all();
         $terms = $this->SchoolCourses->Terms->find('list', ['limit' => 200])->all();
-        $schedules = $this->SchoolCourses->Schedules->find('list', ['limit' => 200])->all();
+        $schedules = $this->dataSchedulesCombo($this->SchoolCourses->Schedules->find('all', ['limit' => 200])->contain(['Days'])->all()->toArray());
         $students = $this->SchoolCourses->Students->find('list', ['limit' => 200])->all();
         $this->set(compact('schoolCourse', 'subjects', 'teachers', 'terms', 'schedules', 'students'));
+    }
+
+    private function dataSchedulesCombo($schedules){
+        $data = [];
+        foreach($schedules  as $schedule){
+            $data[$schedule['id']] = $schedule['day']['name'] . ' ' . $schedule['start'] . ' - ' . $schedule['end'];
+        }
+        return $data;
     }
 
     /**
