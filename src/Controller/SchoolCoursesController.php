@@ -370,11 +370,6 @@ class SchoolCoursesController extends AppController
             endforeach;
         endforeach;
 
-        //DEJANDO PEQUENAS LAS COLUMNAS QUE NO LLEVAN DATOS
-        foreach (range('C', 'T') as $letra):
-            $sheet->getColumnDimension($letra)->setWidth(1);
-        endforeach;
-
         $fileName = 'LISTA_'.$schoolCourse['name'].'_'.date("ymdHis").".xlsx";
         $writer = new Xlsx($spreadsheet);
 
