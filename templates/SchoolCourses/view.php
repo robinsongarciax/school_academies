@@ -120,6 +120,7 @@
                 <div class="card-body">
                     <?= $this->Html->link(__('Exportar alumnos'), ['action' => 'export-related-students', $schoolCourse->id], ['class' => 'btn btn-sm btn-light text-primary', 'escape' => true]) ?>
                     <?= $this->Html->link(__('Exportar lista'), ['action' => 'export-list-related-students', $schoolCourse->id], ['class' => 'btn btn-sm btn-light text-primary', 'escape' => true]) ?>
+                    <?= $this->Html->link(__('Constancias de estudios'), ['action' => 'constancias-estudios', $schoolCourse->id], ['class' => 'btn btn-sm btn-light text-primary', 'escape' => true]) ?>
 
                     <?php if (!empty($schoolCourse->students)) : ?>
                     <div class="table-responsive">
