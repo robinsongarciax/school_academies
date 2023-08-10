@@ -388,13 +388,25 @@ class SchoolCoursesController extends AppController
             'contain' => ['Students', 'Subjects' => ['SchoolLevels']],
         ]);
         
-        $schoolLevels = [];
-        foreach ($schoolCourse->subject->school_levels as $school_lavel) {
-            $schoolLevels[] = $school_lavel->name;
-        }
+        $search_options = [];
+        if ($schoolCourse->subject->criterio_academia === 'GRADO ESCOLAR') {
+            $schoolLevels = [];
+            foreach ($schoolCourse->subject->school_levels as $school_lavel) {
+                $schoolLevels[] = $school_lavel->name;
+            }
+            $search_options += ['school_level in' => $schoolLevels];
+        } else {
+            $min_birthyear = $schoolCourse->subject->anio_nacimiento_minimo;
+            $max_birthyear = $schoolCourse->subject->anio_nacimiento_maximo;
 
+            $search_options[] = "YEAR(Students.birth_date) BETWEEN {$min_birthyear} AND {$max_birthyear}";
+        }
+        
         $sex = $schoolCourse->subject->sex;
         $sex = $sex === 'X' ? ['F', 'M'] : [$sex];
+        $search_options += ['sex in ' => $sex];
+        $search_options[] = 'student_id is null';
+        $search_options[] = '(school_course_id = 1 OR school_course_id is null)';
 
         $students = $this->SchoolCourses->Students
             ->find('all', ['limit' => 200])
@@ -402,12 +414,7 @@ class SchoolCoursesController extends AppController
                 [
                     'SchoolCoursesStudents.student_id = Students.id'
                 ])
-            ->where([
-                'school_level in' => $schoolLevels,
-                'sex in ' => $sex,
-                'student_id is null',
-                '(school_course_id = 1 OR school_course_id is null)'
-            ])
+            ->where($search_options)
             ->all();
 
         $this->set(compact('schoolCourse', 'students'));

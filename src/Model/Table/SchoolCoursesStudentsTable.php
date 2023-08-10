@@ -44,6 +44,8 @@ class SchoolCoursesStudentsTable extends Table
         $this->setDisplayField('id');
         $this->setPrimaryKey('id');
 
+        $this->addBehavior('Timestamp');
+
         $this->belongsTo('SchoolCourses', [
             'foreignKey' => 'school_course_id',
             'joinType' => 'INNER',
