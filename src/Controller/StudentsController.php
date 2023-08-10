@@ -8,6 +8,10 @@ use Cake\ORM\TableRegistry;
 use Cake\Filesystem\File;
 use Robotusers\Excel\Registry;
 use Robotusers\Excel\Excel\Manager;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
+use Cake\Http\CallbackStream;
+
 /**
  * Students Controller
  *
@@ -231,6 +235,40 @@ class StudentsController extends AppController
 
         $terms = $this->Students->Terms->find('list', ['limit' => 200])->all();
         $this->set(compact('student', 'terms'));
+    }
+
+    public function constanciaEstudios($studentId){
+        $this->Authorization->skipAuthorization();
+
+        $student = $this->Students->get($studentId, [
+            'contain' => ['Terms', 'Users']
+        ]);
+
+        $spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+
+
+        $drawing = new \PhpOffice\PhpSpreadsheet\Worksheet\Drawing();
+        $drawing->setName('Logo');
+        $drawing->setDescription('Logo');
+        $drawing->setPath('img/logo_cumbres.png'); /* put your path and image here */
+        $drawing->setCoordinates('F1');
+        $drawing->setOffsetX(110);
+        $drawing->setHeight(120);
+        $drawing->setRotation(25);
+        $drawing->getShadow()->setVisible(true);
+        $drawing->getShadow()->setDirection(45);
+        $drawing->setWorksheet($sheet);
+
+        //PREPARA LA DESCARGA DEL ARCHIVO
+        $fileName = 'CONSTANCIA_ESTUDIOS_'.$student['name'].'_'.date("ymdHis").".pdf";
+        $writer = \PhpOffice\PhpSpreadsheet\IOFactory::createWriter($spreadsheet, 'Mpdf');
+        $stream = new CallbackStream(function () use ($writer) {
+            $writer->save('php://output');
+        });
+        return $this->response->withType('pdf')
+            ->withHeader('Content-Disposition', "attachment;filename=\"{$fileName}\"")
+            ->withBody($stream);
     }
 
     private function deleteAll(){
