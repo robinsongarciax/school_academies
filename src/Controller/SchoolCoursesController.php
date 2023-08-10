@@ -3,6 +3,10 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
+use Cake\Http\CallbackStream;
+
 /**
  * SchoolCourses Controller
  *
@@ -183,6 +187,199 @@ class SchoolCoursesController extends AppController
             $this->Flash->error(__('The school course could not be taken. Please, try again.'));
         }
         return $this->redirect(['action' => 'courseRegistration']);
+    }
+
+    public function exportRelatedStudents($schoolCourseId){
+        $this->Authorization->skipAuthorization();
+
+        $row = 5;
+        $headers = [
+            "A" => "Colegio",
+            "B" => "Clave Identificacion Alumno",
+            "C" => "Nombre del Alumno",
+            "D" => "Sexo",
+            "E" => "Fecha Nacimiento",
+            "F" => "Seccion",
+            "G" => "Grado",
+            "H" => "Grupo"
+        ];
+        $col_header = [
+            "institute" => "A",
+            "curp" => "B",
+            "name" => "C",
+            "sex" => "D",
+            "birth_date" => "E",
+            "level" => "F",
+            "school_level" => "G",
+            "school_group" => "H"
+        ];
+
+        $schoolCourse = $this->SchoolCourses->get($schoolCourseId, [
+            'contain' => ['Students', 'Teachers', 'Terms']
+        ]);
+
+        // Create a new spreadsheet
+        $spreadsheet = new Spreadsheet();
+        // Add value in a sheet inside of that spreadsheet.
+        // // (It's possible to have multiple sheets in a single spreadsheet)
+        $sheet = $spreadsheet->getActiveSheet();
+
+        //SCHOOL COURSE INFO
+        $sheet->setCellValue("A1", "ACADEMIA");
+        $sheet->setCellValue("A2", "PROFESOR");
+        $sheet->setCellValue("A3", "CURSO");
+        $sheet->setCellValue("B1", $schoolCourse['name']);
+        $sheet->setCellValue("B2", $schoolCourse->teacher['name']);
+        $sheet->setCellValue("B3", $schoolCourse->term['description']);
+
+        //HEADERS
+        foreach($headers as $key=>$header):
+            $sheet->setCellValue($key.$row, $header);
+            $sheet->getColumnDimension($key)->setAutoSize(true);
+        endforeach;
+
+        //DATA
+        foreach($schoolCourse->students as $student):
+            $row++;
+            foreach($col_header as $key=>$col):
+                $sheet->setCellValue($col.$row, $student[$key]);
+            endforeach;
+        endforeach;
+
+        $fileName = $schoolCourse['name'].'_'.date("ymdHis").".xlsx";
+        $writer = new Xlsx($spreadsheet);
+
+        $stream = new CallbackStream(function () use ($writer) {
+            $writer->save('php://output');
+        });
+        $response = $this->response;
+        return $response->withType('xlsx')
+            ->withHeader('Content-Disposition', "attachment;filename=\"{$fileName}\"")
+            ->withBody($stream);
+    }
+
+    //ASISTENCIA DE ALUMNOS POR ACADEMIA
+    public function exportListRelatedStudents($schoolCourseId){
+        $this->Authorization->skipAuthorization();
+
+        $row = 8;
+        $headers = [
+            "A" => "No",
+            "B" => "NOMBRE",
+            "C" => "",
+            "D" => "",
+            "E" => "",
+            "F" => "",
+            "G" => "",
+            "H" => "",
+            "I" => "",
+            "J" => "",
+            "K" => "",
+            "L" => "",
+            "M" => "",
+            "N" => "",
+            "O" => "",
+            "P" => "",
+            "Q" => "",
+            "R" => "",
+            "S" => "",
+            "T" => ""
+        ];
+        $col_header = [
+            "name" => "B",
+            "" => "C",
+            "" => "D",
+            "" => "E",
+            "" => "F",
+            "" => "G",
+            "" => "H",
+            "" => "I",
+            "" => "J",
+            "" => "K",
+            "" => "L",
+            "" => "M",
+            "" => "N",
+            "" => "O",
+            "" => "P",
+            "" => "Q",
+            "" => "R",
+            "" => "S",
+            "" => "T"
+        ];
+
+        $schoolCourse = $this->SchoolCourses->get($schoolCourseId, [
+            'contain' => ['Students', 'Teachers', 'Terms']
+        ]);
+
+        // Create a new spreadsheet
+        $spreadsheet = new Spreadsheet();
+        // Add value in a sheet inside of that spreadsheet.
+        // // (It's possible to have multiple sheets in a single spreadsheet)
+        $sheet = $spreadsheet->getActiveSheet();
+
+        //DEFINIMOS EL FORMATO PARA LOs BORDES
+        $styleArray = array(
+            'borders' => array(
+                'allBorders' => array(
+                    'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN
+                )
+            ),
+        );
+        //AGREGANDO BORDES A TODOS LOS DATOS INCLUYENDO LOS HEADERS
+        $sheet->getStyle("A$row:T11")->applyFromArray($styleArray);
+        $sheet->getStyle("A$row:T$row")->getFill()
+                                    ->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)
+                                    ->getStartColor()->setARGB('ffa59f9d');
+
+        //GENERAL INFO
+        $sheet->setCellValue("A1", "CUMBRES INTERNATIONAL SCHOOL MERIDA");
+        $sheet->setCellValue("A2", "CICLO ESCOLAR ".$schoolCourse->term['description']);
+        $sheet->setCellValue("A3", $schoolCourse["name"]);
+
+        $sheet->setCellValue("A5", "PROFESOR(A): ".$schoolCourse->teacher['name']);
+
+        $sheet->setCellValue("B".$row-1, "LISTA DE ALUMNOS");
+
+        //COMBINAMOS LAS COLUMNAS DE LA INFO GENERAL
+        $sheet->mergeCells("A1:F1");
+        $sheet->mergeCells("A2:F2");
+        $sheet->mergeCells("A3:F3");
+        $sheet->mergeCells("A4:F4");
+        $sheet->mergeCells("A5:F5");
+
+        //COMBINANDO CELDAS DE ENCABEZADOS
+        $sheet->mergeCells("C$row:T$row");
+
+        //CENTRAMOS LA INFORMACION GENERAL
+        $sheet->getStyle("A1:A5")->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
+
+        //HEADERS
+        foreach($headers as $key=>$header):
+            $sheet->setCellValue($key.$row, $header);
+            $sheet->getColumnDimension($key)->setAutoSize(true);
+        endforeach;
+
+        //DATA
+        foreach($schoolCourse->students as $student):
+            $row++;
+            $sheet->setCellValue("A".$row, $row-8);
+            foreach($col_header as $key=>$col):
+                if(!empty($key)):
+                    $sheet->setCellValue($col.$row, $student[$key]);
+                endif;
+            endforeach;
+        endforeach;
+
+        $fileName = 'LISTA_'.$schoolCourse['name'].'_'.date("ymdHis").".xlsx";
+        $writer = new Xlsx($spreadsheet);
+
+        $stream = new CallbackStream(function () use ($writer) {
+            $writer->save('php://output');
+        });
+        $response = $this->response;
+        return $response->withType('xlsx')
+            ->withHeader('Content-Disposition', "attachment;filename=\"{$fileName}\"")
+            ->withBody($stream);
     }
 
     public function studentRegistration($id = null) {
