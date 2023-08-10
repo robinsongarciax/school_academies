@@ -48,6 +48,7 @@
                                 <?= $this->Html->link(__('View'), ['action' => 'view', $schoolCourse->id]) ?>
                                 <?= $this->Html->link(__('Edit'), ['action' => 'edit', $schoolCourse->id]) ?>
                                 <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $schoolCourse->id], ['confirm' => __('Are you sure you want to delete # {0}?', $schoolCourse->id)]) ?>
+                                <?= $this->Html->link(__('Course Registration'), ['action' => 'studentRegistration', $schoolCourse->id]) ?>
                             </td>
                         </tr>
                         <?php endforeach; ?>

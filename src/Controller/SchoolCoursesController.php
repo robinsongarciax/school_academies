@@ -381,4 +381,66 @@ class SchoolCoursesController extends AppController
             ->withHeader('Content-Disposition', "attachment;filename=\"{$fileName}\"")
             ->withBody($stream);
     }
+
+    public function studentRegistration($id = null) {
+        $this->Authorization->skipAuthorization();
+        $schoolCourse = $this->SchoolCourses->get($id, [
+            'contain' => ['Students', 'Subjects' => ['SchoolLevels']],
+        ]);
+        
+        $schoolLevels = [];
+        foreach ($schoolCourse->subject->school_levels as $school_lavel) {
+            $schoolLevels[] = $school_lavel->name;
+        }
+
+        $sex = $schoolCourse->subject->sex;
+        $sex = $sex === 'X' ? ['F', 'M'] : [$sex];
+
+        $students = $this->SchoolCourses->Students
+            ->find('all', ['limit' => 200])
+            ->leftJoin(['SchoolCoursesStudents' => 'school_courses_students'],
+                [
+                    'SchoolCoursesStudents.student_id = Students.id'
+                ])
+            ->where([
+                'school_level in' => $schoolLevels,
+                'sex in ' => $sex,
+                'student_id is null',
+                '(school_course_id = 1 OR school_course_id is null)'
+            ])
+            ->all();
+
+        $this->set(compact('schoolCourse', 'students'));
+    }
+
+    /**
+     * Delete method
+     *
+     * @param string|null $id School Course id.
+     * @return \Cake\Http\Response|null|void Redirects to index.
+     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
+     */
+    public function enroll($id = null, array $students_id = null) {
+        $schoolCourse = $this->SchoolCourses->get($id, [
+            'contain' => ['Students']
+        ]);
+        $this->Authorization->authorize($schoolCourse);
+        if ($this->request->is(['patch', 'post', 'put'])) {
+            $students = $this->SchoolCourses->Students
+                ->find('all')
+                ->where(['id in' => $students_id])
+                ->all()
+                ->toArray();
+            $schoolCourse->students = array_merge($schoolCourse->students, $students);
+            // pr($schoolCourse);die();
+
+            if ($this->SchoolCourses->save($schoolCourse)) {
+                $this->Flash->success(__('The student has been enrolled.'));
+                return $this->redirect(['action' => 'studentRegistration', $id]);
+            }
+            $this->Flash->error(__('The student could not be enrolled. Please, try again.'));
+
+        }
+        return $this->redirect(['action' => 'studentRegistration', $id]);
+    }
 }

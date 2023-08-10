@@ -22,6 +22,10 @@
     </div>
 </header>
 <div class="container-fluid">
+    <nav class="nav nav-borders">
+        <a href="" class="nav-link primary-button"><?= __('Course Registration') ?></a>
+    </nav>
+    <hr class="mt-0 mb-4">
     <div class="row">
         <!-- Segmento izquiero -->
         <div class="col-lg-7 d-none d-lg-block">
