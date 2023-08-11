@@ -44,7 +44,7 @@ $cakeDescription = __('Cake Description');;
     <?= $this->fetch('css') ?>
     <?= $this->fetch('script') ?>
 </head>
-<body>
+<body id="page-top">
     <?php $controller = $this->request->getParam('controller'); ?>
     <?php $action = $this->request->getParam('action'); ?>
     <?php

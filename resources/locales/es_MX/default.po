@@ -547,9 +547,8 @@ msgstr ""
 msgid "List Students"
 msgstr ""
 
-#: ./templates/Students/add.php:21
 msgid "Add Student"
-msgstr ""
+msgstr "Agregar Alumno"
 
 #: ./templates/Students/edit.php:26
 #: ./templates/Students/view.php:11
@@ -1067,7 +1066,7 @@ msgid "Course Registration"
 msgstr "Preinscripciones"
 
 msgid "Registration to "
-msgstr "Inscripciones a "
+msgstr "Preinscripciones al curso "
 
 msgid "School Course List"
 msgstr "Lista de academias disponibles"
@@ -1114,9 +1113,36 @@ msgstr "Al realizar está acción quedará inscrito a la academia de {0}. ¿Dese
 msgid "Accept"
 msgstr "Aceptar"
 
+msgid "Pre-Enroll"
+msgstr "Preinscribir"
+
 msgid "Available Students"
 msgstr "Alumnos Disponibles"
 
 msgid "Students Enrolled"
 msgstr "Alumnos Inscritos"
+
+msgid "Course Information about "
+msgstr "Información del curso "
+
+msgid "Course Information"
+msgstr "Información del Curso"
+
+msgid "Confirmed Students for "
+msgstr "Alumnos inscritos al curso "
+
+msgid "Confirmed Students"
+msgstr "Alumnos Inscritos"
+
+msgid "Pre-Enrolled Students"
+msgstr "Alumnos Pre-Inscritos"
+
+msgid "Add Students"
+msgstr "Agregar Alumnos"
+
+msgid "Confirm All Students"
+msgstr "Confirmar a todos los Alumnos"
+
+msgid "Are you sure you want confirm the student list?"
+msgstr "¿Está seguro de inscribir a todos los estudiantes de esta lista?"
 

@@ -43,7 +43,7 @@ $cakeDescription = __('Cake Description');;
     <?= $this->fetch('meta') ?>
     <?= $this->fetch('css') ?>
 </head>
-<body>
+<body id="page-top">
     <?php $controller = $this->request->getParam('controller'); ?>
     <?php $action = $this->request->getParam('action'); ?>
     <?php
