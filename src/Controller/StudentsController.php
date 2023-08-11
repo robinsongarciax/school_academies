@@ -8,6 +8,10 @@ use Cake\ORM\TableRegistry;
 use Cake\Filesystem\File;
 use Robotusers\Excel\Registry;
 use Robotusers\Excel\Excel\Manager;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
+use Cake\Http\CallbackStream;
+
 /**
  * Students Controller
  *

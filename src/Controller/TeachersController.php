@@ -13,7 +13,7 @@ class TeachersController extends AppController
 {
 
     /**
-     * El rol 3 es para maestros 
+     * El rol 3 es para maestros
      */
     private $teachersRol = 3;
 
@@ -60,12 +60,12 @@ class TeachersController extends AppController
         $this->Authorization->authorize($teacher);
         if ($this->request->is('post')) {
             $request_data = $this->request->getData();
-            $teacher = $this->Teachers->patchEntity($teacher, 
+            $teacher = $this->Teachers->patchEntity($teacher,
                 $request_data
             );
-            
+
             $teacher_user = $this->Teachers->Users->newEmptyEntity();
-            $teacher_user->name = trim($request_data['name']. 
+            $teacher_user->name = trim($request_data['name'].
                 ' ' . $request_data['last_name'] .
                 ' ' . $request_data['second_last_name']);
             $teacher_user->username = $request_data['users']['name'];
@@ -135,5 +135,13 @@ class TeachersController extends AppController
         }
 
         return $this->redirect(['action' => 'index']);
+    }
+
+    public function myAcademies(){
+        $this->Authorization->skipAuthorization();
+        $userId = $this->request->getAttribute('identity')->getIdentifier();
+        $teacher = $this->Teachers->find()->where(['user_id'=>$userId])->contain(['SchoolCourses.Terms'])->first()->toArray();
+        $schoolCourses = $teacher["school_courses"];
+        $this->set(compact('schoolCourses'));
     }
 }

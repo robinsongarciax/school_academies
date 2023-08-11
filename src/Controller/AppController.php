@@ -64,6 +64,9 @@ class AppController extends Controller
         if ($identity != null &&
             $identity->role->name == 'ALUMNO') {
             $this->viewBuilder()->setLayout('default_student');
+        }elseif ($identity != null &&
+            $identity->role->name == 'MAESTRO') {
+            $this->viewBuilder()->setLayout('default_teacher');
         }
     }
 }
