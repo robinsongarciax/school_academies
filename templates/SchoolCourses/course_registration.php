@@ -109,9 +109,11 @@ foreach ($studentCourses as $studentCourse) {
                                             <?= $this->Form->postLink(
                                             	__('Confirm'), [
                                                 'controller' => 'SchoolCoursesStudents',
-                                                'action' => 'confirm', $school_courses_students_id], 
+                                                'action' => 'confirm', 
+                                                $school_courses_students_id], 
                                                 [
-                                                	'confirm' => __('Are you sure you want to register for {0}?', $schoolCourse->name),
+                                                	'confirm' => __('Are you sure you want to register for {0}?', 
+                                                        $schoolCourse->name),
                                                 	'title' => __('Confirm'),
                                                 	'data-toggle' => 'modal',
                                                 	'data-target' => '#confirmRegistrationModal'
@@ -119,7 +121,8 @@ foreach ($studentCourses as $studentCourse) {
 
                                             <?= $this->Form->postLink(__('Dropout'), [
                                                 'controller' => 'SchoolCoursesStudents',
-                                                'action' => 'delete', $school_courses_students_id]) ?>
+                                                'action' => 'delete', 
+                                                $school_courses_students_id]) ?>
                                         <?php else: ?>
                                             <?= $this->Form->postLink(__('Print Form'), [
                                                 'controller' => 'SchoolCoursesStudents',
