@@ -382,6 +382,13 @@ class SchoolCoursesController extends AppController
             ->withBody($stream);
     }
 
+    /**
+     * StudentRegistration method
+     *
+     * @param string|null $id School Course id.
+     * @return \Cake\Http\Response|null|void Render view
+     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
+     */
     public function studentRegistration($id = null) {
         $this->Authorization->skipAuthorization();
         $schoolCourse = $this->SchoolCourses->get($id, [
@@ -424,7 +431,7 @@ class SchoolCoursesController extends AppController
      * Delete method
      *
      * @param string|null $id School Course id.
-     * @return \Cake\Http\Response|null|void Redirects to index.
+     * @return \Cake\Http\Response|null|void Redirects to studentRegistration.
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
     public function enroll($id = null, array $students_id = null) {
@@ -433,13 +440,21 @@ class SchoolCoursesController extends AppController
         ]);
         $this->Authorization->authorize($schoolCourse);
         if ($this->request->is(['patch', 'post', 'put'])) {
+
+            $ids = $this->request->getData('ids');
+            if ($ids != null) {
+                $ids = array_filter($ids, function($v) {
+                    return $v;
+                });
+            }
+
+            $students_id = $students_id == null ? $ids : $students_id;
             $students = $this->SchoolCourses->Students
                 ->find('all')
                 ->where(['id in' => $students_id])
                 ->all()
                 ->toArray();
             $schoolCourse->students = array_merge($schoolCourse->students, $students);
-            // pr($schoolCourse);die();
 
             if ($this->SchoolCourses->save($schoolCourse)) {
                 $this->Flash->success(__('The student has been enrolled.'));

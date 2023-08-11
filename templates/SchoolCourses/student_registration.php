@@ -28,10 +28,12 @@
                     <h6 class="m-0 font-weight-bold text-primary-cm"><?= __('Available Students') ?></h6>
                 </div>
                 <div class="card-body">
+                    <?= $this->Form->create(null, ['url' => ['action' => 'enroll', $schoolCourse->id]]) ?>
                     <div class="table-responsive">
                         <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                             <thead>
                                 <tr>
+                                    <th><input type="checkbox" aria-label="Checkbox for following text input"></th>
                                     <th><?= __('Name') ?></th>
                                     <th><?= __('School Level') ?></th>
                                     <th><?= __('School Group') ?></th>
@@ -41,15 +43,23 @@
                             <tbody>
                                 <?php foreach ($students as $student): ?>
                                     <tr>
+                                        <td><?= $this->Form->checkbox('ids[]', [
+                                            'value' => $student->id
+                                        ]) ?></td>
                                         <td><?= $student->name ?></td>
                                         <td><?= $student->school_level ?></td>
                                         <td><?= $student->school_group ?></td>
-                                        <td><?= $this->Form->postLink(__('Enroll'), ['action' => 'enroll', $schoolCourse->id, $student->id]) ?></td> 
+                                        <td><?= $this->Form->postLink(__('Enroll'), ['action' => 'enroll', $schoolCourse->id, $student->id],
+                                            ['block' => true]
+                                        ) ?></td> 
                                     </tr>
                                 <?php endforeach; ?>
                             </tbody>
                         </table>
+                        <?= $this->Form->button(__('Submit')) ?>
                     </div>
+                    <?= $this->Form->end() ?>
+                    <?= $this->fetch('postLink') ?>
                 </div>
             </div>
         </div>
