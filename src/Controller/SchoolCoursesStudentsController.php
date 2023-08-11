@@ -55,7 +55,34 @@ class SchoolCoursesStudentsController extends AppController
             $this->Flash->error(__('The school courses student could not be confirmed. Please, try again.'));
         }
 
-        return $this->redirect(['controller' => 'SchoolCourses','action' => 'courseRegistration']);
+        return $this->redirect($this->referer());
+    }
+
+    /**
+     * Confirm All Students method
+     *
+     * @return \Cake\Http\Response|null|void Redirects to SchoolCourses courseRegistration.
+     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
+     */
+    public function confirmAllStudents($course_id = null)
+    {
+        $this->Authorization->skipAuthorization();
+        $this->request->allowMethod(['post', 'delete']);
+        $fields = [
+            'is_confirmed' => '1'
+        ];
+        $conditions = [
+            'is_confirmed' => '0',
+            'school_course_id' => $course_id
+        ];
+        
+        if ($this->SchoolCoursesStudents->updateAll($fields, $conditions)) {
+            $this->Flash->success(__('The school courses student has been confirmed.'));
+        } else {
+            $this->Flash->error(__('The school courses student could not be confirmed. Please, try again.'));
+        }
+
+        return $this->redirect($this->referer());
     }
 
     public function printForm($id){

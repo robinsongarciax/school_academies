@@ -59,14 +59,35 @@ class SchoolCoursesController extends AppController
     public function view($id = null)
     {
         $schoolCourse = $this->SchoolCourses->get($id, [
-            'contain' => ['Subjects', 'Teachers', 'Terms', 'Schedules.Days', 'Students'],
+            'contain' => ['Subjects', 'Teachers', 'Terms', 'Schedules.Days'
+            ]
         ]);
+
         $this->Authorization->authorize($schoolCourse);
 
         $days = $this->SchoolCourses->Schedules->Days->find('list', ['limit' => 200])->all();
         $schoolCourses = $this->SchoolCourses->Schedules->SchoolCourses->find('list', ['limit' => 200])->all();
         $schedule = $this->SchoolCourses->Schedules->newEmptyEntity();
         $this->set(compact('schoolCourse', 'schedule', 'days', 'schoolCourses'));
+    }
+
+    /**
+     * confirmedStudents method
+     *
+     * @param string|null $id School Course id.
+     * @return \Cake\Http\Response|null|void Renders view
+     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
+     */
+    public function confirmedStudents($id = null)
+    {
+        $schoolCourse = $this->SchoolCourses->get($id, [
+            'contain' => ['Terms', 'Schedules.Days', 'Students' => [
+                    'conditions' => ['SchoolCoursesStudents.is_confirmed' => '1']
+                ]
+            ]
+        ]);
+        $this->Authorization->authorize($schoolCourse);
+        $this->set(compact('schoolCourse'));
     }
 
     /**
@@ -382,10 +403,19 @@ class SchoolCoursesController extends AppController
             ->withBody($stream);
     }
 
+    /**
+     * StudentRegistration method
+     *
+     * @param string|null $id School Course id.
+     * @return \Cake\Http\Response|null|void Render view
+     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
+     */
     public function studentRegistration($id = null) {
         $this->Authorization->skipAuthorization();
         $schoolCourse = $this->SchoolCourses->get($id, [
-            'contain' => ['Students', 'Subjects' => ['SchoolLevels']],
+            'contain' => [
+                'Students' => ['conditions' => ['is_confirmed' => 0]], 
+                'Subjects' => ['SchoolLevels']],
         ]);
 
         $search_options = [];
@@ -401,7 +431,7 @@ class SchoolCoursesController extends AppController
 
             $search_options[] = "YEAR(Students.birth_date) BETWEEN {$min_birthyear} AND {$max_birthyear}";
         }
-
+        
         $sex = $schoolCourse->subject->sex;
         $sex = $sex === 'X' ? ['F', 'M'] : [$sex];
         $search_options += ['sex in ' => $sex];
@@ -424,22 +454,35 @@ class SchoolCoursesController extends AppController
      * Delete method
      *
      * @param string|null $id School Course id.
-     * @return \Cake\Http\Response|null|void Redirects to index.
+     * @return \Cake\Http\Response|null|void Redirects to studentRegistration.
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
-    public function enroll($id = null, array $students_id = null) {
+    public function preEnroll($id = null, array $students_id = null) {
         $schoolCourse = $this->SchoolCourses->get($id, [
             'contain' => ['Students']
         ]);
         $this->Authorization->authorize($schoolCourse);
         if ($this->request->is(['patch', 'post', 'put'])) {
+
+            $ids = $this->request->getData('ids');
+            if ($ids != null) {
+                $ids = array_filter($ids, function($v) {
+                    return $v;
+                });
+            }
+
+            $students_id = $students_id == null ? $ids : $students_id;
+            // si no se selecciona ningun alumno, regresar a la vista
+            if (empty($students_id)) {
+                return $this->redirect(['action' => 'studentRegistration', $id]);
+            }
+
             $students = $this->SchoolCourses->Students
                 ->find('all')
                 ->where(['id in' => $students_id])
                 ->all()
                 ->toArray();
             $schoolCourse->students = array_merge($schoolCourse->students, $students);
-            // pr($schoolCourse);die();
 
             if ($this->SchoolCourses->save($schoolCourse)) {
                 $this->Flash->success(__('The student has been enrolled.'));

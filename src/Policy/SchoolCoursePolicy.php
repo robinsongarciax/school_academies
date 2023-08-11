@@ -61,6 +61,18 @@ class SchoolCoursePolicy
     }
 
     /**
+     * Check if $user can view confirmedStudents SchoolCourse
+     *
+     * @param \Authorization\IdentityInterface $user The user.
+     * @param \App\Model\Entity\SchoolCourse $schoolCourse
+     * @return bool
+     */
+    public function canConfirmedStudents(IdentityInterface $user, SchoolCourse $schoolCourse)
+    {
+        return $user->isModulePermission($this->module, 'View');
+    }
+
+    /**
      * Check if $user can sign-up SchoolCourse
      *
      * @param \Authorization\IdentityInterface $user The user.
@@ -73,13 +85,13 @@ class SchoolCoursePolicy
     }
 
     /**
-     * Check if $user can enroll students for SchoolCourse
+     * Check if $user can pre-enroll students for SchoolCourse
      *
      * @param \Authorization\IdentityInterface $user The user.
      * @param \App\Model\Entity\SchoolCourse $schoolCourse
      * @return bool
      */
-    public function canEnroll(IdentityInterface $user, SchoolCourse $schoolCourse)
+    public function canPreEnroll(IdentityInterface $user, SchoolCourse $schoolCourse)
     {
         return $user->isModulePermission($this->module, 'Edit');
     }

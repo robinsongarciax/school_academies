@@ -14,61 +14,8 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 
-#: ./templates/Institutes/add.php:11
-#: ./templates/Institutes/edit.php:11
-#: ./templates/Institutes/index.php:16
-#: ./templates/Institutes/view.php:10
-#: ./templates/Institutes/view.php:38
-#: ./templates/Institutes/view.php:68
-#: ./templates/Modules/add.php:11
-#: ./templates/Modules/edit.php:11
-#: ./templates/Modules/index.php:16
-#: ./templates/Modules/view.php:10
-#: ./templates/Modules/view.php:38
-#: ./templates/Roles/add.php:11
-#: ./templates/Roles/edit.php:11
-#: ./templates/Roles/index.php:16
-#: ./templates/Roles/view.php:10
-#: ./templates/Roles/view.php:39
-#: ./templates/Roles/view.php:72
-#: ./templates/SchoolCourses/add.php:15
-#: ./templates/SchoolCourses/edit.php:15
-#: ./templates/SchoolCourses/index.php:20
-#: ./templates/SchoolCourses/view.php:10
-#: ./templates/SchoolCourses/view.php:56
-#: ./templates/SchoolCourses/view.php:96
-#: ./templates/SchoolLevels/add.php:10
-#: ./templates/SchoolLevels/edit.php:10
-#: ./templates/SchoolLevels/index.php:16
-#: ./templates/SchoolLevels/view.php:10
-#: ./templates/Students/add.php:13
-#: ./templates/Students/edit.php:13
-#: ./templates/Students/index.php:29
-#: ./templates/Students/view.php:10
-#: ./templates/Students/view.php:94
-#: ./templates/Students/view.php:125
-#: ./templates/Subjects/add.php:11
-#: ./templates/Subjects/edit.php:11
-#: ./templates/Subjects/index.php:37
-#: ./templates/Subjects/view.php:10
-#: ./templates/Subjects/view.php:137
-#: ./templates/Teachers/add.php:12
-#: ./templates/Teachers/edit.php:12
-#: ./templates/Teachers/index.php:25
-#: ./templates/Teachers/view.php:10
-#: ./templates/Terms/add.php:11
-#: ./templates/Terms/edit.php:11
-#: ./templates/Terms/index.php:21
-#: ./templates/Terms/view.php:10
-#: ./templates/Terms/view.php:71
-#: ./templates/Users/add.php:11
-#: ./templates/Users/edit.php:11
-#: ./templates/Users/index.php:22
-#: ./templates/Users/view.php:10
-#: ./templates/Users/view.php:75
-#: ./templates/Users/view.php:122
 msgid "Actions"
-msgstr ""
+msgstr "Acciones"
 
 #: ./templates/Institutes/add.php:12
 #: ./templates/Institutes/edit.php:17
@@ -600,9 +547,8 @@ msgstr ""
 msgid "List Students"
 msgstr ""
 
-#: ./templates/Students/add.php:21
 msgid "Add Student"
-msgstr ""
+msgstr "Agregar Alumno"
 
 #: ./templates/Students/edit.php:26
 #: ./templates/Students/view.php:11
@@ -1120,7 +1066,7 @@ msgid "Course Registration"
 msgstr "Preinscripciones"
 
 msgid "Registration to "
-msgstr "Inscripciones a "
+msgstr "Preinscripciones al curso "
 
 msgid "School Course List"
 msgstr "Lista de academias disponibles"
@@ -1167,9 +1113,36 @@ msgstr "Al realizar está acción quedará inscrito a la academia de {0}. ¿Dese
 msgid "Accept"
 msgstr "Aceptar"
 
+msgid "Pre-Enroll"
+msgstr "Preinscribir"
+
 msgid "Available Students"
 msgstr "Alumnos Disponibles"
 
 msgid "Students Enrolled"
 msgstr "Alumnos Inscritos"
+
+msgid "Course Information about "
+msgstr "Información del curso "
+
+msgid "Course Information"
+msgstr "Información del Curso"
+
+msgid "Confirmed Students for "
+msgstr "Alumnos inscritos al curso "
+
+msgid "Confirmed Students"
+msgstr "Alumnos Inscritos"
+
+msgid "Pre-Enrolled Students"
+msgstr "Alumnos Pre-Inscritos"
+
+msgid "Add Students"
+msgstr "Agregar Alumnos"
+
+msgid "Confirm All Students"
+msgstr "Confirmar a todos los Alumnos"
+
+msgid "Are you sure you want confirm the student list?"
+msgstr "¿Está seguro de inscribir a todos los estudiantes de esta lista?"
 

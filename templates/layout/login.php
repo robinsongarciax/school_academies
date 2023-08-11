@@ -27,16 +27,18 @@ $cakeDescription = __('Cake Description');
     </title>
     <?= $this->Html->meta('icon') ?>
 
+    <link
+        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+        rel="stylesheet">
     <!-- Bootstrap v5.1 -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
 
-    <?= $this->Html->css(['sb-admin-2']) ?>
+    <?= $this->Html->css(['cake', 'sb-admin-2']) ?>
 
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
 
     <?= $this->fetch('meta') ?>
     <?= $this->fetch('css') ?>
-    <?= $this->fetch('script') ?>
 </head>
 <body id="page-top">
 
@@ -46,7 +48,9 @@ $cakeDescription = __('Cake Description');
         <div class="row justify-content-center">
 
             <div class="col-xl-10 col-lg-12 col-md-9">
-
+                <p class="mb-4">
+                    <?= $this->Flash->render() ?>
+                </p>
                 <div class="card o-hidden border-0 shadow-lg my-5">
                     <div class="card-body p-0">
                         <!-- Nested Row within Card Body -->
@@ -63,9 +67,6 @@ $cakeDescription = __('Cake Description');
                                         <h1 class="h4 text-gray mb-4"><?= __('Application Title') ?></h1>
                                     </div>
 
-                                    <p class="mb-4">
-                                        <?= $this->Flash->render() ?>
-                                    </p>
                                     <?= $this->fetch('content') ?>
 
                                 </div>
@@ -85,6 +86,6 @@ $cakeDescription = __('Cake Description');
         'vendor/bootstrap/js/bootstrap.bundle.min',
         'vendor/jquery-easing/jquery.easing.min',
         'sb-admin-2']) ?>
-
+    <?= $this->fetch('script') ?>
 </body>
 </html>

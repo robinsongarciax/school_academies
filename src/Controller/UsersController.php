@@ -16,7 +16,7 @@ class UsersController extends AppController
     {
         parent::beforeFilter($event);
 
-        $this->Authentication->allowUnauthenticated(['login']);
+        $this->Authentication->allowUnauthenticated(['login', 'adminLogin']);
     }
 
     /**
@@ -138,7 +138,7 @@ class UsersController extends AppController
         return $this->redirect(['action' => 'index']);
     }
 
-    public function login()
+    public function login($type = null)
     {
         $this->request->allowMethod(['get', 'post']);
         // skip authorization
@@ -158,9 +158,13 @@ class UsersController extends AppController
         // display error if user submitted and authentication failed
         if ($this->request->is('post') && !$result->isValid()) {
             $this->Flash->error(__('Invalid username or password'));
+            return $this->redirect($this->referer());
         }
+        
 
         $this->viewBuilder()->setLayout('login');
+        if ($type == 'admin') 
+            $this->render('admin_login');
     }
 
 
