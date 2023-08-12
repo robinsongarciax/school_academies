@@ -24,6 +24,7 @@
                 <legend><?= __('Edit Institute') ?></legend>
                 <?php
                     echo $this->Form->control('name');
+                    echo $this->Form->control('principal');
                     echo $this->Form->control('school_levels._ids', ['options' => $schoolLevels]);
                 ?>
             </fieldset>

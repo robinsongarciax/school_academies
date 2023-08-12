@@ -342,36 +342,24 @@ msgstr ""
 msgid "Role Id"
 msgstr ""
 
-#: ./templates/SchoolCourses/add.php:16
-#: ./templates/SchoolCourses/edit.php:21
-#: ./templates/SchoolCourses/view.php:13
 msgid "List School Courses"
-msgstr ""
+msgstr "Lista de Cursos Escolares"
 
-#: ./templates/SchoolCourses/add.php:23
 msgid "Add School Course"
-msgstr ""
+msgstr "Agregar Curso Escolar"
 
-#: ./templates/SchoolCourses/edit.php:28
-#: ./templates/SchoolCourses/view.php:11
 msgid "Edit School Course"
-msgstr ""
+msgstr "Editar Curso Escolar"
 
-#: ./templates/SchoolCourses/index.php:8
-#: ./templates/SchoolCourses/view.php:14
 msgid "New School Course"
-msgstr ""
+msgstr "Nuevo Curso Escolar"
 
-#: ./templates/SchoolCourses/index.php:9
-#: ./templates/layout/default.php:9
 msgid "School Courses"
 msgstr "Cursos Escolares"
 
-#: ./templates/SchoolCourses/view.php:12
 msgid "Delete School Course"
-msgstr ""
+msgstr "Eliminar Curso Escolar"
 
-#: ./templates/SchoolCourses/view.php:26
 msgid "Subject"
 msgstr "Academia"
 
@@ -522,28 +510,20 @@ msgstr ""
 msgid "Delete School Level"
 msgstr ""
 
-#: ./templates/Students/add.php:14
-#: ./templates/Students/edit.php:19
-#: ./templates/Students/view.php:13
-msgid "List Students"
-msgstr ""
+msgid "Students List"
+msgstr "Lista de Alumnos"
 
 msgid "Add Student"
 msgstr "Agregar Alumno"
 
-#: ./templates/Students/edit.php:26
-#: ./templates/Students/view.php:11
 msgid "Edit Student"
-msgstr ""
+msgstr "Editar Alumno"
 
-#: ./templates/Students/index.php:8
-#: ./templates/Students/view.php:14
 msgid "New Student"
-msgstr ""
+msgstr "Nuevo Alumno"
 
-#: ./templates/Students/index.php:9
 msgid "Students"
-msgstr ""
+msgstr "Alumnos"
 
 #: ./templates/Students/view.php:12
 msgid "Delete Student"
@@ -570,40 +550,30 @@ msgstr ""
 msgid "Related Courses"
 msgstr ""
 
-#: ./templates/Students/view.php:123
-msgid "Cost"
-msgstr ""
+msgid "Price"
+msgstr "Precio"
 
-#: ./templates/Students/view.php:124
 msgid "Student Id"
 msgstr ""
 
-#: ./templates/Subjects/add.php:12
-#: ./templates/Subjects/edit.php:17
-#: ./templates/Subjects/view.php:13
 msgid "List Subjects"
-msgstr "Mostrar Academias"
+msgstr "Lista de Academias"
 
-#: ./templates/Subjects/add.php:19
+msgid "Subjects List"
+msgstr "Lista de Academias"
+
 msgid "Add Subject"
 msgstr "Agregar Academia"
 
-#: ./templates/Subjects/edit.php:24
-#: ./templates/Subjects/view.php:11
 msgid "Edit Subject"
 msgstr "Editar Academia"
 
-#: ./templates/Subjects/index.php:8
-#: ./templates/Subjects/view.php:14
 msgid "New Subject"
 msgstr "Nueva Academia"
 
-#: ./templates/Subjects/index.php:9
-#: ./templates/layout/default.php:9
 msgid "Subjects"
 msgstr "Academias"
 
-#: ./templates/Subjects/view.php:12
 msgid "Delete Subject"
 msgstr "Borrar Academia"
 
@@ -747,23 +717,23 @@ msgstr ""
 msgid "List Users"
 msgstr ""
 
-#: ./templates/Users/add.php:19
 msgid "Add User"
-msgstr ""
+msgstr "Agregar Usuario"
 
-#: ./templates/Users/edit.php:24
-#: ./templates/Users/view.php:11
 msgid "Edit User"
-msgstr ""
+msgstr "Editar Usuario"
 
-#: ./templates/Users/index.php:8
-#: ./templates/Users/view.php:14
 msgid "New User"
-msgstr ""
+msgstr "Nuevo Usuario"
 
-#: ./templates/Users/index.php:9
 msgid "Users"
-msgstr ""
+msgstr "Usuarios"
+
+msgid "Users List"
+msgstr "Lista de Usuarios"
+
+msgid "My Profile"
+msgstr "Mi perfil"
 
 #: ./templates/Users/login.php:3
 msgid "Iniciar sesión"
@@ -1019,7 +989,7 @@ msgstr ""
 
 #: ./src/Controller/UsersController.php:155
 msgid "Your account has been disabled. Please see your system administrator."
-msgstr ""
+msgstr "Tu cuenta está deshabilitada. Póngase en contacto con el administrador para obtener más información"
 
 #: ./src/Controller/UsersController.php:160
 msgid "Invalid username or password"
@@ -1135,4 +1105,19 @@ msgstr "Disponibilidad"
 
 msgid "The student list is higher than the allowed capacity. Delete a few students to continue."
 msgstr "La lista de alumnos es mayor que la capacidad permitida. Elimine algunos alumnos para continuar."
+
+msgid "User Management"
+msgstr "Gestión de Usuarios"
+
+msgid "Administration"
+msgstr "Administracion"
+
+msgid "Sports"
+msgstr "Deportivas"
+
+msgid "Cultural"
+msgstr "Culturales"
+
+msgid "Configuration Settings"
+msgstr "Configuración"
 

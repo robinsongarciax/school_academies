@@ -18,6 +18,7 @@ class InstitutesController extends AppController
      */
     public function index()
     {
+        $this->Authorization->skipAuthorization();
         $institutes = $this->paginate($this->Institutes);
 
         $this->set(compact('institutes'));
@@ -35,7 +36,7 @@ class InstitutesController extends AppController
         $institute = $this->Institutes->get($id, [
             'contain' => ['SchoolLevels', 'Terms'],
         ]);
-
+        $this->Authorization->authorize($institute);
         $this->set(compact('institute'));
     }
 
@@ -47,6 +48,7 @@ class InstitutesController extends AppController
     public function add()
     {
         $institute = $this->Institutes->newEmptyEntity();
+        $this->Authorization->authorize($institute);
         if ($this->request->is('post')) {
             $institute = $this->Institutes->patchEntity($institute, $this->request->getData());
             if ($this->Institutes->save($institute)) {
@@ -72,6 +74,7 @@ class InstitutesController extends AppController
         $institute = $this->Institutes->get($id, [
             'contain' => ['SchoolLevels'],
         ]);
+        $this->Authorization->authorize($institute);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $institute = $this->Institutes->patchEntity($institute, $this->request->getData());
             if ($this->Institutes->save($institute)) {
@@ -96,6 +99,7 @@ class InstitutesController extends AppController
     {
         $this->request->allowMethod(['post', 'delete']);
         $institute = $this->Institutes->get($id);
+        $this->Authorization->authorize($institute);
         if ($this->Institutes->delete($institute)) {
             $this->Flash->success(__('The institute has been deleted.'));
         } else {

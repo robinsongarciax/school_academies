@@ -47,13 +47,19 @@ $cakeDescription = __('Cake Description');;
 <body id="page-top">
     <?php $controller = $this->request->getParam('controller'); ?>
     <?php $action = $this->request->getParam('action'); ?>
+    <?php $type = $this->request->getParam('pass'); ?>
+    
     <?php
         $show = '';
         if ($action == 'index' || $action == 'add') {
             $show = $controller . '_show';
         }
+        $action = $controller . '_' . $action;
+        if ($controller == 'Subjects' && count($type) > 0) {
+
+            $action = $type[0] != null ? $action . '_' .$type[0] : $action;
+        }
     ?>
-    <?php $action = $controller . '_' . $action; ?>
     <!-- Page Wrapper -->
     <div id="wrapper">
 
@@ -81,23 +87,57 @@ $cakeDescription = __('Cake Description');;
             <hr class="sidebar-divider">
 
             <!-- Heading -->
+            <!-- Academias -->
             <div class="sidebar-heading">
                 <?= __('Subjects') ?>
             </div>
 
             <!-- Nav Item - Pages Collapse Menu -->
-            <li class="nav-item <?= ($controller == 'Documents' || $controller == 'Teachers') ? 'active' : ''?>">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseOne"
-                    aria-expanded="true" aria-controls="collapseOne">
+            <li class="nav-item <?= ($controller == 'SchoolCourses') ? 'active' : ''?>">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseSchoolCourse"
+                    aria-expanded="true" aria-controls="collapseSchoolCourse">
                     <i class="fas fa-fw fa-chalkboard"></i>
-                    <span><?= __('Subjects') ?></span>
+                    <span><?= __('School Courses') ?></span>
                 </a>
-                <div id="collapseOne" class="collapse <?= ($controller == 'Subjects' || $controller == 'Teachers' || $controller == 'SchoolCourses') ? 'show' : ''?>" aria-labelledby="headingOne" data-parent="#accordionSidebar">
+                <div id="collapseSchoolCourse" class="collapse <?= ($controller == 'SchoolCourses') ? 'show' : ''?>" aria-labelledby="headingOne" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header"><?= __('School Courses') ?></h6>
-                        <?= $this->Html->link(__('School Courses'), ['controller' => 'SchoolCourses', 'action' => 'index'], ['class' => 'collapse-item' . ($controller == 'SchoolCourses' ? ' active' : '')]) ?>
-                        <?= $this->Html->link(__('Subjects'), ['controller' => 'Subjects', 'action' => 'index'], ['class' => 'collapse-item' . ($controller == 'Subjects' ? ' active' : '')]) ?>
-                        <?= $this->Html->link(__('Teachers'), ['controller' => 'Teachers', 'action' => 'index'], ['class' => 'collapse-item' . ($controller == 'Teachers' ? ' active' : '')]) ?>
+                        <?= $this->Html->link(__('School Courses'), ['controller' => 'SchoolCourses', 'action' => 'index'], ['class' => 'collapse-item' . ($action == 'SchoolCourses_index' ? ' active' : '')]) ?>
+                        <?= $this->Html->link(__('Add School Course'), ['controller' => 'SchoolCourses', 'action' => 'add'], ['class' => 'collapse-item' . ($action == 'SchoolCourses_add' ? ' active' : '')]) ?>
+                    </div>
+                </div>
+            </li>
+
+            <!-- Nav Item - Pages Collapse Menu -->
+            <li class="nav-item <?= ($controller == '   ') ? 'active' : ''?>">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseSubjects"
+                    aria-expanded="true" aria-controls="collapseSubjects">
+                    <i class="fas fa-fw fa-futbol fa-music"></i>
+                    <span><?= __('Subjects') ?></span>
+                </a>
+                <div id="collapseSubjects" class="collapse <?= ($controller == 'Subjects') ? 'show' : ''?>" aria-labelledby="headingOne" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header"><?= __('Subjects') ?></h6>
+                        <?= $this->Html->link(__('Subjects List'), ['controller' => 'Subjects', 'action' => 'index'], ['class' => 'collapse-item' . ($action == 'Subjects_index' ? ' active' : '')]) ?>
+                        <?= $this->Html->link(__('Sports'), ['controller' => 'Subjects', 'action' => 'index', 'DEPORTIVA'], ['class' => 'collapse-item' . ($action == 'Subjects_index_DEPORTIVA' ? ' active' : '')]) ?>
+                        <?= $this->Html->link(__('Cultural'), ['controller' => 'Subjects', 'action' => 'index', 'CULTURAL'], ['class' => 'collapse-item' . ($action == 'Subjects_index_CULTURAL' ? ' active' : '')]) ?>
+                        <?= $this->Html->link(__('Add Subject'), ['controller' => 'Subjects', 'action' => 'add'], ['class' => 'collapse-item' . ($action == 'Subjects_add' ? ' active' : '')]) ?>
+                    </div>
+                </div>
+            </li>
+
+            <!-- Nav Item - Pages Collapse Menu -->
+            <li class="nav-item <?= ($controller == 'Teachers') ? 'active' : ''?>">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTeachers"
+                    aria-expanded="true" aria-controls="collapseTeachers">
+                    <i class="fas fa-fw fa-chalkboard-teacher"></i>
+                    <span><?= __('Teachers') ?></span>
+                </a>
+                <div id="collapseTeachers" class="collapse <?= ($controller == 'Teachers') ? 'show' : ''?>" aria-labelledby="headingOne" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header"><?= __('Teachers') ?></h6>
+                        <?= $this->Html->link(__('Teachers List'), ['controller' => 'Teachers', 'action' => 'index'], ['class' => 'collapse-item' . ($action == 'Teachers_index' ? ' active' : '')]) ?>
+                        <?= $this->Html->link(__('Add Teacher'), ['controller' => 'Teachers', 'action' => 'add'], ['class' => 'collapse-item' . ($action == 'Teachers_add' ? ' active' : '')]) ?>
                     </div>
                 </div>
             </li>
@@ -112,28 +152,50 @@ $cakeDescription = __('Cake Description');;
                 <div id="collapseTwo" class="collapse <?= ($controller == 'Students') ? 'show' : ''?>" aria-labelledby="headingOne" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header"><?= __('Students') ?></h6>
-                        <?= $this->Html->link(__('Students'), ['controller' => 'Students', 'action' => 'index'], ['class' => 'collapse-item' . ($controller == 'Students' ? ' active' : '')]) ?>
+                        <?= $this->Html->link(__('Students List'), ['controller' => 'Students', 'action' => 'index'], ['class' => 'collapse-item' . ($action == 'Students_index' ? ' active' : '')]) ?>
+                        <?= $this->Html->link(__('Add Student'), ['controller' => 'Students', 'action' => 'add'], ['class' => 'collapse-item' . ($action == 'Students_add' ? ' active' : '')]) ?>
                     </div>
                 </div>
             </li>
 
+            <!-- Divider -->
+            <hr class="sidebar-divider d-none d-md-block">
+
+            <!-- Setting -->
             <div class="sidebar-heading">
-                Administraci&oacute;n
+                <?= __('Administration') ?>
             </div>
 
             <!-- Nav Item - Pages Collapse Menu -->
-            <li class="nav-item <?= ($controller == 'Modules' || $controller == 'Users') ? 'active' : ''?>">
+            <li class="nav-item <?= ($controller == 'Modules' || $controller == "Institutes") ? 'active' : ''?>">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseSerial"
                     aria-expanded="true" aria-controls="collapseSerial">
                     <i class="fas fa-fw fa-cog"></i>
-                    <span>Configuraci&oacute;n</span>
+                    <span><?= __('Configuration Settings') ?></span>
                 </a>
-                <div id="collapseSerial" class="collapse <?= ($controller == 'Modules' || $controller == 'Users' || $controller == "Firmas") ? 'show' : ''?>" aria-labelledby="headingSerial" data-parent="#accordionSidebar">
+                <div id="collapseSerial" class="collapse <?= ($controller == 'Modules'|| $controller == "Institutes") ? 'show' : ''?>" aria-labelledby="headingSerial" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Configuraci&oacute;n:</h6>
+                        <h6 class="collapse-header"><?= __('Configuration Settings') ?></h6>
+                        <?= $this->Html->link(__('General'), ['controller' => 'Institutes', 'action' => 'index'], ['class' => 'collapse-item' . ($controller == 'Institure' ? ' active' : '')]) ?>
                         <?= $this->Html->link(__('Modulos'), ['controller' => 'Modules', 'action' => 'index'], ['class' => 'collapse-item' . ($controller == 'Modules' ? ' active' : '')]) ?>
-                        <?= $this->Html->link(__('Series y Folios'), ['controller' => 'Serials', 'action' => 'index'], ['class' => 'collapse-item' . ($action == 'Serials_index' ? ' active' : '')]) ?>
-                        <?= $this->Html->link(__('Mi Perfil'), ['controller' => 'Users', 'action' => 'edit', $this->Identity->get('id')], ['class' => 'collapse-item' . ($action == 'Users_edit' ? ' active' : '')]) ?>
+                    </div>
+                </div>
+            </li>
+
+            <!-- Nav Item - Pages Collapse Menu -->
+            <li class="nav-item <?= ($controller == 'Modules' || $controller == 'Users' || $controller == "Institutes") ? 'active' : ''?>">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUsers"
+                    aria-expanded="true" aria-controls="collapseUsers">
+                    <i class="fas fa-fw fas  fa-users"></i>
+                    <span><?= __('User Management') ?></span>
+                </a>
+                <div id="collapseUsers" class="collapse <?= ($controller == 'Users' || $controller == "Roles") ? 'show' : ''?>" aria-labelledby="headingSerial" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header"><?= __('User Management') ?></h6>
+                        <?= $this->Html->link(__('Users List'), ['controller' => 'Users', 'action' => 'index'], ['class' => 'collapse-item' . ($action == 'Users_index' ? ' active' : '')]) ?>
+                        <?= $this->Html->link(__('Add User'), ['controller' => 'Users', 'action' => 'add'], ['class' => 'collapse-item' . ($action == 'Users_add' ? ' active' : '')]) ?>
+                        <?= $this->Html->link(__('Roles'), ['controller' => 'Roles', 'action' => 'index'], ['class' => 'collapse-item' . ($controller == 'Roles' ? ' active' : '')]) ?>
+                        <?= $this->Html->link(__('My Profile'), ['controller' => 'Users', 'action' => 'edit', $this->Identity->get('id')], ['class' => 'collapse-item' . ($action == 'Users_edit' ? ' active' : '')]) ?>
                     </div>
                 </div>
             </li>
@@ -211,7 +273,6 @@ $cakeDescription = __('Cake Description');;
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                 aria-labelledby="userDropdown">
                                 <?= $this->Html->link("<i class=\"fas fa-user fa-sm fa-fw mr-2 text-gray-400\"></i>" . __('Configurar perfil'), ['controller' => 'Users', 'action' => 'edit', $this->Identity->get('id')], ['class' => 'dropdown-item', 'escape' => false]) ?>
-                                <?= $this->Html->link("<i class=\"fas fa-efirma fa-sm fa-fw mr-2 text-gray-400\"></i>" . __('Configurar efirma'), ['controller' => 'Efirmas', 'action' => 'index', $this->Identity->get('id')], ['class' => 'dropdown-item', 'escape' => false]) ?>
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
                                     <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>

@@ -16,10 +16,15 @@ class SubjectsController extends AppController
      *
      * @return \Cake\Http\Response|null|void Renders view
      */
-    public function index()
+    public function index($type = null)
     {
         $this->Authorization->skipAuthorization();
-        $subjects = $this->paginate($this->Subjects);
+        $subjects = $this->Subjects->find();
+        if ($type != null) {
+            $subjects->where(['tipo_academia' => $type]);
+        }
+        
+        $subjects = $this->paginate($subjects);
 
         $this->set(compact('subjects'));
     }

@@ -28,6 +28,10 @@ class SchoolCoursesController extends AppController
             $query = $this->SchoolCourses->Students->find('StudentInfo', [
                 'user_id' => $this->Authentication->getIdentity()->getIdentifier()
             ])->all();
+            if ($query->count() == 0) {
+                $this->Flash->error(__('No existe registro del grado escolar del alumno. Ponerse en contacto con el administrador del sistema'));
+                return $this->redirect(['controller' => 'pages', 'action' => 'home']);
+            }
 
             $row = $query->first();
 
@@ -179,6 +183,11 @@ class SchoolCoursesController extends AppController
             $query = $this->SchoolCourses->Students->find('StudentInfo', [
                 'user_id' => $user_id
             ])->all();
+            // Si no se encuentra información del nivel es porque no existe en la base de datos tabla school_levels
+            if ($query->count() == 0) {
+                $this->Flash->error(__('No existe registro del grado escolar del alumno. Póngase en contacto con el administrador para obtener más información.'));
+                return $this->redirect(['controller' => 'pages', 'action' => 'home']);
+            }
             $row = $query->first();
 
             $options = [

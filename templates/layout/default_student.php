@@ -179,6 +179,7 @@ $cakeDescription = __('Cake Description');;
                 <!-- Begin Page Content -->
                 <div id="layoutSidenav_content">
                     <main>
+                        <?= $this->Flash->render() ?>
                         <?= $this->fetch('content') ?>
                     </main>
                 </div>
