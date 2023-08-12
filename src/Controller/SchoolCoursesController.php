@@ -59,16 +59,21 @@ class SchoolCoursesController extends AppController
     public function view($id = null)
     {
         $schoolCourse = $this->SchoolCourses->get($id, [
-            'contain' => ['Subjects', 'Teachers', 'Terms', 'Schedules.Days'
+            'contain' => ['Subjects' => ['SchoolLevels'], 'Teachers', 'Terms', 'Schedules.Days'
             ]
         ]);
-
         $this->Authorization->authorize($schoolCourse);
+
+        $query_schoolCoursesStudents = $this->SchoolCourses->find('StudentsConfirmed', [
+            'id' => $id
+        ]);
+        
+        $totalStudentsConfirmed = $query_schoolCoursesStudents->count();
 
         $days = $this->SchoolCourses->Schedules->Days->find('list', ['limit' => 200])->all();
         $schoolCourses = $this->SchoolCourses->Schedules->SchoolCourses->find('list', ['limit' => 200])->all();
         $schedule = $this->SchoolCourses->Schedules->newEmptyEntity();
-        $this->set(compact('schoolCourse', 'schedule', 'days', 'schoolCourses'));
+        $this->set(compact('schoolCourse', 'schedule', 'days', 'schoolCourses', 'totalStudentsConfirmed'));
     }
 
     /**
@@ -447,7 +452,14 @@ class SchoolCoursesController extends AppController
             ->where($search_options)
             ->all();
 
-        $this->set(compact('schoolCourse', 'students'));
+        $totalStudentsConfirmed = $this->SchoolCourses->find('all')
+            ->contain(['Students' => ['conditions' => ['is_confirmed' => 1]]])
+            ->where(['SchoolCourses.id' => $id])
+            ->all()
+            ->first();
+        $totalStudentsConfirmed = count($totalStudentsConfirmed->students);
+
+        $this->set(compact('schoolCourse', 'students', 'totalStudentsConfirmed'));
     }
 
     /**

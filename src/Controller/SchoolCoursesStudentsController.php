@@ -46,7 +46,7 @@ class SchoolCoursesStudentsController extends AppController
     public function confirm($id = null)
     {
         $this->Authorization->skipAuthorization();
-        $this->request->allowMethod(['post', 'delete']);
+        $this->request->allowMethod(['post', 'patch']);
         $schoolCoursesStudent = $this->SchoolCoursesStudents->get($id);
         $schoolCoursesStudent->is_confirmed = 1;
         if ($this->SchoolCoursesStudents->save($schoolCoursesStudent)) {
@@ -67,7 +67,27 @@ class SchoolCoursesStudentsController extends AppController
     public function confirmAllStudents($course_id = null)
     {
         $this->Authorization->skipAuthorization();
-        $this->request->allowMethod(['post', 'delete']);
+        $this->request->allowMethod(['post', 'patch']);
+
+        $schoolCourse = $this->SchoolCoursesStudents->SchoolCourses->get($course_id, [
+            'fields' => ['capacity']
+        ]);
+
+        $schoolCoursesStudent = $this->SchoolCoursesStudents->findBySchoolCourseId($course_id);
+        $arr_is_confirmed = array_values(array_column($schoolCoursesStudent->toArray(), 'is_confirmed'));
+        $total_rows = $schoolCoursesStudent->count();
+        $total_confirmed = 0;
+        foreach ($arr_is_confirmed as $is_confirmed) {
+            if ($is_confirmed) $total_confirmed++;
+        }
+
+        $available = $schoolCourse->capacity - $total_confirmed;
+        $total_pre_enrolled = $total_rows - $total_confirmed;
+        if ($available < $total_pre_enrolled) {
+            $this->Flash->error(__('The student list is higher than the allowed capacity. Delete a few students to continue.'));
+            return $this->redirect($this->referer());
+        }
+        
         $fields = [
             'is_confirmed' => '1'
         ];

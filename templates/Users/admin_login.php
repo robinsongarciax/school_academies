@@ -9,7 +9,7 @@
             'required' => true,
             'class' => 'form-control form-control-user text-uppercase',
             'label' => [
-                'text' => 'Ingrese su CURP'
+                'text' => 'Usuario'
             ],
             'error' => ['required' => __('Este campo es requerido', true)]
         ]) ?>

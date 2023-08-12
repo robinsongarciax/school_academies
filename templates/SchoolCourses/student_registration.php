@@ -3,6 +3,7 @@
  * @var \App\View\AppView $this
  * @var \App\Model\Entity\SchoolCourse $schoolCourse
  */
+$availability = $schoolCourse->capacity - $totalStudentsConfirmed;
 ?>
 <header class="page-header page-header-compact page-header-light border-bottom bg-white mb-4">
     <div class="container-fluid px-4">
@@ -47,7 +48,7 @@
     <hr class="mt-0 mb-4">
     <div class="card shadow mb-4">
         <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary-cm"><?= __('Pre-Enrolled Students') ?></h6>
+            <h6 class="m-0 font-weight-bold text-primary-cm"><?= __('Pre-Enrolled Students') . ' (' . __('Availability') . ' = ' . $availability . ')' ?></h6>
         </div>
         <div class="card-body">
             <!-- Flash Message -->
@@ -89,12 +90,14 @@
                                 <td><?= h($schoolCourseStudent->school_level) ?></td>
                                 <td><?= h($schoolCourseStudent->school_group) ?></td>
                                 <td class="actions">
-
-                                    <?= $this->Form->postLink(__('Confirm'), [
-                                        'controller' => 'SchoolCoursesStudents',
-                                        'action' => 'confirm', 
-                                        $schoolCourseStudent->_joinData->id
-                                    ]) ?>
+                                    <?php
+                                    if ($schoolCourse->capacity > $totalStudentsConfirmed) {
+                                        echo $this->Form->postLink(__('Confirm'), [
+                                            'controller' => 'SchoolCoursesStudents',
+                                            'action' => 'confirm', 
+                                            $schoolCourseStudent->_joinData->id
+                                        ]);
+                                    } ?>
 
                                     <?= $this->Form->postLink(__('Delete'), [
                                         'controller' => 'SchoolCoursesStudents',

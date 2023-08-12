@@ -138,4 +138,16 @@ class SchoolCoursesTable extends Table
             ->where(['Subjects.sex IN' => [$sex, 'X']]);
         return $query;
     }
+
+    public function findStudentsConfirmed(Query $query, array $options) {
+        $query = $query
+            ->innerJoin(['SchoolCoursesStudents' => 'school_courses_students'],
+                [
+                    'SchoolCoursesStudents.school_course_id = SchoolCourses.id'
+                ])
+            ->where(['SchoolCourses.id' => $options['id'],
+                'is_confirmed' => 1
+            ]);
+        return $query;
+    }
 }

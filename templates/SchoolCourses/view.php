@@ -56,10 +56,6 @@
                     <div class="table-responsive">
                         <table class="table">
                             <tr>
-                                <th><?= __('Name') ?></th>
-                                <td><?= h($schoolCourse->name) ?></td>
-                            </tr>
-                            <tr>
                                 <th><?= __('Subject') ?></th>
                                 <td><?= $schoolCourse->has('subject') ? $this->Html->link($schoolCourse->subject->name, ['controller' => 'Subjects', 'action' => 'view', $schoolCourse->subject->id]) : '' ?></td>
                             </tr>
@@ -76,13 +72,21 @@
                                 <td><?= $this->Number->format($schoolCourse->capacity) ?></td>
                             </tr>
                             <tr>
+                                <th><?= __('Availability') ?></th>
+                                <td><?= $this->Number->format($schoolCourse->capacity - $totalStudentsConfirmed) ?></td>
+                            </tr>
+                            <tr>
                                 <th><?= $schoolCourse->subject->criterio_academia ?></th>
                                 <?php if ($schoolCourse->subject->criterio_academia == 'GRADO ESCOLAR') : ?>
-                                    <td>M&iacute;nimo <?= $this->Number->format($schoolCourse->subject->grado_minimo) ?> <br>
-                                        M&aacute;ximo <?= $this->Number->format($schoolCourse->subject->grado_maximo) ?></td>
+                                    <td>
+                                    <?php foreach ($schoolCourse->subject->school_levels as $school_level) {
+                                        echo $school_level->name . "<br/>";
+                                    }
+                                    ?>
+                                    </td>
                                 <?php else: ?>
-                                    <td>M&iacute;nimo <?= $this->Number->format($schoolCourse->subject->anio_nacimiento_minimo) ?> <br>
-                                        M&aacute;ximo <?= $this->Number->format($schoolCourse->subject->anio_nacimiento_maximo) ?></td>
+                                    <td>M&iacute;nimo <?= $schoolCourse->subject->anio_nacimiento_minimo ?> <br>
+                                        M&aacute;ximo <?= $schoolCourse->subject->anio_nacimiento_maximo ?></td>
                                 <?php endif; ?>
                             </tr>
                         </table>
@@ -98,9 +102,10 @@
                 </div>
                 <div class="card-body">
                     <!-- Button trigger modal -->
-                    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#exampleModal">
+                    <button type="button" class="btn btn-outline-primary btn-sm" data-toggle="modal" data-target="#exampleModal">
                         Agregar horario
                     </button>
+                    <hr class="mt-0 mb-4">
                     <?php if (!empty($schoolCourse->schedules)) : ?>
                     <div class="table-responsive">
                         <table class="table" width="100%" cellspacing="0">

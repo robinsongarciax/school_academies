@@ -148,27 +148,8 @@ msgstr ""
 msgid "Delete Institute"
 msgstr ""
 
-#: ./templates/Institutes/view.php:22
-#: ./templates/Institutes/view.php:37
-#: ./templates/Modules/view.php:22
-#: ./templates/Modules/view.php:37
-#: ./templates/Roles/view.php:22
-#: ./templates/Roles/view.php:66
-#: ./templates/SchoolCourses/view.php:22
-#: ./templates/SchoolCourses/view.php:82
-#: ./templates/SchoolLevels/view.php:22
-#: ./templates/Students/view.php:22
-#: ./templates/Students/view.php:89
-#: ./templates/Students/view.php:122
-#: ./templates/Subjects/view.php:26
-#: ./templates/Subjects/view.php:127
-#: ./templates/Teachers/view.php:22
-#: ./templates/Terms/view.php:57
-#: ./templates/Users/view.php:26
-#: ./templates/Users/view.php:61
-#: ./templates/Users/view.php:112
 msgid "Name"
-msgstr ""
+msgstr "Nombre"
 
 #: ./templates/Institutes/view.php:26
 #: ./templates/Institutes/view.php:36
@@ -392,7 +373,7 @@ msgstr ""
 
 #: ./templates/SchoolCourses/view.php:26
 msgid "Subject"
-msgstr ""
+msgstr "Academia"
 
 #: ./templates/SchoolCourses/view.php:30
 msgid "Teacher"
@@ -401,17 +382,17 @@ msgstr "Profesor (a)"
 #: ./templates/SchoolCourses/view.php:34
 #: ./templates/Students/view.php:54
 msgid "Term"
-msgstr ""
+msgstr "Ciclo Escolar"
 
 #: ./templates/SchoolCourses/view.php:42
 #: ./templates/Students/view.php:90
 #: ./templates/Subjects/view.php:54
 msgid "Capacity"
-msgstr ""
+msgstr "Capacidad"
 
 #: ./templates/SchoolCourses/view.php:47
 msgid "Related Schedules"
-msgstr ""
+msgstr "Horario"
 
 #: ./templates/SchoolCourses/view.php:55
 msgid "Day Id"
@@ -1021,16 +1002,16 @@ msgstr ""
 #: ./src/Controller/UsersController.php:84
 #: ./src/Controller/UsersController.php:110
 msgid "The user has been saved."
-msgstr ""
+msgstr "El usuario se ha guardado."
 
 #: ./src/Controller/UsersController.php:88
 #: ./src/Controller/UsersController.php:114
 msgid "The user could not be saved. Please, try again."
-msgstr ""
+msgstr "El usuario no pudo guardarse. Por favor, intentalo nuevamente."
 
 #: ./src/Controller/UsersController.php:133
 msgid "The user has been deleted."
-msgstr ""
+msgstr "El usuario ha sido eliminado."
 
 #: ./src/Controller/UsersController.php:135
 msgid "The user could not be deleted. Please, try again."
@@ -1042,7 +1023,7 @@ msgstr ""
 
 #: ./src/Controller/UsersController.php:160
 msgid "Invalid username or password"
-msgstr ""
+msgstr "Usuario o contraseña inválido"
 
 msgid "Subjects List"
 msgstr "Lista de academias"
@@ -1145,4 +1126,13 @@ msgstr "Confirmar a todos los Alumnos"
 
 msgid "Are you sure you want confirm the student list?"
 msgstr "¿Está seguro de inscribir a todos los estudiantes de esta lista?"
+
+msgid "Are you sure you want confirm the student list?"
+msgstr "¿Está seguro de inscribir a todos los estudiantes de esta lista?"
+
+msgid "Availability"
+msgstr "Disponibilidad"
+
+msgid "The student list is higher than the allowed capacity. Delete a few students to continue."
+msgstr "La lista de alumnos es mayor que la capacidad permitida. Elimine algunos alumnos para continuar."
 

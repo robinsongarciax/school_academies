@@ -92,10 +92,10 @@ $cakeDescription = __('Cake Description');;
                     <i class="fas fa-fw fa-chalkboard"></i>
                     <span><?= __('Subjects') ?></span>
                 </a>
-                <div id="collapseOne" class="collapse <?= ($controller == 'Subjects' || $controller == 'Teachers') ? 'show' : ''?>" aria-labelledby="headingOne" data-parent="#accordionSidebar">
+                <div id="collapseOne" class="collapse <?= ($controller == 'Subjects' || $controller == 'Teachers' || $controller == 'SchoolCourses') ? 'show' : ''?>" aria-labelledby="headingOne" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header"><?= __('School Courses') ?></h6>
-                        <?= $this->Html->link(__('School Courses'), ['controller' => 'SchoolCourses', 'action' => 'index'], ['class' => 'collapse-item' . ($action == 'Documents_index' ? ' active' : '')]) ?>
+                        <?= $this->Html->link(__('School Courses'), ['controller' => 'SchoolCourses', 'action' => 'index'], ['class' => 'collapse-item' . ($controller == 'SchoolCourses' ? ' active' : '')]) ?>
                         <?= $this->Html->link(__('Subjects'), ['controller' => 'Subjects', 'action' => 'index'], ['class' => 'collapse-item' . ($controller == 'Subjects' ? ' active' : '')]) ?>
                         <?= $this->Html->link(__('Teachers'), ['controller' => 'Teachers', 'action' => 'index'], ['class' => 'collapse-item' . ($controller == 'Teachers' ? ' active' : '')]) ?>
                     </div>

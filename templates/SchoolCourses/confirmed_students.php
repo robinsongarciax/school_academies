@@ -50,31 +50,35 @@
             <h6 class="m-0 font-weight-bold text-primary-cm"><?= __('Confirmed Students') ?></h6>
         </div>
         <div class="card-body">
-            <?= $this->Html->link(__('Exportar alumnos'), ['action' => 'export-related-students', $schoolCourse->id], ['class' => 'btn btn-sm btn-light text-primary', 'escape' => true]) ?>
-            <?= $this->Html->link(__('Exportar lista'), ['action' => 'export-list-related-students', $schoolCourse->id], ['class' => 'btn btn-sm btn-light text-primary', 'escape' => true]) ?>
-            <?= $this->Html->link(__('Constancias de estudios'), ['action' => 'constancias-estudios', $schoolCourse->id], ['class' => 'btn btn-sm btn-light text-primary', 'escape' => true]) ?>
-
+            <?= $this->Html->link(__('Exportar alumnos'), ['action' => 'export-related-students', $schoolCourse->id], ['class' => 'btn btn-sm btn-outline-primary', 'escape' => true]) ?>
+            <?= $this->Html->link(__('Exportar lista'), ['action' => 'export-list-related-students', $schoolCourse->id], ['class' => 'btn btn-sm btn-outline-primary', 'escape' => true]) ?>
+            <?= $this->Html->link(__('Constancias de estudios'), ['action' => 'constancias-estudios', $schoolCourse->id], ['class' => 'btn btn-sm btn-outline-primary', 'escape' => true]) ?>
+            <hr class="mt-0 mb-4">
             <?php if (!empty($schoolCourse->students)) : ?>
             <div class="table-responsive">
-                <table class="table table-bordered" width="100%" cellspacing="0">
-                    <tr>
-                        <th><?= __('Name') ?></th>
-                        <th><?= __('Curp') ?></th>
-                        <th><?= __('School Level') ?></th>
-                        <th><?= __('School Group') ?></th>
-                        <th class="actions"><?= __('Actions') ?></th>
-                    </tr>
-                    <?php foreach ($schoolCourse->students as $students) : ?>
-                    <tr>
-                        <td><?= h($students->name) ?></td>
-                        <td><?= h($students->curp) ?></td>
-                        <td><?= h($students->school_level) ?></td>
-                        <td><?= h($students->school_group) ?></td>
-                        <td class="actions">
-                            <?= $this->Form->postLink(__('Delete'), ['controller' => 'SchoolCoursesStudents', 'action' => 'delete', $students->_joinData->id], ['confirm' => __('Are you sure you want to delete to {0}?', $students->name)]) ?>
-                        </td>
-                    </tr>
-                    <?php endforeach; ?>
+                <table class="table table-bordered" width="100%" id="dataTable" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th><?= __('Name') ?></th>
+                            <th><?= __('Curp') ?></th>
+                            <th><?= __('School Level') ?></th>
+                            <th><?= __('School Group') ?></th>
+                            <th class="actions"><?= __('Actions') ?></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php foreach ($schoolCourse->students as $students) : ?>
+                        <tr>
+                            <td><?= h($students->name) ?></td>
+                            <td><?= h($students->curp) ?></td>
+                            <td><?= h($students->school_level) ?></td>
+                            <td><?= h($students->school_group) ?></td>
+                            <td class="actions">
+                                <?= $this->Form->postLink(__('Delete'), ['controller' => 'SchoolCoursesStudents', 'action' => 'delete', $students->_joinData->id], ['confirm' => __('Are you sure you want to delete to {0}?', $students->name)]) ?>
+                            </td>
+                        </tr>
+                        <?php endforeach; ?>
+                    </tbody>
                 </table>
             </div>
             <?php endif; ?>

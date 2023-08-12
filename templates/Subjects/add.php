@@ -64,9 +64,20 @@
                     <div id="collapseBirthDate" class="collapse show" aria-labelledby="headingBirthDate">
                         <div class="bg-white py-2 collapse-inner rounded">
                             <?= $this->Form->control('anio_nacimiento_minimo',
-                                ['label' => 'Año de nacimiento minimo']) ?>
+                                [
+                                    'type' => 'year',
+                                    'min' => 2005,
+                                    'max' => date('Y', strtotime('Y' .  " -4 years")),
+                                    'label' => 'Año de nacimiento mínimo',
+                                ]) ?>
+
                             <?= $this->Form->control('anio_nacimiento_maximo',
-                                ['label' => 'Año de nacimiento maximo']) ?>
+                                [
+                                    'type' => 'year',
+                                    'min' => 2005,
+                                    'max' => date('Y', strtotime('Y' .  " -4 years")),
+                                    'label' => 'Año de nacimiento máximo'
+                                ]) ?>
                         </div>
                     </div>
                     <div id="collapseSchoolGrade" class="collapse" aria-labelledby="headingSchoolGrade">
