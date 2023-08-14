@@ -96,7 +96,7 @@ $availability = $schoolCourse->capacity - $totalStudentsConfirmed;
                                             'controller' => 'SchoolCoursesStudents',
                                             'action' => 'confirm',
                                             $schoolCourseStudent->_joinData->id],
-                                            ['class'=>'fas fa-calendar-check action-table',]
+                                            ['class'=>'fas fa-user-check',]
                                         );
                                     } ?>
 
@@ -104,7 +104,7 @@ $availability = $schoolCourse->capacity - $totalStudentsConfirmed;
                                         'controller' => 'SchoolCoursesStudents',
                                         'action' => 'delete',
                                         $schoolCourseStudent->_joinData->id],
-                                        ['class'=>'fas fa-trash action-table']
+                                        ['class'=>'fas fa-user-times']
                                     ) ?>
                                 </td>
                             </tr>

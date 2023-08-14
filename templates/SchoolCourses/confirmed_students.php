@@ -74,7 +74,7 @@
                             <td><?= h($students->school_level) ?></td>
                             <td><?= h($students->school_group) ?></td>
                             <td class="actions">
-                                <?= $this->Form->postLink("", ['controller' => 'SchoolCoursesStudents', 'action' => 'delete', $students->_joinData->id], ['class'=>'fas fa-trash action-table', 'confirm' => __('Are you sure you want to delete to {0}?', $students->name)]) ?>
+                                <?= $this->Form->postLink("", ['controller' => 'SchoolCoursesStudents', 'action' => 'delete', $students->_joinData->id], ['class'=>'fas fa-user-times', 'confirm' => __('Are you sure you want to delete to {0}?', $students->name)]) ?>
                             </td>
                         </tr>
                         <?php endforeach; ?>
