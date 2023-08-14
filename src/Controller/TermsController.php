@@ -38,7 +38,7 @@ class TermsController extends AppController
         $term = $this->Terms->get($id, [
             'contain' => ['Institutes', 'Classes', 'Students'],
         ]);
-
+        $this->Authorization->authorize($term);
         $this->set(compact('term'));
     }
 
@@ -50,6 +50,7 @@ class TermsController extends AppController
     public function add()
     {
         $term = $this->Terms->newEmptyEntity();
+        $this->Authorization->authorize($term);
         if ($this->request->is('post')) {
             $term = $this->Terms->patchEntity($term, $this->request->getData());
             if ($this->Terms->save($term)) {
@@ -61,6 +62,7 @@ class TermsController extends AppController
         }
         $institutes = $this->Terms->Institutes->find('list', ['limit' => 200])->all();
         $this->set(compact('term', 'institutes'));
+        $this->render('/element/term/add_edit');
     }
 
     /**
@@ -75,17 +77,19 @@ class TermsController extends AppController
         $term = $this->Terms->get($id, [
             'contain' => [],
         ]);
+        $this->Authorization->authorize($term);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $term = $this->Terms->patchEntity($term, $this->request->getData());
             if ($this->Terms->save($term)) {
                 $this->Flash->success(__('The term has been saved.'));
 
-                return $this->redirect(['action' => 'index']);
+                return $this->redirect($this->referer());
             }
             $this->Flash->error(__('The term could not be saved. Please, try again.'));
         }
         $institutes = $this->Terms->Institutes->find('list', ['limit' => 200])->all();
         $this->set(compact('term', 'institutes'));
+        $this->render('/element/term/add_edit');
     }
 
     /**
@@ -99,6 +103,7 @@ class TermsController extends AppController
     {
         $this->request->allowMethod(['post', 'delete']);
         $term = $this->Terms->get($id);
+        $this->Authorization->authorize($term);
         if ($this->Terms->delete($term)) {
             $this->Flash->success(__('The term has been deleted.'));
         } else {

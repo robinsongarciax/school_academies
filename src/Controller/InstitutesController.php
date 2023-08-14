@@ -31,7 +31,7 @@ class InstitutesController extends AppController
      * @return \Cake\Http\Response|null|void Renders view
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
-    public function view($id = null)
+    public function view($id = 1)
     {
         $institute = $this->Institutes->get($id, [
             'contain' => ['SchoolLevels', 'Terms'],
@@ -80,7 +80,7 @@ class InstitutesController extends AppController
             if ($this->Institutes->save($institute)) {
                 $this->Flash->success(__('The institute has been saved.'));
 
-                return $this->redirect(['action' => 'index']);
+                return $this->redirect(['action' => 'view', $id]);
             }
             $this->Flash->error(__('The institute could not be saved. Please, try again.'));
         }

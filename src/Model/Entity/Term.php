@@ -35,6 +35,8 @@ class Term extends Entity
         'description' => true,
         'start' => true,
         'end' => true,
+        'active' => true,
+        'courses_allowed' => true,
         'created' => true,
         'modified' => true,
         'institute_id' => true,

@@ -85,6 +85,11 @@ class TermsTable extends Table
             ->notEmptyDate('end');
 
         $validator
+            ->integer('courses_allowed')
+            ->requirePresence('courses_allowed', 'create')
+            ->notEmptyString('end');
+
+        $validator
             ->integer('institute_id')
             ->notEmptyString('institute_id');
 

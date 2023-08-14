@@ -27,6 +27,7 @@ class Institute extends Entity
      */
     protected $_accessible = [
         'name' => true,
+        'principal' => true,
         'terms' => true,
         'school_levels' => true,
     ];

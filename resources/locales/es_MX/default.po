@@ -102,7 +102,7 @@ msgstr ""
 #: ./templates/Institutes/edit.php:24
 #: ./templates/Institutes/view.php:11
 msgid "Edit Institute"
-msgstr ""
+msgstr "Editar Colegio"
 
 #: ./templates/Institutes/index.php:8
 #: ./templates/Institutes/view.php:14
@@ -188,19 +188,19 @@ msgstr ""
 #: ./templates/Institutes/view.php:62
 #: ./templates/Terms/view.php:22
 msgid "Description"
-msgstr ""
+msgstr "Descripcion"
 
 #: ./templates/Institutes/view.php:63
 #: ./templates/SchoolCourses/view.php:53
 #: ./templates/Terms/view.php:34
 msgid "Start"
-msgstr ""
+msgstr "Inicio"
 
 #: ./templates/Institutes/view.php:64
 #: ./templates/SchoolCourses/view.php:54
 #: ./templates/Terms/view.php:38
 msgid "End"
-msgstr ""
+msgstr "Fin"
 
 #: ./templates/Institutes/view.php:65
 #: ./templates/Roles/view.php:69
@@ -657,31 +657,24 @@ msgstr ""
 msgid "List Teachers"
 msgstr ""
 
-#: ./templates/Teachers/add.php:20
 msgid "Add Teacher"
-msgstr ""
+msgstr "Agregar Profesor"
 
-#: ./templates/Teachers/edit.php:25
-#: ./templates/Teachers/view.php:11
 msgid "Edit Teacher"
-msgstr ""
+msgstr "Editar Profesor"
 
-#: ./templates/Teachers/index.php:8
-#: ./templates/Teachers/view.php:14
 msgid "New Teacher"
-msgstr ""
+msgstr "Nuevo Profesor"
 
 #: ./templates/Teachers/index.php:9
 msgid "Teachers"
 msgstr "Profesores"
 
-#: ./templates/Teachers/view.php:12
 msgid "Delete Teacher"
-msgstr ""
+msgstr "Eliminar Profesor"
 
-#: ./templates/Teachers/view.php:42
 msgid "Module"
-msgstr ""
+msgstr "Módulo"
 
 #: ./templates/Terms/add.php:12
 #: ./templates/Terms/edit.php:17
@@ -689,23 +682,19 @@ msgstr ""
 msgid "List Terms"
 msgstr ""
 
-#: ./templates/Terms/add.php:19
 msgid "Add Term"
-msgstr ""
+msgstr "Agregar Ciclo Escolar"
 
-#: ./templates/Terms/edit.php:24
-#: ./templates/Terms/view.php:11
 msgid "Edit Term"
-msgstr ""
+msgstr "Editar Ciclo Escolar"
 
 #: ./templates/Terms/index.php:8
 #: ./templates/Terms/view.php:14
 msgid "New Term"
 msgstr ""
 
-#: ./templates/Terms/index.php:9
 msgid "Terms"
-msgstr ""
+msgstr "Ciclos Escolares"
 
 #: ./templates/Terms/view.php:12
 msgid "Delete Term"
@@ -1120,4 +1109,13 @@ msgstr "Culturales"
 
 msgid "Configuration Settings"
 msgstr "Configuración"
+
+msgid "Institutes Configuration"
+msgstr "Configuración del Colegio"
+
+msgid "Principal"
+msgstr "Director"
+
+msgid "Couses Allowed"
+msgstr "Academias Permitidas"
 

@@ -42,7 +42,7 @@ $cakeDescription = __('Cake Description');;
 
     <?= $this->fetch('meta') ?>
     <?= $this->fetch('css') ?>
-    <?= $this->fetch('script') ?>
+
 </head>
 <body id="page-top">
     <?php $controller = $this->request->getParam('controller'); ?>
@@ -176,7 +176,7 @@ $cakeDescription = __('Cake Description');;
                 <div id="collapseSerial" class="collapse <?= ($controller == 'Modules'|| $controller == "Institutes") ? 'show' : ''?>" aria-labelledby="headingSerial" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header"><?= __('Configuration Settings') ?></h6>
-                        <?= $this->Html->link(__('General'), ['controller' => 'Institutes', 'action' => 'index'], ['class' => 'collapse-item' . ($controller == 'Institure' ? ' active' : '')]) ?>
+                        <?= $this->Html->link(__('General'), ['controller' => 'Institutes', 'action' => 'view'], ['class' => 'collapse-item' . ($controller == 'Institure' ? ' active' : '')]) ?>
                         <?= $this->Html->link(__('Modulos'), ['controller' => 'Modules', 'action' => 'index'], ['class' => 'collapse-item' . ($controller == 'Modules' ? ' active' : '')]) ?>
                     </div>
                 </div>
@@ -347,7 +347,7 @@ $cakeDescription = __('Cake Description');;
         'demo/datatables-demo.js',
         'sb-admin-2',
         'admin-app']) ?>
-
+    <?= $this->fetch('script') ?>
         <!-- 'https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js' -->
 </body>
 </html>
