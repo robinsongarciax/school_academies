@@ -102,15 +102,16 @@ foreach ($studentCourses as $studentCourse) {
                 <table  class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <thead>
                         <tr>
-                            <th><?= $this->Paginator->sort('name', __('Academy')) ?></th>
-                            <th><?= $this->Paginator->sort('teacher_id', __('Teacher')) ?></th>
-                            <th><?= $this->Paginator->sort('availability', __('Availability')) ?></th>
-                            <th><?= __('Monday') ?></th>
-                            <th><?= __('Tuesday') ?></th>
-                            <th><?= __('Wednesday') ?></th>
-                            <th><?= __('Thursday') ?></th>
-                            <th><?= __('Friday') ?></th>
-                            <th><?= __('Saturday') ?></th>
+                            <th><?= __('Academy') ?></th>
+                            <th><?= __('Teacher') ?></th>
+                            <th>Tipo<br>Academia</th>
+                            <th>Lugares<br>Disp.</th>
+                            <th><?= __('Mon.') ?></th>
+                            <th><?= __('Tues.') ?></th>
+                            <th><?= __('Wed.') ?></th>
+                            <th><?= __('Thurs.') ?></th>
+                            <th><?= __('Fri.') ?></th>
+                            <th><?= __('Sat.') ?></th>
                             <th class="actions"><?= __('Actions') ?></th>
                         </tr>
                     </thead>
@@ -121,7 +122,8 @@ foreach ($studentCourses as $studentCourse) {
                                 ||  array_key_exists($schoolCourse->id, $arr_coursesSignedup)):?>
                             <tr>
                                 <td><?= h($schoolCourse->name) ?></td>
-                                <td><?= $schoolCourse->has('teacher') ? $this->Html->link($schoolCourse->teacher->name, ['controller' => 'Teachers', 'action' => 'view', $schoolCourse->teacher->id]) : '' ?></td>
+                                <td><?= $schoolCourse->has('teacher') ? $schoolCourse->teacher->name : '' ?></td>
+                                <td><?= $schoolCourse->subject->tipo_academia ?></td>
                                 <td><?= $schoolCourse->capacity - $schoolCourse->occupancy ?></td>
                                 <?php
                                 $monday = '';

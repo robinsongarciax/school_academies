@@ -1020,20 +1020,26 @@ msgstr "Profesor (a)"
 msgid "Monday"
 msgstr "Lunes"
 
+msgid "Mon."
+msgstr "Lun."
+
 msgid "Tuesday"
 msgstr "Martes"
 
-msgid "Wednesday"
-msgstr "Miércoles"
+msgid "Tues."
+msgstr "Mar."
 
-msgid "Thursday"
-msgstr "Jueves"
+msgid "Wed."
+msgstr "Miérc."
 
-msgid "Friday"
-msgstr "Viernes"
+msgid "Thurs."
+msgstr "Juev."
 
-msgid "Saturday"
-msgstr "Sábado"
+msgid "Fri."
+msgstr "Vier."
+
+msgid "Sat."
+msgstr "Sáb."
 
 msgid "Signup"
 msgstr "Inscribirme"
@@ -1121,4 +1127,7 @@ msgstr "Academias Permitidas"
 
 msgid "There is no availability for this course."
 msgstr "No hay disponibilidad para este curso."
+
+msgid "Available Seating"
+msgstr "Lugares Disponibles"
 
