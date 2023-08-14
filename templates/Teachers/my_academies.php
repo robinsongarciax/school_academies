@@ -30,7 +30,7 @@
                         <tr>
                             <th><?= $this->Paginator->sort('name') ?></th>
                             <th><?= $this->Paginator->sort('term') ?></th>
-                            <th class="actions"><?= __('Actions') ?></th>
+                            <th class="actions"><?= __('Export students') ?></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -39,7 +39,7 @@
                             <td><?= h($schoolCourse["name"]) ?></td>
                             <td><?= $this->Number->format($schoolCourse["term"]["description"]) ?></td>
                             <td class="actions">
-                            <?= $this->Html->link(__('Exportar lista alumnos'), ['controller' => 'SchoolCourses', 'action' => 'export-list-related-students', $schoolCourse["id"]], ['class' => 'btn btn-sm btn-light text-primary', 'escape' => true]) ?>
+                            <?= $this->Html->link("", ['controller' => 'SchoolCourses', 'action' => 'export-list-related-students', $schoolCourse["id"]], ['class' => 'fas fa-file-alt action-table', 'escape' => true]) ?>
                             </td>
                         </tr>
                         <?php endforeach; ?>

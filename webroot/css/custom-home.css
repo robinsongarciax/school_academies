@@ -1,3 +1,7 @@
+/*Tamano de los iconos en la columna acciones*/
+.action-table{
+    font-size: 24px !important;
+}
 /**
  * pantone 121c (amarillo) hex #fdda46
  * pantone 432c (negro) hex #323e48
