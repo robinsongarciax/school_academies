@@ -48,9 +48,9 @@
                             <td><?= h($student->school_level) ?></td>
                             <td><?= h($student->school_group) ?></td>
                             <td class="actions">
-                                <?= $this->Html->link(__('View'), ['action' => 'view', $student->id]) ?>
-                                <?= $this->Html->link(__('Edit'), ['action' => 'edit', $student->id]) ?>
-                                <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $student->id], ['confirm' => __('Are you sure you want to delete # {0}?', $student->id)]) ?>
+                                <?= $this->Html->link("", ['action' => 'view', $student->id], ['class'=>'fas fa-eye']) ?>
+                                <?= $this->Html->link("", ['action' => 'edit', $student->id], ['class'=>'fas fa-pen']) ?>
+                                <?= $this->Form->postLink("", ['action' => 'delete', $student->id], ['class'=>'fas fa-trash', 'confirm' => __('Are you sure you want to delete # {0}?', $student->id)]) ?>
                             </td>
                         </tr>
                         <?php endforeach; ?>
