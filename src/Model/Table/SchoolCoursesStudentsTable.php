@@ -7,6 +7,7 @@ use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
+use Cake\Event\EventInterface;
 
 /**
  * SchoolCoursesStudents Model
@@ -88,5 +89,32 @@ class SchoolCoursesStudentsTable extends Table
         $rules->add($rules->existsIn('student_id', 'Students'), ['errorField' => 'student_id']);
 
         return $rules;
+    }
+
+
+    /**
+     * @param Cake\Event\EventInterface $event
+     * @param $entity
+     * @param \ArrayObject $options
+     */
+    public function afterSave(EventInterface $event, $entity, \ArrayObject $options) {
+        if ($entity->is_confirmed == 1) {
+            $schoolCourse = $this->SchoolCourses->get($entity->school_course_id);
+            $schoolCourse->occupancy += 1;
+            $this->SchoolCourses->save($schoolCourse);
+        }
+    }
+
+    /**
+     * @param Cake\Event\EventInterface $event
+     * @param $entity
+     * @param \ArrayObject $options
+     */
+    public function afterDelete(EventInterface $event, $entity, \ArrayObject $options) {
+        if ($entity->is_confirmed == 1) {
+            $schoolCourse = $this->SchoolCourses->get($entity->school_course_id);
+            $schoolCourse->occupancy -= 1;
+            $this->SchoolCourses->save($schoolCourse);
+        }
     }
 }

@@ -6,12 +6,15 @@
 
 $this->Html->script('confirm-bootstrap-modal', ['block' => true]);
 $arr_coursesSignedup = [];
+$num_confirmed_courses = 0;
 foreach ($studentCourses as $studentCourse) {
     $school_course = $studentCourse->SchoolCoursesStudents;
     $arr_coursesSignedup[$school_course['school_course_id']] = [
         'school_courses_students_id' => $school_course['id'],
         'is_confirmed' => $school_course['is_confirmed'],
     ];
+    if ($school_course['is_confirmed'] === 1) 
+        $num_confirmed_courses++;
 }
 ?>
 <header class="page-header page-header-compact page-header-light border-bottom bg-white mb-4">
@@ -26,20 +29,82 @@ foreach ($studentCourses as $studentCourse) {
     </div>
 </header>
 <div class="container-fluid">
+    <!-- Content Row -->
+    <div class="row">
+
+        <!-- Maximo Num Cursos Card -->
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-info shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                Límite de cursos por estudiante
+                            </div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800"><?= $term->courses_allowed ?></div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-exclamation fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Num Cursos Seleccionados Card -->
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-success shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                Núm. Cursos seleccionados
+                            </div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800"><?= $num_confirmed_courses ?></div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-exclamation fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Total a pagar por Cursos Seleccionados Card -->
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-primary shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                Total a pagar
+                            </div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800"><?= $this->Number->currency('5400') ?></div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Mensajes flash -->
     <?= $this->Flash->render() ?>
-    
     <div class="card shadow mb-4">
         <div class="card-header py-3">
             <h6 class="m-0 font-weight-bold text-primary-cm"><?= __('School Course List')?></h6>
         </div>
         <div class="card-body">
+            <hr class="mt-0 mb-4">
             <div class="table-responsive">
                 <table  class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <thead>
                         <tr>
                             <th><?= $this->Paginator->sort('name', __('Academy')) ?></th>
                             <th><?= $this->Paginator->sort('teacher_id', __('Teacher')) ?></th>
+                            <th><?= $this->Paginator->sort('availability', __('Availability')) ?></th>
                             <th><?= __('Monday') ?></th>
                             <th><?= __('Tuesday') ?></th>
                             <th><?= __('Wednesday') ?></th>
@@ -57,6 +122,7 @@ foreach ($studentCourses as $studentCourse) {
                             <tr>
                                 <td><?= h($schoolCourse->name) ?></td>
                                 <td><?= $schoolCourse->has('teacher') ? $this->Html->link($schoolCourse->teacher->name, ['controller' => 'Teachers', 'action' => 'view', $schoolCourse->teacher->id]) : '' ?></td>
+                                <td><?= $schoolCourse->capacity - $schoolCourse->occupancy ?></td>
                                 <?php
                                 $monday = '';
                                 $tuesday = '';

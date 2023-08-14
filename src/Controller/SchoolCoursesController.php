@@ -201,25 +201,36 @@ class SchoolCoursesController extends AppController
                 ->contain(['Subjects', 'Teachers', 'Terms', 'Schedules'])
                 ->all();
             $studentCourses = $this->SchoolCourses->Students->find('StudentCourses', ['student_id' => $row->student_id])->all()->toList();
+            $term = $this->SchoolCourses->Terms->find('all', [
+                'conditions' => ['active' => 1]
+            ])->all()->first();
+
         }
 
-        $this->set(compact('schoolCourses', 'studentCourses'));
+        $this->set(compact('schoolCourses', 'studentCourses', 'term'));
     }
 
     public function signup($id = null) {
         $this->request->allowMethod(['post', 'put']);
-        $schoolCourse = $this->SchoolCourses->get($id);
+        $schoolCourse = $this->SchoolCourses->get($id, [
+            'contain' => ['Students']
+        ]);
         $this->Authorization->authorize($schoolCourse);
-        // get student info
-        $student = $this->SchoolCourses->Students->find('all')
-            ->where(['user_id' => $this->request->getAttribute('identity')->getIdentifier()])
-            ->all()
-            ->first();
-        $schoolCourse->students = [$student];
-        if ($this->SchoolCourses->save($schoolCourse)) {
-            $this->Flash->success(__('You have signed up for the course ') . $schoolCourse->name . '.');
+        $availability = $schoolCourse->capacity - $schoolCourse->occupancy;
+        if ($availability <= 0) {
+            $this->Flash->info(__('There is no availability for this course.'));
         } else {
-            $this->Flash->error(__('The school course could not be taken. Please, try again.'));
+            // get student info
+            $student = $this->SchoolCourses->Students->find('all')
+                ->where(['user_id' => $this->request->getAttribute('identity')->getIdentifier()])
+                ->all();
+            $schoolCourse->students = array_merge($schoolCourse->students, $student->toArray());
+
+            if ($this->SchoolCourses->save($schoolCourse)) {
+                $this->Flash->success(__('You have signed up for the course ') . $schoolCourse->name . '.');
+            } else {
+                $this->Flash->error(__('The school course could not be taken. Please, try again.'));
+            }
         }
         return $this->redirect(['action' => 'courseRegistration']);
     }

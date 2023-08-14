@@ -36,6 +36,7 @@ class SchoolCourse extends Entity
         'name' => true,
         'capacity' => true,
         'price' => true,
+        'occupancy' => true,
         'subjet_id' => true,
         'teacher_id' => true,
         'term_id' => true,

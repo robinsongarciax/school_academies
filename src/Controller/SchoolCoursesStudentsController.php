@@ -48,11 +48,21 @@ class SchoolCoursesStudentsController extends AppController
         $this->Authorization->skipAuthorization();
         $this->request->allowMethod(['post', 'patch']);
         $schoolCoursesStudent = $this->SchoolCoursesStudents->get($id);
-        $schoolCoursesStudent->is_confirmed = 1;
-        if ($this->SchoolCoursesStudents->save($schoolCoursesStudent)) {
-            $this->Flash->success(__('The school courses student has been confirmed.'));
+        $schoolCourse = $this->SchoolCoursesStudents->SchoolCourses->get($schoolCoursesStudent->school_course_id, [
+            'fields' => ['capacity', 'occupancy']
+        ]);
+        $availability = $schoolCourse->capacity - $schoolCourse->occupancy;
+        if ($availability <= 0) {
+            $this->Flash->info(__('There is no availability for this course.'));
         } else {
-            $this->Flash->error(__('The school courses student could not be confirmed. Please, try again.'));
+
+            $schoolCoursesStudent = $this->SchoolCoursesStudents->get($id);
+            $schoolCoursesStudent->is_confirmed = 1;
+            if ($this->SchoolCoursesStudents->save($schoolCoursesStudent)) {
+                $this->Flash->success(__('The school courses student has been confirmed.'));
+            } else {
+                $this->Flash->error(__('The school courses student could not be confirmed. Please, try again.'));
+            }
         }
 
         return $this->redirect($this->referer());
@@ -70,33 +80,22 @@ class SchoolCoursesStudentsController extends AppController
         $this->request->allowMethod(['post', 'patch']);
 
         $schoolCourse = $this->SchoolCoursesStudents->SchoolCourses->get($course_id, [
-            'fields' => ['capacity']
+            'fields' => ['capacity', 'occupancy']
         ]);
 
-        $schoolCoursesStudent = $this->SchoolCoursesStudents->findBySchoolCourseId($course_id);
-        $arr_is_confirmed = array_values(array_column($schoolCoursesStudent->toArray(), 'is_confirmed'));
-        $total_rows = $schoolCoursesStudent->count();
-        $total_confirmed = 0;
-        foreach ($arr_is_confirmed as $is_confirmed) {
-            if ($is_confirmed) $total_confirmed++;
-        }
+        $schoolCoursesStudents = $this->SchoolCoursesStudents->findBySchoolCourseIdAndIsConfirmed($course_id, 0);
 
-        $available = $schoolCourse->capacity - $total_confirmed;
-        $total_pre_enrolled = $total_rows - $total_confirmed;
+        $available = $schoolCourse->capacity - $schoolCourse->occupancy;
+        $total_pre_enrolled = $schoolCoursesStudents->count();
         if ($available < $total_pre_enrolled) {
             $this->Flash->error(__('The student list is higher than the allowed capacity. Delete a few students to continue.'));
             return $this->redirect($this->referer());
         }
         
-        $fields = [
-            'is_confirmed' => '1'
-        ];
-        $conditions = [
-            'is_confirmed' => '0',
-            'school_course_id' => $course_id
-        ];
+        foreach ($schoolCoursesStudents  as $schoolCourseEstudent) 
+            $schoolCourseEstudent->is_confirmed = 1;
         
-        if ($this->SchoolCoursesStudents->updateAll($fields, $conditions)) {
+        if ($this->SchoolCoursesStudents->saveMany($schoolCoursesStudents)) {
             $this->Flash->success(__('The school courses student has been confirmed.'));
         } else {
             $this->Flash->error(__('The school courses student could not be confirmed. Please, try again.'));

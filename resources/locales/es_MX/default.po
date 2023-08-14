@@ -1119,3 +1119,6 @@ msgstr "Director"
 msgid "Couses Allowed"
 msgstr "Academias Permitidas"
 
+msgid "There is no availability for this course."
+msgstr "No hay disponibilidad para este curso."
+
