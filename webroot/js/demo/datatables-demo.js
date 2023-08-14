@@ -12,8 +12,13 @@ $(document).ready(function() {
           "last": "Final",
           "next": "Siguiente",
           "previous": "Anterior"
-      },
-    }
+      }
+    },
+    dom: 'Blfrtip',
+    buttons: [
+        'excelHtml5',
+        'pdfHtml5'
+    ]
   });
   $('#modalDataTable').DataTable({
     language: {

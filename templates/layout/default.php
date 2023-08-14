@@ -34,8 +34,8 @@ $cakeDescription = __('Cake Description');;
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
 
 
-    <?= $this->Html->css(['cake', 
-        'sb-admin-2', 
+    <?= $this->Html->css(['cake',
+        'sb-admin-2',
         'vendor/fontawesome-free/css/all.min',
         'vendor/datatables/dataTables.bootstrap4.min.css',
         'custom-home']) ?>
@@ -48,7 +48,7 @@ $cakeDescription = __('Cake Description');;
     <?php $controller = $this->request->getParam('controller'); ?>
     <?php $action = $this->request->getParam('action'); ?>
     <?php $type = $this->request->getParam('pass'); ?>
-    
+
     <?php
         $show = '';
         if ($action == 'index' || $action == 'add') {
@@ -79,7 +79,7 @@ $cakeDescription = __('Cake Description');;
             <!-- Nav Item - Home -->
             <li class="nav-item active">
                 <?= $this->Html->link("<i class=\"fas fa-fw fa-home\"></i>
-                    <span>" . __('Home') . "</span>", 
+                    <span>" . __('Home') . "</span>",
                     ['controller' => 'Pages', 'action' => 'display', 'home'],
                     ['class' => 'nav-link', 'escape' => false]) ?>
             </li>
@@ -348,6 +348,11 @@ $cakeDescription = __('Cake Description');;
         'sb-admin-2',
         'admin-app']) ?>
     <?= $this->fetch('script') ?>
-        <!-- 'https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js' -->
+
+    <script src="https://cdn.datatables.net/buttons/1.6.5/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.6.5/js/buttons.html5.min.js"></script>
 </body>
 </html>
