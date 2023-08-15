@@ -91,10 +91,10 @@ class SchoolCoursesStudentsController extends AppController
             $this->Flash->error(__('The student list is higher than the allowed capacity. Delete a few students to continue.'));
             return $this->redirect($this->referer());
         }
-        
-        foreach ($schoolCoursesStudents  as $schoolCourseEstudent) 
+
+        foreach ($schoolCoursesStudents  as $schoolCourseEstudent)
             $schoolCourseEstudent->is_confirmed = 1;
-        
+
         if ($this->SchoolCoursesStudents->saveMany($schoolCoursesStudents)) {
             $this->Flash->success(__('The school courses student has been confirmed.'));
         } else {
@@ -111,7 +111,6 @@ class SchoolCoursesStudentsController extends AppController
         $schoolCoursesStudents = $this->SchoolCoursesStudents->get($id, [
             'contain' => ['Students', 'SchoolCourses.Subjects', 'SchoolCourses.Teachers', 'SchoolCourses.Schedules.Days']
         ])->toArray();
-        //pr($schoolCoursesStudents);die();
 
         //CREA EL EXCEL
         $spreadsheet = new Spreadsheet();
@@ -336,7 +335,7 @@ class SchoolCoursesStudentsController extends AppController
 
         //PRECIO
         $rangeCell = "J$current_row:K$current_row";
-        $sheet->setCellValue("J$current_row", '$'.number_format(floatval($schoolCoursesStudents['school_course']['price']), 2, '.', ','));
+        $sheet->setCellValue("J$current_row", '$'.number_format(floatval($schoolCoursesStudents['cost']), 2, '.', ','));
         $sheet->mergeCells($rangeCell);
         $sheet->getStyle($rangeCell)->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_RIGHT);
         $sheet->getStyle($rangeCell)->getAlignment()->setVertical(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_RIGHT);
