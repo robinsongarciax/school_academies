@@ -4,142 +4,99 @@
  * @var \App\Model\Entity\Student $student
  */
 ?>
-<div class="row">
-    <aside class="column">
-        <div class="side-nav">
-            <h4 class="heading"><?= __('Actions') ?></h4>
-            <?= $this->Html->link(__('Edit Student'), ['action' => 'edit', $student->id], ['class' => 'side-nav-item']) ?>
-            <?= $this->Form->postLink(__('Delete Student'), ['action' => 'delete', $student->id], ['confirm' => __('Are you sure you want to delete # {0}?', $student->id), 'class' => 'side-nav-item']) ?>
-            <?= $this->Html->link(__('List Students'), ['action' => 'index'], ['class' => 'side-nav-item']) ?>
-            <?= $this->Html->link(__('New Student'), ['action' => 'add'], ['class' => 'side-nav-item']) ?>
-        </div>
-    </aside>
-    <div class="column-responsive column-80">
-        <div class="students view content">
-            <h3><?= h($student->name) ?></h3>
-            <table>
-                <tr>
-                    <th><?= __('Name') ?></th>
-                    <td><?= h($student->name) ?></td>
-                </tr>
-                <tr>
-                    <th><?= __('Last Name') ?></th>
-                    <td><?= h($student->last_name) ?></td>
-                </tr>
-                <tr>
-                    <th><?= __('Second Last Name') ?></th>
-                    <td><?= h($student->second_last_name) ?></td>
-                </tr>
-                <tr>
-                    <th><?= __('Curp') ?></th>
-                    <td><?= h($student->curp) ?></td>
-                </tr>
-                <tr>
-                    <th><?= __('Email') ?></th>
-                    <td><?= h($student->email) ?></td>
-                </tr>
-                <tr>
-                    <th><?= __('Institute') ?></th>
-                    <td><?= h($student->institute) ?></td>
-                </tr>
-                <tr>
-                    <th><?= __('Group') ?></th>
-                    <td><?= h($student->group) ?></td>
-                </tr>
-                <tr>
-                    <th><?= __('Id Number') ?></th>
-                    <td><?= h($student->id_number) ?></td>
-                </tr>
-                <tr>
-                    <th><?= __('Term') ?></th>
-                    <td><?= $student->has('term') ? $this->Html->link($student->term->id, ['controller' => 'Terms', 'action' => 'view', $student->term->id]) : '' ?></td>
-                </tr>
-                <tr>
-                    <th><?= __('User') ?></th>
-                    <td><?= $student->has('user') ? $this->Html->link($student->user->name, ['controller' => 'Users', 'action' => 'view', $student->user->id]) : '' ?></td>
-                </tr>
-                <tr>
-                    <th><?= __('Id') ?></th>
-                    <td><?= $this->Number->format($student->id) ?></td>
-                </tr>
-                <tr>
-                    <th><?= __('Level') ?></th>
-                    <td><?= $this->Number->format($student->level) ?></td>
-                </tr>
-                <tr>
-                    <th><?= __('Birth Date') ?></th>
-                    <td><?= h($student->birth_date) ?></td>
-                </tr>
-                <tr>
-                    <th><?= __('Created') ?></th>
-                    <td><?= h($student->created) ?></td>
-                </tr>
-                <tr>
-                    <th><?= __('Modified') ?></th>
-                    <td><?= h($student->modified) ?></td>
-                </tr>
-            </table>
-            <div class="related">
-                <h4><?= __('Related School Courses') ?></h4>
-                <?php if (!empty($student->school_courses)) : ?>
-                <div class="table-responsive">
-                    <table>
-                        <tr>
-                            <th><?= __('Id') ?></th>
-                            <th><?= __('Name') ?></th>
-                            <th><?= __('Capacity') ?></th>
-                            <th><?= __('Subjet Id') ?></th>
-                            <th><?= __('Teacher Id') ?></th>
-                            <th><?= __('Term Id') ?></th>
-                            <th class="actions"><?= __('Actions') ?></th>
-                        </tr>
-                        <?php foreach ($student->school_courses as $schoolCourses) : ?>
-                        <tr>
-                            <td><?= h($schoolCourses->id) ?></td>
-                            <td><?= h($schoolCourses->name) ?></td>
-                            <td><?= h($schoolCourses->capacity) ?></td>
-                            <td><?= h($schoolCourses->subjet_id) ?></td>
-                            <td><?= h($schoolCourses->teacher_id) ?></td>
-                            <td><?= h($schoolCourses->term_id) ?></td>
-                            <td class="actions">
-                                <?= $this->Html->link(__('View'), ['controller' => 'SchoolCourses', 'action' => 'view', $schoolCourses->id]) ?>
-                                <?= $this->Html->link(__('Edit'), ['controller' => 'SchoolCourses', 'action' => 'edit', $schoolCourses->id]) ?>
-                                <?= $this->Form->postLink(__('Delete'), ['controller' => 'SchoolCourses', 'action' => 'delete', $schoolCourses->id], ['confirm' => __('Are you sure you want to delete # {0}?', $schoolCourses->id)]) ?>
-                            </td>
-                        </tr>
-                        <?php endforeach; ?>
-                    </table>
+<!-- Menú -->
+<header class="page-header page-header-compact page-header-light border-bottom bg-white mb-4">
+    <div class="container-fluid px-4">
+        <div class="page-header-content">
+            <div class="row align-items-center justify-content-between pt-3">
+                <div class="col-auto mb-3">
+                    <h3 class="page-header-title">Configuraci&oacute;n de <?= __('Students') ?></h3>
                 </div>
-                <?php endif; ?>
+                <div class="col-12 col-xl-auto mb-3">
+                    <?= $this->Html->link(__('Edit Student'), ['action' => 'edit', $student->id], ['class' => 'btn btn-sm btn-light text-primary', 'escape' => true]) ?>
+                    <?= $this->Form->postLink(__('Delete Student'), ['action' => 'delete', $student->id], ['confirm' => __('Are you sure you want to delete # {0}?', $student->id), 'class' => 'btn btn-sm btn-light text-primary', 'escape' => true]) ?>
+                    <?= $this->Html->link(__('List Students'), ['action' => 'index'], ['class' => 'btn btn-sm btn-light text-primary', 'escape' => true]) ?>
+                    <?= $this->Html->link(__('New Student'), ['action' => 'add'], ['class' => 'btn btn-sm btn-light text-primary', 'escape' => true]) ?>
+                </div>
             </div>
-            <div class="related">
-                <h4><?= __('Related Courses') ?></h4>
-                <?php if (!empty($student->courses)) : ?>
-                <div class="table-responsive">
-                    <table>
-                        <tr>
-                            <th><?= __('Id') ?></th>
-                            <th><?= __('Name') ?></th>
-                            <th><?= __('Cost') ?></th>
-                            <th><?= __('Student Id') ?></th>
-                            <th class="actions"><?= __('Actions') ?></th>
-                        </tr>
-                        <?php foreach ($student->courses as $courses) : ?>
-                        <tr>
-                            <td><?= h($courses->id) ?></td>
-                            <td><?= h($courses->name) ?></td>
-                            <td><?= h($courses->cost) ?></td>
-                            <td><?= h($courses->student_id) ?></td>
-                            <td class="actions">
-                                <?= $this->Html->link(__('View'), ['controller' => 'Courses', 'action' => 'view', $courses->id]) ?>
-                                <?= $this->Html->link(__('Edit'), ['controller' => 'Courses', 'action' => 'edit', $courses->id]) ?>
-                                <?= $this->Form->postLink(__('Delete'), ['controller' => 'Courses', 'action' => 'delete', $courses->id], ['confirm' => __('Are you sure you want to delete # {0}?', $courses->id)]) ?>
-                            </td>
-                        </tr>
-                        <?php endforeach; ?>
-                    </table>
+        </div>
+    </div>
+</header>
+<!-- Student View Container -->
+<div class="container-fluid">
+    <div class="row">
+        <!-- Left side: Student Information -->
+        <div class="col-lg-5 d-none d-lg-block">
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary-cm"><?= h($student->name) ?></h6>
                 </div>
-                <?php endif; ?>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table">
+                            <tr>
+                                <th><?= __('Curp') ?></th>
+                                <td><?= h($student->curp) ?></td>
+                            </tr>
+                            <tr>
+                                <th><?= __('Sex') ?></th>
+                                <td><?= h($student->sex) ?></td>
+                            </tr>
+                            <tr>
+                                <th><?= __('Level') ?></th>
+                                <td><?= h($student->level) ?></td>
+                            </tr>
+                            <tr>
+                                <th><?= __('School Level') ?></th>
+                                <td><?= h($student->school_level) ?></td>
+                            </tr>
+                            <tr>
+                                <th><?= __('School Group') ?></th>
+                                <td><?= h($student->school_group) ?></td>
+                            </tr>
+                            <tr>
+                                <th><?= __('Birth Date') ?></th>
+                                <td><?= $this->Time->i18nFormat($student->birth_date, [\IntlDateFormatter::LONG, \IntlDateFormatter::NONE]) ?></td>
+                            </tr>
+                            <tr>
+                                <th><?= __('Term') ?></th>
+                                <td><?= $student->has('term') ? $student->term->description : '' ?></td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Right Side: Courses Information -->
+        <div class="col-lg-7 d-none d-lg-block">
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary-cm"><?= __('School Courses List') ?></h6>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table" id="dataTable" width="100%" cellspacing="0">
+                            <thead>
+                                <tr>
+                                    <td><?= __('Name') ?></td>
+                                    <td><?= __('Teacher') ?></td>
+                                    <td class="actions"><?= __('Actions') ?></td>
+                                </tr>
+                            </thead>
+                            <?php foreach ($student->school_courses as $schoolCourses) : ?>
+                                <tr>
+                                    <td><?= h($schoolCourses->name) ?></td>
+                                    <td><?= h($schoolCourses->teacher_id) ?></td>
+                                    <td class="actions">
+                                        <?= $this->Html->link(__('View'), ['controller' => 'SchoolCourses', 'action' => 'view', $schoolCourses->id]) ?>
+                                        <?= $this->Html->link(__('Edit'), ['controller' => 'SchoolCourses', 'action' => 'edit', $schoolCourses->id]) ?>
+                                        <?= $this->Form->postLink(__('Delete'), ['controller' => 'SchoolCourses', 'action' => 'delete', $schoolCourses->id], ['confirm' => __('Are you sure you want to delete # {0}?', $schoolCourses->id)]) ?>
+                                    </td>
+                                </tr>
+                            <?php endforeach; ?>
+                        </table>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
