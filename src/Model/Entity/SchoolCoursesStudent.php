@@ -30,6 +30,7 @@ class SchoolCoursesStudent extends Entity
         'school_course_id' => true,
         'student_id' => true,
         'is_confirmed' => true,
+        'cost' => true,
         'school_course' => true,
         'student' => true,
     ];
