@@ -51,9 +51,9 @@
                             <td><?= h($teacher->modified) ?></td>
                             <td><?= $teacher->has('user') ? $this->Html->link($teacher->user->name, ['controller' => 'Users', 'action' => 'view', $teacher->user->id]) : '' ?></td>
                             <td class="actions">
-                                <?= $this->Html->link(__('View'), ['action' => 'view', $teacher->id]) ?>
-                                <?= $this->Html->link(__('Edit'), ['action' => 'edit', $teacher->id]) ?>
-                                <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $teacher->id], ['confirm' => __('Are you sure you want to delete # {0}?', $teacher->id)]) ?>
+                                <?= $this->Html->link("", ['action' => 'view', $teacher->id], ['class'=>'fas fa-eye']) ?>
+                                <?= $this->Html->link("", ['action' => 'edit', $teacher->id], ['class'=>'fas fa-pen']) ?>
+                                <?= $this->Form->postLink("", ['action' => 'delete', $teacher->id], ['class'=>'fas fa-trash', 'confirm' => __('Are you sure you want to delete # {0}?', $teacher->id)]) ?>
                             </td>
                         </tr>
                         <?php endforeach; ?>

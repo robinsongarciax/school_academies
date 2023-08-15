@@ -45,10 +45,10 @@
                             <td><?= $schoolCourse->has('teacher') ? $this->Html->link($schoolCourse->teacher->name, ['controller' => 'Teachers', 'action' => 'view', $schoolCourse->teacher->id]) : '' ?></td>
                             <td><?= $schoolCourse->has('term') ? $this->Html->link($schoolCourse->term->description, ['controller' => 'Terms', 'action' => 'view', $schoolCourse->term->id]) : '' ?></td>
                             <td class="actions">
-                                <?= $this->Html->link(__('View'), ['action' => 'view', $schoolCourse->id]) ?>
-                                <?= $this->Html->link(__('Edit'), ['action' => 'edit', $schoolCourse->id]) ?>
-                                <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $schoolCourse->id], ['confirm' => __('Are you sure you want to delete # {0}?', $schoolCourse->id)]) ?>
-                                <?= $this->Html->link(__('Course Registration'), ['action' => 'studentRegistration', $schoolCourse->id]) ?>
+                                <?= $this->Html->link("", ['action' => 'view', $schoolCourse->id], ['class'=>'fas fa-eye']) ?>
+                                <?= $this->Html->link("", ['action' => 'edit', $schoolCourse->id], ['class'=>'fas fa-pen']) ?>
+                                <?= $this->Form->postLink("", ['action' => 'delete', $schoolCourse->id], ['class'=>'fas fa-trash', 'confirm' => __('Are you sure you want to delete # {0}?', $schoolCourse->id)]) ?>
+                                <?= $this->Html->link("", ['action' => 'studentRegistration', $schoolCourse->id], ['class'=>'fas fa-user-plus']) ?>
                             </td>
                         </tr>
                         <?php endforeach; ?>

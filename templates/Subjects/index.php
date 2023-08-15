@@ -35,7 +35,7 @@
                             <th><?= $this->Paginator->sort('tipo_academia') ?></th>
                             <th><?= $this->Paginator->sort('criterio_academia') ?></th>
                             <th><?= $this->Paginator->sort('pago_obligatorio') ?></th>
-                            
+
                             <th class="actions"><?= __('Actions') ?></th>
                         </tr>
                     </thead>
@@ -49,9 +49,9 @@
                             <td><?= h($subject->criterio_academia) ?></td>
                             <td><?= $subject->pago_obligatorio === 1 ? 'Sí' : 'No' ?></td>
                             <td class="actions">
-                                <?= $this->Html->link(__('View'), ['action' => 'view', $subject->id]) ?>
-                                <?= $this->Html->link(__('Edit'), ['action' => 'edit', $subject->id]) ?>
-                                <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $subject->id], ['confirm' => __('Are you sure you want to delete # {0}?', $subject->id)]) ?>
+                                <?= $this->Html->link("", ['action' => 'view', $subject->id], ['class'=>'fas fa-eye']) ?>
+                                <?= $this->Html->link("", ['action' => 'edit', $subject->id], ['class'=>'fas fa-pen']) ?>
+                                <?= $this->Form->postLink("", ['action' => 'delete', $subject->id], ['class'=>'fas fa-trash', 'confirm' => __('Are you sure you want to delete # {0}?', $subject->id)]) ?>
                             </td>
                         </tr>
                         <?php endforeach; ?>

@@ -71,7 +71,7 @@ class SchoolCoursesController extends AppController
         $query_schoolCoursesStudents = $this->SchoolCourses->find('StudentsConfirmed', [
             'id' => $id
         ]);
-        
+
         $totalStudentsConfirmed = $query_schoolCoursesStudents->count();
 
         $days = $this->SchoolCourses->Schedules->Days->find('list', ['limit' => 200])->all();
@@ -439,7 +439,7 @@ class SchoolCoursesController extends AppController
         $this->Authorization->skipAuthorization();
         $schoolCourse = $this->SchoolCourses->get($id, [
             'contain' => [
-                'Students' => ['conditions' => ['is_confirmed' => 0]], 
+                'Students' => ['conditions' => ['is_confirmed' => 0]],
                 'Subjects' => ['SchoolLevels']],
         ]);
 
@@ -456,7 +456,7 @@ class SchoolCoursesController extends AppController
 
             $search_options[] = "YEAR(Students.birth_date) BETWEEN {$min_birthyear} AND {$max_birthyear}";
         }
-        
+
         $sex = $schoolCourse->subject->sex;
         $sex = $sex === 'X' ? ['F', 'M'] : [$sex];
         $search_options += ['sex in ' => $sex];
@@ -532,7 +532,7 @@ class SchoolCoursesController extends AppController
         $this->Authorization->skipAuthorization();
 
         $schoolCourse = $this->SchoolCourses->get($schoolCourseId, [
-            'contain' => ['Students.Terms']
+            'contain' => ['Students.Terms.Institutes']
         ]);
 
         $zip = new \ZipArchive();
@@ -660,7 +660,7 @@ class SchoolCoursesController extends AppController
 
             $current_row += 4;
             $rangeCell = "B$current_row:N$current_row";
-            $sheet->setCellValue(substr($rangeCell, 0, strlen(strval($current_row))+1), "P. Carlos Pi Pérez L.C.");
+            $sheet->setCellValue(substr($rangeCell, 0, strlen(strval($current_row))+1), $student->term->institute->principal);
             $sheet->mergeCells($rangeCell);
             $sheet->getStyle($rangeCell)->applyFromArray($styleArray);
             $sheet->getStyle($rangeCell)->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
