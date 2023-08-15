@@ -13,7 +13,7 @@ foreach ($studentCourses as $studentCourse) {
         'school_courses_students_id' => $school_course['id'],
         'is_confirmed' => $school_course['is_confirmed'],
     ];
-    if ($school_course['is_confirmed'] === 1) 
+    if ($school_course['is_confirmed'] === 1)
         $num_confirmed_courses++;
 }
 ?>
@@ -177,10 +177,10 @@ foreach ($studentCourses as $studentCourse) {
                                             <?= $this->Form->postLink(
                                             	__('Confirm'), [
                                                 'controller' => 'SchoolCoursesStudents',
-                                                'action' => 'confirm', 
-                                                $school_courses_students_id], 
+                                                'action' => 'confirm',
+                                                $school_courses_students_id],
                                                 [
-                                                	'confirm' => __('Are you sure you want to register for {0}?', 
+                                                	'confirm' => __('Are you sure you want to register for {0}?',
                                                         $schoolCourse->name),
                                                 	'title' => __('Confirm'),
                                                 	'data-toggle' => 'modal',
@@ -189,12 +189,13 @@ foreach ($studentCourses as $studentCourse) {
 
                                             <?= $this->Form->postLink(__('Dropout'), [
                                                 'controller' => 'SchoolCoursesStudents',
-                                                'action' => 'delete', 
+                                                'action' => 'delete',
                                                 $school_courses_students_id]) ?>
                                         <?php else: ?>
-                                            <?= $this->Form->postLink(__('Print Form'), [
+                                            <?= $this->Form->postLink("", [
                                                 'controller' => 'SchoolCoursesStudents',
-                                                'action' => 'printForm', $school_courses_students_id]) ?>
+                                                'action' => 'printForm', $school_courses_students_id],
+                                                ['class'=>'fas fa-print']) ?>
                                         <?php endif; ?>
                                     <?php else: ?>
                                         <?= $this->Form->postLink(__('Signup'), ['action' => 'signup', $schoolCourse->id]) ?>
