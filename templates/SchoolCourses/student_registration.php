@@ -92,18 +92,20 @@ $availability = $schoolCourse->capacity - $totalStudentsConfirmed;
                                 <td class="actions">
                                     <?php
                                     if ($schoolCourse->capacity > $totalStudentsConfirmed) {
-                                        echo $this->Form->postLink(__('Confirm'), [
+                                        echo $this->Form->postLink("", [
                                             'controller' => 'SchoolCoursesStudents',
-                                            'action' => 'confirm', 
-                                            $schoolCourseStudent->_joinData->id
-                                        ]);
+                                            'action' => 'confirm',
+                                            $schoolCourseStudent->_joinData->id],
+                                            ['class'=>'fas fa-user-check',]
+                                        );
                                     } ?>
 
-                                    <?= $this->Form->postLink(__('Delete'), [
+                                    <?= $this->Form->postLink("", [
                                         'controller' => 'SchoolCoursesStudents',
                                         'action' => 'delete',
-                                        $schoolCourseStudent->_joinData->id
-                                    ]) ?>
+                                        $schoolCourseStudent->_joinData->id],
+                                        ['class'=>'fas fa-user-times']
+                                    ) ?>
                                 </td>
                             </tr>
                             <?php endforeach; ?>
@@ -153,7 +155,7 @@ $availability = $schoolCourse->capacity - $totalStudentsConfirmed;
                             <td><?= $student->school_group ?></td>
                             <td><?= $this->Form->postLink(__('Pre-Enroll'), ['action' => 'preEnroll', $schoolCourse->id, $student->id],
                                 ['block' => true]
-                                ) ?></td> 
+                                ) ?></td>
                         </tr>
                     <?php endforeach; ?>
                 </tbody>
