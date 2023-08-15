@@ -15,7 +15,7 @@ msgstr ""
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 
 msgid "Actions"
-msgstr "Acciones"
+msgstr " "
 
 #: ./templates/Institutes/add.php:12
 #: ./templates/Institutes/edit.php:17
