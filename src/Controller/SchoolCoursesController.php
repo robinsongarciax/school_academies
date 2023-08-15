@@ -460,17 +460,18 @@ class SchoolCoursesController extends AppController
         $sex = $schoolCourse->subject->sex;
         $sex = $sex === 'X' ? ['F', 'M'] : [$sex];
         $search_options += ['sex in ' => $sex];
-        $search_options[] = 'student_id is null';
-        $search_options[] = '(school_course_id = 1 OR school_course_id is null)';
+
+        $students_enrroled = $this->fetchTable('SchoolCoursesStudents')->find()
+            ->select(['student_id'])
+            ->where(['school_course_id' => $id]);
+
+        $search_options += ['id not in' => $students_enrroled];
 
         $students = $this->SchoolCourses->Students
             ->find('all', ['limit' => 200])
-            ->leftJoin(['SchoolCoursesStudents' => 'school_courses_students'],
-                [
-                    'SchoolCoursesStudents.student_id = Students.id'
-                ])
             ->where($search_options)
             ->all();
+
 
         $totalStudentsConfirmed = $this->SchoolCourses->find('all')
             ->contain(['Students' => ['conditions' => ['is_confirmed' => 1]]])
