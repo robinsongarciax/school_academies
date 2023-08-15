@@ -122,7 +122,7 @@
                                 <td><?= h($schedules->start) ?></td>
                                 <td><?= h($schedules->end) ?></td>
                                 <td class="actions">
-                                    <?= $this->Form->postLink(__('Delete'), ['controller' => 'Schedules', 'action' => 'delete', $schedules->id], ['confirm' => __('Are you sure you want to delete # {0}?', $schedules->id)]) ?>
+                                    <?= $this->Form->postLink("", ['controller' => 'Schedules', 'action' => 'delete', $schedules->id], ['class'=>'fas fa-trash', 'confirm' => __('Are you sure you want to delete # {0}?', $schedules->id)]) ?>
                                 </td>
                             </tr>
                             <?php endforeach; ?>
