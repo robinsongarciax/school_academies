@@ -91,6 +91,37 @@ class SchoolCoursesStudentsTable extends Table
         return $rules;
     }
 
+    /**
+     * @param Cake\Event\EventInterface $event
+     * @param $entity
+     * @param \ArrayObject $opcions
+     */
+    public function beforeSave(EventInterface $event, $entity, \ArrayObject $options) {
+        if ($entity->is_confirmed == 1) {
+            $schoolCourse = $this->SchoolCourses->get($entity->school_course_id, [
+                'contain' => 'Subjects'
+            ]);
+            $cost = 0;
+            // Revisar si el curso es de pago obligatorio
+            if ($schoolCourse->subject->pago_obligatorio == 1) {
+                $cost = $schoolCourse->price;
+            } else {
+                // Determinar si el curso tendrá costo
+                $free_courses_confirmed = $this->find('all')
+                    ->where([
+                        'student_id' => $entity->student_id,
+                        'is_confirmed' => 1,
+                        'cost' => 0
+                    ])->count();
+                
+                $cost = $free_courses_confirmed == 0 ? 0 : $schoolCourse->price;
+
+            }
+
+            $entity->cost = $cost;
+        }
+    }
+
 
     /**
      * @param Cake\Event\EventInterface $event
@@ -115,6 +146,39 @@ class SchoolCoursesStudentsTable extends Table
             $schoolCourse = $this->SchoolCourses->get($entity->school_course_id);
             $schoolCourse->occupancy -= 1;
             $this->SchoolCourses->save($schoolCourse);
+        }
+    }
+
+    /**
+     * @param Cake\Event\EventInterface $event
+     * @param $entity
+     * @param \ArrayObject $options
+     */
+    public function afterDeleteCommit(EventInterface $event, $entity, \ArrayObject $options) {
+        // Si el curso eliminado está activo y tiene valor 0
+        if ($entity->is_confirmed == 1 && $entity->cost == 0) {
+            $schoolCoursesId = $this->find('all')
+                ->select(['school_course_id'])
+                ->where([
+                    'student_id' => $entity->student_id,
+                    'is_confirmed' => 1,
+                ]);
+            if ($schoolCoursesId->count() > 0) {
+                // pr(array_values(array_column($schoolCoursesId->toArray(), 'school_course_id')) );
+                // die();
+                $schoolCoursesId = array_values(array_column($schoolCoursesId->toArray(), 'school_course_id'));
+                $schoolCourses = $this->SchoolCourses->find('all')
+                    ->contain(['Subjects'])
+                    ->where(['SchoolCourses.id in' => $schoolCoursesId,
+                        'Subjects.pago_obligatorio' => 0
+                    ]);
+                if ($schoolCourses->count() > 0) {
+                    $schoolCourse = $schoolCourses->first();
+                    $newEntity = $this->findBySchoolCourseId($schoolCourse->id)->first();
+                    $newEntity->cost = 0;
+                    $this->save($newEntity);
+                }
+            }
         }
     }
 }

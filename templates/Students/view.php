@@ -75,22 +75,20 @@
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
-                        <table class="table" id="dataTable" width="100%" cellspacing="0">
+                        <table class="table" width="100%" cellspacing="0">
                             <thead>
                                 <tr>
                                     <td><?= __('Name') ?></td>
-                                    <td><?= __('Teacher') ?></td>
-                                    <td class="actions"><?= __('Actions') ?></td>
+                                    <td><?= __('Status') ?></td>
+                                    <td class="actions"><?= __('Acciones') ?></td>
                                 </tr>
                             </thead>
                             <?php foreach ($student->school_courses as $schoolCourses) : ?>
                                 <tr>
                                     <td><?= h($schoolCourses->name) ?></td>
-                                    <td><?= h($schoolCourses->teacher_id) ?></td>
+                                    <td><?= $schoolCourses->_joinData->is_confirmed == 1 ? "Inscrito" : "Preinscrito" ?></td>
                                     <td class="actions">
-                                        <?= $this->Html->link(__('View'), ['controller' => 'SchoolCourses', 'action' => 'view', $schoolCourses->id]) ?>
-                                        <?= $this->Html->link(__('Edit'), ['controller' => 'SchoolCourses', 'action' => 'edit', $schoolCourses->id]) ?>
-                                        <?= $this->Form->postLink(__('Delete'), ['controller' => 'SchoolCourses', 'action' => 'delete', $schoolCourses->id], ['confirm' => __('Are you sure you want to delete # {0}?', $schoolCourses->id)]) ?>
+                                        <?= $this->Form->postLink(__('Delete'), ['controller' => 'SchoolCoursesStudents', 'action' => 'delete', $schoolCourses->_joinData->id], ['confirm' => __('Are you sure you want to delete  {0}?', $schoolCourses->name)]) ?>
                                     </td>
                                 </tr>
                             <?php endforeach; ?>

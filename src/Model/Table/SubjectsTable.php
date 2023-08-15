@@ -106,11 +106,11 @@ class SubjectsTable extends Table
 
         $validator
             ->integer('anio_nacimiento_minimo')
-            ->notEmptyString('anio_nacimiento_minimo');
+            ->allowEmptyString('anio_nacimiento_minimo');
 
         $validator
             ->integer('anio_nacimiento_maximo')
-            ->notEmptyString('anio_nacimiento_maximo');
+            ->allowEmptyString('anio_nacimiento_maximo');
 
         $validator
             ->integer('grado_minimo')
