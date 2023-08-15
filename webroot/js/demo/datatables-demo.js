@@ -15,10 +15,11 @@ $(document).ready(function() {
       }
     },
     dom: 'Blfrtip',
-    buttons: [
-        'excelHtml5',
-        'pdfHtml5'
-    ]
+    buttons: [{
+      extend:'excelHtml5', className:'btn btn-sm btn-outline-primary mb-2'
+    },{
+      extend:'pdfHtml5', className:'btn btn-sm btn-outline-primary mb-2'
+    }]
   });
   $('#modalDataTable').DataTable({
     language: {
