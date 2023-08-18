@@ -78,10 +78,8 @@ class TeachersController extends AppController
 
                     return $this->redirect(['action' => 'index']);
                 }
-            } else {
-                pr($this->Teachers);die();
             }
-
+            
             $this->Flash->error(__('The teacher could not be saved. Please, try again.'));
         }
         $users = $this->Teachers->Users->find('list', ['limit' => 200])->all();
