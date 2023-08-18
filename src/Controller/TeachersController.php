@@ -65,9 +65,7 @@ class TeachersController extends AppController
             );
 
             $teacher_user = $this->Teachers->Users->newEmptyEntity();
-            $teacher_user->name = trim($request_data['name'].
-                ' ' . $request_data['last_name'] .
-                ' ' . $request_data['second_last_name']);
+            $teacher_user->name = trim($request_data['name']);
             $teacher_user->username = $request_data['users']['name'];
             $teacher_user->password = $request_data['users']['password'];
             $teacher_user->role_id = $this->teachersRol;
@@ -80,6 +78,8 @@ class TeachersController extends AppController
 
                     return $this->redirect(['action' => 'index']);
                 }
+            } else {
+                pr($this->Teachers);die();
             }
 
             $this->Flash->error(__('The teacher could not be saved. Please, try again.'));
@@ -99,7 +99,7 @@ class TeachersController extends AppController
     public function edit($id = null)
     {
         $teacher = $this->Teachers->get($id, [
-            'contain' => ['Subjects'],
+            'contain' => ['Subjects', 'Users'],
         ]);
         $this->Authorization->authorize($teacher);
         if ($this->request->is(['patch', 'post', 'put'])) {
@@ -111,9 +111,8 @@ class TeachersController extends AppController
             }
             $this->Flash->error(__('The teacher could not be saved. Please, try again.'));
         }
-        $users = $this->Teachers->Users->find('list', ['limit' => 200])->all();
         $subjects = $this->Teachers->Subjects->find('list', ['limit' => 200])->all();
-        $this->set(compact('teacher', 'users', 'subjects'));
+        $this->set(compact('teacher', 'subjects'));
     }
 
     /**

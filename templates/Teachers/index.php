@@ -29,8 +29,6 @@
                     <thead>
                         <tr>
                             <th><?= $this->Paginator->sort('name') ?></th>
-                            <th><?= $this->Paginator->sort('last_name') ?></th>
-                            <th><?= $this->Paginator->sort('second_last_name') ?></th>
                             <th><?= $this->Paginator->sort('email') ?></th>
                             <th><?= $this->Paginator->sort('active') ?></th>
                             <th><?= $this->Paginator->sort('created') ?></th>
@@ -43,13 +41,11 @@
                         <?php foreach ($teachers as $teacher): ?>
                         <tr>
                             <td><?= h($teacher->name) ?></td>
-                            <td><?= h($teacher->last_name) ?></td>
-                            <td><?= h($teacher->second_last_name) ?></td>
                             <td><?= h($teacher->email) ?></td>
                             <td><?= $this->Number->format($teacher->active) ?></td>
                             <td><?= h($teacher->created) ?></td>
                             <td><?= h($teacher->modified) ?></td>
-                            <td><?= $teacher->has('user') ? $this->Html->link($teacher->user->name, ['controller' => 'Users', 'action' => 'view', $teacher->user->id]) : '' ?></td>
+                            <td><?= $teacher->has('user') ? $this->Html->link($teacher->user->username, ['controller' => 'Users', 'action' => 'view', $teacher->user->id]) : '' ?></td>
                             <td class="actions">
                                 <?= $this->Html->link("", ['action' => 'view', $teacher->id], ['class'=>'fas fa-eye']) ?>
                                 <?= $this->Html->link("", ['action' => 'edit', $teacher->id], ['class'=>'fas fa-pen']) ?>

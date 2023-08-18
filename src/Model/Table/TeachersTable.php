@@ -78,18 +78,6 @@ class TeachersTable extends Table
             ->notEmptyString('name');
 
         $validator
-            ->scalar('last_name')
-            ->maxLength('last_name', 45)
-            ->requirePresence('last_name', 'create')
-            ->notEmptyString('last_name');
-
-        // $validator
-        //     ->scalar('second_last_name')
-        //     ->maxLength('second_last_name', 45);
-            // ->requirePresence('second_last_name', 'create')
-            // ->notEmptyString('second_last_name');
-
-        $validator
             ->email('email')
             ->allowEmptyString('email')
             ->add('email', 'unique', ['rule' => 'validateUnique', 'provider' => 'table']);

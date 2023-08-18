@@ -31,12 +31,13 @@
                 <legend><?= __('Add Teacher') ?></legend>
                 <?php
                     echo $this->Form->control('name');
-                    echo $this->Form->control('last_name');
-                    echo $this->Form->control('second_last_name');
                     echo $this->Form->control('email');
                     echo $this->Form->control('celular');
                     echo $this->Form->control('active', ['value' => '1', 'hidden' => true, 'label' => false]);
-                    echo $this->Form->control('users.name');
+                    echo $this->Form->control('users.name', ['label' => 'Nombre de usuario', 
+                        'templates' => 'uppercase_form',
+                        'class' => 'form-control text-uppercase'
+                    ]);
                     echo $this->Form->control('users.password');
                     echo $this->Form->control('subjects._ids', ['options' => $subjects, 'class' => 'form-select']);
                 ?>

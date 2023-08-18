@@ -7,6 +7,7 @@ use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
+use Cake\Event\EventInterface;
 
 /**
  * Users Model
@@ -124,5 +125,9 @@ class UsersTable extends Table
         return $query->contain(['Roles' =>
                 ['ModulesPermissions' => ['Permissions', 'Modules']]
             ]);
+    }
+
+    public function beforeSave(EventInterface $event, $entity, \ArrayObject $options) {
+        $entity->username = strtoupper($entity->username);
     }
 }
