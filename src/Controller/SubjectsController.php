@@ -105,8 +105,8 @@ class SubjectsController extends AppController
     public function delete($id = null)
     {
         $this->request->allowMethod(['post', 'delete']);
-        $this->Authorization->authorize($subject);
         $subject = $this->Subjects->get($id);
+        $this->Authorization->authorize($subject);
         if ($this->Subjects->delete($subject)) {
             $this->Flash->success(__('The subject has been deleted.'));
         } else {

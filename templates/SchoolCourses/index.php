@@ -30,7 +30,7 @@
                         <tr>
                             <th><?= $this->Paginator->sort('name') ?></th>
                             <th><?= $this->Paginator->sort('capacity') ?></th>
-                            <th><?= $this->Paginator->sort('subjet_id') ?></th>
+                            <th><?= $this->Paginator->sort('subject_id') ?></th>
                             <th><?= $this->Paginator->sort('teacher_id') ?></th>
                             <th><?= $this->Paginator->sort('term_id') ?></th>
                             <th class="actions"><?= __('Actions') ?></th>
@@ -47,7 +47,7 @@
                             <td class="actions">
                                 <?= $this->Html->link("", ['action' => 'view', $schoolCourse->id], ['class'=>'fas fa-eye']) ?>
                                 <?= $this->Html->link("", ['action' => 'edit', $schoolCourse->id], ['class'=>'fas fa-pen']) ?>
-                                <?= $this->Form->postLink("", ['action' => 'delete', $schoolCourse->id], ['class'=>'fas fa-trash', 'confirm' => __('Are you sure you want to delete # {0}?', $schoolCourse->id)]) ?>
+                                <?= $this->Form->postLink("", ['action' => 'delete', $schoolCourse->id], ['class'=>'fas fa-trash', 'confirm' => __('Are you sure you want to delete {0}?', $schoolCourse->name)]) ?>
                                 <?= $this->Html->link("", ['action' => 'studentRegistration', $schoolCourse->id], ['class'=>'fas fa-user-plus']) ?>
                             </td>
                         </tr>

@@ -55,7 +55,7 @@ $cakeDescription = __('Cake Description');;
             $show = $controller . '_show';
         }
         $action = $controller . '_' . $action;
-        if ($controller == 'Subjects' && count($type) > 0) {
+        if (($controller == 'Subjects' || $controller == 'SchoolCourses') && count($type) > 0) {
 
             $action = $type[0] != null ? $action . '_' .$type[0] : $action;
         }
@@ -102,7 +102,8 @@ $cakeDescription = __('Cake Description');;
                 <div id="collapseSchoolCourse" class="collapse <?= ($controller == 'SchoolCourses') ? 'show' : ''?>" aria-labelledby="headingOne" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header"><?= __('School Courses') ?></h6>
-                        <?= $this->Html->link(__('School Courses'), ['controller' => 'SchoolCourses', 'action' => 'index'], ['class' => 'collapse-item' . ($action == 'SchoolCourses_index' ? ' active' : '')]) ?>
+                        <?= $this->Html->link(__('Sports'), ['controller' => 'SchoolCourses', 'action' => 'index', 'DEPORTIVA'], ['class' => 'collapse-item' . ($action == 'SchoolCourses_index_DEPORTIVA' ? ' active' : '')]) ?>
+                        <?= $this->Html->link(__('Cultural'), ['controller' => 'SchoolCourses', 'action' => 'index', 'CULTURAL'], ['class' => 'collapse-item' . ($action == 'SchoolCourses_index_CULTURAL' ? ' active' : '')]) ?>
                         <?= $this->Html->link(__('Add School Course'), ['controller' => 'SchoolCourses', 'action' => 'add'], ['class' => 'collapse-item' . ($action == 'SchoolCourses_add' ? ' active' : '')]) ?>
                     </div>
                 </div>

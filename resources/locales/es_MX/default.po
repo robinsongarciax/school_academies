@@ -53,51 +53,8 @@ msgstr ""
 msgid "Delete"
 msgstr "Eliminar"
 
-#: ./templates/Institutes/edit.php:15
-#: ./templates/Institutes/index.php:27
-#: ./templates/Institutes/view.php:12
-#: ./templates/Institutes/view.php:47
-#: ./templates/Institutes/view.php:82
-#: ./templates/Modules/edit.php:15
-#: ./templates/Modules/index.php:27
-#: ./templates/Modules/view.php:12
-#: ./templates/Modules/view.php:47
-#: ./templates/Roles/edit.php:15
-#: ./templates/Roles/index.php:27
-#: ./templates/Roles/view.php:12
-#: ./templates/Roles/view.php:49
-#: ./templates/Roles/view.php:88
-#: ./templates/SchoolCourses/edit.php:19
-#: ./templates/SchoolCourses/index.php:35
-#: ./templates/SchoolCourses/view.php:12
-#: ./templates/SchoolCourses/view.php:67
-#: ./templates/SchoolCourses/view.php:118
-#: ./templates/SchoolLevels/edit.php:14
-#: ./templates/SchoolLevels/index.php:27
-#: ./templates/SchoolLevels/view.php:12
-#: ./templates/Students/edit.php:17
-#: ./templates/Students/index.php:53
-#: ./templates/Students/view.php:12
-#: ./templates/Students/view.php:107
-#: ./templates/Students/view.php:136
-#: ./templates/Subjects/edit.php:15
-#: ./templates/Subjects/index.php:69
-#: ./templates/Subjects/view.php:12
-#: ./templates/Subjects/view.php:155
-#: ./templates/Teachers/edit.php:16
-#: ./templates/Teachers/index.php:45
-#: ./templates/Teachers/view.php:12
-#: ./templates/Terms/edit.php:15
-#: ./templates/Terms/index.php:37
-#: ./templates/Terms/view.php:12
-#: ./templates/Terms/view.php:93
-#: ./templates/Users/edit.php:15
-#: ./templates/Users/index.php:39
-#: ./templates/Users/view.php:12
-#: ./templates/Users/view.php:97
-#: ./templates/Users/view.php:140
-msgid "Are you sure you want to delete # {0}?"
-msgstr ""
+msgid "Are you sure you want to delete {0}?"
+msgstr "¿Está seguro que desea eliminar {0}?"
 
 #: ./templates/Institutes/edit.php:24
 #: ./templates/Institutes/view.php:11
@@ -202,35 +159,11 @@ msgstr "Inicio"
 msgid "End"
 msgstr "Fin"
 
-#: ./templates/Institutes/view.php:65
-#: ./templates/Roles/view.php:69
-#: ./templates/SchoolCourses/view.php:92
-#: ./templates/Students/view.php:74
-#: ./templates/Subjects/view.php:106
-#: ./templates/Subjects/view.php:133
-#: ./templates/Teachers/view.php:58
-#: ./templates/Terms/view.php:42
-#: ./templates/Terms/view.php:67
-#: ./templates/Users/view.php:46
-#: ./templates/Users/view.php:71
-#: ./templates/Users/view.php:118
 msgid "Created"
-msgstr ""
+msgstr "Creado"
 
-#: ./templates/Institutes/view.php:66
-#: ./templates/Roles/view.php:70
-#: ./templates/SchoolCourses/view.php:93
-#: ./templates/Students/view.php:78
-#: ./templates/Subjects/view.php:110
-#: ./templates/Subjects/view.php:134
-#: ./templates/Teachers/view.php:62
-#: ./templates/Terms/view.php:46
-#: ./templates/Terms/view.php:68
-#: ./templates/Users/view.php:50
-#: ./templates/Users/view.php:72
-#: ./templates/Users/view.php:119
 msgid "Modified"
-msgstr ""
+msgstr "Modificado"
 
 #: ./templates/Institutes/view.php:67
 msgid "Institute Id"
@@ -343,22 +276,22 @@ msgid "Role Id"
 msgstr ""
 
 msgid "List School Courses"
-msgstr "Lista de Cursos Escolares"
+msgstr "Lista de Academias"
 
 msgid "Add School Course"
-msgstr "Agregar Curso Escolar"
+msgstr "Agregar Academia"
 
 msgid "Edit School Course"
-msgstr "Editar Curso Escolar"
+msgstr "Editar Academia"
 
 msgid "New School Course"
-msgstr "Nuevo Curso Escolar"
+msgstr "Nueva Academia"
 
 msgid "School Courses"
-msgstr "Cursos Escolares"
+msgstr "Academias"
 
 msgid "Delete School Course"
-msgstr "Eliminar Curso Escolar"
+msgstr "Eliminar Academia"
 
 msgid "Subject"
 msgstr "Disciplina"
@@ -850,23 +783,20 @@ msgstr ""
 msgid "The role could not be deleted. Please, try again."
 msgstr ""
 
-#: ./src/Controller/SchoolCoursesController.php:56
-#: ./src/Controller/SchoolCoursesController.php:85
 msgid "The school course has been saved."
-msgstr ""
+msgstr "La academia se ha creado exitosamente."
 
-#: ./src/Controller/SchoolCoursesController.php:60
-#: ./src/Controller/SchoolCoursesController.php:89
+msgid "The school course has been updated."
+msgstr "La academia se ha actualizada exitosamente."
+
 msgid "The school course could not be saved. Please, try again."
-msgstr ""
+msgstr "La academia no pudo guardarse. Por favor, intentalo nuevamente."
 
-#: ./src/Controller/SchoolCoursesController.php:111
 msgid "The school course has been deleted."
-msgstr ""
+msgstr "La academia se ha eliminado."
 
-#: ./src/Controller/SchoolCoursesController.php:113
 msgid "The school course could not be deleted. Please, try again."
-msgstr ""
+msgstr "La academia no pudo eliminarse. Por favor, intetalo nuevamente."
 
 #: ./src/Controller/SchoolLevelsController.php:53
 #: ./src/Controller/SchoolLevelsController.php:77
@@ -1070,13 +1000,13 @@ msgid "Students Enrolled"
 msgstr "Alumnos Inscritos"
 
 msgid "Course Information about "
-msgstr "Información del curso "
+msgstr "Información acerca de la Academia"
 
 msgid "Course Information"
-msgstr "Información del Curso"
+msgstr "Información de la Academia"
 
 msgid "Confirmed Students for "
-msgstr "Alumnos inscritos al curso "
+msgstr "Alumnos inscritos a la Academia "
 
 msgid "Confirmed Students"
 msgstr "Alumnos Inscritos"
@@ -1127,7 +1057,7 @@ msgid "Couses Allowed"
 msgstr "Academias Permitidas"
 
 msgid "There is no availability for this course."
-msgstr "No hay disponibilidad para este curso."
+msgstr "No hay disponibilidad para esta academia."
 
 msgid "Available Seating"
 msgstr "Lugares Disponibles"

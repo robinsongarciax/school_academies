@@ -20,7 +20,7 @@ class SchoolCoursesController extends AppController
      *
      * @return \Cake\Http\Response|null|void Renders view
      */
-    public function index()
+    public function index($type = null)
     {
         $this->Authorization->skipAuthorization();
         if ($this->Authentication->getIdentity()->role->name == 'ALUMNO' ) {
@@ -42,12 +42,13 @@ class SchoolCoursesController extends AppController
 
             // Traer los cursos relacionados con el grado escolar, sexo y la edad del estudiante
             $schoolCourses = $this->SchoolCourses->find('CoursesForStudent', $options)
-                ->contain(['Subjects', 'Teachers', 'Terms'])
-                ->all();
+                ->contain(['Subjects', 'Teachers', 'Terms']);
         } else {
-            $schoolCourses = $this->SchoolCourses->find('all')
-                ->contain(['Subjects', 'Teachers', 'Terms'])
-                ->all();
+            $schoolCourses = $this->SchoolCourses->find('all');
+            if ($type != null) 
+                $schoolCourses->contain(['Subjects' => ['conditions' => ['tipo_academia' => $type]], 'Teachers', 'Terms']);
+            else 
+            $schoolCourses->contain(['Subjects', 'Teachers', 'Terms']);
         }
 
         $this->set(compact('schoolCourses'));
