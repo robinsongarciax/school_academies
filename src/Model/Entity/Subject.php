@@ -55,10 +55,6 @@ class Subject extends Entity
         'tipo_academia' => true,
         'criterio_academia' => true,
         'grade_level' => true,
-        'anio_nacimiento_minimo' => true,
-        'anio_nacimiento_maximo' => true,
-        'grado_minimo' => true,
-        'grado_maximo' => true,
         'costo_normal' => true,
         'costo_material' => true,
         'costo_cumbres' => true,
@@ -71,7 +67,6 @@ class Subject extends Entity
         'is_visible' => true,
         'created' => true,
         'modified' => true,
-        'teachers' => true,
-        'school_levels' => true,
+        'teachers' => true
     ];
 }

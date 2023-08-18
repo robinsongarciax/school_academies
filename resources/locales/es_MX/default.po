@@ -361,7 +361,7 @@ msgid "Delete School Course"
 msgstr "Eliminar Curso Escolar"
 
 msgid "Subject"
-msgstr "Academia"
+msgstr "Disciplina"
 
 #: ./templates/SchoolCourses/view.php:30
 msgid "Teacher"
@@ -557,36 +557,36 @@ msgid "Student Id"
 msgstr ""
 
 msgid "List Subjects"
-msgstr "Lista de Academias"
+msgstr "Lista de Disciplinas"
 
 msgid "Subjects List"
-msgstr "Lista de Academias"
+msgstr "Lista de Disciplinas"
 
 msgid "Add Subject"
-msgstr "Agregar Academia"
+msgstr "Agregar Disciplina"
 
 msgid "Edit Subject"
-msgstr "Editar Academia"
+msgstr "Editar Disciplina"
 
 msgid "New Subject"
-msgstr "Nueva Academia"
+msgstr "Nueva Disciplina"
 
 msgid "Subjects"
-msgstr "Academias"
+msgstr "Disciplinas"
 
 msgid "Delete Subject"
-msgstr "Borrar Academia"
+msgstr "Borrar Disciplina"
 
 #: ./templates/Subjects/view.php:34
 msgid "Genero"
 msgstr ""
 
 #: ./templates/Subjects/view.php:38
-msgid "Tipo Academia"
+msgid "Tipo Disciplina"
 msgstr ""
 
 #: ./templates/Subjects/view.php:42
-msgid "Criterio Academia"
+msgid "Criterio Disciplina"
 msgstr ""
 
 #: ./templates/Subjects/view.php:46
@@ -904,10 +904,11 @@ msgstr ""
 msgid "The student could not be deleted. Please, try again."
 msgstr ""
 
-#: ./src/Controller/SubjectsController.php:53
-#: ./src/Controller/SubjectsController.php:78
 msgid "The subject has been saved."
-msgstr ""
+msgstr "La disciplina se ha creado exitosamente."
+
+msgid "The subject has been updated."
+msgstr "La disciplina se ha actualizado exitosamente."
 
 #: ./src/Controller/SubjectsController.php:57
 #: ./src/Controller/SubjectsController.php:82
@@ -985,7 +986,7 @@ msgid "Invalid username or password"
 msgstr "Usuario o contraseña inválido"
 
 msgid "Subjects List"
-msgstr "Lista de academias"
+msgstr "Lista de Disciplinas"
 
 msgid "Teachers List"
 msgstr "Lista de profesores"
@@ -994,7 +995,7 @@ msgid "Teachers"
 msgstr "Profesores"
 
 msgid "Cake Description"
-msgstr "Preinscripción a Academias"
+msgstr "Inscripción a Academias"
 
 msgid "Application Title"
 msgstr "Academias"
@@ -1130,4 +1131,7 @@ msgstr "No hay disponibilidad para este curso."
 
 msgid "Available Seating"
 msgstr "Lugares Disponibles"
+
+msgid "Sex"
+msgstr "Sexo"
 

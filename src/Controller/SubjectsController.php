@@ -84,7 +84,7 @@ class SubjectsController extends AppController
         if ($this->request->is(['patch', 'post', 'put'])) {
             $subject = $this->Subjects->patchEntity($subject, $this->request->getData());
             if ($this->Subjects->save($subject)) {
-                $this->Flash->success(__('The subject has been saved.'));
+                $this->Flash->success(__('The subject has been updated.'));
 
                 return $this->redirect(['action' => 'index']);
             }

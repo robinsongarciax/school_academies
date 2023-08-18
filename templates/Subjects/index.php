@@ -30,11 +30,10 @@
                     <thead>
                         <tr>
                             <th><?= $this->Paginator->sort('name') ?></th>
-                            <th><?= $this->Paginator->sort('institute') ?></th>
                             <th><?= $this->Paginator->sort('sex') ?></th>
                             <th><?= $this->Paginator->sort('tipo_academia') ?></th>
-                            <th><?= $this->Paginator->sort('criterio_academia') ?></th>
                             <th><?= $this->Paginator->sort('pago_obligatorio') ?></th>
+                            <th><?= $this->Paginator->sort('visible') ?></th>
 
                             <th class="actions"><?= __('Actions') ?></th>
                         </tr>
@@ -43,11 +42,24 @@
                         <?php foreach ($subjects as $subject): ?>
                         <tr>
                             <td><?= h($subject->name) ?></td>
-                            <td><?= h($subject->institute) ?></td>
-                            <td><?= h($subject->sex) ?></td>
+                            <?php
+                            $sex;
+                            switch ($subject->sex) {
+                                case 'M':
+                                    $sex = 'MASCULINO';
+                                    break;
+                                case 'F':
+                                    $sex = 'FEMENINO';
+                                    break;
+                                default:
+                                    $sex = 'MIXTO';
+
+                            }
+                            ?>
+                            <td><?= h($sex) ?></td>
                             <td><?= h($subject->tipo_academia) ?></td>
-                            <td><?= h($subject->criterio_academia) ?></td>
-                            <td><?= $subject->pago_obligatorio === 1 ? 'Sí' : 'No' ?></td>
+                            <td><?= $subject->pago_obligatorio == 1 ? 'Sí' : 'No' ?></td>
+                            <td><?= $subject->is_visible == 1 ? 'Sí' : 'No' ?></td>
                             <td class="actions">
                                 <?= $this->Html->link("", ['action' => 'view', $subject->id], ['class'=>'fas fa-eye']) ?>
                                 <?= $this->Html->link("", ['action' => 'edit', $subject->id], ['class'=>'fas fa-pen']) ?>

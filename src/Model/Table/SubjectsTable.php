@@ -96,29 +96,8 @@ class SubjectsTable extends Table
             ->notEmptyString('tipo_academia');
 
         $validator
-            ->scalar('criterio_academia')
-            ->requirePresence('criterio_academia', 'create')
-            ->notEmptyString('criterio_academia');
-
-        $validator
             ->scalar('grade_level')
             ->allowEmptyString('grade_level');
-
-        $validator
-            ->integer('anio_nacimiento_minimo')
-            ->allowEmptyString('anio_nacimiento_minimo');
-
-        $validator
-            ->integer('anio_nacimiento_maximo')
-            ->allowEmptyString('anio_nacimiento_maximo');
-
-        $validator
-            ->integer('grado_minimo')
-            ->notEmptyString('grado_minimo');
-
-        $validator
-            ->integer('grado_maximo')
-            ->notEmptyString('grado_maximo');
 
         $validator
             ->numeric('costo_normal')

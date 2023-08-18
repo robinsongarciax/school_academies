@@ -35,12 +35,6 @@
             <?php
                     echo $this->Form->control('name');
                     echo $this->Form->control('description');
-                    echo $this->Form->control('institute',
-                        ['options' => [
-                            'Preescolar' => 'Preescolar',
-                            'Primaria' => 'Primaria',
-                            'Secundaria' => 'Secundaria'
-                        ]]);
                     echo $this->Form->control('sex', 
                         ['options' => [
                             'F' => 'FEMENINO', 
@@ -52,49 +46,6 @@
                             'CULTURAL' => 'CULTURAL', 
                             'DEPORTIVA' => 'DEPORTIVA']
                         ]);
-                    echo $this->Form->control('criterio_academia', 
-                        [
-                            'type' => 'radio',
-                            'options' => [
-                                'AÑO DE NACIMIENTO' => 'AÑO DE NACIMIENTO', 
-                                'GRADO ESCOLAR' => 'GRADO ESCOLAR'],
-                            'default' => 'AÑO DE NACIMIENTO',
-                            'id' => 'criterio_academia'
-                        ]);
-                    
-                    ?>
-                    <!-- Option for año de nacimiento -->
-                    <div id="collapseBirthDate" class="collapse show" aria-labelledby="headingBirthDate">
-                        <div class="bg-white py-2 collapse-inner rounded">
-                            <?= $this->Form->control('anio_nacimiento_minimo',
-                                [
-                                    'type' => 'year',
-                                    'min' => 2005,
-                                    'max' => date('Y', strtotime('Y' .  " -4 years")),
-                                    'label' => 'Año de nacimiento mínimo',
-                                ]) ?>
-
-                            <?= $this->Form->control('anio_nacimiento_maximo',
-                                [
-                                    'type' => 'year',
-                                    'min' => 2005,
-                                    'max' => date('Y', strtotime('Y' .  " -4 years")),
-                                    'label' => 'Año de nacimiento máximo'
-                                ]) ?>
-                        </div>
-                    </div>
-                    <div id="collapseSchoolGrade" class="collapse" aria-labelledby="headingSchoolGrade">
-
-                        <div class="bg-white py-2 collapse-inner rounded" style="padding-left:.75rem;">
-                                <?= $this->Form->control('school_levels._ids', [
-                                    'templates' => 'multichecked_form',
-                                    'options' => $schoolLevels,
-                                    'multiple' => 'checkbox',
-                                    'label' => false
-                                ]) ?>
-                        </div>
-                    </div>
-                    <?php
                     echo $this->Form->control('pago_obligatorio', 
                         ['options' => [
                             '1' => 'Sí', 
@@ -108,7 +59,6 @@
                             ],
                             'label' => 'Visible para los alumnos'
                         ]);
-                    echo $this->Form->control('teachers._ids', ['options' => $teachers, 'class' => 'form-select']);
                     echo $this->Form->control('active', ['value' => '1', 'hidden' => true, 'label' => false]);
                 ?>
             <?= $this->Form->button(__('Submit')) ?>
