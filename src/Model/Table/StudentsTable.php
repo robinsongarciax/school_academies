@@ -169,6 +169,7 @@ class StudentsTable extends Table
             ->select(['SchoolCoursesStudents.school_course_id', 
                 'SchoolCoursesStudents.id', 
                 'SchoolCoursesStudents.is_confirmed', 
+                'SchoolCoursesStudents.cost'
             ])
             ->innerJoin(['SchoolCoursesStudents' => 'school_courses_students'],
                 [

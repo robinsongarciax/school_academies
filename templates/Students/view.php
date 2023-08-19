@@ -24,6 +24,7 @@
 </header>
 <!-- Student View Container -->
 <div class="container-fluid">
+    <?= $this->Flash->render() ?>
     <div class="row">
         <!-- Left side: Student Information -->
         <div class="col-lg-5 d-none d-lg-block">

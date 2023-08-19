@@ -25,6 +25,7 @@
             <h6 class="m-0 font-weight-bold text-primary-cm"><?= __('Students List')?></h6>
         </div>
         <div class="card-body">
+            <?= $this->Flash->render() ?>
             <div class="table-responsive">
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <thead>

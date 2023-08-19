@@ -701,7 +701,7 @@ class SchoolCoursesController extends AppController
 
             $zip->addFile($excel_file_tmp, $fileName);
 
-            $stream = new CallbackStream(function () use ($writer) {
+            $stream = new CallbackStream(function () use ($writer, $schoolCourse, $fileName) {
                 $writer->save("constancias/".$schoolCourse['name'].'/'.$fileName);
             });
         endforeach;

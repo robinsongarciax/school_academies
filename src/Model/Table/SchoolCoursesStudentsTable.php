@@ -129,11 +129,12 @@ class SchoolCoursesStudentsTable extends Table
      * @param \ArrayObject $options
      */
     public function afterSave(EventInterface $event, $entity, \ArrayObject $options) {
-        if ($entity->is_confirmed == 1) {
-            $schoolCourse = $this->SchoolCourses->get($entity->school_course_id);
-            $schoolCourse->occupancy += 1;
-            $this->SchoolCourses->save($schoolCourse);
-        }
+        $total_confirmed = $this
+            ->findBySchoolCourseIdAndIsConfirmed($entity->school_course_id, 1)
+            ->count();
+        $schoolCourse = $this->SchoolCourses->get($entity->school_course_id);
+        $schoolCourse->occupancy = $total_confirmed;
+        $this->SchoolCourses->save($schoolCourse);
     }
 
     /**

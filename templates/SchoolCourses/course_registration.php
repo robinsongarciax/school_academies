@@ -7,14 +7,17 @@
 $this->Html->script('confirm-bootstrap-modal', ['block' => true]);
 $arr_coursesSignedup = [];
 $num_confirmed_courses = 0;
+$total_a_pagar = 0;
 foreach ($studentCourses as $studentCourse) {
     $school_course = $studentCourse->SchoolCoursesStudents;
     $arr_coursesSignedup[$school_course['school_course_id']] = [
         'school_courses_students_id' => $school_course['id'],
         'is_confirmed' => $school_course['is_confirmed'],
     ];
-    if ($school_course['is_confirmed'] === 1)
+    if ($school_course['is_confirmed'] == 1) {
         $num_confirmed_courses++;
+        $total_a_pagar += $school_course['cost'];
+    }
 }
 ?>
 <header class="page-header page-header-compact page-header-light border-bottom bg-white mb-4">
@@ -79,7 +82,7 @@ foreach ($studentCourses as $studentCourse) {
                             <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
                                 Total a pagar
                             </div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800"><?= $this->Number->currency('5400') ?></div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800"><?= $this->Number->currency($total_a_pagar) ?></div>
                         </div>
                         <div class="col-auto">
                             <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
@@ -90,14 +93,14 @@ foreach ($studentCourses as $studentCourse) {
         </div>
     </div>
 
-    <!-- Mensajes flash -->
-    <?= $this->Flash->render() ?>
     <div class="card shadow mb-4">
         <div class="card-header py-3">
             <h6 class="m-0 font-weight-bold text-primary-cm"><?= __('School Course List')?></h6>
         </div>
         <div class="card-body">
             <hr class="mt-0 mb-4">
+            <!-- Mensajes flash -->
+            <?= $this->Flash->render() ?>
             <div class="table-responsive">
                 <table  class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <thead>
