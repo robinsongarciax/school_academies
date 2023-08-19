@@ -69,6 +69,9 @@ class SchoolCoursesTable extends Table
             'targetForeignKey' => 'student_id',
             'joinTable' => 'school_courses_students',
         ]);
+        $this->belongsToMany('SchoolLevels', [
+            'joinTable' => 'school_courses_school_levels',
+        ]);
 
     }
 
@@ -131,11 +134,16 @@ class SchoolCoursesTable extends Table
         $school_level_id = $options['school_level_id'];
         $sex = $options['sex'];
         $student_id = $options['student_id'];
+        $year_of_birth = $options['year_of_birth'];
         $query = $query
-            ->innerJoinWith('Subjects.SchoolLevels', function ($q) use ($school_level_id) {
-                return $q->where(['SchoolLevels.id' => $school_level_id]);
+            ->leftJoinWith('SchoolLevels', function ($q) {
+                return $q;
             })
-            ->where(['Subjects.sex IN' => [$sex, 'X']]);
+            ->where([
+                'Subjects.sex IN' => [
+                $sex, 'X'],
+                "({$year_of_birth} OR SchoolLevels.id = {$school_level_id})"
+            ]);
         return $query;
     }
 

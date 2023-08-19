@@ -37,6 +37,9 @@ class SchoolCourse extends Entity
         'capacity' => true,
         'price' => true,
         'occupancy' => true,
+        'criterio_academia' => true,
+        'min_year_of_birth' => true,
+        'max_year_of_birth' => true,
         'subjet_id' => true,
         'teacher_id' => true,
         'term_id' => true,
@@ -45,5 +48,6 @@ class SchoolCourse extends Entity
         'term' => true,
         'schedules' => true,
         'students' => true,
+        'school_levels' => true
     ];
 }

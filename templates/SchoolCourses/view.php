@@ -46,6 +46,7 @@
     </nav>
     <hr class="mt-0 mb-4">
     <div class="row">
+        <?= $this->Flash->render() ?>
         <!-- Segmento izquiero -->
         <div class="col-lg-7 d-none d-lg-block">
             <div class="card shadow mb-4">
@@ -76,17 +77,17 @@
                                 <td><?= $this->Number->format($schoolCourse->capacity - $totalStudentsConfirmed) ?></td>
                             </tr>
                             <tr>
-                                <th><?= $schoolCourse->subject->criterio_academia ?></th>
-                                <?php if ($schoolCourse->subject->criterio_academia == 'GRADO ESCOLAR') : ?>
+                                <th><?= $schoolCourse->criterio_academia ?></th>
+                                <?php if ($schoolCourse->criterio_academia == 'GRADO ESCOLAR') : ?>
                                     <td>
-                                    <?php foreach ($schoolCourse->subject->school_levels as $school_level) {
+                                    <?php foreach ($schoolCourse->school_levels as $school_level) {
                                         echo $school_level->name . "<br/>";
                                     }
                                     ?>
                                     </td>
                                 <?php else: ?>
-                                    <td>M&iacute;nimo <?= $schoolCourse->subject->anio_nacimiento_minimo ?> <br>
-                                        M&aacute;ximo <?= $schoolCourse->subject->anio_nacimiento_maximo ?></td>
+                                    <td>M&iacute;nimo <?= $schoolCourse->min_year_of_birth ?> <br>
+                                        M&aacute;ximo <?= $schoolCourse->max_year_of_birth ?></td>
                                 <?php endif; ?>
                             </tr>
                         </table>

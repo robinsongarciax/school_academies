@@ -64,7 +64,7 @@ class SchoolCoursesController extends AppController
     public function view($id = null)
     {
         $schoolCourse = $this->SchoolCourses->get($id, [
-            'contain' => ['Subjects' => ['SchoolLevels'], 'Teachers', 'Terms', 'Schedules.Days'
+            'contain' => ['Subjects', 'SchoolLevels', 'Teachers', 'Terms', 'Schedules.Days'
             ]
         ]);
         $this->Authorization->authorize($schoolCourse);
@@ -123,7 +123,8 @@ class SchoolCoursesController extends AppController
         $terms = $this->SchoolCourses->Terms->find('list', ['limit' => 200])->all();
         $schedules = $this->SchoolCourses->Schedules->find('list', ['limit' => 200])->all();
         $students = $this->SchoolCourses->Students->find('list', ['limit' => 200])->all();
-        $this->set(compact('schoolCourse', 'subjects', 'teachers', 'terms', 'schedules', 'students'));
+        $schoolLevels = $this->SchoolCourses->SchoolLevels->find('list', ['limit' => 200])->all();
+        $this->set(compact('schoolCourse', 'subjects', 'teachers', 'terms', 'schedules', 'students', 'schoolLevels'));
     }
 
     /**
@@ -136,7 +137,7 @@ class SchoolCoursesController extends AppController
     public function edit($id = null)
     {
         $schoolCourse = $this->SchoolCourses->get($id, [
-            'contain' => ['Schedules', 'Students'],
+            'contain' => ['Schedules', 'Students', 'SchoolLevels'],
         ]);
         $this->Authorization->authorize($schoolCourse);
         if ($this->request->is(['patch', 'post', 'put'])) {
@@ -153,7 +154,8 @@ class SchoolCoursesController extends AppController
         $terms = $this->SchoolCourses->Terms->find('list', ['limit' => 200])->all();
         $schedules = $this->SchoolCourses->Schedules->find('list', ['limit' => 200])->all();
         $students = $this->SchoolCourses->Students->find('list', ['limit' => 200])->all();
-        $this->set(compact('schoolCourse', 'subjects', 'teachers', 'terms', 'schedules', 'students'));
+        $schoolLevels = $this->SchoolCourses->SchoolLevels->find('list', ['limit' => 200])->all();
+        $this->set(compact('schoolCourse', 'subjects', 'teachers', 'terms', 'schedules', 'students', 'schoolLevels'));
     }
 
     /**
@@ -194,7 +196,8 @@ class SchoolCoursesController extends AppController
             $options = [
                 'school_level_id' => $row->sl_id,
                 'sex' => $row->sex,
-                'student_id' => $row->student_id
+                'student_id' => $row->student_id,
+                'year_of_birth' => "{$row->year_of_birth} BETWEEN min_year_of_birth AND max_year_of_birth"
             ];
 
             // Traer los cursos relacionados con el grado escolar, sexo y la edad del estudiante
@@ -441,19 +444,21 @@ class SchoolCoursesController extends AppController
         $schoolCourse = $this->SchoolCourses->get($id, [
             'contain' => [
                 'Students' => ['conditions' => ['is_confirmed' => 0]],
-                'Subjects' => ['SchoolLevels']],
+                'SchoolLevels', 
+                'Subjects'
+            ],
         ]);
 
         $search_options = [];
-        if ($schoolCourse->subject->criterio_academia === 'GRADO ESCOLAR') {
+        if ($schoolCourse->criterio_academia === 'GRADO ESCOLAR') {
             $schoolLevels = [];
-            foreach ($schoolCourse->subject->school_levels as $school_lavel) {
+            foreach ($schoolCourse->school_levels as $school_lavel) {
                 $schoolLevels[] = $school_lavel->name;
             }
             $search_options += ['school_level in' => $schoolLevels];
         } else {
-            $min_birthyear = $schoolCourse->subject->anio_nacimiento_minimo;
-            $max_birthyear = $schoolCourse->subject->anio_nacimiento_maximo;
+            $min_birthyear = $schoolCourse->min_year_of_birth;
+            $max_birthyear = $schoolCourse->max_year_of_birth;
 
             $search_options[] = "YEAR(Students.birth_date) BETWEEN {$min_birthyear} AND {$max_birthyear}";
         }

@@ -11,21 +11,10 @@ use Cake\ORM\Entity;
  * @property int $id
  * @property string|null $id_number
  * @property string $name
- * @property int|null $capacity
  * @property string|null $institute
  * @property string $sex
  * @property string $tipo_academia
  * @property string $criterio_academia
- * @property string|null $grade_level
- * @property int $anio_nacimiento_minimo
- * @property int $anio_nacimiento_maximo
- * @property int $grado_minimo
- * @property int $grado_maximo
- * @property float|null $costo_normal
- * @property float|null $costo_material
- * @property float|null $costo_cumbres
- * @property float|null $costo_segundo_semestre
- * @property float|null $costo_externos
  * @property string $description
  * @property int|null $active
  * @property int|null $seleccionado
@@ -49,17 +38,10 @@ class Subject extends Entity
     protected $_accessible = [
         'id_number' => true,
         'name' => true,
-        'capacity' => true,
         'institute' => true,
         'sex' => true,
         'tipo_academia' => true,
         'criterio_academia' => true,
-        'grade_level' => true,
-        'costo_normal' => true,
-        'costo_material' => true,
-        'costo_cumbres' => true,
-        'costo_segundo_semestre' => true,
-        'costo_externos' => true,
         'description' => true,
         'active' => true,
         'seleccionado' => true,

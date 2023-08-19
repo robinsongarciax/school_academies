@@ -64,8 +64,8 @@ class SubjectsController extends AppController
             $this->Flash->error(__('The subject could not be saved. Please, try again.'));
         }
         $teachers = $this->Subjects->Teachers->find('list', ['limit' => 200])->all();
-        $schoolLevels = $this->Subjects->SchoolLevels->find('list', ['limit' => 200])->all();
-        $this->set(compact('subject', 'teachers', 'schoolLevels'));
+        
+        $this->set(compact('subject', 'teachers'));
     }
 
     /**
@@ -78,7 +78,7 @@ class SubjectsController extends AppController
     public function edit($id = null)
     {
         $subject = $this->Subjects->get($id, [
-            'contain' => ['Teachers', 'SchoolLevels'],
+            'contain' => ['Teachers']
         ]);
         $this->Authorization->authorize($subject);
         if ($this->request->is(['patch', 'post', 'put'])) {
@@ -91,8 +91,7 @@ class SubjectsController extends AppController
             $this->Flash->error(__('The subject could not be saved. Please, try again.'));
         }
         $teachers = $this->Subjects->Teachers->find('list', ['limit' => 200])->all();
-        $schoolLevels = $this->Subjects->SchoolLevels->find('list', ['limit' => 200])->all();
-        $this->set(compact('subject', 'teachers', 'schoolLevels'));
+        $this->set(compact('subject', 'teachers'));
     }
 
     /**

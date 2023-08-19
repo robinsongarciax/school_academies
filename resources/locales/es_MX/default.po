@@ -1000,7 +1000,7 @@ msgid "Students Enrolled"
 msgstr "Alumnos Inscritos"
 
 msgid "Course Information about "
-msgstr "Información acerca de la Academia"
+msgstr "Información acerca de la Academia "
 
 msgid "Course Information"
 msgstr "Información de la Academia"

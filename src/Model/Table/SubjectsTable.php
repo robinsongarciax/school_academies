@@ -52,10 +52,6 @@ class SubjectsTable extends Table
             'targetForeignKey' => 'teacher_id',
             'joinTable' => 'subjects_teachers',
         ]);
-
-        $this->belongsToMany('SchoolLevels', [
-            'joinTable' => 'subjects_school_levels',
-        ]);
     }
 
     /**
