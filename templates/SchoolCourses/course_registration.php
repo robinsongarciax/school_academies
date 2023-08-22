@@ -201,7 +201,17 @@ foreach ($studentCourses as $studentCourse) {
                                                 ['class'=>'fas fa-print']) ?>
                                         <?php endif; ?>
                                     <?php else: ?>
-                                        <?= $this->Form->postLink(__('Signup'), ['action' => 'signup', $schoolCourse->id]) ?>
+                                        <?php $this->Form->setTemplates([
+                                            'confirmJs' => 'addToModal("{{formName}}"); return false;'
+                                        ]); ?>
+                                        <?= $this->Form->postLink(__('Signup'), [
+                                            'action' => 'signup', 
+                                            $schoolCourse->id], [
+                                                'confirm' => __('Are you sure you want to register for {0}?', $schoolCourse->name),
+                                                'title' => __('Confirm'),
+                                                'data-toggle' => 'modal',
+                                                'data-target' => '#confirmRegistrationModal'
+                                            ]) ?>
                                     <?php endif; ?>
                                 </td>
                             </tr>

@@ -1065,3 +1065,9 @@ msgstr "Lugares Disponibles"
 msgid "Sex"
 msgstr "Sexo"
 
+msgid "The school courses student has been confirmed."
+msgstr "El registro en la academía ha sido confirmado."
+
+msgid "The school courses student has been deleted."
+msgstr "El registro a la academía ha sido eliminado."
+

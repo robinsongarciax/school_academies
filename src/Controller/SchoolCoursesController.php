@@ -231,6 +231,11 @@ class SchoolCoursesController extends AppController
             $schoolCourse->students = array_merge($schoolCourse->students, $student->toArray());
 
             if ($this->SchoolCourses->save($schoolCourse)) {
+                // Actualizar el campo is_confirmed
+                $schoolCoursesStudents = $this->loadModel('SchoolCoursesStudents');
+                $schoolCourseStudent = $schoolCoursesStudents->findBySchoolCourseIdAndStudentId($schoolCourse->id, $student->first()->id)->first();
+                $schoolCourseStudent->is_confirmed = 1;
+                $schoolCoursesStudents->save($schoolCourseStudent);
                 $this->Flash->success(__('You have signed up for the course ') . $schoolCourse->name . '.');
             } else {
                 $this->Flash->error(__('The school course could not be taken. Please, try again.'));
