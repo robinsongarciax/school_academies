@@ -37,7 +37,7 @@ class AppView extends View
      */
     public function initialize(): void
     {
-        if ($this->request->getParam('controller') == 'Users' && ($this->request->getParam('action') === 'login' || $this->request->getParam('action') === 'add' || $this->request->getParam('action') == 'forgotpassword')) {
+        if ($this->request->getParam('controller') == 'Users' && ($this->request->getParam('action') === 'login' || $this->request->getParam('action') == 'forgotpassword')) {
             $this->loadHelper('Login');
         } else {
             $this->loadHelper('Form', [

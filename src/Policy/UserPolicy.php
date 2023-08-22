@@ -60,4 +60,21 @@ class UserPolicy
     {
         return $user->isModulePermission($this->module, 'View');
     }
+
+    /**
+     * Check if $user can profile User
+     *
+     * @param \Authorization\IdentityInterface $user The user.
+     * @param \App\Model\Entity\User $resource
+     * @return bool
+     */
+    public function canProfile(IdentityInterface $user, User $resource)
+    {
+        return $this->isUser($user, $resource);
+    }
+
+    protected function isUser(IdentityInterface $user, User $resource)
+    {
+        return $resource->id === $user->getIdentifier();
+    }
 }

@@ -87,7 +87,9 @@ class UsersController extends AppController
             }
             $this->Flash->error(__('The user could not be saved. Please, try again.'));
         }
-        $roles = $this->Users->Roles->find('list', ['limit' => 200])->all();
+        $roles = $this->Users->Roles->find('list', ['limit' => 200])
+            ->where(['id > ' => $this->getRequest()->getAttribute('identity')->role_id])
+            ->all();
         $this->set(compact('user', 'roles'));
     }
 
@@ -113,7 +115,9 @@ class UsersController extends AppController
             }
             $this->Flash->error(__('The user could not be saved. Please, try again.'));
         }
-        $roles = $this->Users->Roles->find('list', ['limit' => 200])->all();
+        $roles = $this->Users->Roles->find('list', ['limit' => 200])
+            ->where(['id > ' => $this->getRequest()->getAttribute('identity')->role_id])
+            ->all();
         $this->set(compact('user', 'roles'));
     }
 
@@ -179,5 +183,24 @@ class UsersController extends AppController
             $this->Authentication->logout();
             return $this->redirect(['controller' => 'Users', 'action' => 'login']);
         }
+    }
+
+    public function profile($id = null)
+    {
+        $user = $this->Users->get($id, [
+            'contain' => ['Roles'],
+        ]);
+        $this->Authorization->authorize($user);
+        if ($this->request->is(['patch', 'post', 'put'])) {
+            $user = $this->Users->patchEntity($user, $this->request->getData());
+            if ($this->Users->save($user)) {
+                $this->Flash->success(__('Your password has been updated.'));
+
+                return $this->redirect($this->referer());
+            }
+            $this->Flash->error(__('The user could not be saved. Please, try again.'));
+        }
+        $roles = $this->Users->Roles->find('list', ['limit' => 200])->all();
+        $this->set(compact('user', 'roles'));
     }
 }

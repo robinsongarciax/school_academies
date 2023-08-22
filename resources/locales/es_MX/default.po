@@ -245,8 +245,6 @@ msgstr ""
 msgid "Related Users"
 msgstr ""
 
-#: ./templates/Roles/view.php:64
-#: ./templates/Users/view.php:22
 msgid "Username"
 msgstr ""
 
@@ -584,11 +582,8 @@ msgstr ""
 msgid "Modules Id"
 msgstr ""
 
-#: ./templates/Teachers/add.php:13
-#: ./templates/Teachers/edit.php:18
-#: ./templates/Teachers/view.php:13
 msgid "List Teachers"
-msgstr ""
+msgstr "Lista de Profersores"
 
 msgid "Add Teacher"
 msgstr "Agregar Profesor"
@@ -633,11 +628,8 @@ msgstr "Ciclos Escolares"
 msgid "Delete Term"
 msgstr ""
 
-#: ./templates/Users/add.php:12
-#: ./templates/Users/edit.php:17
-#: ./templates/Users/view.php:13
 msgid "List Users"
-msgstr ""
+msgstr "Lista de Usuarios"
 
 msgid "Add User"
 msgstr "Agregar Usuario"
@@ -1070,4 +1062,7 @@ msgstr "El registro en la academía ha sido confirmado."
 
 msgid "The school courses student has been deleted."
 msgstr "El registro a la academía ha sido eliminado."
+
+msgid "Update password"
+msgstr "Actualizar contraseña"
 
