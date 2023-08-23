@@ -68,14 +68,14 @@ class StudentsController extends AppController
             $request_data = $this->request->getData();
             $student = $this->Students->patchEntity($student, $request_data);
 
-            // $student_user = $this->Students->Users->newEmptyEntity();
-            // $student_user->name = trim($request_data['name']);
-            // $student_user->username = $request_data['curp'];
-            // $student_user->password = $request_data['curp'];
-            // $student_user->role_id = $this->studentsRol;
-            // $student_user->active = 1;
+            $student_user = $this->Students->Users->newEmptyEntity();
+            $student_user->name = trim($request_data['name']);
+            $student_user->username = $request_data['curp'];
+            $student_user->password = $request_data['curp'];
+            $student_user->role_id = $this->studentsRole;
+            $student_user->active = 1;
 
-            // if ($this->Students->Users->save($student_user)) {
+            if ($this->Students->Users->save($student_user)) {
                 $student->user_id = 3;
                 if ($this->Students->save($student)) {
                     $this->Flash->success(__('The student has been saved.'));
@@ -93,7 +93,7 @@ class StudentsController extends AppController
                         );
                     }
                 }
-            // }
+            }
             $this->Flash->error(__('The student could not be saved. Please, try again.'));
         }
         $terms = $this->Students->Terms->find('list', ['limit' => 200])->all();

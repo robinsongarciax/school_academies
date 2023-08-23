@@ -808,23 +808,18 @@ msgstr ""
 msgid "The school level could not be deleted. Please, try again."
 msgstr ""
 
-#: ./src/Controller/StudentsController.php:56
-#: ./src/Controller/StudentsController.php:83
+
 msgid "The student has been saved."
-msgstr ""
+msgstr "El alumno (a) se ha registrado con exito"
 
-#: ./src/Controller/StudentsController.php:60
-#: ./src/Controller/StudentsController.php:87
 msgid "The student could not be saved. Please, try again."
-msgstr ""
+msgstr "El alumno (a) no se ha podido guardar. Por favor, intentelo nuevamente."
 
-#: ./src/Controller/StudentsController.php:107
 msgid "The student has been deleted."
-msgstr ""
+msgstr "El alumno (a) se ha borrado exitosamente"
 
-#: ./src/Controller/StudentsController.php:109
 msgid "The student could not be deleted. Please, try again."
-msgstr ""
+msgstr "El alumno (a) no pudo ser borrado. Por favor, intentelo nuevamente."
 
 msgid "The subject has been saved."
 msgstr "La disciplina se ha creado exitosamente."
@@ -832,8 +827,6 @@ msgstr "La disciplina se ha creado exitosamente."
 msgid "The subject has been updated."
 msgstr "La disciplina se ha actualizado exitosamente."
 
-#: ./src/Controller/SubjectsController.php:57
-#: ./src/Controller/SubjectsController.php:82
 msgid "The subject could not be saved. Please, try again."
 msgstr ""
 
