@@ -18,10 +18,10 @@
                 <div class="col-lg-5">
                     <div class="p-4">
                         <div class="d-flex align-items-center justify-content-center">
-                            <?= $this->Html->image('free-cakephp.png', ['alt' => 'Cumbres Mérida', 'id' => 'welcome-logo']) ?>
+                            <?= $this->Html->image('logo_cumbres.png', ['alt' => 'Cumbres Mérida', 'id' => 'welcome-logo']) ?>
                         </div>
                         <div class="text-center">
-                            <h2 class="h4 text-gray-900 mb-4"><?= __('Preinscripciones <br> a academias') ?></h2>
+                            <h2 class="h4 text-gray-900 mb-4"><?= __('Inscripciones <br> a academias') ?></h2>
                         </div>
 
                         <p class="text-center mb-4 text-gray-900">

@@ -60,7 +60,7 @@ $cakeDescription = __('Cake Description');;
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
-            <!-- <?= $this->Html->link($this->Html->image('cake-logo.png', ['alt' => 'Cumbres Mérida']),
+            <!-- <?= $this->Html->link($this->Html->image('wordmark_cumbres.png', ['alt' => 'Cumbres Mérida']),
                 ['controller' => 'Pages', 'action' => 'display', 'home'],
                 ['class' => 'sidebar-brand d-flex align-items-center justify-content-center',
                     'escape' => false
