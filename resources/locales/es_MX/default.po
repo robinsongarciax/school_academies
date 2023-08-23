@@ -1066,3 +1066,6 @@ msgstr "El registro a la academía ha sido eliminado."
 msgid "Update password"
 msgstr "Actualizar contraseña"
 
+msgid "List Students"
+msgstr "Lista de Alumnos"
+
