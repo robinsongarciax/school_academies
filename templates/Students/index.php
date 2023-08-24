@@ -33,9 +33,9 @@
                             <th><?= $this->Paginator->sort('name') ?></th>
                             <th><?= $this->Paginator->sort('curp') ?></th>
                             <th><?= $this->Paginator->sort('sex') ?></th>
-                            <th><?= $this->Paginator->sort('level') ?></th>
-                            <th><?= $this->Paginator->sort('school_level') ?></th>
-                            <th><?= $this->Paginator->sort('school_group') ?></th>
+                            <th><?= $this->Paginator->sort('level', 'Sección') ?></th>
+                            <th><?= $this->Paginator->sort('school_level', 'Grado') ?></th>
+                            <th><?= $this->Paginator->sort('school_group', 'Grupo') ?></th>
                             <th class="actions"><?= __('Actions') ?></th>
                         </tr>
                     </thead>
@@ -51,7 +51,7 @@
                             <td class="actions">
                                 <?= $this->Html->link("", ['action' => 'view', $student->id], ['class'=>'fas fa-eye']) ?>
                                 <?= $this->Html->link("", ['action' => 'edit', $student->id], ['class'=>'fas fa-pen']) ?>
-                                <?= $this->Form->postLink("", ['action' => 'delete', $student->id], ['class'=>'fas fa-trash', 'confirm' => __('Are you sure you want to delete # {0}?', $student->id)]) ?>
+                                <?= $this->Form->postLink("", ['action' => 'delete', $student->id], ['class'=>'fas fa-trash', 'confirm' => __('Are you sure you want to delete {0}?', $student->name)]) ?>
                             </td>
                         </tr>
                         <?php endforeach; ?>

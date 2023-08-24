@@ -456,9 +456,8 @@ msgstr "Nuevo Alumno"
 msgid "Students"
 msgstr "Alumnos"
 
-#: ./templates/Students/view.php:12
 msgid "Delete Student"
-msgstr ""
+msgstr "Eliminar Alumno"
 
 #: ./templates/Students/view.php:58
 #: ./templates/Teachers/view.php:46
@@ -1061,4 +1060,10 @@ msgstr "Actualizar contraseña"
 
 msgid "List Students"
 msgstr "Lista de Alumnos"
+
+msgid "The students has been imported correctly."
+msgstr "Los alumnos se han importado correctamente."
+
+msgid "School Courses List Enrolled"
+msgstr "Lista de Academías Inscritas"
 

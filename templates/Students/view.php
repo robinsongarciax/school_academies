@@ -14,7 +14,7 @@
                 </div>
                 <div class="col-12 col-xl-auto mb-3">
                     <?= $this->Html->link(__('Edit Student'), ['action' => 'edit', $student->id], ['class' => 'btn btn-sm btn-light text-primary', 'escape' => true]) ?>
-                    <?= $this->Form->postLink(__('Delete Student'), ['action' => 'delete', $student->id], ['confirm' => __('Are you sure you want to delete # {0}?', $student->id), 'class' => 'btn btn-sm btn-light text-primary', 'escape' => true]) ?>
+                    <?= $this->Form->postLink(__('Delete Student'), ['action' => 'delete', $student->id], ['confirm' => __('Are you sure you want to delete {0}?', $student->name), 'class' => 'btn btn-sm btn-light text-primary', 'escape' => true]) ?>
                     <?= $this->Html->link(__('List Students'), ['action' => 'index'], ['class' => 'btn btn-sm btn-light text-primary', 'escape' => true]) ?>
                     <?= $this->Html->link(__('New Student'), ['action' => 'add'], ['class' => 'btn btn-sm btn-light text-primary', 'escape' => true]) ?>
                 </div>
@@ -30,11 +30,15 @@
         <div class="col-lg-5 d-none d-lg-block">
             <div class="card shadow mb-4">
                 <div class="card-header py-3">
-                    <h6 class="m-0 font-weight-bold text-primary-cm"><?= h($student->name) ?></h6>
+                    <h6 class="m-0 font-weight-bold text-primary-cm"><?= __('Información del Alumno') ?></h6>
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
                         <table class="table">
+                            <tr>
+                                <td><?= __('Name') ?></td>
+                                <td><?= h($student->name) ?></td>
+                            </tr>
                             <tr>
                                 <th><?= __('Curp') ?></th>
                                 <td><?= h($student->curp) ?></td>
@@ -72,7 +76,7 @@
         <div class="col-lg-7 d-none d-lg-block">
             <div class="card shadow mb-4">
                 <div class="card-header py-3">
-                    <h6 class="m-0 font-weight-bold text-primary-cm"><?= __('School Courses List') ?></h6>
+                    <h6 class="m-0 font-weight-bold text-primary-cm"><?= __('School Courses List Enrolled') ?></h6>
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">

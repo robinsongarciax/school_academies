@@ -33,7 +33,7 @@
                 <?php
                     echo $this->Form->control('name');
                     echo $this->Form->control('curp', [
-                        'label' => 'CURP'
+                        'label' => ['text' => 'CURP']
                     ]);
                     echo $this->Form->control('sex', [
                         'options' => ['F' => 'FEMENINO', 'M' => 'MASCULINO']
@@ -75,7 +75,14 @@
                         'label' => 'Grupo'
                     ]);
                     echo $this->Form->control('birth_date', [
-                        'label' => 'Fecha de Nacimiento'
+                        'label' => 'Fecha de Nacimiento',
+                        'required' => true,
+                        'error' => ['required' => __('Este campo es requerido'),
+                            'escape' => false
+                        ]
+                    ]);
+                    echo $this->Form->control('externo', [
+                        'options' => ['No', 'Sí']
                     ]);
                     echo $this->Form->control('term_id', ['options' => $terms,
                         'hidden' => true, 'label' => false

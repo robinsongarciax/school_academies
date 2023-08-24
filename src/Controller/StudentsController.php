@@ -49,7 +49,7 @@ class StudentsController extends AppController
     public function view($id = null)
     {
         $student = $this->Students->get($id, [
-            'contain' => ['Terms', 'Users', 'SchoolCourses', 'Courses'],
+            'contain' => ['Terms', 'Users', 'SchoolCourses'],
         ]);
         $this->Authorization->authorize($student);
         $this->set(compact('student'));
@@ -76,12 +76,13 @@ class StudentsController extends AppController
             $student_user->active = 1;
 
             if ($this->Students->Users->save($student_user)) {
-                $student->user_id = 3;
+                $student->user_id = $student_user->id;
                 if ($this->Students->save($student)) {
                     $this->Flash->success(__('The student has been saved.'));
 
                     return $this->redirect(['action' => 'index']);
                 } else {
+                    $this->Students->Users->delete($student_user);
                     Log::write(
                         'emergency',
                             'Unable to store tutor'
@@ -141,8 +142,10 @@ class StudentsController extends AppController
     {
         $this->request->allowMethod(['post', 'delete']);
         $student = $this->Students->get($id);
+        $user_id = $student->user_id;
         $this->Authorization->authorize($student);
         if ($this->Students->delete($student)) {
+            $this->Students->Users->delete($this->Students->Users->get($user_id));
             $this->Flash->success(__('The student has been deleted.'));
         } else {
             $this->Flash->error(__('The student could not be deleted. Please, try again.'));
@@ -230,7 +233,7 @@ class StudentsController extends AppController
                 ]
             ]);
             $this->Flash->success(__('The students has been imported correctly.'));
-
+            $this->redirect(['action' => 'index']);
         }
 
         $terms = $this->Students->Terms->find('list', ['limit' => 200])->all();

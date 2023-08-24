@@ -78,6 +78,9 @@
                     echo $this->Form->control('birth_date', [
                         'label' => 'Fecha de Nacimiento'
                     ]);
+                    echo $this->Form->control('externo', [
+                        'options' => ['No', 'Sí']
+                    ]);
                     echo $this->Form->control('term_id', ['options' => $terms,
                         'hidden' => true, 'label' => false
                     ]);
