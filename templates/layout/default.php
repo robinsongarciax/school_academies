@@ -89,7 +89,7 @@ $cakeDescription = __('Cake Description');;
             <!-- Heading -->
             <!-- Academias -->
             <div class="sidebar-heading">
-                <?= __('Subjects') ?>
+                <?= __('School Courses') ?>
             </div>
 
             <!-- Nav Item - Pages Collapse Menu -->
@@ -105,24 +105,6 @@ $cakeDescription = __('Cake Description');;
                         <?= $this->Html->link(__('Sports'), ['controller' => 'SchoolCourses', 'action' => 'index', 'DEPORTIVA'], ['class' => 'collapse-item' . ($action == 'SchoolCourses_index_DEPORTIVA' ? ' active' : '')]) ?>
                         <?= $this->Html->link(__('Cultural'), ['controller' => 'SchoolCourses', 'action' => 'index', 'CULTURAL'], ['class' => 'collapse-item' . ($action == 'SchoolCourses_index_CULTURAL' ? ' active' : '')]) ?>
                         <?= $this->Html->link(__('Add School Course'), ['controller' => 'SchoolCourses', 'action' => 'add'], ['class' => 'collapse-item' . ($action == 'SchoolCourses_add' ? ' active' : '')]) ?>
-                    </div>
-                </div>
-            </li>
-
-            <!-- Nav Item - Pages Collapse Menu -->
-            <li class="nav-item <?= ($controller == '   ') ? 'active' : ''?>">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseSubjects"
-                    aria-expanded="true" aria-controls="collapseSubjects">
-                    <i class="fas fa-fw fa-futbol fa-music"></i>
-                    <span><?= __('Subjects') ?></span>
-                </a>
-                <div id="collapseSubjects" class="collapse <?= ($controller == 'Subjects') ? 'show' : ''?>" aria-labelledby="headingOne" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header"><?= __('Subjects') ?></h6>
-                        <?= $this->Html->link(__('Subjects List'), ['controller' => 'Subjects', 'action' => 'index'], ['class' => 'collapse-item' . ($action == 'Subjects_index' ? ' active' : '')]) ?>
-                        <?= $this->Html->link(__('Sports'), ['controller' => 'Subjects', 'action' => 'index', 'DEPORTIVA'], ['class' => 'collapse-item' . ($action == 'Subjects_index_DEPORTIVA' ? ' active' : '')]) ?>
-                        <?= $this->Html->link(__('Cultural'), ['controller' => 'Subjects', 'action' => 'index', 'CULTURAL'], ['class' => 'collapse-item' . ($action == 'Subjects_index_CULTURAL' ? ' active' : '')]) ?>
-                        <?= $this->Html->link(__('Add Subject'), ['controller' => 'Subjects', 'action' => 'add'], ['class' => 'collapse-item' . ($action == 'Subjects_add' ? ' active' : '')]) ?>
                     </div>
                 </div>
             </li>
