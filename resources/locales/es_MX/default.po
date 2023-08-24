@@ -260,14 +260,8 @@ msgstr ""
 msgid "Celular"
 msgstr ""
 
-#: ./templates/Roles/view.php:68
-#: ./templates/Subjects/view.php:94
-#: ./templates/Subjects/view.php:132
-#: ./templates/Teachers/view.php:54
-#: ./templates/Users/view.php:42
-#: ./templates/Users/view.php:117
 msgid "Active"
-msgstr ""
+msgstr "Activo"
 
 #: ./templates/Roles/view.php:71
 msgid "Role Id"
@@ -398,12 +392,8 @@ msgstr ""
 msgid "Birth Date"
 msgstr ""
 
-#: ./templates/SchoolCourses/view.php:94
-#: ./templates/Students/view.php:93
-#: ./templates/Terms/view.php:69
-#: ./templates/Users/view.php:73
 msgid "Term Id"
-msgstr ""
+msgstr "Ciclo Escolar"
 
 #: ./templates/SchoolCourses/view.php:95
 #: ./templates/Subjects/view.php:136
@@ -837,23 +827,17 @@ msgstr ""
 msgid "The subject could not be deleted. Please, try again."
 msgstr ""
 
-#: ./src/Controller/TeachersController.php:56
-#: ./src/Controller/TeachersController.php:82
 msgid "The teacher has been saved."
-msgstr ""
+msgstr "El profesor (a) se ha guardado."
 
-#: ./src/Controller/TeachersController.php:60
-#: ./src/Controller/TeachersController.php:86
 msgid "The teacher could not be saved. Please, try again."
-msgstr ""
+msgstr "El profesor (a) no pudo ser guardado. Por favor, intentelo nuevamente."
 
-#: ./src/Controller/TeachersController.php:105
 msgid "The teacher has been deleted."
-msgstr ""
+msgstr "El profesor (a) ha sido eliminado."
 
-#: ./src/Controller/TeachersController.php:107
 msgid "The teacher could not be deleted. Please, try again."
-msgstr ""
+msgstr "El profesor (a) no pudo ser eliminado. Por favor, intentelo nuevamente."
 
 #: ./src/Controller/TermsController.php:56
 #: ./src/Controller/TermsController.php:81
@@ -915,7 +899,7 @@ msgid "Application Title"
 msgstr "Academias"
 
 msgid "Application Copyright"
-msgstr "Cssoft"
+msgstr "Cumbres Mérida"
 
 msgid "Course Registration"
 msgstr "Preinscripciones"
@@ -1066,4 +1050,7 @@ msgstr "Los alumnos se han importado correctamente."
 
 msgid "School Courses List Enrolled"
 msgstr "Lista de Academías Inscritas"
+
+msgid "Teacher Information"
+msgstr "Información del profesor (a)"
 

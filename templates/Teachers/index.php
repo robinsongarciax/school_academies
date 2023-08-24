@@ -19,6 +19,7 @@
     </div>
 </header>
 <div class="container-fluid">
+    <?= $this->Flash->render() ?>
     <div class="card shadow mb-4">
         <div class="card-header py-3">
             <h6 class="m-0 font-weight-bold text-primary-cm"><?= __('Teachers List')?></h6>
@@ -30,7 +31,6 @@
                         <tr>
                             <th><?= $this->Paginator->sort('name') ?></th>
                             <th><?= $this->Paginator->sort('email') ?></th>
-                            <th><?= $this->Paginator->sort('active') ?></th>
                             <th><?= $this->Paginator->sort('created') ?></th>
                             <th><?= $this->Paginator->sort('modified') ?></th>
                             <th><?= $this->Paginator->sort('user_id') ?></th>
@@ -42,14 +42,13 @@
                         <tr>
                             <td><?= h($teacher->name) ?></td>
                             <td><?= h($teacher->email) ?></td>
-                            <td><?= $this->Number->format($teacher->active) ?></td>
                             <td><?= h($teacher->created) ?></td>
                             <td><?= h($teacher->modified) ?></td>
                             <td><?= $teacher->has('user') ? $this->Html->link($teacher->user->username, ['controller' => 'Users', 'action' => 'view', $teacher->user->id]) : '' ?></td>
                             <td class="actions">
                                 <?= $this->Html->link("", ['action' => 'view', $teacher->id], ['class'=>'fas fa-eye']) ?>
                                 <?= $this->Html->link("", ['action' => 'edit', $teacher->id], ['class'=>'fas fa-pen']) ?>
-                                <?= $this->Form->postLink("", ['action' => 'delete', $teacher->id], ['class'=>'fas fa-trash', 'confirm' => __('Are you sure you want to delete # {0}?', $teacher->id)]) ?>
+                                <?= $this->Form->postLink("", ['action' => 'delete', $teacher->id], ['class'=>'fas fa-trash', 'confirm' => __('Are you sure you want to delete {0}?', $teacher->name)]) ?>
                             </td>
                         </tr>
                         <?php endforeach; ?>

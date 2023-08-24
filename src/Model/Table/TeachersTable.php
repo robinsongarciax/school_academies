@@ -7,6 +7,7 @@ use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
+use Cake\Event\EventInterface;
 
 /**
  * Teachers Model
@@ -56,11 +57,6 @@ class TeachersTable extends Table
         $this->hasMany('SchoolCourses', [
             'foreignKey' => 'teacher_id',
         ]);
-        $this->belongsToMany('Subjects', [
-            'foreignKey' => 'teacher_id',
-            'targetForeignKey' => 'subject_id',
-            'joinTable' => 'subjects_teachers',
-        ]);
     }
 
     /**
@@ -79,8 +75,8 @@ class TeachersTable extends Table
 
         $validator
             ->email('email')
-            ->allowEmptyString('email')
-            ->add('email', 'unique', ['rule' => 'validateUnique', 'provider' => 'table']);
+            ->allowEmptyString('email');
+            // ->add('email', 'unique', ['rule' => 'validateUnique', 'provider' => 'table']);
 
         $validator
             ->scalar('celular')
@@ -98,6 +94,15 @@ class TeachersTable extends Table
     }
 
     /**
+     * @param Cake\Event\EventInterface $event
+     * @param $entity
+     * @param \ArrayObject $opcions
+     */
+    public function beforeSave(EventInterface $event, $entity, \ArrayObject $options) {
+        $entity->name = trim($entity->name);
+    }
+
+    /**
      * Returns a rules checker object that will be used for validating
      * application integrity.
      *
@@ -106,7 +111,7 @@ class TeachersTable extends Table
      */
     public function buildRules(RulesChecker $rules): RulesChecker
     {
-        $rules->add($rules->isUnique(['email'], ['allowMultipleNulls' => true]), ['errorField' => 'email']);
+        // $rules->add($rules->isUnique(['email'], ['allowMultipleNulls' => true]), ['errorField' => 'email']);
         $rules->add($rules->existsIn('user_id', 'Users'), ['errorField' => 'user_id']);
 
         return $rules;

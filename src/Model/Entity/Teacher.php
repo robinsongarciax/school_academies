@@ -45,7 +45,6 @@ class Teacher extends Entity
         'modified' => true,
         'user_id' => true,
         'user' => true,
-        'school_courses' => true,
-        'subjects' => true,
+        'school_courses' => true
     ];
 }

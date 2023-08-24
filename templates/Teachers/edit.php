@@ -3,7 +3,6 @@
  * @var \App\View\AppView $this
  * @var \App\Model\Entity\Teacher $teacher
  * @var string[]|\Cake\Collection\CollectionInterface $users
- * @var string[]|\Cake\Collection\CollectionInterface $subjects
  */
 ?>
 <header class="page-header page-header-compact page-header-light border-bottom bg-white mb-4">
@@ -38,6 +37,7 @@
                     echo $this->Form->control('email');
                     echo $this->Form->control('celular');
                     echo $this->Form->control('active', [
+                        'label' => ['text' => 'Activo'],
                         'options' => ['No', 'Si'],
                         'class' => 'form-select'
                     ]);
@@ -46,7 +46,6 @@
                         'class' => 'form-control text-uppercase'
                     ]);
                     echo $this->Form->control('user.password');
-                    echo $this->Form->control('subjects._ids', ['options' => $subjects, 'class' => 'form-select']);
                 ?>
             </fieldset>
             <?= $this->Form->button(__('Submit')) ?>

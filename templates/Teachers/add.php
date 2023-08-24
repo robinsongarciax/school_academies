@@ -3,7 +3,6 @@
  * @var \App\View\AppView $this
  * @var \App\Model\Entity\Teacher $teacher
  * @var \Cake\Collection\CollectionInterface|string[] $users
- * @var \Cake\Collection\CollectionInterface|string[] $subjects
  */
 ?>
 <header class="page-header page-header-compact page-header-light border-bottom bg-white mb-4">
@@ -30,16 +29,19 @@
             <fieldset>
                 <legend><?= __('Add Teacher') ?></legend>
                 <?php
-                    echo $this->Form->control('name');
+                    echo $this->Form->control('name', [
+                    ]);
                     echo $this->Form->control('email');
                     echo $this->Form->control('celular');
                     echo $this->Form->control('active', ['value' => '1', 'hidden' => true, 'label' => false]);
                     echo $this->Form->control('users.name', ['label' => 'Nombre de usuario', 
                         'templates' => 'uppercase_form',
-                        'class' => 'form-control text-uppercase'
+                        'class' => 'form-control text-uppercase',
+                        'required' => true
                     ]);
-                    echo $this->Form->control('users.password');
-                    echo $this->Form->control('subjects._ids', ['options' => $subjects, 'class' => 'form-select']);
+                    echo $this->Form->control('users.password', [
+                        'required' => true
+                    ]);
                 ?>
             </fieldset>
             <?= $this->Form->button(__('Submit')) ?>

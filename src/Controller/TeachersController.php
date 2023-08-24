@@ -43,7 +43,7 @@ class TeachersController extends AppController
     public function view($id = null)
     {
         $teacher = $this->Teachers->get($id, [
-            'contain' => ['Users', 'Subjects', 'SchoolCourses'],
+            'contain' => ['Users', 'SchoolCourses'],
         ]);
         $this->Authorization->authorize($teacher);
         $this->set(compact('teacher'));
@@ -77,14 +77,15 @@ class TeachersController extends AppController
                     $this->Flash->success(__('The teacher has been saved.'));
 
                     return $this->redirect(['action' => 'index']);
+                } else {
+                    $this->Teachers->Users->delete($teacher_user);
                 }
             }
             
             $this->Flash->error(__('The teacher could not be saved. Please, try again.'));
         }
         $users = $this->Teachers->Users->find('list', ['limit' => 200])->all();
-        $subjects = $this->Teachers->Subjects->find('list', ['limit' => 200])->all();
-        $this->set(compact('teacher', 'users', 'subjects'));
+        $this->set(compact('teacher', 'users'));
     }
 
     /**
@@ -97,7 +98,7 @@ class TeachersController extends AppController
     public function edit($id = null)
     {
         $teacher = $this->Teachers->get($id, [
-            'contain' => ['Subjects', 'Users'],
+            'contain' => ['Users'],
         ]);
         $this->Authorization->authorize($teacher);
         if ($this->request->is(['patch', 'post', 'put'])) {
@@ -108,9 +109,8 @@ class TeachersController extends AppController
                 return $this->redirect(['action' => 'index']);
             }
             $this->Flash->error(__('The teacher could not be saved. Please, try again.'));
-        }
-        $subjects = $this->Teachers->Subjects->find('list', ['limit' => 200])->all();
-        $this->set(compact('teacher', 'subjects'));
+        }        
+        $this->set(compact('teacher'));
     }
 
     /**
@@ -124,8 +124,10 @@ class TeachersController extends AppController
     {
         $this->request->allowMethod(['post', 'delete']);
         $teacher = $this->Teachers->get($id);
+        $user_id = $teacher->user_id;
         $this->Authorization->authorize($teacher);
         if ($this->Teachers->delete($teacher)) {
+            $this->Teachers->Users->delete($this->Teachers->Users->get($user_id));
             $this->Flash->success(__('The teacher has been deleted.'));
         } else {
             $this->Flash->error(__('The teacher could not be deleted. Please, try again.'));
