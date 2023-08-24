@@ -45,7 +45,10 @@ class UsersController extends AppController
         // ];
         if (count($user->role->modules_permissions)) {
             $this->Authorization->skipAuthorization();
-            $users = $this->Users->find()->contain(['Roles']);
+            $users = $this->Users->find()->contain(['Roles' => [
+                    'conditions' => ['Roles.name <>' => 'ALUMNO']
+                ]
+            ]);
         } else {
             $query = $this->Authorization->applyScope($this->Users->find());
             $users = $this->paginate($query);
