@@ -1069,3 +1069,6 @@ msgstr "Lista de academmias"
 msgid "Import Students"
 msgstr "Importar Alumnos"
 
+msgid "Courses Allowed"
+msgstr "Límite de academias por alumno"
+
