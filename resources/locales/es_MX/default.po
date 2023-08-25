@@ -1063,3 +1063,9 @@ msgstr "El horario se ha eliminado."
 msgid "The schedule has been saved."
 msgstr "El horario se ha guardado."
 
+msgid "School Courses List"
+msgstr "Lista de academmias"
+
+msgid "Import Students"
+msgstr "Importar Alumnos"
+

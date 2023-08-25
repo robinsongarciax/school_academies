@@ -50,7 +50,7 @@ class SchoolCoursesController extends AppController
                 $schoolCourses->where(['tipo_academia' => $type]);
         }
 
-        $this->set(compact('schoolCourses'));
+        $this->set(compact('schoolCourses', 'type'));
     }
 
     /**
@@ -104,7 +104,7 @@ class SchoolCoursesController extends AppController
      *
      * @return \Cake\Http\Response|null|void Redirects on successful add, renders view otherwise.
      */
-    public function add()
+    public function add($type = null)
     {
         $schoolCourse = $this->SchoolCourses->newEmptyEntity();
         $this->Authorization->authorize($schoolCourse);
@@ -113,7 +113,7 @@ class SchoolCoursesController extends AppController
             if ($this->SchoolCourses->save($schoolCourse)) {
                 $this->Flash->success(__('The school course has been saved.'));
 
-                return $this->redirect(['action' => 'index']);
+                return $this->redirect(['action' => 'index', $schoolCourse->tipo_academia]);
             }
             $this->Flash->error(__('The school course could not be saved. Please, try again.'));
         }
@@ -122,7 +122,7 @@ class SchoolCoursesController extends AppController
         $schedules = $this->SchoolCourses->Schedules->find('list', ['limit' => 200])->all();
         $students = $this->SchoolCourses->Students->find('list', ['limit' => 200])->all();
         $schoolLevels = $this->SchoolCourses->SchoolLevels->find('list', ['limit' => 200])->all();
-        $this->set(compact('schoolCourse', 'teachers', 'terms', 'schedules', 'students', 'schoolLevels'));
+        $this->set(compact('schoolCourse', 'teachers', 'terms', 'schedules', 'students', 'schoolLevels', 'type'));
     }
 
     /**

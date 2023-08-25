@@ -58,10 +58,12 @@
                         ?>
                     </div>
                     <div class="form-group col-md-3">
-                        <?= $this->Form->control('tipo_academia', 
-                        ['options' => [
-                            'CULTURAL' => 'CULTURAL', 
-                            'DEPORTIVA' => 'DEPORTIVA']
+                        <?= $this->Form->control('tipo_academia', [
+                            'options' => [
+                                'CULTURAL' => 'CULTURAL', 
+                                'DEPORTIVA' => 'DEPORTIVA'
+                            ],
+                            'value' => $type
                         ]);
                         ?>
                     </div>

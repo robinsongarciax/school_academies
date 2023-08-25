@@ -110,6 +110,11 @@ class StudentsTable extends Table
             ->requirePresence('school_group', 'create')
             ->notEmptyString('school_group');
 
+            $validator
+            ->scalar('school_level')
+            ->requirePresence('school_level', 'create')
+            ->notEmptyString('school_level');
+
         $validator
             ->scalar('id_number')
             ->maxLength('id_number', 45)

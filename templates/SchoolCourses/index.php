@@ -12,7 +12,7 @@
                     <h3 class="page-header-title">Configuraci&oacute;n de <?= __('School Courses') ?></h3>
                 </div>
                 <div class="col-12 col-xl-auto mb-3">
-                    <?= $this->Html->link(__('New School Course'), ['action' => 'add'], ['class' => 'btn btn-sm btn-light text-primary', 'escape' => true]) ?>
+                    <?= $this->Html->link(__('New School Course'), ['action' => 'add', $type], ['class' => 'btn btn-sm btn-light text-primary', 'escape' => true]) ?>
                 </div>
             </div>
         </div>

@@ -12,7 +12,7 @@
                     <h3 class="page-header-title">Configuraci&oacute;n de <?= __('Students') ?></h3>
                 </div>
                 <div class="col-12 col-xl-auto mb-3">
-                    <?= $this->Html->link(__('Import File'), ['action' => 'importFile'], ['class' => 'btn btn-sm btn-light text-primary', 'escape' => true]) ?>
+                    <?= $this->Html->link(__('Import Students'), ['action' => 'importFile'], ['class' => 'btn btn-sm btn-light text-primary', 'escape' => true]) ?>
                     <?= $this->Html->link(__('New Student'), ['action' => 'add'], ['class' => 'btn btn-sm btn-light text-primary', 'escape' => true]) ?>
                 </div>
             </div>
