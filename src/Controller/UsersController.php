@@ -31,10 +31,10 @@ class UsersController extends AppController
             [
                 'contain' => ['Roles' => ['ModulesPermissions' => 
                     ['Permissions' => function ($q) {
-                                return $q->where(['permissions.name' => 'Setup']);
+                                return $q->where(['Permissions.name' => 'Setup']);
                             }, 
                         'Modules'  => function ($q) {
-                                return $q->where(['modules.name' => 'Users']);
+                                return $q->where(['Modules.name' => 'Users']);
                             }
                     ]
                 ]],
