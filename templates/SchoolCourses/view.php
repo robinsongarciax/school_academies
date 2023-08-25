@@ -3,6 +3,8 @@
  * @var \App\View\AppView $this
  * @var \App\Model\Entity\SchoolCourse $schoolCourse
  */
+
+$this->Html->script('add-edit-modal', ['block' => true]);
 ?>
 <header class="page-header page-header-compact page-header-light border-bottom bg-white mb-4">
     <div class="container-fluid px-4">
@@ -57,10 +59,6 @@
                     <div class="table-responsive">
                         <table class="table">
                             <tr>
-                                <th><?= __('Subject') ?></th>
-                                <td><?= $schoolCourse->has('subject') ? $this->Html->link($schoolCourse->subject->name, ['controller' => 'Subjects', 'action' => 'view', $schoolCourse->subject->id]) : '' ?></td>
-                            </tr>
-                            <tr>
                                 <th><?= __('Teacher') ?></th>
                                 <td><?= $schoolCourse->has('teacher') ? $this->Html->link($schoolCourse->teacher->name, ['controller' => 'Teachers', 'action' => 'view', $schoolCourse->teacher->id]) : '' ?></td>
                             </tr>
@@ -75,6 +73,35 @@
                             <tr>
                                 <th><?= __('Availability') ?></th>
                                 <td><?= $this->Number->format($schoolCourse->capacity - $totalStudentsConfirmed) ?></td>
+                            </tr>
+                            <tr>
+                                <th><?= __('Sex') ?></th>
+                                <?php
+                                switch ($schoolCourse->sex) {
+                                    case 'F':
+                                        $sex = 'FEMENINO';
+                                        break;
+                                    case 'F':
+                                        $sex = 'FEMENINO';
+                                        break;
+                                    default:
+                                        $sex = 'MIXTO';
+                                        break;
+                                }
+                                ?>
+                                <td><?= $sex ?></td>
+                            </tr>
+                            <tr>
+                                <th><?= __('Price') ?></th>
+                                <td><?= $this->Number->currency($schoolCourse->price) ?></td>
+                            </tr>
+                            <tr>
+                                <th><?= __('Pago Obligatorio') ?></th>
+                                <td><?= $schoolCourse->pago_obligatorio == 1 ? 'Sí' : 'No' ?></td>
+                            </tr>
+                            <tr>
+                                <th><?= __('Visible') ?></th>
+                                <td><?= $schoolCourse->visible == 1 ? 'Sí' : 'No' ?></td>
                             </tr>
                             <tr>
                                 <th><?= $schoolCourse->criterio_academia ?></th>
@@ -103,9 +130,16 @@
                 </div>
                 <div class="card-body">
                     <!-- Button trigger modal -->
-                    <button type="button" class="btn btn-outline-primary btn-sm" data-toggle="modal" data-target="#exampleModal">
-                        Agregar horario
-                    </button>
+                    <?= $this->Html->link(__('Add Schedule'), [
+                        'controller' => 'Schedules',
+                        'action' => 'add',
+                        $schoolCourse->id
+                    ], [
+                        'class' => 'btn btn-sm btn-outline-primary btn-modal',
+                        'modal-title' => 'Agregar Horario',
+                        'data-toggle' => 'modal',
+                        'data-target' => '#addEditModal'
+                    ]) ?>
                     <hr class="mt-0 mb-4">
                     <?php if (!empty($schoolCourse->schedules)) : ?>
                     <div class="table-responsive">
@@ -140,32 +174,4 @@
 </div>
 
 <!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-      <?= $this->Form->create($schedule, ['action'=>'/school_academies/schedules/add']) ?>
-            <fieldset>
-                <legend><?= __('Add Schedule') ?></legend>
-                <?php
-                    echo $this->Form->control('day_id', ['options' => $days]);
-                    echo $this->Form->control('start');
-                    echo $this->Form->control('end');
-                    echo $this->Form->control('id', ['value' => $schoolCourse->id]);
-                ?>
-            </fieldset>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-        <button type="submit" class="btn btn-primary">Guardar</button>
-        <?= $this->Form->end() ?>
-      </div>
-    </div>
-  </div>
-</div>
+<?= $this->element('modal/add_edit') ?>

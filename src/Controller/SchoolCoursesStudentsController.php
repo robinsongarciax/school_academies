@@ -60,6 +60,7 @@ class SchoolCoursesStudentsController extends AppController
             $schoolCoursesStudent->is_confirmed = 1;
             if ($this->SchoolCoursesStudents->save($schoolCoursesStudent)) {
                 $this->Flash->success(__('The school courses student has been confirmed.'));
+
             } else {
                 $this->Flash->error(__('The school courses student could not be confirmed. Please, try again.'));
             }

@@ -29,14 +29,69 @@
             <h6 class="m-0 font-weight-bold text-primary-cm"><?= __('Add School Course') ?></h6>
         </div>
         <div class="card-body">
-            <?= $this->Form->create($schoolCourse) ?>
+            <?= $this->Form->create($schoolCourse, [
+                'templates' => 'academies_form'
+            ]) ?>
             <fieldset>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <?= $this->Form->control('name', [
+                            'label' => ['text' => 'Nombre de la academia']
+                        ]) ?>
+                    </div>
+                    <div class="form-group col-md-2">
+                        <?= $this->Form->control('capacity') ?>
+                    </div>
+
+                    <div class="form-group col-md-2">
+                        <?= $this->Form->control('price') ?>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-3">
+                        <?= $this->Form->control('sex', 
+                        ['options' => [
+                            'F' => 'FEMENINO', 
+                            'M' => 'MASCULINO', 
+                            'X' => 'MIXTO']
+                        ]);
+                        ?>
+                    </div>
+                    <div class="form-group col-md-3">
+                        <?= $this->Form->control('tipo_academia', 
+                        ['options' => [
+                            'CULTURAL' => 'CULTURAL', 
+                            'DEPORTIVA' => 'DEPORTIVA']
+                        ]);
+                        ?>
+                    </div>
+                    <div class="form-group col-md-2">
+                        <?= $this->Form->control('pago_obligatorio', 
+                        ['options' => [
+                            '1' => 'Sí', 
+                            '0' => 'No',
+                            ],
+                            'default' => 0
+                        ]);
+                        ?>
+                    </div>
+                    <div class="form-group col-md-2">
+                        <?= $this->Form->control('visible',
+                        ['options' => [
+                            '1' => 'Sí', 
+                            '0' => 'No',
+                            ],
+                            'label' => 'Visible para los alumnos'
+                        ]);
+                        ?>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-10">
+                        <?= $this->Form->control('teacher_id', ['options' => $teachers]); ?>
+                    </div>
+                </div>
                 <?php
-                echo $this->Form->control('name');
-                echo $this->Form->control('capacity');
-                echo $this->Form->control('price');
-                echo $this->Form->control('subjet_id', ['options' => $subjects]);
-                echo $this->Form->control('teacher_id', ['options' => $teachers]);
                 echo $this->Form->control('criterio_academia', [
                     'type' => 'radio',
                     'options' => [
@@ -48,21 +103,27 @@
                 ?>
                 <div id="collapseBirthDate" class="collapse show" aria-labelledby="headingBirthDate">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <?= $this->Form->control('min_year_of_birth',
-                            [
-                                'type' => 'year',
-                                'min' => 2005,
-                                'max' => date('Y', strtotime('Y' .  " -4 years")),
-                                'label' => 'Año de nacimiento mínimo',
-                            ]) ?>
-
-                        <?= $this->Form->control('max_year_of_birth',
-                            [
-                                'type' => 'year',
-                                'min' => 2005,
-                                'max' => date('Y', strtotime('Y' .  " -4 years")),
-                                'label' => 'Año de nacimiento máximo'
-                            ]) ?>
+                        <div class="form-row">
+                            <div class="form-group col-md-5">
+                                <?= $this->Form->control('min_year_of_birth',
+                                    [
+                                        'type' => 'year',
+                                        'min' => 2005,
+                                        'max' => date('Y', strtotime('Y' .  " -4 years")),
+                                        'label' => 'Año de nacimiento mínimo',
+                                    ]) ?>
+                            </div>
+                            <div class="form-group col-md-5">
+                                <?= $this->Form->control('max_year_of_birth',
+                                    [
+                                        'type' => 'year',
+                                        'min' => 2005,
+                                        'max' => date('Y', strtotime('Y' .  " -4 years")),
+                                        'label' => ['text' => 'Año de nacimiento máximo']
+                                    ]) ?>
+                            </div>
+                        </div>
+                            
                     </div>
                 </div>
                 <div id="collapseSchoolGrade" class="collapse" aria-labelledby="headingSchoolGrade">
@@ -75,7 +136,7 @@
                         ]) ?>
                     </div>
                 </div>
-                <?= $this->Form->control('term_id', ['options' => $terms]) ?>
+                <?= $this->Form->control('term_id', ['options' => $terms, 'hidden' => true, 'label' => false]); ?>
             </fieldset>
             <?= $this->Form->button(__('Submit')) ?>
             <?= $this->Form->end() ?>

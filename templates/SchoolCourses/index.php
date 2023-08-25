@@ -30,9 +30,10 @@
                     <thead>
                         <tr>
                             <th><?= $this->Paginator->sort('name') ?></th>
-                            <th><?= $this->Paginator->sort('capacity') ?></th>
-                            <th><?= $this->Paginator->sort('subject_id') ?></th>
+                            <th><?= $this->Paginator->sort('tipo_academia') ?></th>
                             <th><?= $this->Paginator->sort('teacher_id') ?></th>
+                            <th><?= $this->Paginator->sort('capacity') ?></th>
+                            <th><?= $this->Paginator->sort('sex') ?></th>
                             <th><?= $this->Paginator->sort('term_id') ?></th>
                             <th class="actions"><?= __('Actions') ?></th>
                         </tr>
@@ -41,9 +42,25 @@
                         <?php foreach ($schoolCourses as $schoolCourse): ?>
                         <tr>
                             <td><?= h($schoolCourse->name) ?></td>
+                            <td><?= $schoolCourse->tipo_academia ?></td>
+                            <td><?= $schoolCourse->has('teacher') ? $this->Html->link($schoolCourse->teacher->name, ['controller' => 'Teachers', 'action' => 'view', $schoolCourse->teacher->id]) : '' ?>
+                            </td>
                             <td><?= $this->Number->format($schoolCourse->capacity) ?></td>
-                            <td><?= $schoolCourse->has('subject') ? $this->Html->link($schoolCourse->subject->name, ['controller' => 'Subjects', 'action' => 'view', $schoolCourse->subject->id]) : '' ?></td>
-                            <td><?= $schoolCourse->has('teacher') ? $this->Html->link($schoolCourse->teacher->name, ['controller' => 'Teachers', 'action' => 'view', $schoolCourse->teacher->id]) : '' ?></td>
+                            <?php
+                            switch ($schoolCourse->sex) {
+                                case 'F':
+                                    $sex = 'FEMENINO';
+                                    break;
+                                case "M":
+                                    $sex = 'MASCULINO';
+                                    break;
+                                default:
+                                    $sex = 'MIXTO';
+                                    break;
+                            }
+                            ?>
+                            <td><?= $sex ?></td>
+                            
                             <td><?= $schoolCourse->has('term') ? $this->Html->link($schoolCourse->term->description, ['controller' => 'Terms', 'action' => 'view', $schoolCourse->term->id]) : '' ?></td>
                             <td class="actions">
                                 <?= $this->Html->link("", ['action' => 'view', $schoolCourse->id], ['class'=>'fas fa-eye']) ?>

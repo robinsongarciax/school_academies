@@ -18,7 +18,6 @@ class SchedulesController extends AppController
      */
     public function index()
     {
-        $this->Authorization->skipAuthorization();
         $this->paginate = [
             'contain' => ['Days'],
         ];
@@ -36,7 +35,6 @@ class SchedulesController extends AppController
      */
     public function view($id = null)
     {
-        $this->Authorization->skipAuthorization();
         $schedule = $this->Schedules->get($id, [
             'contain' => ['Days', 'SchoolCourses'],
         ]);
@@ -49,16 +47,26 @@ class SchedulesController extends AppController
      *
      * @return \Cake\Http\Response|null|void Redirects on successful add, renders view otherwise.
      */
-    public function add()
+    public function add($school_course_id = null)
     {
         $this->Authorization->skipAuthorization();
         $schedule = $this->Schedules->newEmptyEntity();
         if ($this->request->is('post')) {
             $data = $this->request->getData();
-            $data['school_courses']['_ids'][] = $data['id'];
-            unset($data['id']);
-            $schedule = $this->Schedules->patchEntity($schedule, $data);
-            if ($this->Schedules->save($schedule)) {
+            $days = $data['days'];
+            $schedules = [];
+            for ($i = 0; $i < count($days); $i++) {
+                if ($i > 0)
+                   $schedule = $this->Schedules->newEmptyEntity();
+                $schedule = $this->Schedules->patchEntity($schedule, $data);
+                $schedule->day_id = $days[$i];
+                $schedule->school_courses = [$this->Schedules->SchoolCourses
+                    ->get($data['school_course_id'])
+                ];
+                $schedules[] = $schedule;
+            }
+            // pr($schedule);die();
+            if ($this->Schedules->saveMany($schedules)) {
                 $this->Flash->success(__('The schedule has been saved.'));
 
                 return $this->redirect($this->referer());
@@ -66,7 +74,10 @@ class SchedulesController extends AppController
             $this->Flash->error(__('The schedule could not be saved. Please, try again.'));
         }
         $days = $this->Schedules->Days->find('list', ['limit' => 200])->all();
-        $schoolCourses = $this->Schedules->SchoolCourses->find('list', ['limit' => 200])->all();
+        $schoolCourses = $this->Schedules->SchoolCourses
+            ->find('list', ['limit' => 200])
+            ->where(['id' => $school_course_id])
+            ->all();
         $this->set(compact('schedule', 'days', 'schoolCourses'));
     }
 
@@ -79,7 +90,6 @@ class SchedulesController extends AppController
      */
     public function edit($id = null)
     {
-        $this->Authorization->skipAuthorization();
         $schedule = $this->Schedules->get($id, [
             'contain' => ['SchoolCourses'],
         ]);

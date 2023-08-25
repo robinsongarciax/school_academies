@@ -98,12 +98,10 @@ class SchoolCoursesStudentsTable extends Table
      */
     public function beforeSave(EventInterface $event, $entity, \ArrayObject $options) {
         if ($entity->is_confirmed == 1) {
-            $schoolCourse = $this->SchoolCourses->get($entity->school_course_id, [
-                'contain' => 'Subjects'
-            ]);
+            $schoolCourse = $this->SchoolCourses->get($entity->school_course_id);
             $cost = 0;
             // Revisar si el curso es de pago obligatorio
-            if ($schoolCourse->subject->pago_obligatorio == 1) {
+            if ($schoolCourse->pago_obligatorio == 1) {
                 $cost = $schoolCourse->price;
             } else {
                 // Determinar si el curso tendrá costo
@@ -169,9 +167,8 @@ class SchoolCoursesStudentsTable extends Table
                 // die();
                 $schoolCoursesId = array_values(array_column($schoolCoursesId->toArray(), 'school_course_id'));
                 $schoolCourses = $this->SchoolCourses->find('all')
-                    ->contain(['Subjects'])
                     ->where(['SchoolCourses.id in' => $schoolCoursesId,
-                        'Subjects.pago_obligatorio' => 0
+                        'pago_obligatorio' => 0
                     ]);
                 if ($schoolCourses->count() > 0) {
                     $schoolCourse = $schoolCourses->first();

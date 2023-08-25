@@ -1054,3 +1054,12 @@ msgstr "Lista de Academías Inscritas"
 msgid "Teacher Information"
 msgstr "Información del profesor (a)"
 
+msgid "Add Schedule"
+msgstr "Agregar Horario"
+
+msgid "The schedule has been deleted."
+msgstr "El horario se ha eliminado."
+
+msgid "The schedule has been saved."
+msgstr "El horario se ha guardado."
+

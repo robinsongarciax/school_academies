@@ -42,13 +42,12 @@ class SchoolCoursesController extends AppController
 
             // Traer los cursos relacionados con el grado escolar, sexo y la edad del estudiante
             $schoolCourses = $this->SchoolCourses->find('CoursesForStudent', $options)
-                ->contain(['Subjects', 'Teachers', 'Terms']);
+                ->contain(['Teachers', 'Terms']);
         } else {
             $schoolCourses = $this->SchoolCourses->find('all');
+            $schoolCourses->contain(['Teachers', 'Terms']);
             if ($type != null) 
-                $schoolCourses->contain(['Subjects' => ['conditions' => ['tipo_academia' => $type]], 'Teachers', 'Terms']);
-            else 
-            $schoolCourses->contain(['Subjects', 'Teachers', 'Terms']);
+                $schoolCourses->where(['tipo_academia' => $type]);
         }
 
         $this->set(compact('schoolCourses'));
@@ -64,7 +63,7 @@ class SchoolCoursesController extends AppController
     public function view($id = null)
     {
         $schoolCourse = $this->SchoolCourses->get($id, [
-            'contain' => ['Subjects', 'SchoolLevels', 'Teachers', 'Terms', 'Schedules.Days'
+            'contain' => ['SchoolLevels', 'Teachers', 'Terms', 'Schedules.Days'
             ]
         ]);
         $this->Authorization->authorize($schoolCourse);
@@ -118,13 +117,12 @@ class SchoolCoursesController extends AppController
             }
             $this->Flash->error(__('The school course could not be saved. Please, try again.'));
         }
-        $subjects = $this->SchoolCourses->Subjects->find('list', ['limit' => 200])->all();
         $teachers = $this->SchoolCourses->Teachers->find('list', ['limit' => 200])->all();
         $terms = $this->SchoolCourses->Terms->find('list', ['limit' => 200])->all();
         $schedules = $this->SchoolCourses->Schedules->find('list', ['limit' => 200])->all();
         $students = $this->SchoolCourses->Students->find('list', ['limit' => 200])->all();
         $schoolLevels = $this->SchoolCourses->SchoolLevels->find('list', ['limit' => 200])->all();
-        $this->set(compact('schoolCourse', 'subjects', 'teachers', 'terms', 'schedules', 'students', 'schoolLevels'));
+        $this->set(compact('schoolCourse', 'teachers', 'terms', 'schedules', 'students', 'schoolLevels'));
     }
 
     /**
@@ -149,13 +147,12 @@ class SchoolCoursesController extends AppController
             }
             $this->Flash->error(__('The school course could not be saved. Please, try again.'));
         }
-        $subjects = $this->SchoolCourses->Subjects->find('list', ['limit' => 200])->all();
         $teachers = $this->SchoolCourses->Teachers->find('list', ['limit' => 200])->all();
         $terms = $this->SchoolCourses->Terms->find('list', ['limit' => 200])->all();
         $schedules = $this->SchoolCourses->Schedules->find('list', ['limit' => 200])->all();
         $students = $this->SchoolCourses->Students->find('list', ['limit' => 200])->all();
         $schoolLevels = $this->SchoolCourses->SchoolLevels->find('list', ['limit' => 200])->all();
-        $this->set(compact('schoolCourse', 'subjects', 'teachers', 'terms', 'schedules', 'students', 'schoolLevels'));
+        $this->set(compact('schoolCourse', 'teachers', 'terms', 'schedules', 'students', 'schoolLevels'));
     }
 
     /**
@@ -202,7 +199,7 @@ class SchoolCoursesController extends AppController
 
             // Traer los cursos relacionados con el grado escolar, sexo y la edad del estudiante
             $schoolCourses = $this->SchoolCourses->find('CoursesForStudent', $options)
-                ->contain(['Subjects', 'Teachers', 'Terms', 'Schedules'])
+                ->contain(['Teachers', 'Terms', 'Schedules'])
                 ->all();
             $studentCourses = $this->SchoolCourses->Students->find('StudentCourses', ['student_id' => $row->student_id])->all()->toList();
             $term = $this->SchoolCourses->Terms->find('all', [
@@ -449,8 +446,7 @@ class SchoolCoursesController extends AppController
         $schoolCourse = $this->SchoolCourses->get($id, [
             'contain' => [
                 'Students' => ['conditions' => ['is_confirmed' => 0]],
-                'SchoolLevels', 
-                'Subjects'
+                'SchoolLevels'
             ],
         ]);
 
@@ -468,7 +464,7 @@ class SchoolCoursesController extends AppController
             $search_options[] = "YEAR(Students.birth_date) BETWEEN {$min_birthyear} AND {$max_birthyear}";
         }
 
-        $sex = $schoolCourse->subject->sex;
+        $sex = $schoolCourse->sex;
         $sex = $sex === 'X' ? ['F', 'M'] : [$sex];
         $search_options += ['sex in ' => $sex];
 

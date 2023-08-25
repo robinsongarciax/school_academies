@@ -15,7 +15,6 @@ use Cake\ORM\Entity;
  * @property int $teacher_id
  * @property int $term_id
  *
- * @property \App\Model\Entity\Subject $subject
  * @property \App\Model\Entity\Teacher $teacher
  * @property \App\Model\Entity\Term $term
  * @property \App\Model\Entity\Schedule[] $schedules
@@ -40,7 +39,6 @@ class SchoolCourse extends Entity
         'criterio_academia' => true,
         'min_year_of_birth' => true,
         'max_year_of_birth' => true,
-        'subjet_id' => true,
         'teacher_id' => true,
         'term_id' => true,
         'sex' => true,

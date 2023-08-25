@@ -7,6 +7,7 @@ use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
+use Cake\Event\EventInterface;
 
 /**
  * SchoolCourses Model
@@ -47,10 +48,6 @@ class SchoolCoursesTable extends Table
         $this->setDisplayField('name');
         $this->setPrimaryKey('id');
 
-        $this->belongsTo('Subjects', [
-            'foreignKey' => 'subjet_id',
-            'joinType' => 'INNER',
-        ]);
         $this->belongsTo('Teachers', [
             'foreignKey' => 'teacher_id',
             'joinType' => 'INNER',
@@ -114,6 +111,19 @@ class SchoolCoursesTable extends Table
         return $validator;
     }
 
+
+    /**
+     * @param Cake\Event\EventInterface $event
+     * @param $entity
+     * @param \ArrayObject $opcions
+     */
+    public function beforeSave(EventInterface $event, $entity, \ArrayObject $options) {
+        if (empty($entity->min_year_of_birth))
+            $entity->min_year_of_birth = null;
+        if (empty($entity->max_year_of_birth))
+            $entity->max_year_of_birth = null;
+    }
+
     /**
      * Returns a rules checker object that will be used for validating
      * application integrity.
@@ -123,7 +133,6 @@ class SchoolCoursesTable extends Table
      */
     public function buildRules(RulesChecker $rules): RulesChecker
     {
-        $rules->add($rules->existsIn('subjet_id', 'Subjects'), ['errorField' => 'subjet_id']);
         $rules->add($rules->existsIn('teacher_id', 'Teachers'), ['errorField' => 'teacher_id']);
         $rules->add($rules->existsIn('term_id', 'Terms'), ['errorField' => 'term_id']);
 
@@ -140,7 +149,7 @@ class SchoolCoursesTable extends Table
                 return $q;
             })
             ->where([
-                'Subjects.sex IN' => [
+                'sex IN' => [
                 $sex, 'X'],
                 "({$year_of_birth} OR SchoolLevels.id = {$school_level_id})"
             ]);
