@@ -26,9 +26,10 @@
         </div>
         <div class="card-body">
             <div class="table-responsive">
-                <table  class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <table  class="table table-bordered" id="academiesTable" width="100%" cellspacing="0">
                     <thead>
                         <tr>
+                            <th><?= $this->Paginator->sort('id') ?></th>
                             <th><?= $this->Paginator->sort('name') ?></th>
                             <th><?= $this->Paginator->sort('tipo_academia') ?></th>
                             <th><?= $this->Paginator->sort('teacher_id') ?></th>
@@ -41,6 +42,7 @@
                     <tbody>
                         <?php foreach ($schoolCourses as $schoolCourse): ?>
                         <tr>
+                            <td><?= h($schoolCourse->id) ?></td>
                             <td><?= h($schoolCourse->name) ?></td>
                             <td><?= $schoolCourse->tipo_academia ?></td>
                             <td><?= $schoolCourse->has('teacher') ? $this->Html->link($schoolCourse->teacher->name, ['controller' => 'Teachers', 'action' => 'view', $schoolCourse->teacher->id]) : '' ?>

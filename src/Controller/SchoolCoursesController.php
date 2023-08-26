@@ -113,7 +113,10 @@ class SchoolCoursesController extends AppController
             if ($this->SchoolCourses->save($schoolCourse)) {
                 $this->Flash->success(__('The school course has been saved.'));
 
-                return $this->redirect(['action' => 'index', $schoolCourse->tipo_academia]);
+                return $this->redirect([
+                    'action' => 'view', 
+                    $schoolCourse->id
+                ]);
             }
             $this->Flash->error(__('The school course could not be saved. Please, try again.'));
         }

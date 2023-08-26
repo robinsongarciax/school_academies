@@ -25,11 +25,7 @@ class TeachersController extends AppController
     public function index()
     {
         $this->Authorization->skipAuthorization();
-        $this->paginate = [
-            'contain' => ['Users'],
-        ];
-        $teachers = $this->paginate($this->Teachers);
-
+        $teachers = $this->Teachers->find()->contain(['Users']);
         $this->set(compact('teachers'));
     }
 
