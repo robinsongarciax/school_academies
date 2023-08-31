@@ -941,7 +941,7 @@ msgid "Sat."
 msgstr "Sáb."
 
 msgid "Signup"
-msgstr "Inscribirme"
+msgstr "Inscribir"
 
 msgid "Confirm"
 msgstr "Confirmar"
