@@ -60,12 +60,13 @@ $cakeDescription = __('Cake Description');;
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
-            <!-- <?= $this->Html->link($this->Html->image('wordmark_cumbres.png', ['alt' => 'Cumbres Mérida']),
-                ['controller' => 'Pages', 'action' => 'display', 'home'],
-                ['class' => 'sidebar-brand d-flex align-items-center justify-content-center',
-                    'escape' => false
-                ]) ?> -->
-
+            <div class="d-none d-md-inline">
+                <?= $this->Html->link($this->Html->image('wordmark_cumbres.png', ['alt' => 'Cumbres Mérida']),
+                    ['controller' => 'Pages', 'action' => 'display', 'home'],
+                    ['class' => 'sidebar-brand d-flex align-items-center justify-content-center',
+                        'escape' => false
+                    ]) ?>
+            </div>
             <!-- Divider -->
             <hr class="sidebar-divider my-0">
 
@@ -78,14 +79,18 @@ $cakeDescription = __('Cake Description');;
             </li>
             <!-- Divider -->
             <hr class="sidebar-divider">
+            <li class="nav-item active">
+                <?= $this->Html->link("<i class=\"fas fa-fw fa-chalkboard\"></i>
+                    <span>" . __('Course Registration') . "</span>", ['controller' => 'SchoolCourses', 'action' => 'courseRegistration'], ['class' => 'nav-link' . ($controller == 'SchoolCourses' ? ' active' : ''), 'escape' => false]) ?>
+            </li>
 
             <!-- Heading -->
-            <div class="sidebar-heading">
-                <?= __('Subjects') ?>
-            </div>
+            <!-- <div class="sidebar-heading">
+                <?= __('School Courses') ?>
+            </div> -->
 
             <!-- Nav Item - Pages Collapse Menu -->
-            <li class="nav-item <?= ($controller == 'SchoolCourses' || $controller == 'Teachers') ? 'active' : ''?>">
+            <!-- <li class="nav-item <?= ($controller == 'SchoolCourses' || $controller == 'Teachers') ? 'active' : ''?>">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseOne"
                     aria-expanded="true" aria-controls="collapseOne">
                     <i class="fas fa-fw fa-chalkboard"></i>
@@ -97,7 +102,7 @@ $cakeDescription = __('Cake Description');;
                         <?= $this->Html->link(__('Course Registration'), ['controller' => 'SchoolCourses', 'action' => 'courseRegistration'], ['class' => 'collapse-item' . ($controller == 'SchoolCourses' ? ' active' : '')]) ?>
                     </div>
                 </div>
-            </li>
+            </li> -->
 
             <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block">

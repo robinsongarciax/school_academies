@@ -32,4 +32,6 @@
         $("button[type=submit]").attr("disabled", "true");
         $("button[type=submit]").html('<span id="loading-span" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Cargando...')
     });
+
+    // $('.mobile-actions').height($('.mobile-actions').closest('td').height());
 })(jQuery); // End of use strict

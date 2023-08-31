@@ -33,8 +33,31 @@ foreach ($studentCourses as $studentCourse) {
 </header>
 <div class="container-fluid">
     <!-- Content Row -->
-    <div class="row">
-
+    <!-- Info for mobile device -->
+    <div class="row d-flex d-lg-none">
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-secondary shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                            Límite de cursos por estudiante:
+                            <span class="h5 mb-0 font-weight-bold text-gray-800"><?= $term->courses_allowed ?></span>
+                        </div>
+                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                            Núm. Cursos seleccionados:
+                            <span class="h5 mb-0 font-weight-bold text-gray-800"><?= $num_confirmed_courses ?></span>
+                        </div>
+                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                            Total a pagar:
+                            <span class="h5 mb-0 font-weight-bold text-gray-800"><?= $this->Number->currency($total_a_pagar) ?></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Info for big screen device -->
+    <div class="row d-none d-md-flex">
         <!-- Maximo Num Cursos Card -->
         <div class="col-xl-3 col-md-6 mb-4">
             <div class="card border-left-info shadow h-100 py-2">
@@ -101,7 +124,82 @@ foreach ($studentCourses as $studentCourse) {
             <hr class="mt-0 mb-4">
             <!-- Mensajes flash -->
             <?= $this->Flash->render() ?>
-            <div class="table-responsive">
+            <!-- Table for mobile devices -->
+            <div class="table-responsive d-flex d-lg-none">
+                <table class="table table-bordered" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th><?= __('Academy') ?></th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php foreach ($schoolCourses as $schoolCourse): ?>
+
+                            <?php if ($schoolCourse->visible
+                                ||  array_key_exists($schoolCourse->id, $arr_coursesSignedup)):?>
+                            <tr>
+                                <td>
+                                    <?= "{$schoolCourse->name } ({$schoolCourse->tipo_academia})" ?><br/>
+                                    <?= $schoolCourse->teacher->name ?>
+                                </td>
+                                <td class="mobile-td-actions">
+                                    <div class="mobile-actions">
+                                        <?php if (array_key_exists($schoolCourse->id, $arr_coursesSignedup)) :
+                                            $course_signedup = $arr_coursesSignedup[$schoolCourse->id];
+                                            $school_courses_students_id = $course_signedup['school_courses_students_id'];
+                                            if ($course_signedup['is_confirmed'] === 0) :
+                                            ?>
+                                                <?php $this->Form->setTemplates([
+                                                    'confirmJs' => 'addToModal("{{formName}}"); return false;'
+                                                ]); ?>
+                                                <?= $this->Form->postLink(
+                                                    __('Confirm'), [
+                                                    'controller' => 'SchoolCoursesStudents',
+                                                    'action' => 'confirm',
+                                                    $school_courses_students_id],
+                                                    [
+                                                        'confirm' => __('Are you sure you want to register for {0}?',
+                                                            $schoolCourse->name),
+                                                        'title' => __('Confirm'),
+                                                        'data-toggle' => 'modal',
+                                                        'data-target' => '#confirmRegistrationModal'
+                                                    ]) ?>
+
+                                                <?= $this->Form->postLink(__('Dropout'), [
+                                                    'controller' => 'SchoolCoursesStudents',
+                                                    'action' => 'delete',
+                                                    $school_courses_students_id]) ?>
+                                            <?php else: ?>
+                                                <?= $this->Form->postLink("", [
+                                                    'controller' => 'SchoolCoursesStudents',
+                                                    'action' => 'printForm', $school_courses_students_id],
+                                                    ['class'=>'fas fa-print']) ?>
+                                            <?php endif; ?>
+                                        <?php else: ?>
+                                            <?php $this->Form->setTemplates([
+                                                'confirmJs' => 'addToModal("{{formName}}"); return false;'
+                                            ]); ?>
+                                            <?= $this->Form->postLink(__('Signup'), [
+                                                'action' => 'signup', 
+                                                $schoolCourse->id], [
+                                                    'confirm' => __('Are you sure you want to register for {0}?', $schoolCourse->name),
+                                                    'title' => __('Confirm'),
+                                                    'data-toggle' => 'modal',
+                                                    'data-target' => '#confirmRegistrationModal',
+                                                    'class' => 'btn btn-primary btn-block h-100'
+                                                ]) ?>
+                                        <?php endif; ?>
+                                    </div>
+                                </td>
+                            </tr>
+                            <?php endif; ?>
+                        <?php endforeach; ?>
+                    </tbody>
+                </table>
+            </div>
+            <!-- Table for big screen devices -->
+            <div class="table-responsive d-none d-md-flex">
                 <table  class="table table-bordered" width="100%" cellspacing="0">
                     <thead>
                         <tr>
