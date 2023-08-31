@@ -141,7 +141,8 @@ foreach ($studentCourses as $studentCourse) {
                             <tr>
                                 <td>
                                     <?= "{$schoolCourse->name } ({$schoolCourse->tipo_academia})" ?><br/>
-                                    <?= $schoolCourse->teacher->name ?>
+                                    <?= $schoolCourse->teacher->name ?><br/>
+                                    Lugares disp. <?= $schoolCourse->capacity - $schoolCourse->occupancy ?>
                                 </td>
                                 <td class="mobile-td-actions">
                                     <div class="mobile-actions">
@@ -171,10 +172,12 @@ foreach ($studentCourses as $studentCourse) {
                                                     'action' => 'delete',
                                                     $school_courses_students_id]) ?>
                                             <?php else: ?>
-                                                <?= $this->Form->postLink("", [
+                                                <?= $this->Form->postLink(__('Imprimir<br>Constancia'), [
                                                     'controller' => 'SchoolCoursesStudents',
                                                     'action' => 'printForm', $school_courses_students_id],
-                                                    ['class'=>'fas fa-print']) ?>
+                                                    ['class'=>'btn btn-primary btn-block h-100',
+                                                        'escape' => false
+                                                    ]) ?>
                                             <?php endif; ?>
                                         <?php else: ?>
                                             <?php $this->Form->setTemplates([
