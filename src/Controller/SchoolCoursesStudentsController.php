@@ -110,7 +110,7 @@ class SchoolCoursesStudentsController extends AppController
 
         //OBTIENE LA INFORMACION DE LA BDD
         $schoolCoursesStudents = $this->SchoolCoursesStudents->get($id, [
-            'contain' => ['Students', 'SchoolCourses.Subjects', 'SchoolCourses.Teachers', 'SchoolCourses.Schedules.Days']
+            'contain' => ['Students', 'SchoolCourses.Teachers', 'SchoolCourses.Schedules.Days']
         ])->toArray();
 
         //CREA EL EXCEL
@@ -213,7 +213,7 @@ class SchoolCoursesStudentsController extends AppController
         $sheet->mergeCells($rangeCell);
         //NOMBRE ACADEMIA
         $rangeCell = "J$current_row:N$current_row";
-        $sheet->setCellValue(substr($rangeCell, 0, strlen(strval($current_row))+1), "Nombre: ".$schoolCoursesStudents['school_course']['subject']['name']);
+        $sheet->setCellValue(substr($rangeCell, 0, strlen(strval($current_row))+1), "Nombre: ".$schoolCoursesStudents['school_course']['name']);
         $sheet->getStyle($rangeCell)->applyFromArray($styleArray);
         $sheet->mergeCells($rangeCell);
 
@@ -237,7 +237,7 @@ class SchoolCoursesStudentsController extends AppController
         $sheet->mergeCells($rangeCell);
         //TIPO ACADEMIA
         $rangeCell = "J$current_row:N$current_row";
-        $sheet->setCellValue(substr($rangeCell, 0, strlen(strval($current_row))+1), "Tipo: ".$schoolCoursesStudents['school_course']['subject']['tipo_academia']);
+        $sheet->setCellValue(substr($rangeCell, 0, strlen(strval($current_row))+1), "Tipo: ".$schoolCoursesStudents['school_course']['tipo_academia']);
         $sheet->getStyle($rangeCell)->applyFromArray($styleArray);
         $sheet->mergeCells($rangeCell);
 

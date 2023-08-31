@@ -102,7 +102,7 @@ foreach ($studentCourses as $studentCourse) {
             <!-- Mensajes flash -->
             <?= $this->Flash->render() ?>
             <div class="table-responsive">
-                <table  class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <table  class="table table-bordered" width="100%" cellspacing="0">
                     <thead>
                         <tr>
                             <th><?= __('Academy') ?></th>
@@ -114,19 +114,18 @@ foreach ($studentCourses as $studentCourse) {
                             <th><?= __('Wed.') ?></th>
                             <th><?= __('Thurs.') ?></th>
                             <th><?= __('Fri.') ?></th>
-                            <th><?= __('Sat.') ?></th>
                             <th class="actions"><?= __('Actions') ?></th>
                         </tr>
                     </thead>
                     <tbody>
                         <?php foreach ($schoolCourses as $schoolCourse): ?>
 
-                            <?php if ($schoolCourse->subject->is_visible
+                            <?php if ($schoolCourse->visible
                                 ||  array_key_exists($schoolCourse->id, $arr_coursesSignedup)):?>
                             <tr>
                                 <td><?= h($schoolCourse->name) ?></td>
                                 <td><?= $schoolCourse->has('teacher') ? $schoolCourse->teacher->name : '' ?></td>
-                                <td><?= $schoolCourse->subject->tipo_academia ?></td>
+                                <td><?= $schoolCourse->tipo_academia ?></td>
                                 <td><?= $schoolCourse->capacity - $schoolCourse->occupancy ?></td>
                                 <?php
                                 $monday = '';
@@ -155,9 +154,6 @@ foreach ($studentCourses as $studentCourse) {
                                         case 5:
                                             $friday.= $time_schedule;
                                             break;
-                                        case 6:
-                                            $saturday .= $time_schedule;
-                                            break;
                                     }
                                 }
                                 ?>
@@ -167,7 +163,6 @@ foreach ($studentCourses as $studentCourse) {
                                 <td><?= $wednesday ?></td>
                                 <td><?= $thursday ?></td>
                                 <td><?= $friday ?></td>
-                                <td><?= $saturday ?></td>
                                 <td class="actions">
                                     <?php if (array_key_exists($schoolCourse->id, $arr_coursesSignedup)) :
                                         $course_signedup = $arr_coursesSignedup[$schoolCourse->id];

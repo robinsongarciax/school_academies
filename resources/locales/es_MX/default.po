@@ -902,7 +902,7 @@ msgid "Application Copyright"
 msgstr "Cumbres Mérida"
 
 msgid "Course Registration"
-msgstr "Preinscripciones"
+msgstr "Inscripciones"
 
 msgid "Registration to "
 msgstr "Preinscripciones al curso "
