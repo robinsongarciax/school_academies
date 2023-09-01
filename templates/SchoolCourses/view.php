@@ -81,8 +81,8 @@ $this->Html->script('add-edit-modal', ['block' => true]);
                                     case 'F':
                                         $sex = 'FEMENINO';
                                         break;
-                                    case 'F':
-                                        $sex = 'FEMENINO';
+                                    case 'M':
+                                        $sex = 'MASCULINO';
                                         break;
                                     default:
                                         $sex = 'MIXTO';
