@@ -7,8 +7,12 @@
             'multiple' => 'checkbox',
             'label' => ['text' => 'Días de la semana']
         ]);
-        echo $this->Form->control('start');
-        echo $this->Form->control('end');
+        echo $this->Form->control('start', [
+            'step' => '60'
+        ]);
+        echo $this->Form->control('end', [
+            'step' => '60'
+        ]);
         echo $this->Form->control('school_course_id', [
             'options' => $schoolCourses,
             'hidden' => true,
