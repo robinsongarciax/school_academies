@@ -59,6 +59,10 @@ a {
 	color: #586978;
 }
 
+.actions a {
+    color: #fff !important;
+}
+
 #welcome-logo {
     width: 100px;
 }

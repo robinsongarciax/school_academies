@@ -23,3 +23,10 @@ $('#confirmRegistrationModal').on('show.bs.modal', function (event) {
   	const confirmMessage = document.getElementById('confirmMessage');
   	confirmMessage.textContent = message;
 })
+
+$('#noAvailabilityModal').on('show.bs.modal', function (event) {
+	const link = event.relatedTarget;
+  	const message = link.dataset.confirmMessage;
+  	const confirmMessage = document.getElementById('confirmMessage2');
+  	confirmMessage.textContent = message;
+})

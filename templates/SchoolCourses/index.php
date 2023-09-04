@@ -34,6 +34,7 @@
                             <th><?= $this->Paginator->sort('tipo_academia') ?></th>
                             <th><?= $this->Paginator->sort('teacher_id') ?></th>
                             <th><?= $this->Paginator->sort('capacity') ?></th>
+                            <th><?= $this->Paginator->sort('availability') ?></th>
                             <th><?= $this->Paginator->sort('sex') ?></th>
                             <th><?= $this->Paginator->sort('term_id') ?></th>
                             <th class="actions"><?= __('Actions') ?></th>
@@ -48,6 +49,7 @@
                             <td><?= $schoolCourse->has('teacher') ? $this->Html->link($schoolCourse->teacher->name, ['controller' => 'Teachers', 'action' => 'view', $schoolCourse->teacher->id]) : '' ?>
                             </td>
                             <td><?= $this->Number->format($schoolCourse->capacity) ?></td>
+                            <td><?= $this->Number->format($schoolCourse->capacity - $schoolCourse->occupancy) ?></td>
                             <?php
                             switch ($schoolCourse->sex) {
                                 case 'F':

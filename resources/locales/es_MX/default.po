@@ -887,7 +887,7 @@ msgid "Subjects List"
 msgstr "Lista de Disciplinas"
 
 msgid "Teachers List"
-msgstr "Lista de profesores"
+msgstr "Lista de Profesores"
 
 msgid "Teachers"
 msgstr "Profesores"
@@ -1064,11 +1064,26 @@ msgid "The schedule has been saved."
 msgstr "El horario se ha guardado."
 
 msgid "School Courses List"
-msgstr "Lista de academmias"
+msgstr "Lista de Academias"
 
 msgid "Import Students"
 msgstr "Importar Alumnos"
 
 msgid "Courses Allowed"
 msgstr "Límite de academias por alumno"
+
+msgid "You have signed up for the course "
+msgstr "Te has inscrito al curso "
+
+msgid "Level"
+msgstr "Sección"
+
+msgid "School Level"
+msgstr "Grado"
+
+msgid "School Group"
+msgstr "Grupo"
+
+msgid "Birth Date"
+msgstr "Fecha de nacimiento"
 

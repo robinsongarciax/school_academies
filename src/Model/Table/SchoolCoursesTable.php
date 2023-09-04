@@ -148,11 +148,21 @@ class SchoolCoursesTable extends Table
             ->leftJoinWith('SchoolLevels', function ($q) {
                 return $q;
             })
+            ->leftJoinWith('SchoolCoursesStudents', function($q) use ($student_id) {
+                return $q->where([
+                    'SchoolCoursesStudents.student_id' => $student_id
+                ]);
+            })
             ->where([
                 'sex IN' => [
                 $sex, 'X'],
                 "({$year_of_birth} OR SchoolLevels.id = {$school_level_id})"
+            ])
+            ->order([
+                'SchoolCoursesStudents.is_confirmed' => 'desc'
             ]);
+        // sql($query);
+
         return $query;
     }
 

@@ -57,7 +57,7 @@ $cakeDescription = __('Cake Description');
                         <div class="row">
                             <div class="col-lg-6 d-none d-lg-block">
                                 <div class="d-flex align-items-center justify-content-center" style="height: 460px;">
-                                    <?= $this->Html->image('logo_cumbres.png', ['alt' => 'Cumbre Mérida', 'id' => 'login_logo', 'width' => '300px']) ?>
+                                    <?= $this->Html->image('escudo _cumbres_2.png', ['alt' => 'Cumbre Mérida', 'id' => 'login_logo', 'width' => '300px']) ?>
                                 </div>
                                 
                             </div>
