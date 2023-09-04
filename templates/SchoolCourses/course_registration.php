@@ -86,7 +86,14 @@ foreach ($studentCourses as $studentCourse) {
                             <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
                                 Núm. Cursos seleccionados
                             </div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800"><?= $num_confirmed_courses ?></div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800"><?= $num_confirmed_courses ?>
+                                <?= $this->Html->link(__('Ver cursos seleccionados'), [
+                                    'action' => 'courseRegistration',
+                                    1
+                                ], [
+                                    'class' => 'h6 text-primary'
+                                ])?>
+                            </div>
                         </div>
                         <div class="col-auto">
                             <i class="fas fa-exclamation fa-2x text-gray-300"></i>
@@ -115,7 +122,28 @@ foreach ($studentCourses as $studentCourse) {
             </div>
         </div>
     </div>
-
+    <nav class="nav nav-borders">
+        <?php
+        $all = '';
+        if ($enrolled) {
+            $enrolled = 'active';
+        } else {
+            $all = 'active';
+        }
+        echo $this->Html->link(__('Ver todos los cursos'), [
+            'action' => 'courseRegistration'
+        ], [
+            'class' => 'nav-link primary-button ' . $all
+        ]);
+        echo $this->Html->link(__('Ver cursos seleccionados'), [
+            'action' => 'courseRegistration',
+            1
+        ], [
+            'class' => 'nav-link primary-button ' . $enrolled
+        ]);
+        ?>
+    </nav>
+    <hr class="mt-0 mb-4">
     <div class="card shadow mb-4">
         <div class="card-header py-3">
             <h6 class="m-0 font-weight-bold text-primary-cm"><?= __('School Course List')?></h6>
@@ -126,7 +154,7 @@ foreach ($studentCourses as $studentCourse) {
             <?= $this->Flash->render() ?>
             <!-- Table for mobile devices -->
             <div class="table-responsive d-flex d-lg-none">
-                <table class="table table-bordered" width="100%" cellspacing="0">
+                <table class="table table-bordered" width="100%" cellspacing="0" id="students">
                     <thead>
                         <tr>
                             <th><?= __('Academy') ?></th>
@@ -238,7 +266,7 @@ foreach ($studentCourses as $studentCourse) {
             </div>
             <!-- Table for big screen devices -->
             <div class="table-responsive d-none d-md-flex">
-                <table  class="table table-bordered" width="100%" cellspacing="0">
+                <table  class="table table-bordered" width="100%" cellspacing="0" id="students">
                     <thead>
                         <tr>
                             <th><?= __('Academy') ?></th>
@@ -289,8 +317,8 @@ foreach ($studentCourses as $studentCourse) {
                                 $friday = '';
                                 $saturday = '';
                                 foreach ($schoolCourse->schedules as $schedule) {
-                                    $start = $this->Time->format($schedule->start, [IntlDateFormatter::NONE, IntlDateFormatter::SHORT]);
-                                    $end = $this->Time->format($schedule->end, [IntlDateFormatter::NONE, IntlDateFormatter::SHORT]);
+                                    $start = substr($schedule->start, 0, 5);//$this->Time->format($schedule->start, [IntlDateFormatter::NONE, IntlDateFormatter::SHORT]);
+                                    $end = substr($schedule->end, 0, 5);//$this->Time->format($schedule->end, [IntlDateFormatter::NONE, IntlDateFormatter::SHORT]);
                                     $time_schedule = $start . ' - ' . $end;
                                     switch ($schedule->day_id) {
                                         case 1:

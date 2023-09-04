@@ -144,16 +144,27 @@ class SchoolCoursesTable extends Table
         $sex = $options['sex'];
         $student_id = $options['student_id'];
         $year_of_birth = $options['year_of_birth'];
+        $enrolled = $options['enrolled'];
+
         $query = $query
             ->leftJoinWith('SchoolLevels', function ($q) {
                 return $q;
-            })
-            ->leftJoinWith('SchoolCoursesStudents', function($q) use ($student_id) {
+            });
+        if ($enrolled == null)
+            $query = $query->leftJoinWith('SchoolCoursesStudents', function($q) use ($student_id) {
                 return $q->where([
                     'SchoolCoursesStudents.student_id' => $student_id
                 ]);
-            })
-            ->where([
+            });
+        else 
+            $query = $query
+                ->innerJoin(['SchoolCoursesStudents' => 'school_courses_students'], [
+                    'SchoolCoursesStudents.school_course_id = SchoolCourses.id'
+                ])
+                ->where ([
+                    'SchoolCoursesStudents.student_id' => $student_id,
+                ]);
+        $query = $query->where([
                 'sex IN' => [
                 $sex, 'X'],
                 "({$year_of_birth} OR SchoolLevels.id = {$school_level_id})"

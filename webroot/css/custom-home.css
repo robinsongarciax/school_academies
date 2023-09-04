@@ -60,6 +60,10 @@ a {
 }
 
 .actions a {
+    color: #606c76 !important;
+}
+
+#students .actions a {
     color: #fff !important;
 }
 

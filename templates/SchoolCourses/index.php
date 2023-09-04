@@ -31,12 +31,12 @@
                         <tr>
                             <th><?= $this->Paginator->sort('id') ?></th>
                             <th><?= $this->Paginator->sort('name') ?></th>
-                            <th><?= $this->Paginator->sort('tipo_academia') ?></th>
+                            <th>Tipo<br/>Academia</th>
                             <th><?= $this->Paginator->sort('teacher_id') ?></th>
                             <th><?= $this->Paginator->sort('capacity') ?></th>
-                            <th><?= $this->Paginator->sort('availability') ?></th>
+                            <th><?= $this->Paginator->sort('Disp.') ?></th>
                             <th><?= $this->Paginator->sort('sex') ?></th>
-                            <th><?= $this->Paginator->sort('term_id') ?></th>
+                            <th>Ciclo<br/>Escolar</th>
                             <th class="actions"><?= __('Actions') ?></th>
                         </tr>
                     </thead>
@@ -66,7 +66,7 @@
                             <td><?= $sex ?></td>
                             
                             <td><?= $schoolCourse->has('term') ? $this->Html->link($schoolCourse->term->description, ['controller' => 'Terms', 'action' => 'view', $schoolCourse->term->id]) : '' ?></td>
-                            <td class="actions">
+                            <td class="actions" nowrap>
                                 <?= $this->Html->link("", ['action' => 'view', $schoolCourse->id], ['class'=>'fas fa-eye']) ?>
                                 <?= $this->Html->link("", ['action' => 'edit', $schoolCourse->id], ['class'=>'fas fa-pen']) ?>
                                 <?= $this->Form->postLink("", ['action' => 'delete', $schoolCourse->id], ['class'=>'fas fa-trash', 'confirm' => __('Are you sure you want to delete {0}?', $schoolCourse->name)]) ?>

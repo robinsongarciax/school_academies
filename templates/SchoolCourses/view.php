@@ -154,8 +154,9 @@ $this->Html->script('add-edit-modal', ['block' => true]);
                             <?php foreach ($schoolCourse->schedules as $schedules) : ?>
                             <tr>
                                 <td><?= h($schedules->day->name) ?></td>
-                                <td><?= $this->Time->format($schedules->start, [IntlDateFormatter::NONE, IntlDateFormatter::SHORT]) ?></td>
-                                <td><?= $this->Time->format($schedules->end, [IntlDateFormatter::NONE, IntlDateFormatter::SHORT]) ?></td>
+                                <?php date_default_timezone_set('America/Mexico_City'); ?>
+                                <td><?= substr($schedules->start, 0, 5) ?></td>
+                                <td><?= substr($schedules->end, 0, 5) ?></td>
                                 <td class="actions">
                                     <?= $this->Form->postLink("", ['controller' => 'Schedules', 'action' => 'delete', $schedules->id], ['class'=>'fas fa-trash', 'confirm' => __('Are you sure you want to delete # {0}?', $schedules->id)]) ?>
                                 </td>

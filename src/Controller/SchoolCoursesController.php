@@ -144,9 +144,12 @@ class SchoolCoursesController extends AppController
         if ($this->request->is(['patch', 'post', 'put'])) {
             $schoolCourse = $this->SchoolCourses->patchEntity($schoolCourse, $this->request->getData());
             if ($this->SchoolCourses->save($schoolCourse)) {
-                $this->Flash->success(__('The school course has been saved.'));
+                $this->Flash->success(__('The school course has been updated.'));
 
-                return $this->redirect(['action' => 'index']);
+                return $this->redirect([
+                    'action' => 'view', 
+                    $schoolCourse->id
+                ]);
             }
             $this->Flash->error(__('The school course could not be saved. Please, try again.'));
         }
@@ -179,7 +182,7 @@ class SchoolCoursesController extends AppController
         return $this->redirect(['action' => 'index']);
     }
 
-    public function courseRegistration() {
+    public function courseRegistration($enrolled = null) {
         $this->Authorization->skipAuthorization();
         $user_id = $this->Authentication->getIdentity()->getIdentifier();
         if ($this->Authentication->getIdentity()->role->name == 'ALUMNO' ) {
@@ -194,6 +197,7 @@ class SchoolCoursesController extends AppController
             $row = $query->first();
 
             $options = [
+                'enrolled' => $enrolled,
                 'school_level_id' => $row->sl_id,
                 'sex' => $row->sex,
                 'student_id' => $row->student_id,
@@ -211,7 +215,7 @@ class SchoolCoursesController extends AppController
 
         }
 
-        $this->set(compact('schoolCourses', 'studentCourses', 'term'));
+        $this->set(compact('schoolCourses', 'studentCourses', 'term', 'enrolled'));
     }
 
     public function signup($id = null) {
