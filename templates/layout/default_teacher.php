@@ -218,7 +218,7 @@ $cakeDescription = __('Cake Description');;
                         <span aria-hidden="true">×</span>
                     </button>
                 </div>
-                <div class="modal-body">Precione "<?=__('Logout')?>" para salir del sistema.</div>
+                <div class="modal-body">Presione "<?=__('Logout')?>" para salir del sistema.</div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal"><?=__('Cancel')?></button>
                     <?= $this->Html->link(__('Logout'), ['controller' => 'Users', 'action' => 'logout'], ['class' => 'btn btn-primary']) ?>
