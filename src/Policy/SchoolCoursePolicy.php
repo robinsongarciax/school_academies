@@ -95,4 +95,16 @@ class SchoolCoursePolicy
     {
         return $user->isModulePermission($this->module, 'Edit');
     }
+
+    /**
+     * Check if $user can enrollment students for SchoolCourse
+     *
+     * @param \Authorization\IdentityInterface $user The user.
+     * @param \App\Model\Entity\SchoolCourse $schoolCourse
+     * @return bool
+     */
+    public function canEnrollment(IdentityInterface $user, SchoolCourse $schoolCourse)
+    {
+        return $user->isModulePermission($this->module, 'Edit');
+    }
 }

@@ -162,10 +162,12 @@ class StudentsTable extends Table
                 'alias' => 'sl',
                 'type' => 'INNER',
                 'conditions' => 'sl.name = school_level'
-            ])
-            ->where(
-                ['user_id' => $options['user_id']]
-            );
+            ]);
+        if (array_key_exists('user_id', $options)) {
+            $query->where(['user_id' => $options['user_id']]);
+        } else if (array_key_exists('student_id', $options)) {
+            $query->where(['Students.id' => $options['student_id']]);
+        }
         return $query;
     }
 

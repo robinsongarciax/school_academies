@@ -172,7 +172,35 @@ class SchoolCoursesTable extends Table
             ->order([
                 'SchoolCoursesStudents.is_confirmed' => 'desc'
             ]);
-        // sql($query);
+
+        return $query;
+    }
+
+    public function findCoursesAvailableForStudent(Query $query, array $options) {
+        $school_level_id = $options['school_level_id'];
+        $sex = $options['sex'];
+        $student_id = $options['student_id'];
+        $year_of_birth = $options['year_of_birth'];
+
+        $query = $query
+            ->leftJoinWith('SchoolLevels', function ($q) {
+                return $q;
+            });
+        
+        $query = $query->leftJoinWith('SchoolCoursesStudents', function($q) use ($student_id) {
+                return $q->where([
+                    'SchoolCoursesStudents.student_id' => $student_id
+                ]);
+            });
+        $query = $query->where([
+                'sex IN' => [
+                $sex, 'X'],
+                "({$year_of_birth} OR SchoolLevels.id = {$school_level_id})",
+                'student_id is null'
+            ])
+            ->order([
+                'SchoolCoursesStudents.is_confirmed' => 'desc'
+            ]);
 
         return $query;
     }

@@ -3,6 +3,7 @@
  * @var \App\View\AppView $this
  * @var \App\Model\Entity\Student $student
  */
+$this->Html->script('add-edit-modal', ['block' => true]);
 ?>
 <!-- Menú -->
 <header class="page-header page-header-compact page-header-light border-bottom bg-white mb-4">
@@ -79,6 +80,18 @@
                     <h6 class="m-0 font-weight-bold text-primary-cm"><?= __('School Courses List Enrolled') ?></h6>
                 </div>
                 <div class="card-body">
+                    <!-- Button trigger modal -->
+                    <?= $this->Html->link(__('Add School Course'), [
+                        'controller' => 'SchoolCourses',
+                        'action' => 'enrollStudent',
+                        $student->id
+                    ], [
+                        'class' => 'btn btn-sm btn-outline-primary btn-modal',
+                        'modal-title' => 'Inscribir Estudiante',
+                        'data-toggle' => 'modal',
+                        'data-target' => '#addEditModal'
+                    ]) ?>
+                    <hr class="mt-0 mb-4">
                     <div class="table-responsive">
                         <table class="table" width="100%" cellspacing="0">
                             <thead>
@@ -88,15 +101,20 @@
                                     <td class="actions"><?= __('Acciones') ?></td>
                                 </tr>
                             </thead>
+                            <tbody>
                             <?php foreach ($student->school_courses as $schoolCourses) : ?>
                                 <tr>
                                     <td><?= h($schoolCourses->name) ?></td>
                                     <td><?= $schoolCourses->_joinData->is_confirmed == 1 ? "Inscrito" : "Preinscrito" ?></td>
                                     <td class="actions">
                                         <?= $this->Form->postLink(__('Delete'), ['controller' => 'SchoolCoursesStudents', 'action' => 'delete', $schoolCourses->_joinData->id], ['confirm' => __('Are you sure you want to delete  {0}?', $schoolCourses->name)]) ?>
+                                        <?= $this->Form->postLink(__('Imprimir constancia'), [
+                                            'controller' => 'SchoolCoursesStudents',
+                                            'action' => 'printForm', $schoolCourses->_joinData->id]) ?>
                                     </td>
                                 </tr>
                             <?php endforeach; ?>
+                            </tbody>
                         </table>
                     </div>
                 </div>
@@ -104,3 +122,6 @@
         </div>
     </div>
 </div>
+
+<!-- Modal -->
+<?= $this->element('modal/add_edit') ?>

@@ -218,6 +218,35 @@ class SchoolCoursesController extends AppController
         $this->set(compact('schoolCourses', 'studentCourses', 'term', 'enrolled'));
     }
 
+    public function enrollStudent($student_id = null) {
+        $this->Authorization->skipAuthorization();
+        $query = $this->SchoolCourses->Students->find('StudentInfo', ['student_id' => $student_id])->all();
+        // Si no se encuentra información del nivel es porque no existe en la base de datos tabla school_levels
+        $schoolCourses = [];
+        if ($query->count() > 0) {
+
+            $row = $query->first();
+
+            $options = [
+                'enrolled' => null,
+                'school_level_id' => $row->sl_id,
+                'sex' => $row->sex,
+                'student_id' => $student_id,
+                'year_of_birth' => "{$row->year_of_birth} BETWEEN min_year_of_birth AND max_year_of_birth"
+            ];
+
+            // Traer los cursos relacionados con el grado escolar, sexo y la edad del estudiante
+            $schoolCourses = $this->SchoolCourses->find('CoursesAvailableForStudent', $options)
+                ->contain(['Teachers', 'Terms', 'Schedules'])->all();
+            // pr($schoolCourses);die();
+        }
+        $term = $this->SchoolCourses->Terms->find('all', [
+            'conditions' => ['active' => 1]
+        ])->all()->first();
+
+        $this->set(compact('schoolCourses', 'term', 'student_id'));
+    }
+
     public function signup($id = null) {
         $this->request->allowMethod(['post', 'put']);
         $schoolCourse = $this->SchoolCourses->get($id, [
@@ -246,6 +275,36 @@ class SchoolCoursesController extends AppController
             }
         }
         return $this->redirect(['action' => 'courseRegistration']);
+    }
+
+    public function enrollment($id = null, $student_id = null) {
+        $this->request->allowMethod(['post', 'put']);
+        $schoolCourse = $this->SchoolCourses->get($id, [
+            'contain' => ['Students']
+        ]);
+        $this->Authorization->authorize($schoolCourse);
+        $availability = $schoolCourse->capacity - $schoolCourse->occupancy;
+        if ($availability <= 0) {
+            $this->Flash->info(__('There is no availability for this course.'));
+        } else {
+            // get student info
+            $student = $this->SchoolCourses->Students->find('all')
+                ->where(['id' => $student_id])
+                ->all();
+            $schoolCourse->students = array_merge($schoolCourse->students, $student->toArray());
+
+            if ($this->SchoolCourses->save($schoolCourse)) {
+                // Actualizar el campo is_confirmed
+                $schoolCoursesStudents = $this->loadModel('SchoolCoursesStudents');
+                $schoolCourseStudent = $schoolCoursesStudents->findBySchoolCourseIdAndStudentId($schoolCourse->id, $student->first()->id)->first();
+                $schoolCourseStudent->is_confirmed = 1;
+                $schoolCoursesStudents->save($schoolCourseStudent);
+                $this->Flash->success(__('You have signed up for the course ') . $schoolCourse->name . '.');
+            } else {
+                $this->Flash->error(__('The school course could not be taken. Please, try again.'));
+            }
+        }
+        return $this->redirect(['controller' => 'Students', 'action' => 'view', $student_id]);
     }
 
     public function exportRelatedStudents($schoolCourseId){

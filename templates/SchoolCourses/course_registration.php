@@ -388,7 +388,7 @@ foreach ($studentCourses as $studentCourse) {
                                         if ($availability == 0) {
                                             $message = __('El curso {0} no cuenta con lugares disponibles', $schoolCourse->name);
                                         } else if ($term->courses_allowed - $num_confirmed_courses == 0) {
-                                            $message = __('Ha seleccionado el número máximo de cursos por alumno y no puede seleccionar mas.');
+                                            $message = __('Ha seleccionado el número máximo de cursos permitidos por alumno y no puede seleccionar mas.');
                                         } else {
                                             $url = [
                                                 'action' => 'signup', 
@@ -427,7 +427,7 @@ foreach ($studentCourses as $studentCourse) {
 	<div class="modal-dialog">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h5 class="modal-title"><?= __('Confirm Registration') ?></h5>
+				<h5 class="modal-title"><?= __('Confirmación de inscripción') ?></h5>
 				<button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
 			</div>
 			<div class="modal-body">
@@ -447,7 +447,7 @@ foreach ($studentCourses as $studentCourse) {
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title"><?= __('Confirm Registration') ?></h5>
+                <h5 class="modal-title"><?= __('Información del sistema') ?></h5>
                 <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
