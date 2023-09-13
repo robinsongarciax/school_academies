@@ -162,9 +162,9 @@ class SchoolCoursesStudentsTable extends Table
                     'student_id' => $entity->student_id,
                     'is_confirmed' => 1,
                 ]);
+
+
             if ($schoolCoursesId->count() > 0) {
-                // pr(array_values(array_column($schoolCoursesId->toArray(), 'school_course_id')) );
-                // die();
                 $schoolCoursesId = array_values(array_column($schoolCoursesId->toArray(), 'school_course_id'));
                 $schoolCourses = $this->SchoolCourses->find('all')
                     ->where(['SchoolCourses.id in' => $schoolCoursesId,
@@ -172,7 +172,7 @@ class SchoolCoursesStudentsTable extends Table
                     ]);
                 if ($schoolCourses->count() > 0) {
                     $schoolCourse = $schoolCourses->first();
-                    $newEntity = $this->findBySchoolCourseId($schoolCourse->id)->first();
+                    $newEntity = $this->findBySchoolCourseIdAndStudentId($schoolCourse->id, $entity->student_id)->first();
                     $newEntity->cost = 0;
                     $this->save($newEntity);
                 }

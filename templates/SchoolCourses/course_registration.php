@@ -184,81 +184,116 @@ foreach ($studentCourses as $studentCourse) {
                                     }
                                 }
                                 ?>
-                            <tr>
-                                <td>
-                                    <?= "{$schoolCourse->name } ({$schoolCourse->tipo_academia})" ?><br/>
-                                    <?= $schoolCourse->teacher->name ?><br/>
-                                    Lugares disp. <?= $schoolCourse->capacity - $schoolCourse->occupancy ?>
-                                </td>
-                                <td class="mobile-td-actions">
-                                    <div class="mobile-actions">
-                                        <?php
-                                        if (array_key_exists($schoolCourse->id, $arr_coursesSignedup)) {
-                                            $course_signedup = $arr_coursesSignedup[$schoolCourse->id];
-                                            $school_courses_students_id = $course_signedup['school_courses_students_id'];
-                                            if ($course_signedup['is_confirmed'] === 0) {
+                                <?php
+                                $monday = '';
+                                $tuesday = '';
+                                $wednesday = '';
+                                $thursday = '';
+                                $friday = '';
+                                $saturday = '';
+                                $horario = [];
+                                $time_schedule;
+                                foreach ($schoolCourse->schedules as $schedule) {
+                                    $start = substr($schedule->start, 0, 5);//$this->Time->format($schedule->start, [IntlDateFormatter::NONE, IntlDateFormatter::SHORT]);
+                                    $end = substr($schedule->end, 0, 5);//$this->Time->format($schedule->end, [IntlDateFormatter::NONE, IntlDateFormatter::SHORT]);
+                                    $time_schedule = $start . ' - ' . $end;
+                                    switch ($schedule->day_id) {
+                                        case 1:
+                                            $horario[] = 'Lun';
+                                            break;
+                                        case 2:
+                                            $horario[] = 'Mar';
+                                            break;
+                                        case 3:
+                                            $horario[] = 'Miérc';
+                                            break;
+                                        case 4:
+                                            $horario[] = 'Juev';
+                                            break;
+                                        case 5:
+                                            $horario[] = 'Vier';
+                                            break;
+                                    }
+                                }
+                                $horario = implode(', ', $horario);
+                                $horario .= ' de ' .$time_schedule;
+                                ?>
+                                <tr>
+                                    <td>
+                                        <?= "{$schoolCourse->name } ({$schoolCourse->tipo_academia})" ?><br/>
+                                        <?= $schoolCourse->teacher->name ?><br/>
+                                        Lugares disp. <?= $schoolCourse->capacity - $schoolCourse->occupancy ?><br/>
+                                        Horario: <b><?= $horario ?></b>
+                                    </td>
+                                    <td class="mobile-td-actions">
+                                        <div class="mobile-actions">
+                                            <?php
+                                            if (array_key_exists($schoolCourse->id, $arr_coursesSignedup)) {
+                                                $course_signedup = $arr_coursesSignedup[$schoolCourse->id];
+                                                $school_courses_students_id = $course_signedup['school_courses_students_id'];
+                                                if ($course_signedup['is_confirmed'] === 0) {
+                                                    $this->Form->setTemplates([
+                                                        'confirmJs' => 'addToModal("{{formName}}"); return false;'
+                                                    ]);
+                                                    echo $this->Form->postLink(
+                                                        __('Confirm'), [
+                                                        'controller' => 'SchoolCoursesStudents',
+                                                        'action' => 'confirm',
+                                                        $school_courses_students_id],
+                                                        [
+                                                            'confirm' => __('Are you sure you want to register for {0}?',
+                                                                $schoolCourse->name) . ' en el horario ' . $horario,
+                                                            'title' => __('Confirm'),
+                                                            'data-toggle' => 'modal',
+                                                            'data-target' => '#confirmRegistrationModal'
+                                                        ]);
+
+                                                    echo $this->Form->postLink(__('Dropout'), [
+                                                        'controller' => 'SchoolCoursesStudents',
+                                                        'action' => 'delete',
+                                                        $school_courses_students_id]);
+                                                } else {
+                                                    echo $this->Form->postLink(__('Imprimir<br>Constancia'), [
+                                                        'controller' => 'SchoolCoursesStudents',
+                                                        'action' => 'printForm', $school_courses_students_id],
+                                                        ['class'=>'btn btn-primary btn-block h-100',
+                                                            'escape' => false
+                                                        ]);
+                                                }
+                                                
+                                            } else {
+                                                // El modal y el mensaje debe cargarse dependiendo las opciones del curso
+                                                $url = null;
+                                                $data_target = '#noAvailabilityModal';
+                                                $message;
+                                                if ($availability == 0) {
+                                                    $message = __('El curso {0} no cuenta con lugares disponibles', $schoolCourse->name);
+                                                } else if ($term->courses_allowed - $num_confirmed_courses == 0) {
+                                                    $message = __('Ha seleccionado el número máximo de cursos por alumno y no puede seleccionar mas.');
+                                                } else {
+                                                    $url = [
+                                                        'action' => 'signup', 
+                                                        $schoolCourse->id
+                                                    ];
+                                                    $message = __('Are you sure you want to register for {0}?', $schoolCourse->name . ' de ' . $horario);
+                                                    $data_target = '#confirmRegistrationModal';
+                                                }
                                                 $this->Form->setTemplates([
                                                     'confirmJs' => 'addToModal("{{formName}}"); return false;'
                                                 ]);
-                                                echo $this->Form->postLink(
-                                                    __('Confirm'), [
-                                                    'controller' => 'SchoolCoursesStudents',
-                                                    'action' => 'confirm',
-                                                    $school_courses_students_id],
-                                                    [
-                                                        'confirm' => __('Are you sure you want to register for {0}?',
-                                                            $schoolCourse->name),
-                                                        'title' => __('Confirm'),
-                                                        'data-toggle' => 'modal',
-                                                        'data-target' => '#confirmRegistrationModal'
-                                                    ]);
-
-                                                echo $this->Form->postLink(__('Dropout'), [
-                                                    'controller' => 'SchoolCoursesStudents',
-                                                    'action' => 'delete',
-                                                    $school_courses_students_id]);
-                                            } else {
-                                                echo $this->Form->postLink(__('Imprimir<br>Constancia'), [
-                                                    'controller' => 'SchoolCoursesStudents',
-                                                    'action' => 'printForm', $school_courses_students_id],
-                                                    ['class'=>'btn btn-primary btn-block h-100',
-                                                        'escape' => false
-                                                    ]);
+                                                echo $this->Form->postLink(__('Signup'), $url, [
+                                                    'confirm' => $message,
+                                                    'title' => __('Confirm'),
+                                                    'data-toggle' => 'modal',
+                                                    'data-target' => $data_target,
+                                                    'class' => 'btn btn-primary btn-block h-100'
+                                                ]);
+                                                    
                                             }
-                                            
-                                        } else {
-                                            // El modal y el mensaje debe cargarse dependiendo las opciones del curso
-                                            $url = null;
-                                            $data_target = '#noAvailabilityModal';
-                                            $message;
-                                            if ($availability == 0) {
-                                                $message = __('El curso {0} no cuenta con lugares disponibles', $schoolCourse->name);
-                                            } else if ($term->courses_allowed - $num_confirmed_courses == 0) {
-                                                $message = __('Ha seleccionado el número máximo de cursos por alumno y no puede seleccionar mas.');
-                                            } else {
-                                                $url = [
-                                                    'action' => 'signup', 
-                                                    $schoolCourse->id
-                                                ];
-                                                $message = __('Are you sure you want to register for {0}?', $schoolCourse->name);
-                                                $data_target = '#confirmRegistrationModal';
-                                            }
-                                            $this->Form->setTemplates([
-                                                'confirmJs' => 'addToModal("{{formName}}"); return false;'
-                                            ]);
-                                            echo $this->Form->postLink(__('Signup'), $url, [
-                                                'confirm' => $message,
-                                                'title' => __('Confirm'),
-                                                'data-toggle' => 'modal',
-                                                'data-target' => $data_target,
-                                                'class' => 'btn btn-primary btn-block h-100'
-                                            ]);
-                                                
-                                        }
-                                        ?>
-                                    </div>
-                                </td>
-                            </tr>
+                                            ?>
+                                        </div>
+                                    </td>
+                                </tr>
                             <?php endif; ?>
                         <?php endforeach; ?>
                     </tbody>
@@ -316,6 +351,8 @@ foreach ($studentCourses as $studentCourse) {
                                 $thursday = '';
                                 $friday = '';
                                 $saturday = '';
+                                $horario = [];
+                                $time_schedule;
                                 foreach ($schoolCourse->schedules as $schedule) {
                                     $start = substr($schedule->start, 0, 5);//$this->Time->format($schedule->start, [IntlDateFormatter::NONE, IntlDateFormatter::SHORT]);
                                     $end = substr($schedule->end, 0, 5);//$this->Time->format($schedule->end, [IntlDateFormatter::NONE, IntlDateFormatter::SHORT]);
@@ -323,21 +360,28 @@ foreach ($studentCourses as $studentCourse) {
                                     switch ($schedule->day_id) {
                                         case 1:
                                             $monday .= $time_schedule;
+                                            $horario[] = 'Lun';
                                             break;
                                         case 2:
                                             $tuesday .= $time_schedule;
+                                            $horario[] = 'Mar';
                                             break;
                                         case 3:
                                             $wednesday .= $time_schedule;
+                                            $horario[] = 'Miérc';
                                             break;
                                         case 4:
                                             $thursday .= $time_schedule;
+                                            $horario[] = 'Juev';
                                             break;
                                         case 5:
                                             $friday.= $time_schedule;
+                                            $horario[] = 'Vier';
                                             break;
                                     }
                                 }
+                                $horario = implode(', ', $horario);
+                                $horario .= ' de ' .$time_schedule;
                                 ?>
 
                                 <td><?= $monday ?></td>
@@ -394,7 +438,7 @@ foreach ($studentCourses as $studentCourse) {
                                                 'action' => 'signup', 
                                                 $schoolCourse->id
                                             ];
-                                            $message = __('Are you sure you want to register for {0}?', $schoolCourse->name);
+                                            $message = __('Are you sure you want to register for {0}?', $schoolCourse->name . ' de ' . $horario);
                                             $data_target = '#confirmRegistrationModal';
                                         }
                                         $this->Form->setTemplates([
