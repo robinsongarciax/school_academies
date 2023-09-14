@@ -100,8 +100,10 @@ class SchoolCoursesStudentsTable extends Table
         if ($entity->is_confirmed == 1) {
             $schoolCourse = $this->SchoolCourses->get($entity->school_course_id);
             $cost = 0;
+            // load info del alumno
+            $student = $this->Students->get($entity->student_id);
             // Revisar si el curso es de pago obligatorio
-            if ($schoolCourse->pago_obligatorio == 1) {
+            if ($schoolCourse->pago_obligatorio == 1 || $student->externo == 1) {
                 $cost = $schoolCourse->price;
             } else {
                 // Determinar si el curso tendrá costo

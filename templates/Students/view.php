@@ -65,6 +65,10 @@ $this->Html->script('add-edit-modal', ['block' => true]);
                                 <td><?= $this->Time->i18nFormat($student->birth_date, [\IntlDateFormatter::LONG, \IntlDateFormatter::NONE]) ?></td>
                             </tr>
                             <tr>
+                                <th><?= __('Externo') ?></th>
+                                <td><?= $student->externo == 1 ? 'Sí' : 'No' ?></td>
+                            </tr>
+                            <tr>
                                 <th><?= __('Term') ?></th>
                                 <td><?= $student->has('term') ? $student->term->description : '' ?></td>
                             </tr>

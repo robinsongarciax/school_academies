@@ -67,7 +67,7 @@
                             '6o. de Primaria' => '6o. de Primaria',
                             '1o. de Secundaria' => '1o. de Secundaria',
                             '2o. de Secundaria' => '2o. de Secundaria',
-                            '3o. de Secundaria' => '2o. de Secundaria'
+                            '3o. de Secundaria' => '3o. de Secundaria'
                         ],
                         'id' => 'school-level'
                     ]);

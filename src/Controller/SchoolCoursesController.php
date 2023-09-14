@@ -541,7 +541,7 @@ class SchoolCoursesController extends AppController
         $search_options += ['id not in' => $students_enrroled];
 
         $students = $this->SchoolCourses->Students
-            ->find('all', ['limit' => 200])
+            ->find('all')
             ->where($search_options)
             ->all();
 

@@ -192,7 +192,7 @@ foreach ($studentCourses as $studentCourse) {
                                 $friday = '';
                                 $saturday = '';
                                 $horario = [];
-                                $time_schedule;
+                                $time_schedule = '';
                                 foreach ($schoolCourse->schedules as $schedule) {
                                     $start = substr($schedule->start, 0, 5);//$this->Time->format($schedule->start, [IntlDateFormatter::NONE, IntlDateFormatter::SHORT]);
                                     $end = substr($schedule->end, 0, 5);//$this->Time->format($schedule->end, [IntlDateFormatter::NONE, IntlDateFormatter::SHORT]);
@@ -352,7 +352,7 @@ foreach ($studentCourses as $studentCourse) {
                                 $friday = '';
                                 $saturday = '';
                                 $horario = [];
-                                $time_schedule;
+                                $time_schedule = '';
                                 foreach ($schoolCourse->schedules as $schedule) {
                                     $start = substr($schedule->start, 0, 5);//$this->Time->format($schedule->start, [IntlDateFormatter::NONE, IntlDateFormatter::SHORT]);
                                     $end = substr($schedule->end, 0, 5);//$this->Time->format($schedule->end, [IntlDateFormatter::NONE, IntlDateFormatter::SHORT]);
