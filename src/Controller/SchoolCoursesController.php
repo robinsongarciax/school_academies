@@ -6,6 +6,7 @@ namespace App\Controller;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 use Cake\Http\CallbackStream;
+use Cake\I18n\FrozenTime;
 
 /**
  * SchoolCourses Controller
@@ -602,7 +603,6 @@ class SchoolCoursesController extends AppController
 
     public function constanciasEstudios($schoolCourseId){
         error_reporting(0);
-        setlocale(LC_TIME, "spanish");//PARA TENER LA FECHA EN ESPANOL
         $this->Authorization->skipAuthorization();
 
         $schoolCourse = $this->SchoolCourses->get($schoolCourseId, [
@@ -636,7 +636,9 @@ class SchoolCoursesController extends AppController
             //FECHA
             $current_row += 3;
             $rangeCell = "F$current_row:N$current_row";
-            $sheet->setCellValue(substr($rangeCell, 0, strlen(strval($current_row))+1), "Mérida, Yucatán a ".strftime("%A, %d de %B de %Y"));
+            $now = FrozenTime::now();
+            $lugar_fecha = 'Mérida, Yucatán a ' . $now->i18nFormat([\IntlDateFormatter::LONG, \IntlDateFormatter::NONE]);
+            $sheet->setCellValue(substr($rangeCell, 0, strlen(strval($current_row))+1), $lugar_fecha);
             $sheet->mergeCells($rangeCell);
             $sheet->getStyle($rangeCell)->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_RIGHT);
 
@@ -652,26 +654,36 @@ class SchoolCoursesController extends AppController
                 'size'  => 13,
                 'name'  => 'Arial'
             ]];
+
+            $student_sex = $student['sex'];
+            $body_text1 = 'Por medio de la presente, se HACE CONSTAR que %s es %s regular';
+            $body_text1_complement = $student_sex == 'M' ? 'el siguiente niño' : 'la siguiente niña';
+            $body_text1_complement2 = $student_sex == 'M' ? 'alumno' : 'alumna';
+            $body_text1 = sprintf($body_text1, $body_text1_complement, $body_text1_complement2);
+
+            $body_text2 = 'de este instituto con clave 31PPR0004R, en el presente curso escolar %s.';
+            $body_text2 = sprintf($body_text2, $student->term->description);
+            
             $rangeCell = "B$current_row:N$current_row";
-            $sheet->setCellValue(substr($rangeCell, 0, strlen(strval($current_row))+1), "           Por medio del presente, se le HACE CONSTAR que el siguiente niño es");
+            $sheet->setCellValue(substr($rangeCell, 0, strlen(strval($current_row))+1), $body_text1);
             $sheet->mergeCells($rangeCell);
             $sheet->getStyle($rangeCell)->applyFromArray($styleArray);
             $spreadsheet->getActiveSheet()->getRowDimension($current_row)->setRowHeight(30, 'pt');
             $current_row += 1;
             $rangeCell = "B$current_row:N$current_row";
-            $sheet->setCellValue(substr($rangeCell, 0, strlen(strval($current_row))+1), "alumno regular es alumno regular de este instituto con clave 31PPR0004R, en");
+            $sheet->setCellValue(substr($rangeCell, 0, strlen(strval($current_row))+1), $body_text2);
             $sheet->mergeCells($rangeCell);
             $sheet->getStyle($rangeCell)->applyFromArray($styleArray);
             $spreadsheet->getActiveSheet()->getRowDimension($current_row)->setRowHeight(30, 'pt');
-            $current_row += 1;
-            $rangeCell = "B$current_row:N$current_row";
-            $sheet->setCellValue(substr($rangeCell, 0, strlen(strval($current_row))+1), "el presente curso escolar ".$student->term->description);
-            $sheet->mergeCells($rangeCell);
-            $sheet->getStyle($rangeCell)->applyFromArray($styleArray);
-            $spreadsheet->getActiveSheet()->getRowDimension($current_row)->setRowHeight(30, 'pt');
+            // $current_row += 1;
+            // $rangeCell = "B$current_row:N$current_row";
+            // $sheet->setCellValue(substr($rangeCell, 0, strlen(strval($current_row))+1), "el presente curso escolar ".$student->term->description);
+            // $sheet->mergeCells($rangeCell);
+            // $sheet->getStyle($rangeCell)->applyFromArray($styleArray);
+            // $spreadsheet->getActiveSheet()->getRowDimension($current_row)->setRowHeight(30, 'pt');
 
             //NOMBRE
-            $current_row += 10;
+            $current_row += 6;
             $rowHeight = 23;
             $rangeCell = "B$current_row:N$current_row";
             $sheet->setCellValue(substr($rangeCell, 0, strlen(strval($current_row))+1), $student['name']);
@@ -692,7 +704,9 @@ class SchoolCoursesController extends AppController
             //FECHA NACIMIENTO
             $current_row += 1;
             $rangeCell = "B$current_row:N$current_row";
-            $sheet->setCellValue(substr($rangeCell, 0, strlen(strval($current_row))+1), $student['birth_date']);
+            $birth_date = new FrozenTime($student['birth_date']);
+            $birth_date = $birth_date->i18nFormat('yyyy-MM-dd');
+            $sheet->setCellValue(substr($rangeCell, 0, strlen(strval($current_row))+1), $birth_date);
             $sheet->mergeCells($rangeCell);
             $sheet->getStyle($rangeCell)->applyFromArray($styleArray);
             $sheet->getStyle($rangeCell)->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
@@ -753,7 +767,7 @@ class SchoolCoursesController extends AppController
                 'name'  => 'Arial'
             ]];
             $rangeCell = "B$current_row:N$current_row";
-            $sheet->setCellValue(substr($rangeCell, 0, strlen(strval($current_row))+1), "CUMBRES INTERNATIOAL SCHOOL MÉRIDA");
+            $sheet->setCellValue(substr($rangeCell, 0, strlen(strval($current_row))+1), "CUMBRES INTERNATIONAL SCHOOL MÉRIDA");
             $sheet->mergeCells($rangeCell);
             $sheet->getStyle($rangeCell)->applyFromArray($styleArray);
             $sheet->getStyle($rangeCell)->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
