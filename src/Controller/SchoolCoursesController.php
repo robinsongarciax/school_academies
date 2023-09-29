@@ -637,7 +637,7 @@ class SchoolCoursesController extends AppController
             $current_row += 3;
             $rangeCell = "F$current_row:N$current_row";
             $now = FrozenTime::now();
-            $lugar_fecha = 'Mérida, Yucatán a ' . $now->i18nFormat([\IntlDateFormatter::LONG, \IntlDateFormatter::NONE]);
+            $lugar_fecha = 'Mérida, Yucatán a ' . $now->i18nFormat([\IntlDateFormatter::FULL, \IntlDateFormatter::NONE]);
             $sheet->setCellValue(substr($rangeCell, 0, strlen(strval($current_row))+1), $lugar_fecha);
             $sheet->mergeCells($rangeCell);
             $sheet->getStyle($rangeCell)->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_RIGHT);
