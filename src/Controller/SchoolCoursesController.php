@@ -683,7 +683,7 @@ class SchoolCoursesController extends AppController
             // $spreadsheet->getActiveSheet()->getRowDimension($current_row)->setRowHeight(30, 'pt');
 
             //NOMBRE
-            $current_row += 6;
+            $current_row += 12;
             $rowHeight = 23;
             $rangeCell = "B$current_row:N$current_row";
             $sheet->setCellValue(substr($rangeCell, 0, strlen(strval($current_row))+1), $student['name']);
