@@ -91,7 +91,7 @@ class SchoolCoursesController extends AppController
     public function confirmedStudents($id = null)
     {
         $schoolCourse = $this->SchoolCourses->get($id, [
-            'contain' => ['Terms', 'Schedules.Days', 'Students' => [
+            'contain' => ['Terms', 'Schedules.Days', 'Teachers', 'Students' => [
                     'conditions' => ['SchoolCoursesStudents.is_confirmed' => '1']
                 ]
             ]

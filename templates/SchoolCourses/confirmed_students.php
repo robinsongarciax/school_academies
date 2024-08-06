@@ -9,7 +9,7 @@
         <div class="page-header-content">
             <div class="row align-items-center justify-content-between pt-3">
                 <div class="col-auto mb-3">
-                    <h3 class="page-header-title"><?= __('Course Information about ') . h($schoolCourse->name) ?></h3>
+                    <h3 class="page-header-title"><?= __('Course Information about ') ?><span id='schoolCourseName'><?= h($schoolCourse->name) ?><span></h3>
                 </div>
                 <div class="col-12 col-xl-auto mb-3">
                     <?= $this->Html->link(__('Edit School Course'), ['action' => 'edit', $schoolCourse->id], ['class' => 'btn btn-sm btn-light text-primary', 'escape' => true]) ?>
@@ -50,13 +50,62 @@
             <h6 class="m-0 font-weight-bold text-primary-cm"><?= __('Confirmed Students') ?></h6>
         </div>
         <div class="card-body">
+            <?php
+            // Obtener el horario en formato legible
+            $monday = '';
+            $tuesday = '';
+            $wednesday = '';
+            $thursday = '';
+            $friday = '';
+            $saturday = '';
+            $horario = [];
+            $time_schedule = '';
+            foreach ($schoolCourse->schedules as $schedule) {
+                $start = substr($schedule->start, 0, 5);//$this->Time->format($schedule->start, [IntlDateFormatter::NONE, IntlDateFormatter::SHORT]);
+                $end = substr($schedule->end, 0, 5);//$this->Time->format($schedule->end, [IntlDateFormatter::NONE, IntlDateFormatter::SHORT]);
+                $time_schedule = $start . ' - ' . $end;
+                switch ($schedule->day_id) {
+                    case 1:
+                        $horario[] = 'Lun';
+                        break;
+                    case 2:
+                        $horario[] = 'Mar';
+                        break;
+                    case 3:
+                        $horario[] = 'Miérc';
+                        break;
+                    case 4:
+                        $horario[] = 'Juev';
+                        break;
+                    case 5:
+                        $horario[] = 'Vier';
+                        break;
+                }
+            }
+            $horario = implode(', ', $horario);
+            $horario .= ' de ' . $time_schedule;
+            ?>
+            <div class="table-responsive">
+                <table class="table" hidden>
+                    <tr>
+                        <th><?= __('Teacher') ?></th>
+                        <td><span id="teacherName"><?= $schoolCourse->has('teacher') ? $schoolCourse->teacher->name : '' ?><span>
+                        </td>
+                        <th><?= __('Related Schedules') ?></th>
+
+                        <td><span id="schedule">
+                            <?= $horario ?></span>
+                        </td>
+                    </tr>
+                </table>
+            </div>
             <?= $this->Html->link(__('Exportar alumnos'), ['action' => 'export-related-students', $schoolCourse->id], ['class' => 'btn btn-sm btn-outline-primary', 'escape' => true]) ?>
             <?= $this->Html->link(__('Exportar lista'), ['action' => 'export-list-related-students', $schoolCourse->id], ['class' => 'btn btn-sm btn-outline-primary', 'escape' => true]) ?>
             <?= $this->Html->link(__('Constancias de estudios'), ['action' => 'constancias-estudios', $schoolCourse->id], ['class' => 'btn btn-sm btn-outline-primary', 'escape' => true]) ?>
             <hr class="mt-0 mb-4">
             <?php if (!empty($schoolCourse->students)) : ?>
             <div class="table-responsive">
-                <table class="table table-bordered" width="100%" id="dataTable" cellspacing="0">
+                <table class="table table-bordered" width="100%" id="tableConfirmedStudents" cellspacing="0">
                     <thead>
                         <tr>
                             <th><?= __('Name') ?></th>
