@@ -1087,3 +1087,5 @@ msgstr "Grupo"
 msgid "Birth Date"
 msgstr "Fecha de nacimiento"
 
+msgid "Download all proof of study"
+msgstr "Constancias de estudios en un PDF"
