@@ -44,10 +44,10 @@ class SchoolCoursesController extends AppController
 
             // Traer los cursos relacionados con el grado escolar, sexo y la edad del estudiante
             $schoolCourses = $this->SchoolCourses->find('CoursesForStudent', $options)
-                ->contain(['Teachers', 'Terms']);
+                ->contain(['Teachers', 'Terms', 'Schedules.Days']);
         } else {
             $schoolCourses = $this->SchoolCourses->find('all');
-            $schoolCourses->contain(['Teachers', 'Terms']);
+            $schoolCourses->contain(['Teachers', 'Terms', 'Schedules.Days']);
             if ($type != null) 
                 $schoolCourses->where(['tipo_academia' => $type]);
         }
@@ -312,7 +312,7 @@ class SchoolCoursesController extends AppController
     public function exportRelatedStudents($schoolCourseId){
         $this->Authorization->skipAuthorization();
 
-        $row = 5;
+        $row = 6;
         $headers = [
             "A" => "Colegio",
             "B" => "Clave Identificacion Alumno",
@@ -335,8 +335,42 @@ class SchoolCoursesController extends AppController
         ];
 
         $schoolCourse = $this->SchoolCourses->get($schoolCourseId, [
-            'contain' => ['Students', 'Teachers', 'Terms']
+            'contain' => ['Students', 'Teachers', 'Terms', 'Schedules.Days']
         ]);
+
+        // horario
+        $monday = '';
+        $tuesday = '';
+        $wednesday = '';
+        $thursday = '';
+        $friday = '';
+        $saturday = '';
+        $horario = [];
+        $time_schedule = '';
+        foreach ($schoolCourse->schedules as $schedule) {
+            $start = substr($schedule->start, 0, 5);//$this->Time->format($schedule->start, [IntlDateFormatter::NONE, IntlDateFormatter::SHORT]);
+            $end = substr($schedule->end, 0, 5);//$this->Time->format($schedule->end, [IntlDateFormatter::NONE, IntlDateFormatter::SHORT]);
+            $time_schedule = $start . ' - ' . $end;
+            switch ($schedule->day_id) {
+                case 1:
+                    $horario[] = 'Lun';
+                    break;
+                case 2:
+                    $horario[] = 'Mar';
+                    break;
+                case 3:
+                    $horario[] = 'Miérc';
+                    break;
+                case 4:
+                    $horario[] = 'Juev';
+                    break;
+                case 5:
+                    $horario[] = 'Vier';
+                    break;
+            }
+        }
+        $horario = implode(', ', $horario);
+        $horario .= ' de ' .$time_schedule;
 
         // Create a new spreadsheet
         $spreadsheet = new Spreadsheet();
@@ -348,9 +382,11 @@ class SchoolCoursesController extends AppController
         $sheet->setCellValue("A1", "ACADEMIA");
         $sheet->setCellValue("A2", "PROFESOR");
         $sheet->setCellValue("A3", "CURSO");
+        $sheet->setCellValue("A4", "HORARIO");
         $sheet->setCellValue("B1", $schoolCourse['name']);
         $sheet->setCellValue("B2", $schoolCourse->teacher['name']);
         $sheet->setCellValue("B3", $schoolCourse->term['description']);
+        $sheet->setCellValue("B4", $horario);
 
         //HEADERS
         foreach($headers as $key=>$header):
@@ -359,12 +395,12 @@ class SchoolCoursesController extends AppController
         endforeach;
 
         //DATA
-        foreach($schoolCourse->students as $student):
+        foreach($schoolCourse->students as $student) {
             $row++;
-            foreach($col_header as $key=>$col):
+            foreach($col_header as $key=>$col) {
                 $sheet->setCellValue($col.$row, $student[$key]);
-            endforeach;
-        endforeach;
+            }
+        }
 
         $fileName = $schoolCourse['name'].'_'.date("ymdHis").".xlsx";
         $writer = new Xlsx($spreadsheet);

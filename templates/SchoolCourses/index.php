@@ -36,6 +36,7 @@
                             <th><?= $this->Paginator->sort('capacity') ?></th>
                             <th><?= $this->Paginator->sort('Disp.') ?></th>
                             <th><?= $this->Paginator->sort('sex') ?></th>
+                            <th>Horario</th>
                             <th>Ciclo<br/>Escolar</th>
                             <th class="actions"><?= __('Actions') ?></th>
                         </tr>
@@ -64,6 +65,42 @@
                             }
                             ?>
                             <td><?= $sex ?></td>
+                            <?php
+                            // horario
+                            $monday = '';
+                            $tuesday = '';
+                            $wednesday = '';
+                            $thursday = '';
+                            $friday = '';
+                            $saturday = '';
+                            $horario = [];
+                            $time_schedule = '';
+                            foreach ($schoolCourse->schedules as $schedule) {
+                                $start = substr($schedule->start, 0, 5);//$this->Time->format($schedule->start, [IntlDateFormatter::NONE, IntlDateFormatter::SHORT]);
+                                $end = substr($schedule->end, 0, 5);//$this->Time->format($schedule->end, [IntlDateFormatter::NONE, IntlDateFormatter::SHORT]);
+                                $time_schedule = $start . ' - ' . $end;
+                                switch ($schedule->day_id) {
+                                    case 1:
+                                        $horario[] = 'Lun';
+                                        break;
+                                    case 2:
+                                        $horario[] = 'Mar';
+                                        break;
+                                    case 3:
+                                        $horario[] = 'Miérc';
+                                        break;
+                                    case 4:
+                                        $horario[] = 'Juev';
+                                        break;
+                                    case 5:
+                                        $horario[] = 'Vier';
+                                        break;
+                                }
+                            }
+                            $horario = implode(', ', $horario);
+                            $horario .= ' de ' .$time_schedule;
+                            ?>
+                            <td><?= $horario ?></td>
                             
                             <td><?= $schoolCourse->has('term') ? $this->Html->link($schoolCourse->term->description, ['controller' => 'Terms', 'action' => 'view', $schoolCourse->term->id]) : '' ?></td>
                             <td class="actions" nowrap>
