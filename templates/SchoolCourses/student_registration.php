@@ -80,7 +80,7 @@ $availability = $schoolCourse->capacity - $totalStudentsConfirmed;
                                 <th><?= __('Name') ?></th>
                                 <th><?= __('School Level') ?></th>
                                 <th><?= __('School Group') ?></th>
-                                <th class="actions"><?= __('Actions') ?></th>
+                                <th><?= __('Actions') ?></th>
                             </tr>
                         </thead>
                         <tbody>

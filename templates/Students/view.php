@@ -3,7 +3,7 @@
  * @var \App\View\AppView $this
  * @var \App\Model\Entity\Student $student
  */
-$this->Html->script('add-edit-modal', ['block' => true]);
+$this->Html->script(['add-edit-modal'], ['block' => true]);
 ?>
 <!-- Menú -->
 <header class="page-header page-header-compact page-header-light border-bottom bg-white mb-4">
@@ -128,4 +128,6 @@ $this->Html->script('add-edit-modal', ['block' => true]);
 </div>
 
 <!-- Modal -->
-<?= $this->element('modal/add_edit') ?>
+<div class="container-fluid modal-container">
+    <?= $this->element('modal/add_edit') ?>
+</div>

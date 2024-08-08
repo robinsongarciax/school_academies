@@ -96,3 +96,11 @@ h1, h2, h3, h4, h5, h6 {
     color:red;
 }
 
+.modal-body {
+    overflow-y: auto;
+    max-height: 620px;
+}
+
+.actions button {
+    padding: 0 0.4rem;
+}
