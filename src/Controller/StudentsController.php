@@ -35,7 +35,7 @@ class StudentsController extends AppController
     {
         $this->Authorization->skipAuthorization();
         $students = $this->Students->find();
-
+        $students->contain(['Terms' => ['conditions' => ['active', 1]]]);
         $this->set(compact('students'));
     }
 
@@ -97,7 +97,7 @@ class StudentsController extends AppController
             }
             $this->Flash->error(__('The student could not be saved. Please, try again.'));
         }
-        $terms = $this->Students->Terms->find('list', ['limit' => 200])->all();
+        $terms = $this->Students->Terms->find('list', ['conditions' => ['active' => 1]])->all();
         $users = $this->Students->Users->find('list', ['limit' => 200])->all();
         $schoolCourses = $this->Students->SchoolCourses->find('list', ['limit' => 200])->all();
         $this->set(compact('student', 'terms', 'users', 'schoolCourses'));
@@ -125,7 +125,7 @@ class StudentsController extends AppController
             }
             $this->Flash->error(__('The student could not be saved. Please, try again.'));
         }
-        $terms = $this->Students->Terms->find('list', ['limit' => 200])->all();
+        $terms = $this->Students->Terms->find('list', ['conditions' => ['active' => 1]])->all();
         $users = $this->Students->Users->find('list', ['limit' => 200])->all();
         $schoolCourses = $this->Students->SchoolCourses->find('list', ['limit' => 200])->all();
         $this->set(compact('student', 'terms', 'users', 'schoolCourses'));
@@ -236,7 +236,7 @@ class StudentsController extends AppController
             $this->redirect(['action' => 'index']);
         }
 
-        $terms = $this->Students->Terms->find('list', ['limit' => 200])->all();
+        $terms = $this->Students->Terms->find('list', ['conditions' => ['active' => 1]])->all();
         $this->set(compact('student', 'terms'));
     }
 

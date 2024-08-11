@@ -7,6 +7,7 @@ use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
+use Cake\Event\EventInterface;
 
 /**
  * Terms Model
@@ -108,5 +109,24 @@ class TermsTable extends Table
         $rules->add($rules->existsIn('institute_id', 'Institutes'), ['errorField' => 'institute_id']);
 
         return $rules;
+    }
+
+    /**
+     * Disable active terms before save the new one
+     * 
+     * 
+     * @param Cake\Event\EventInterface $event
+     * @param $entity
+     * @param \ArrayObject $opcions
+     */
+    public function beforeSave(EventInterface $event, $entity, \ArrayObject $options) {
+        $this->updateAll (
+            [
+                'active' => 0
+            ],
+            [
+                'active' => 1
+            ]
+        );
     }
 }

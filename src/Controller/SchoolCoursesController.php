@@ -49,7 +49,7 @@ class SchoolCoursesController extends AppController
             $schoolCourses = $this->SchoolCourses->find('all');
             $schoolCourses->contain(['Teachers', 'Terms', 'Schedules.Days']);
             if ($type != null) 
-                $schoolCourses->where(['tipo_academia' => $type]);
+                $schoolCourses->where(['tipo_academia' => $type, 'Terms.active', 1]);
         }
 
         $this->set(compact('schoolCourses', 'type'));
@@ -123,7 +123,7 @@ class SchoolCoursesController extends AppController
             $this->Flash->error(__('The school course could not be saved. Please, try again.'));
         }
         $teachers = $this->SchoolCourses->Teachers->find('list', ['limit' => 200])->all();
-        $terms = $this->SchoolCourses->Terms->find('list', ['limit' => 200])->all();
+        $terms = $this->SchoolCourses->Terms->find('list', ['conditions' => ['active' => 1]])->all();
         $schedules = $this->SchoolCourses->Schedules->find('list', ['limit' => 200])->all();
         $students = $this->SchoolCourses->Students->find('list', ['limit' => 200])->all();
         $schoolLevels = $this->SchoolCourses->SchoolLevels->find('list', ['limit' => 200])->all();
@@ -156,7 +156,7 @@ class SchoolCoursesController extends AppController
             $this->Flash->error(__('The school course could not be saved. Please, try again.'));
         }
         $teachers = $this->SchoolCourses->Teachers->find('list', ['limit' => 200])->all();
-        $terms = $this->SchoolCourses->Terms->find('list', ['limit' => 200])->all();
+        $terms = $this->SchoolCourses->Terms->find('list', ['conditions' => ['active' => 1]])->all();
         $schedules = $this->SchoolCourses->Schedules->find('list', ['limit' => 200])->all();
         $students = $this->SchoolCourses->Students->find('list', ['limit' => 200])->all();
         $schoolLevels = $this->SchoolCourses->SchoolLevels->find('list', ['limit' => 200])->all();

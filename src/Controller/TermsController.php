@@ -18,11 +18,11 @@ class TermsController extends AppController
      */
     public function index()
     {
+        $this->Authorization->skipAuthorization();
         $this->paginate = [
             'contain' => ['Institutes'],
         ];
         $terms = $this->paginate($this->Terms);
-
         $this->set(compact('terms'));
     }
 
@@ -56,7 +56,7 @@ class TermsController extends AppController
             if ($this->Terms->save($term)) {
                 $this->Flash->success(__('The term has been saved.'));
 
-                return $this->redirect(['action' => 'index']);
+                return $this->redirect($this->referer());
             }
             $this->Flash->error(__('The term could not be saved. Please, try again.'));
         }
@@ -110,6 +110,6 @@ class TermsController extends AppController
             $this->Flash->error(__('The term could not be deleted. Please, try again.'));
         }
 
-        return $this->redirect(['action' => 'index']);
+        return $this->redirect($this->referer());
     }
 }
