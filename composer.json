@@ -16,7 +16,7 @@
         "mobiledetect/mobiledetectlib": "^2.8",
         "mpdf/mpdf": "^8.1",
         "phpoffice/phpspreadsheet": "^1.29",
-        "robotusers/cakephp-excel": "0.7.x-dev",
+        "robotusers/cakephp-excel": "0.7.0",
         "tecnickcom/tcpdf": "^6.6"
     },
     "require-dev": {
