@@ -40,56 +40,17 @@
                         <?php endforeach; ?>
                     </tbody>
                 </table>
-
-                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                    <thead>
-                        <tr>
-                            <th><?= $this->Paginator->sort('id') ?></th>
-                            <th><?= $this->Paginator->sort('name') ?></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php foreach ($students as $student): ?>
-                        <tr>
-                            <td><?= $this->Number->format($student->id) ?></td>
-                            <td><?= h($student->name) ?></td>
-                        </tr>
-                        <?php endforeach; ?>
-                    </tbody>
-                </table>
             </div>
+            <nav aria-label="Page navigation example">
+                <ul class="pagination justify-content-end">
+                    <?= $this->Paginator->first('<< ' . __('first'), ['class' => 'page-item']) ?>
+                    <?= $this->Paginator->prev('< ' . __('previous'), ['class' => 'page-item']) ?>
+                    <?= $this->Paginator->numbers(['modulus' => 4]) ?>
+                    <?= $this->Paginator->next(__('next') . ' >', ['class' => 'page-item']) ?>
+                    <?= $this->Paginator->last(__('last') . ' >>', ['class' => 'page-item']) ?>
+                </ul>
+                <p><?= $this->Paginator->counter(__('Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total')) ?></p>
+            </nav>
         </div>
-    </div>
-</div>
-<div class="students dashboard content">
-    <?= $this->Html->link(__('New School Level'), ['action' => 'add'], ['class' => 'button float-right']) ?>
-    <h3><?= __('Students') ?></h3>
-    <div class="table-responsive">
-        <table>
-            <thead>
-                <tr>
-                    <th><?= $this->Paginator->sort('id') ?></th>
-                    <th><?= $this->Paginator->sort('name') ?></th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php foreach ($students as $student): ?>
-                <tr>
-                    <td><?= $this->Number->format($student->id) ?></td>
-                    <td><?= h($student->name) ?></td>
-                </tr>
-                <?php endforeach; ?>
-            </tbody>
-        </table>
-    </div>
-    <div class="paginator">
-        <ul class="pagination">
-            <?= $this->Paginator->first('<< ' . __('first')) ?>
-            <?= $this->Paginator->prev('< ' . __('previous')) ?>
-            <?= $this->Paginator->numbers() ?>
-            <?= $this->Paginator->next(__('next') . ' >') ?>
-            <?= $this->Paginator->last(__('last') . ' >>') ?>
-        </ul>
-        <p><?= $this->Paginator->counter(__('Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total')) ?></p>
     </div>
 </div>

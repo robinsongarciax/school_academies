@@ -255,11 +255,12 @@ class StudentsController extends AppController
     public function dashboard()
     {
         $this->Authorization->skipAuthorization();
-        
         $students = $this->Students->find();
+
+        $this->paginate = [
+            'limit' => 10
+        ];
         $students->matching('SchoolCourses');
         $this->set('students', $this->paginate($students));
-        // $students->paginate['contain'] = ['SchoolCourses'];
-        //pr($students->paginate['contain'] = ['SchoolCourses']);die(); 
     }
 }

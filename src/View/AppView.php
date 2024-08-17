@@ -37,6 +37,8 @@ class AppView extends View
      */
     public function initialize(): void
     {
+        // paginator helper
+        $this->loadHelper('Paginator', ['templates' => 'custom_paginator']);
         if ($this->request->getParam('controller') == 'Users' && ($this->request->getParam('action') === 'login' || $this->request->getParam('action') == 'forgotpassword')) {
             $this->loadHelper('Login');
         } else {
