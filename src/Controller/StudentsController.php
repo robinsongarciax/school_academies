@@ -246,4 +246,20 @@ class StudentsController extends AppController
         $query = $_users->query();
         $query->delete()->where(['role_id'=>4])->execute();
     }
+
+    /**
+     * 
+     * 
+     * @return \Cake\Http\Response|null|void Renders view
+     */
+    public function dashboard()
+    {
+        $this->Authorization->skipAuthorization();
+        
+        $students = $this->Students->find();
+        $students->matching('SchoolCourses');
+        $this->set('students', $this->paginate($students));
+        // $students->paginate['contain'] = ['SchoolCourses'];
+        //pr($students->paginate['contain'] = ['SchoolCourses']);die(); 
+    }
 }
