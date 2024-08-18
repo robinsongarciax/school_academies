@@ -258,7 +258,10 @@ class StudentsController extends AppController
         $students = $this->Students->find();
 
         $this->paginate = [
-            'limit' => 10
+            'limit' => 10,
+            'sortableFields' => [
+                'name', 'curp', 'school_level', 'school_group', 'SchoolCourses.name', 'SchoolCoursesStudents.cost'
+            ]
         ];
         $students->matching('SchoolCourses');
         $this->set('students', $this->paginate($students));

@@ -24,32 +24,55 @@
         <div class="card-body">
             <?= $this->Flash->render() ?>
             <div class="table-responsive">
+                
+                <?php
+                // custom form fields
+                $this->Form->setTemplates([
+                    'label' => '<label{{attrs}}>{{text}}</label>',
+                    // Select element,
+                    'select' => '<select name="{{name}}"{{attrs}}>{{content}}</select>',
+                ]);
+
+                $limitControl = $this->Paginator->limitControl([10 => 10, 25 => 25, 50 => 50, 100 => 100], null, [
+                    'label' => __('Show') . ' ']);
+                echo str_replace('</div></form>', ' '. $this->Form->label(' ' . __('records')) . '</div></form>', $limitControl);
+                ?>
+
                 <table class="table table-bordered" width="100%" cellspacing="0">
                     <thead>
                         <tr>
-                            <th><?= $this->Paginator->sort('id') ?></th>
                             <th><?= $this->Paginator->sort('name') ?></th>
+                            <th><?= $this->Paginator->sort('curp') ?></th>
+                            <th><?= $this->Paginator->sort('school_level') ?></th>
+                            <th><?= $this->Paginator->sort('school_group') ?></th>
+                            <th><?= $this->Paginator->sort('SchoolCourses.name', __('Academy')) ?></th>
+                            <th><?= $this->Paginator->sort('SchoolCoursesStudents.cost', __('Cost')) ?></th>
                         </tr>
                     </thead>
                     <tbody>
                         <?php foreach ($students as $student): ?>
                         <tr>
-                            <td><?= $this->Number->format($student->id) ?></td>
+                            <?php //pr($student);die();?>
                             <td><?= h($student->name) ?></td>
+                            <td><?= h($student->curp) ?></td>
+                            <td><?= h($student->school_level) ?></td>
+                            <td><?= h($student->school_group) ?></td>
+                            <td><?= h($student->_matchingData['SchoolCourses']->name) ?></td>
+                            <td><?= h($student->_matchingData['SchoolCoursesStudents']->cost) ?></td>
                         </tr>
                         <?php endforeach; ?>
                     </tbody>
                 </table>
             </div>
+            <p><?= $this->Paginator->counter(__('Showing {{start}} of {{end}} out of {{count}} record(s)')) ?></p>
             <nav aria-label="Page navigation example">
                 <ul class="pagination justify-content-end">
-                    <?= $this->Paginator->first('<< ' . __('first'), ['class' => 'page-item']) ?>
-                    <?= $this->Paginator->prev('< ' . __('previous'), ['class' => 'page-item']) ?>
+                    <?= $this->Paginator->first('<< ' . __('first')) ?>
+                    <?= $this->Paginator->prev('< ' . __('previous')) ?>
                     <?= $this->Paginator->numbers(['modulus' => 4]) ?>
-                    <?= $this->Paginator->next(__('next') . ' >', ['class' => 'page-item']) ?>
-                    <?= $this->Paginator->last(__('last') . ' >>', ['class' => 'page-item']) ?>
+                    <?= $this->Paginator->next(__('next') . ' >') ?>
+                    <?= $this->Paginator->last(__('last') . ' >>') ?>
                 </ul>
-                <p><?= $this->Paginator->counter(__('Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total')) ?></p>
             </nav>
         </div>
     </div>

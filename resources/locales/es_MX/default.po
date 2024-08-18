@@ -15,7 +15,7 @@ msgstr ""
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 
 msgid "Actions"
-msgstr " "
+msgstr "Acciones"
 
 #: ./templates/Institutes/add.php:12
 #: ./templates/Institutes/edit.php:17
@@ -1089,3 +1089,12 @@ msgstr "Fecha de nacimiento"
 
 msgid "Download all proof of study"
 msgstr "Constancias de estudios en un PDF"
+
+msgid "Show"
+msgstr "Mostrar"
+
+msgid "records"
+msgstr "registros"
+
+msgid "Showing {{start}} of {{end}} out of {{count}} record(s)"
+msgstr "Mostrando {{start}} al {{end}} de {{count}} registros"
