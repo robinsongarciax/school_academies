@@ -23,6 +23,60 @@
         </div>
         <div class="card-body">
             <?= $this->Flash->render() ?>
+            
+            <!-- Search bar -->
+            <div class="container" id="search-bar">
+                <?= $this->Form->create() ?>
+                <div class="form-group row">
+                    <label for="inputSearch" class="col-sm-1 col-form-label">B&uacute;queda</label>
+                    <div class="col-sm-8">
+                        <input class="form-control" id="inputSearch" name="inputSearch" placeholder="Nombre o CURP del alumno" value ="<?= $searchOptions['inputSearch'] ?? '' ?>">
+                    </div>
+                </div>
+                <div class="form-group row align-items-center">
+                    <div class="col-sm-3">
+                        <label class="mr-sm-2" for="tipoAcacemia">Tipo de academia</label>
+                        <select class="custom-select mr-sm-2" id="tipoAcacemia" name="tipoAcacemia">
+                        <option selected>Seleccione...</option>
+                        <option value="DEPORTIVA" <?= $searchOptions['tipoAcacemia'] == 'DEPORTIVA' ? 'selected' : ''?>>Deportiva</option>
+                        <option value="CULTURAL" <?= $searchOptions['tipoAcacemia'] == 'CULTURAL' ? 'selected' : ''?>>Cultural</option>
+                        </select>
+                    </div>
+                    <div class="col-sm-3">
+                        <label class="mr-sm-2" for="numCursos">Número de cursos</label>
+                        <select class="custom-select mr-sm-2" id="numCursos" name="numCursos">
+                        <option selected>Seleccione...</option>
+                        <option value="1" <?= $searchOptions['numCursos'] == '1' ? 'selected' : ''?>>1</option>
+                        <option value="2" <?= $searchOptions['numCursos'] == '2' ? 'selected' : ''?>>2</option>
+                        <option value="3" <?= $searchOptions['numCursos'] == '3' ? 'selected' : ''?>>3 o más</option>
+                        </select>
+                    </div>
+                    <div class="col-sm-3">
+                        <label class="mr-sm-2" for="tipoCurso">Tipo de curso</label>
+                        <select class="custom-select mr-sm-2" id="tipoCurso" name="tipoCurso">
+                        <option selected>Seleccione...</option>
+                        <option value="1" <?= $searchOptions['tipoCurso'] == '1' ? 'selected' : ''?>>Sin costo</option>
+                        <option value="2" <?= $searchOptions['tipoCurso'] == '2' ? 'selected' : ''?>>Con costo</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group row align-items-center">
+                    <div class="col-sm-3">
+                        <label class="mr-sm-2" for="academia">Academia</label>
+                        <select class="custom-select mr-sm-2" id="academia" name="academia">
+                            <option selected>Seleccione...</option>
+                            <?php foreach($schoolCourses as $schoolCourse) : ?>
+                                <option value="<?= $schoolCourse->id ?>" <?= $searchOptions['academia'] == $schoolCourse->id ? 'selected' : ''?>><?= $schoolCourse->name ?></option>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>
+                </div>
+                <?= $this->Form->Button(__('Search')) ?>
+                <?= $this->Form->end() ?>
+            </div>
+            <br>
+
             <div class="table-responsive">
                 
                 <?php

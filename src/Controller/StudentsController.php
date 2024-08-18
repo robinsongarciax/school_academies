@@ -256,7 +256,13 @@ class StudentsController extends AppController
     {
         $this->Authorization->skipAuthorization();
         $students = $this->Students->find();
-
+        $searchOptions;
+        if ($this->request->is(['post'])) {
+            $searchOptions = $this->request->getData();
+        }
+        else 
+            $searchOptions = $this->_dashboardDefaultOptions();
+        
         $this->paginate = [
             'limit' => 10,
             'sortableFields' => [
@@ -264,6 +270,22 @@ class StudentsController extends AppController
             ]
         ];
         $students->matching('SchoolCourses');
+
+        // Buscar Academias
+        $schoolCourses = $this->Students->SchoolCourses->find()->all();
         $this->set('students', $this->paginate($students));
+        $this->set(compact('schoolCourses'));
+        $this->set(compact('searchOptions'));
+    }
+
+    private function _dashboardDefaultOptions() {
+
+        return [
+            'inputSearch' => '',
+            'tipoAcacemia' => '',
+            'numCursos' => '',
+            'tipoCurso' => '',
+            'academia' => ''
+        ];
     }
 }
