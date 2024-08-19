@@ -247,6 +247,87 @@ class StudentsController extends AppController
         $query->delete()->where(['role_id'=>4])->execute();
     }
 
+
+    /**
+     * search method
+     *
+     * @return \Cake\Http\Response|null|void Redirects
+     */
+    public function search() {
+        $this->Authorization->skipAuthorization();
+        $this->request->allowMethod(['post']);
+        $searchOptions = $this->request->getData();
+
+        $conditions = [];
+        $students_result = null;
+        // buscar por alumno
+        if (!empty ($searchOptions['inputSearch'])) {
+            $inputSearch = trim ($searchOptions['inputSearch']);
+            $student_query = $this->Students->find('list')
+                                            ->select(['id']);
+            $student_query->where ($student_query->newExpr("LOCATE('{$inputSearch}', CONCAT_WS(' ', name, curp))"));
+            $students_result = $student_query->all()->toArray();
+            
+            if (count ($students_result) == 0) {
+                $students_result[] = 0;
+            }
+            // $conditions[] = ['Students.id in' => array_keys($students_result)];
+        }
+
+        // pr($students_result);die();
+
+        // nùmero de cursos
+        if (isset($students_result)) {
+            if (array_key_exists(0, $students_result)) {
+                $conditions[] = ['Students.id in' => array_keys($students_result)];
+            } else if (!empty ($searchOptions['numCursos'])) {
+                $_numCursos = $searchOptions['numCursos'];
+                $this->loadModel('SchoolCoursesStudents');
+                $numCursosQuery = $this->SchoolCoursesStudents->find()
+                                                              ->select(['student_id']);
+                $numCursosQuery->group('student_id')
+                               ->order('student_id')
+                               ->having(['count(*)' => $_numCursos])
+                               ->where(['student_id in' => array_keys($students_result),
+                                        ])->all();
+
+                $resultSchoolCourses = [];
+                foreach($numCursosQuery as $schoolCourses) {
+                    $resultSchoolCourses[] = $schoolCourses->student_id;
+                }
+                //echo (count($resultSchoolCourses));
+                if (count($resultSchoolCourses) > 0) {
+                    $students_result = array_intersect(array_keys($students_result), array_values($resultSchoolCourses));
+                    $conditions[] = ['Students.id in' => $students_result];
+                } else 
+                    $conditions[] = ['Students.id in' => [0]];
+                //pr($students_result);die();
+
+            }
+        }
+
+        // tipo academia
+        if ($searchOptions['tipoAcacemia'] == 'DEPORTIVA')
+            $conditions[] = ['tipo_academia' => 'DEPORTIVA'];
+        if ($searchOptions['tipoAcacemia'] == 'CULTURAL')
+            $conditions[] = ['tipo_academia' => 'CULTURAL'];
+
+        // tipo curso
+        if ($searchOptions['tipoCurso'] == 1)
+            $conditions[] = ['cost' => 0];
+        if ($searchOptions['tipoCurso'] == 2)
+            $conditions[] = ['cost > ' => 0];
+
+        // academia
+        if (!empty ($searchOptions['academia'])) {
+            $conditions[] = ['SchoolCourses.id' => $searchOptions['academia']];
+        }
+
+        $this->request->getSession()->write('searchOptions', $searchOptions);
+        $this->request->getSession()->write('conditions', $conditions);
+        return $this->redirect(['action' => 'dashboard?search=true']);
+    }
+
     /**
      * 
      * 
@@ -255,31 +336,39 @@ class StudentsController extends AppController
     public function dashboard()
     {
         $this->Authorization->skipAuthorization();
-        $students = $this->Students->find();
-        $searchOptions;
-        if ($this->request->is(['post'])) {
-            $searchOptions = $this->request->getData();
+        $session = $this->request->getSession();
+
+        if ($this->request->is('get')) {
+            if (!$this->request->getQuery('search')) {
+                $session->delete('searchOptions');
+                $session->delete('conditions');
+            }
         }
-        else 
-            $searchOptions = $this->_dashboardDefaultOptions();
-        
+        $searchOptions = $session->read('searchOptions') ?? $this->_dashboardDefaultOptions();
+        $conditions = $session->read('conditions') ?? [];
+        // Buscar Academias
+        $schoolCourses = $this->Students->SchoolCourses->find()->all();
+        $this->set(compact('schoolCourses'));
+        $this->set(compact('searchOptions'));
+        $students = $this->_findStudets($conditions);
+        $students->matching('SchoolCourses');
+        $this->set('students', $this->paginate($students));
+    }
+
+    private function _findStudets($conditions) {
+        $students = $this->Students->find();
         $this->paginate = [
             'limit' => 10,
             'sortableFields' => [
                 'name', 'curp', 'school_level', 'school_group', 'SchoolCourses.name', 'SchoolCoursesStudents.cost'
-            ]
+            ],
+            'conditions' => $conditions
         ];
-        $students->matching('SchoolCourses');
 
-        // Buscar Academias
-        $schoolCourses = $this->Students->SchoolCourses->find()->all();
-        $this->set('students', $this->paginate($students));
-        $this->set(compact('schoolCourses'));
-        $this->set(compact('searchOptions'));
+        return $students;
     }
 
     private function _dashboardDefaultOptions() {
-
         return [
             'inputSearch' => '',
             'tipoAcacemia' => '',
@@ -288,4 +377,5 @@ class StudentsController extends AppController
             'academia' => ''
         ];
     }
+
 }
