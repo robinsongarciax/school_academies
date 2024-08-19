@@ -270,11 +270,8 @@ class StudentsController extends AppController
             
             if (count ($students_result) == 0) {
                 $students_result[] = 0;
-            }
-            // $conditions[] = ['Students.id in' => array_keys($students_result)];
+            } 
         }
-
-        // pr($students_result);die();
 
         // nùmero de cursos
         if (isset($students_result)) {
@@ -295,15 +292,35 @@ class StudentsController extends AppController
                 foreach($numCursosQuery as $schoolCourses) {
                     $resultSchoolCourses[] = $schoolCourses->student_id;
                 }
-                //echo (count($resultSchoolCourses));
+                
                 if (count($resultSchoolCourses) > 0) {
                     $students_result = array_intersect(array_keys($students_result), array_values($resultSchoolCourses));
                     $conditions[] = ['Students.id in' => $students_result];
                 } else 
                     $conditions[] = ['Students.id in' => [0]];
-                //pr($students_result);die();
 
+            } else {
+                $conditions[] = ['Students.id in' => array_keys($students_result)];
             }
+        } else if (!empty ($searchOptions['numCursos'])) {
+            $_numCursos = $searchOptions['numCursos'];
+            $this->loadModel('SchoolCoursesStudents');
+            $numCursosQuery = $this->SchoolCoursesStudents->find()
+                                                          ->select(['student_id']);
+            $numCursosQuery->group('student_id')
+                           ->order('student_id')
+                           ->having(['count(*)' => $_numCursos])
+                           ->all();
+
+            $resultSchoolCourses = [];
+            foreach($numCursosQuery as $schoolCourses) {
+                $resultSchoolCourses[] = $schoolCourses->student_id;
+            }
+
+            if (count($resultSchoolCourses) > 0) {
+                $conditions[] = ['Students.id in' => array_values($resultSchoolCourses)];
+            } else 
+                $conditions[] = ['Students.id in' => [0]];
         }
 
         // tipo academia
@@ -350,8 +367,16 @@ class StudentsController extends AppController
         $schoolCourses = $this->Students->SchoolCourses->find()->all();
         $this->set(compact('schoolCourses'));
         $this->set(compact('searchOptions'));
+
+        $term = $this->Students->Terms
+                               ->find()
+                               ->where(['active' => 1])
+                               ->first();
+        $conditions[] = ['Students.term_id' => $term->id];
+
         $students = $this->_findStudets($conditions);
-        $students->matching('SchoolCourses');
+        $students->matching('SchoolCourses')
+                 ->order(['Students.curp' => 'asc']);
         $this->set('students', $this->paginate($students));
     }
 
@@ -360,7 +385,7 @@ class StudentsController extends AppController
         $this->paginate = [
             'limit' => 10,
             'sortableFields' => [
-                'name', 'curp', 'school_level', 'school_group', 'SchoolCourses.name', 'SchoolCoursesStudents.cost'
+                'id', 'name', 'curp', 'school_level', 'school_group', 'SchoolCourses.name', 'SchoolCoursesStudents.cost'
             ],
             'conditions' => $conditions
         ];
