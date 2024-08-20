@@ -87,8 +87,8 @@ class StudentsTable extends Table
             ->scalar('curp')
             ->maxLength('curp', 18)
             ->requirePresence('curp', 'create')
-            ->notEmptyString('curp')
-            ->add('curp', 'unique', ['rule' => 'validateUnique', 'provider' => 'table']);
+            ->notEmptyString('curp');
+            //->add('curp')//, 'unique', ['rule' => 'validateUnique', 'provider' => 'table']);
 
         $validator
             ->email('email')
@@ -145,7 +145,7 @@ class StudentsTable extends Table
      */
     public function buildRules(RulesChecker $rules): RulesChecker
     {
-        $rules->add($rules->isUnique(['curp']), ['errorField' => 'curp']);
+        // $rules->add($rules->isUnique(['curp']), ['errorField' => 'curp']);
         $rules->add($rules->existsIn('term_id', 'Terms'), ['errorField' => 'term_id']);
         $rules->add($rules->existsIn('user_id', 'Users'), ['errorField' => 'user_id']);
 

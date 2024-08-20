@@ -190,7 +190,10 @@ class SchoolCoursesController extends AppController
         if ($this->Authentication->getIdentity()->role->name == 'ALUMNO' ) {
             $query = $this->SchoolCourses->Students->find('StudentInfo', [
                 'user_id' => $user_id
-            ])->all();
+            ])
+                                                   ->contain(['Terms'])
+                                                   ->where(['active' => 1])
+                                                   ->all();
             // Si no se encuentra información del nivel es porque no existe en la base de datos tabla school_levels
             if ($query->count() == 0) {
                 $this->Flash->error(__('No existe registro del grado escolar del alumno. Póngase en contacto con el administrador para obtener más información.'));
@@ -208,12 +211,12 @@ class SchoolCoursesController extends AppController
 
             // Traer los cursos relacionados con el grado escolar, sexo y la edad del estudiante
             $schoolCourses = $this->SchoolCourses->find('CoursesForStudent', $options)
-                ->contain(['Teachers', 'Terms', 'Schedules'])
-                ->all();
+                                                 ->contain(['Teachers', 'Terms', 'Schedules'])
+                                                 ->all();
             $studentCourses = $this->SchoolCourses->Students->find('StudentCourses', ['student_id' => $row->student_id])->all()->toList();
-            $term = $this->SchoolCourses->Terms->find('all', [
-                'conditions' => ['active' => 1]
-            ])->all()->first();
+            $term = $this->SchoolCourses->Terms->find('all', ['conditions' => ['active' => 1]])
+                                               ->all()
+                                               ->first();
 
         }
 
@@ -239,9 +242,12 @@ class SchoolCoursesController extends AppController
 
             // Traer los cursos relacionados con el grado escolar, sexo y la edad del estudiante
             $schoolCourses = $this->SchoolCourses->find('CoursesAvailableForStudent', $options)
-                ->contain(['Teachers', 'Terms', 'Schedules'])->all();
+                                                 ->contain(['Terms', 'Teachers', 'Terms', 'Schedules'])
+                                                 ->where(['Terms.active' => 1])
+                                                 ->all();
             // pr($schoolCourses);die();
         }
+        
         $term = $this->SchoolCourses->Terms->find('all', [
             'conditions' => ['active' => 1]
         ])->all()->first();
@@ -576,14 +582,16 @@ class SchoolCoursesController extends AppController
             ->select(['student_id'])
             ->where(['school_course_id' => $id]);
 
-        $search_options += ['id not in' => $students_enrroled];
+        $search_options += ['Students.id not in' => $students_enrroled];
+        // Get only students for current period
+        $search_options += ['Terms.active' => 1];
 
-        $students = $this->SchoolCourses->Students
-            ->find('all')
-            ->where($search_options)
-            ->all();
+        $students = $this->SchoolCourses->Students->find('all')
+                                                  ->contain('Terms')
+                                                  ->where($search_options)
+                                                  ->all();
 
-
+        
         $totalStudentsConfirmed = $this->SchoolCourses->find('all')
             ->contain(['Students' => ['conditions' => ['is_confirmed' => 1]]])
             ->where(['SchoolCourses.id' => $id])
@@ -621,11 +629,11 @@ class SchoolCoursesController extends AppController
                 return $this->redirect(['action' => 'studentRegistration', $id]);
             }
 
-            $students = $this->SchoolCourses->Students
-                ->find('all')
-                ->where(['id in' => $students_id])
-                ->all()
-                ->toArray();
+            $students = $this->SchoolCourses->Students->find('all')
+                                                      ->where(['Students.id in' => $students_id])
+                                                      ->all()
+                                                      ->toArray();
+            // sql($students);die();
             $schoolCourse->students = array_merge($schoolCourse->students, $students);
 
             if ($this->SchoolCourses->save($schoolCourse)) {

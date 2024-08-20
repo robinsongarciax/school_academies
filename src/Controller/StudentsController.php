@@ -154,14 +154,14 @@ class StudentsController extends AppController
         return $this->redirect(['action' => 'index']);
     }
 
-    public function importFile() {
+    public function importFile () {
         set_time_limit(300);
         $student = $this->Students->newEmptyEntity();
         $this->Authorization->authorize($student);
 
         if ($this->request->is('post')) {
             $eliminar = $this->request->getData('eliminar');
-            if($eliminar){
+            if ($eliminar) {
                 $this->deleteAll();
             }
             $students_file = $this->request->getData('file');
@@ -175,12 +175,12 @@ class StudentsController extends AppController
             $spreadsheet = $manager->getSpreadsheet($file);
             $worksheet = $spreadsheet->getActiveSheet();
 
-            $worksheet->setCellValue('I1', 'username');
-            $worksheet->setCellValue('J1', 'role_id');
+            $worksheet->setCellValue('O1', 'username');
+            $worksheet->setCellValue('P1', 'role_id');
             $last_row = (int) $worksheet->getHighestRow();
             for ($i = 2; $i <= $last_row; $i++) {
-                $worksheet->setCellValue('I' . $i, $worksheet->getCell('B' . $i)->getValue());
-                $worksheet->setCellValue('J' . $i, $this->studentsRole);
+                $worksheet->setCellValue('O' . $i, $worksheet->getCell('B' . $i)->getValue());
+                $worksheet->setCellValue('P' . $i, $this->studentsRole);
             }
 
             $user_table = $manager->read($worksheet, $user_table, [
@@ -188,8 +188,8 @@ class StudentsController extends AppController
                 'columnMap' => [
                     'B' => 'username',
                     'C' => 'name',
-                    'I' => 'password',
-                    'J' => 'role_id',
+                    'O' => 'password',
+                    'P' => 'role_id',
                 ]
             ]);
 
@@ -199,8 +199,8 @@ class StudentsController extends AppController
             $spreadsheet = $manager->getSpreadsheet($file);
             $worksheet = $spreadsheet->getActiveSheet();
 
-            $worksheet->setCellValue('K1', 'term_id');
-            $worksheet->setCellValue('L1', 'user_id');
+            $worksheet->setCellValue('Q1', 'term_id');
+            $worksheet->setCellValue('R1', 'user_id');
             $last_row = (int) $worksheet->getHighestRow();
             for ($i = 2; $i <= $last_row; $i++) {
                 $e_value = $worksheet->getCell('E' . $i)->getValue();
@@ -209,11 +209,10 @@ class StudentsController extends AppController
                         date('Y-m-d', strtotime(str_replace('/', '-', $e_value)))
                     );
                 }
-                $worksheet->setCellValue('K' . $i, $this->request->getData('term_id'));
-                $worksheet->setCellValue('L' . $i, $user_table[$i-2]->id);
+                $worksheet->setCellValue('Q' . $i, $this->request->getData('term_id'));
+                $worksheet->setCellValue('R' . $i, $user_table[$i-2]->id);
             }
 
-            // pr( strtotime($var) );
             $table = $manager->read($worksheet, $table, [
                 'startRow' => 2,
                 'columnMap' => [
@@ -225,8 +224,14 @@ class StudentsController extends AppController
                     'F' => 'level',
                     'G' => 'school_level',
                     'H' => 'school_group',
-                    'K' => 'term_id',
-                    'L' => 'user_id'
+                    'I' => 'mother_name',
+                    'I' => 'mother_phone',
+                    'I' => 'mother_email',
+                    'L' => 'father_name',
+                    'M' => 'father_phone',
+                    'N' => 'father_email',
+                    'Q' => 'term_id',
+                    'R' => 'user_id'
                 ],
                 'columnTypeMap' => [
                     'E' => 'date'
@@ -240,11 +245,18 @@ class StudentsController extends AppController
         $this->set(compact('student', 'terms'));
     }
 
-    private function deleteAll(){
-        $this->Students->deleteAll([]);
+    private function deleteAll () {
+        // delete user for the current period
+        $term = $this->Students->Terms->find()
+                              ->select('id')
+                              ->where(['active' => 1])
+                              ->first();
+
+        $this->Students->deleteAll(['term_id' => $term->id]);
+
         $_users = $this->getTableLocator()->get('Users');
         $query = $_users->query();
-        $query->delete()->where(['role_id'=>4])->execute();
+        $query->delete()->where(['role_id'=>4, 'active' => 1])->execute();
     }
 
 

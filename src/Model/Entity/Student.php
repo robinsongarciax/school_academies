@@ -61,6 +61,12 @@ class Student extends Entity
         'user' => true,
         'courses' => true,
         'school_courses' => true,
-        'externo' => true
+        'externo' => true,
+        'mother_name' => true,
+        'mother_phone' => true,
+        'mother_email' => true,
+        'father_name' => true,
+        'father_phone' => true,
+        'father_email' => true
     ];
 }
