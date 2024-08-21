@@ -318,8 +318,8 @@ foreach ($studentCourses as $studentCourse) {
                     </thead>
                     <tbody>
                         <?php foreach ($schoolCourses as $schoolCourse): ?>
-                            <?php if (/*$schoolCourse->visible
-                                ||  */array_key_exists($schoolCourse->id, $arr_coursesSignedup)):?>
+                            <?php if ($schoolCourse->visible
+                                ||  array_key_exists($schoolCourse->id, $arr_coursesSignedup)):?>
                                 
                                 <?php 
 

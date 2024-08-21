@@ -188,9 +188,7 @@ class SchoolCoursesController extends AppController
         $this->Authorization->skipAuthorization();
         $user_id = $this->Authentication->getIdentity()->getIdentifier();
         if ($this->Authentication->getIdentity()->role->name == 'ALUMNO' ) {
-            $query = $this->SchoolCourses->Students->find('StudentInfo', [
-                'user_id' => $user_id
-            ])
+            $query = $this->SchoolCourses->Students->find('StudentInfo', ['user_id' => $user_id])
                                                    ->contain(['Terms'])
                                                    ->where(['active' => 1])
                                                    ->all();
@@ -212,6 +210,7 @@ class SchoolCoursesController extends AppController
             // Traer los cursos relacionados con el grado escolar, sexo y la edad del estudiante
             $schoolCourses = $this->SchoolCourses->find('CoursesForStudent', $options)
                                                  ->contain(['Teachers', 'Terms', 'Schedules'])
+                                                 ->where(['Terms.active' => 1])
                                                  ->all();
             $studentCourses = $this->SchoolCourses->Students->find('StudentCourses', ['student_id' => $row->student_id])->all()->toList();
             $term = $this->SchoolCourses->Terms->find('all', ['conditions' => ['active' => 1]])
