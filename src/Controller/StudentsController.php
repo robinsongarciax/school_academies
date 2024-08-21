@@ -375,10 +375,6 @@ class StudentsController extends AppController
         }
         $searchOptions = $session->read('searchOptions') ?? $this->_dashboardDefaultOptions();
         $conditions = $session->read('conditions') ?? [];
-        // Buscar Academias
-        $schoolCourses = $this->Students->SchoolCourses->find()->all();
-        $this->set(compact('schoolCourses'));
-        $this->set(compact('searchOptions'));
 
         $term = $this->Students->Terms
                                ->find()
@@ -389,6 +385,15 @@ class StudentsController extends AppController
         $students = $this->_findStudets($conditions);
         $students->matching('SchoolCourses')
                  ->order(['Students.curp' => 'asc']);
+
+        // Buscar Academias
+        $schoolCourses = $this->Students->SchoolCourses->find()
+                                                       ->contain('Terms')
+                                                       ->where(['Terms.id' => $term->id])
+                                                       ->all();
+
+        $this->set(compact('schoolCourses'));
+        $this->set(compact('searchOptions'));
         $this->set('students', $this->paginate($students));
     }
 
