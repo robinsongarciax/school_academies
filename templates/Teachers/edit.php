@@ -41,6 +41,12 @@
                         'options' => ['No', 'Si'],
                         'class' => 'form-select'
                     ]);
+                    echo $this->Form->control('tipo_academia', 
+                                             ['label' => ['text' => 'Tipo de academia'],
+                                              'options' => ['CULTURAL' => 'CULTURAL', 
+                                                            'DEPORTIVA' => 'DEPORTIVA']
+                                             ]);
+
                     echo $this->Form->control('user.username', ['label' => 'Nombre de usuario',
                         'templates' => 'uppercase_form',
                         'class' => 'form-control text-uppercase'

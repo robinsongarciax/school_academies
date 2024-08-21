@@ -34,6 +34,13 @@
                     echo $this->Form->control('email');
                     echo $this->Form->control('celular');
                     echo $this->Form->control('active', ['value' => '1', 'hidden' => true, 'label' => false]);
+
+                    echo $this->Form->control('tipo_academia', 
+                                             ['label' => ['text' => 'Tipo de academia'],
+                                              'options' => ['CULTURAL' => 'CULTURAL', 
+                                                            'DEPORTIVA' => 'DEPORTIVA']
+                                             ]);
+
                     echo $this->Form->control('users.name', ['label' => 'Nombre de usuario', 
                         'templates' => 'uppercase_form',
                         'class' => 'form-control text-uppercase',

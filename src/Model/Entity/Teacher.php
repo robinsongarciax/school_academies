@@ -41,6 +41,7 @@ class Teacher extends Entity
         'email' => true,
         'celular' => true,
         'active' => true,
+        'tipo_academia' => true,
         'created' => true,
         'modified' => true,
         'user_id' => true,

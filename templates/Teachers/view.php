@@ -51,6 +51,10 @@
                                 <th><?= __('Active') ?></th>
                                 <td><?= $teacher->active == 1 ? 'Sí' : 'No' ?></td>
                             </tr>
+                            <tr>
+                                <th><?= __('Tipo academia') ?></th>
+                                <td><?= $teacher->tipo_academia ?></td>
+                            </tr>
                         </table>
                     </div>
                 </div>

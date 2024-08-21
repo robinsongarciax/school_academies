@@ -31,8 +31,7 @@
                         <tr>
                             <th><?= $this->Paginator->sort('name') ?></th>
                             <th><?= $this->Paginator->sort('email') ?></th>
-                            <th><?= $this->Paginator->sort('created') ?></th>
-                            <th><?= $this->Paginator->sort('modified') ?></th>
+                            <th><?= $this->Paginator->sort('tipo_academia') ?></th>
                             <th><?= $this->Paginator->sort('user_id') ?></th>
                             <th class="actions"><?= __('Actions') ?></th>
                         </tr>
@@ -42,8 +41,7 @@
                         <tr>
                             <td><?= h($teacher->name) ?></td>
                             <td><?= h($teacher->email) ?></td>
-                            <td><?= h($teacher->created) ?></td>
-                            <td><?= h($teacher->modified) ?></td>
+                            <td><?= h($teacher->tipo_academia) ?></td>
                             <td><?= $teacher->has('user') ? $this->Html->link($teacher->user->username, ['controller' => 'Users', 'action' => 'view', $teacher->user->id]) : '' ?></td>
                             <td class="actions">
                                 <?= $this->Html->link("", ['action' => 'view', $teacher->id], ['class'=>'fas fa-eye']) ?>
