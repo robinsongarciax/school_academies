@@ -25,7 +25,9 @@ class TeachersController extends AppController
     public function index()
     {
         $this->Authorization->skipAuthorization();
-        $teachers = $this->Teachers->find()->contain(['Users']);
+        $teachers = $this->Teachers->find()
+                                   ->contain(['Users'])
+                                   ->where(['Teachers.active' => 1]);
         $this->set(compact('teachers'));
     }
 
@@ -127,6 +129,32 @@ class TeachersController extends AppController
             $this->Flash->success(__('The teacher has been deleted.'));
         } else {
             $this->Flash->error(__('The teacher could not be deleted. Please, try again.'));
+        }
+
+        return $this->redirect(['action' => 'index']);
+    }
+
+    /**
+     * Deactive method
+     *
+     * @param string|null $id Teacher id.
+     * @return \Cake\Http\Response|null|void Redirects to index.
+     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
+     */
+    public function deactive ($id = null)
+    {
+        $this->request->allowMethod(['post', 'delete']);
+        $teacher = $this->Teachers->get($id);
+        $user_id = $teacher->user_id;
+        $this->Authorization->authorize($teacher);
+        $teacher->active = 0;
+        if ($this->Teachers->save($teacher)) {
+            $aUser = $this->Teachers->Users->get($user_id);
+            $aUser->active = 0;
+            $this->Teachers->Users->save($aUser);
+            $this->Flash->success(__('The teacher has been deactivated.'));
+        } else {
+            $this->Flash->error(__('The teacher could not be deactivated. Please, try again.'));
         }
 
         return $this->redirect(['action' => 'index']);

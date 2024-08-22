@@ -49,6 +49,18 @@ class TeacherPolicy
     }
 
     /**
+     * Check if $user can deactive Teacher
+     *
+     * @param \Authorization\IdentityInterface $user The user.
+     * @param \App\Model\Entity\Teacher $teacher
+     * @return bool
+     */
+    public function canDeactive (IdentityInterface $user, Teacher $teacher)
+    {
+        return $user->isModulePermission($this->module, 'Delete');
+    }
+
+    /**
      * Check if $user can view Teacher
      *
      * @param \Authorization\IdentityInterface $user The user.

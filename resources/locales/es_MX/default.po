@@ -1098,3 +1098,12 @@ msgstr "registros"
 
 msgid "Showing {{start}} of {{end}} out of {{count}} record(s)"
 msgstr "Mostrando {{start}} al {{end}} de {{count}} registros"
+
+msgid "Are you sure you want to deactive {0}?"
+msgstr "¿Estás segura de que quieres dar de baja a {0}"
+
+msgid "The teacher has been deactivated."
+msgstr "El profesor (a) ha sido dado de baja."
+
+msgid "The teacher could not be deactivated. Please, try again."
+msgstr "El profesor (a) no se dio de baja. Por favor, intenta nuevamente."
