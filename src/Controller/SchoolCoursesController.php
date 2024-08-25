@@ -122,10 +122,15 @@ class SchoolCoursesController extends AppController
             }
             $this->Flash->error(__('The school course could not be saved. Please, try again.'));
         }
+
+        $options = ['active' => 1];
+        if (isset($type) && !empty($type))
+            $options['tipo_academia'] = $type;
+
         $teachers = $this->SchoolCourses->Teachers->find('list', ['limit' => 200])
-                                                  ->where(['tipo_academia' => $type,
-                                                           'active' => 1])
+                                                  ->where($options)
                                                   ->all();
+        
         $terms = $this->SchoolCourses->Terms->find('list', ['conditions' => ['active' => 1]])->all();
         $schedules = $this->SchoolCourses->Schedules->find('list', ['limit' => 200])->all();
         $students = $this->SchoolCourses->Students->find('list', ['limit' => 200])->all();

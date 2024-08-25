@@ -8,10 +8,10 @@
             'label' => ['text' => 'Días de la semana']
         ]);
         echo $this->Form->control('start', [
-            'step' => '3600'
+            'step' => '1800'
         ]);
         echo $this->Form->control('end', [
-            'step' => '3600'
+            'step' => '1800'
         ]);
         echo $this->Form->control('school_course_id', [
             'options' => $schoolCourses,
