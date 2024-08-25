@@ -125,7 +125,8 @@ class TermsTable extends Table
                 'active' => 0
             ],
             [
-                'active' => 1
+                'active' => 1,
+                'id <>' => $entity->id
             ]
         );
     }

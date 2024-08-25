@@ -34,7 +34,9 @@ class InstitutesController extends AppController
     public function view($id = 1)
     {
         $institute = $this->Institutes->get($id, [
-            'contain' => ['SchoolLevels', 'Terms'],
+            'contain' => ['SchoolLevels', 
+                          'Terms' => ['sort' => ['Terms.id' => 'desc']]
+                         ]
         ]);
         $this->Authorization->authorize($institute);
         $this->set(compact('institute'));

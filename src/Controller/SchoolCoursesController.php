@@ -49,7 +49,7 @@ class SchoolCoursesController extends AppController
             $schoolCourses = $this->SchoolCourses->find('all');
             $schoolCourses->contain(['Teachers', 'Terms', 'Schedules.Days']);
             if ($type != null) 
-                $schoolCourses->where(['SchoolCourses.tipo_academia' => $type, 'Terms.active', 1]);
+                $schoolCourses->where(['SchoolCourses.tipo_academia' => $type, 'Terms.active' => 1]);
         }
 
         $this->set(compact('schoolCourses', 'type'));
