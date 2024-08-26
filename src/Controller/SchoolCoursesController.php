@@ -562,7 +562,7 @@ class SchoolCoursesController extends AppController
         $this->Authorization->skipAuthorization();
         $schoolCourse = $this->SchoolCourses->get($id, [
             'contain' => [
-                'Students' => ['conditions' => ['is_confirmed' => 0]],
+                'Students' => ['conditions' => ['is_confirmed' => 0, 'active' => 1]],
                 'SchoolLevels'
             ],
         ]);
@@ -585,9 +585,11 @@ class SchoolCoursesController extends AppController
         $sex = $sex === 'X' ? ['F', 'M'] : [$sex];
         $search_options += ['sex in ' => $sex];
 
-        $students_enrroled = $this->fetchTable('SchoolCoursesStudents')->find()
-            ->select(['student_id'])
-            ->where(['school_course_id' => $id]);
+        $students_enrroled = $this->fetchTable('SchoolCoursesStudents')
+                                  ->find()
+                                  ->select(['student_id'])
+                                  ->where(['school_course_id' => $id,
+                                           'active' => 1]);
 
         $search_options += ['Students.id not in' => $students_enrroled];
         // Get only students for current period
@@ -618,8 +620,9 @@ class SchoolCoursesController extends AppController
      */
     public function preEnroll($id = null, array $students_id = null) {
         $schoolCourse = $this->SchoolCourses->get($id, [
-            'contain' => ['Students']
+            'contain' => ['Students' => ['conditions' => ['SchoolCoursesStudents.active' => 1]]]
         ]);
+
         $this->Authorization->authorize($schoolCourse);
         if ($this->request->is(['patch', 'post', 'put'])) {
 
@@ -641,8 +644,9 @@ class SchoolCoursesController extends AppController
                                                       ->all()
                                                       ->toArray();
             // sql($students);die();
-            $schoolCourse->students = array_merge($schoolCourse->students, $students);
 
+            $schoolCourse->students = array_merge($schoolCourse->students, $students);
+            // pr($schoolCourse->students);die();
             if ($this->SchoolCourses->save($schoolCourse)) {
                 $this->Flash->success(__('The student has been enrolled.'));
                 return $this->redirect(['action' => 'studentRegistration', $id]);

@@ -52,6 +52,16 @@ class StudentsController extends AppController
             'contain' => ['Terms', 'Users', 'SchoolCourses'],
         ]);
         $this->Authorization->authorize($student);
+
+        $aSchoolCoursesStudentsLogs = $this->fetchTable('SchoolCoursesStudentsLogs');
+        $log = $aSchoolCoursesStudentsLogs->find('all')
+                                          ->contain(['SchoolCourses' => 
+                                                            ['fields' => ['name']]])
+                                          ->where(['student_id' => $id,
+                                                   'status' => 'DELETED'])
+                                          ->order(['created' => 'desc']);
+        
+        $this->set(compact('log'));
         $this->set(compact('student'));
     }
 

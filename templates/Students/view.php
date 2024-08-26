@@ -109,13 +109,59 @@ $this->Html->script(['add-edit-modal'], ['block' => true]);
                             <?php foreach ($student->school_courses as $schoolCourses) : ?>
                                 <tr>
                                     <td><?= h($schoolCourses->name) ?></td>
-                                    <td><?= $schoolCourses->_joinData->is_confirmed == 1 ? "Inscrito" : "Preinscrito" ?></td>
-                                    <td class="actions">
-                                        <?= $this->Form->postLink(__('Delete'), ['controller' => 'SchoolCoursesStudents', 'action' => 'delete', $schoolCourses->_joinData->id], ['confirm' => __('Are you sure you want to delete  {0}?', $schoolCourses->name)]) ?>
-                                        <?= $this->Form->postLink(__('Imprimir constancia'), [
-                                            'controller' => 'SchoolCoursesStudents',
-                                            'action' => 'printForm', $schoolCourses->_joinData->id]) ?>
+                                    <td><?php
+                                            echo $schoolCourses->_joinData->is_confirmed == 1 ? "Inscrito" : "Preinscrito";
+                                        ?>
                                     </td>
+                                    <td class="actions">
+                                        <?php
+                                            echo $this->Form->postLink(__('Delete'), 
+                                                                       ['controller' => 'SchoolCoursesStudents',
+                                                                        'action' => 'delete',
+                                                                        $schoolCourses->_joinData->id], 
+                                                                       ['confirm' => __('Are you sure you want to delete {0}?',
+                                                                        $schoolCourses->name)]);
+
+                                            echo $this->Form->postLink(__('Imprimir constancia'), [
+                                                                       'controller' => 'SchoolCoursesStudents',
+                                                                       'action' => 'printForm',
+                                                                       $schoolCourses->_joinData->id]);
+                                        ?>
+                                    </td>
+                                </tr>
+                            <?php endforeach; ?>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary-cm"><?= __('Record of deleted school courses') ?></h6>
+                </div>
+                <div class="card-body">
+                    <hr class="mt-0 mb-4">
+                    <div class="table-responsive">
+                        <table class="table" width="100%" cellspacing="0">
+                            <thead>
+                                <tr>
+                                    <td><?= __('Name') ?></td>
+                                    <td><?= __('Date of discharge') ?></td>
+                                    <td class="actions"><?= __('Acciones') ?></td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            <?php if ($log->count() == 0) : ?>
+                                <tr>
+                                    <td colspan="3"><?= __('No records found') ?></td>
+                                </tr>
+                            <?php endif; ?>
+                            <?php foreach ($log as $record) :?>
+                                <tr class="table-danger">
+                                    <td><?= h($record->school_course->name) ?></td>
+                                    <td><?= $record->created ?></td>
+                                    <td class="actions"><?= __('No actions allowed') ?></td>
                                 </tr>
                             <?php endforeach; ?>
                             </tbody>

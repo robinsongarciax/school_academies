@@ -6,8 +6,10 @@ namespace App\Model\Table;
 use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
+use Cake\ORM\Locator\LocatorAwareTrait;
 use Cake\Validation\Validator;
 use Cake\Event\EventInterface;
+use Cake\Network\Session;
 
 /**
  * SchoolCoursesStudents Model
@@ -31,6 +33,8 @@ use Cake\Event\EventInterface;
  */
 class SchoolCoursesStudentsTable extends Table
 {
+    use LocatorAwareTrait;
+
     /**
      * Initialize method
      *
@@ -129,12 +133,14 @@ class SchoolCoursesStudentsTable extends Table
      * @param \ArrayObject $options
      */
     public function afterSave(EventInterface $event, $entity, \ArrayObject $options) {
-        $total_confirmed = $this
-            ->findBySchoolCourseIdAndIsConfirmed($entity->school_course_id, 1)
-            ->count();
+        $total_confirmed = $this->findBySchoolCourseIdAndIsConfirmed($entity->school_course_id, 1)->count();
         $schoolCourse = $this->SchoolCourses->get($entity->school_course_id);
         $schoolCourse->occupancy = $total_confirmed;
         $this->SchoolCourses->save($schoolCourse);
+
+        // log
+        $log_status = $entity->isNew() == 1 ? "CREATED" : "UPDATED";
+        $this->_updateLog($entity, $log_status);
     }
 
     /**
@@ -148,6 +154,9 @@ class SchoolCoursesStudentsTable extends Table
             $schoolCourse->occupancy -= 1;
             $this->SchoolCourses->save($schoolCourse);
         }
+
+        // log
+        $this->_updateLog($entity, 'DELETED');
     }
 
     /**
@@ -180,5 +189,18 @@ class SchoolCoursesStudentsTable extends Table
                 }
             }
         }
+    }
+
+    /**
+     * @param $entity
+     */
+    private function _updateLog ($entity, $status) {
+        $logs = $this->getTableLocator()->get('SchoolCoursesStudentsLogs');
+        $new_registry = $logs->newEmptyEntity();
+        $new_registry = $logs->patchEntity($new_registry, $entity->toArray());
+        $new_registry->status = $status;
+        $new_registry->user_id = $_SESSION['Auth']['id'];
+        $logs->save($new_registry);
+
     }
 }

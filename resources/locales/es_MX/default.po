@@ -1107,3 +1107,16 @@ msgstr "El profesor (a) ha sido dado de baja."
 
 msgid "The teacher could not be deactivated. Please, try again."
 msgstr "El profesor (a) no se dio de baja. Por favor, intenta nuevamente."
+
+msgid "No actions allowed"
+msgstr "Sin acciones permitidas"
+
+msgid "Record of deleted school courses"
+msgstr "Registro de academías eliminadas"
+
+msgid "Date of discharge"
+msgstr "Fecha de baja"
+
+msgid "No records found"
+msgstr "No se encontraron registros"
+
