@@ -84,6 +84,16 @@
                     echo $this->Form->control('externo', [
                         'options' => ['No', 'Sí']
                     ]);
+
+                    // Datos adicionales
+                    echo $this->Form->control('mother_name', ['label' => 'Nombre de la madre']);
+                    echo $this->Form->control('mother_phone', ['label' => 'Teléfono de la madre']);
+                    echo $this->Form->control('mother_email', ['label' => 'Email de la madre']);
+
+                    echo $this->Form->control('father_name', ['label' => 'Nombre del padre']);
+                    echo $this->Form->control('father_phone', ['label' => 'Teléfono del padre']);
+                    echo $this->Form->control('father_email', ['label' => 'Email del padre']);
+
                     echo $this->Form->control('term_id', ['options' => $terms,
                         'hidden' => true, 'label' => false
                     ]);

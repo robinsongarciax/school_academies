@@ -133,6 +133,14 @@ class StudentsTable extends Table
             ->integer('user_id')
             ->notEmptyString('user_id');
 
+        $validator
+            ->email('mother_email')
+            ->allowEmptyString('mother_email');
+
+        $validator
+            ->email('father_email')
+            ->allowEmptyString('father_email');
+
         return $validator;
     }
 
