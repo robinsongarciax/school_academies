@@ -72,7 +72,13 @@
                         </select>
                     </div>
                 </div>
-                <?= $this->Form->Button(__('Search')) ?>
+                <?= $this->Form->button(__('Search'), ['id' => 'search-list']) ?>
+
+                <?= $this->Form->button(__('Download'), ['type' => 'submit',
+                                                        'formAction' => 'downloadSchoolCoursesStudents',
+                                                         'class' => 'btn btn-info',
+                                                         'id' => 'download-list']) ?>
+
                 <?= $this->Form->end() ?>
             </div>
             <br>
@@ -100,7 +106,9 @@
                             <th><?= $this->Paginator->sort('school_level') ?></th>
                             <th><?= $this->Paginator->sort('school_group') ?></th>
                             <th><?= $this->Paginator->sort('SchoolCourses.name', __('Academy')) ?></th>
+                            <th><?= $this->Paginator->sort('SchoolCoursesStudents.id', __('Folio')) ?></th>
                             <th><?= $this->Paginator->sort('SchoolCoursesStudents.cost', __('Cost')) ?></th>
+                            <th><?= $this->Paginator->sort('SchoolCoursesStudents.is_pagado', __('Pagado')) ?></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -112,7 +120,24 @@
                             <td><?= h($student->school_level) ?></td>
                             <td><?= h($student->school_group) ?></td>
                             <td><?= h($student->_matchingData['SchoolCourses']->name) ?></td>
+                            <td><?= '#' . h($student->_matchingData['SchoolCoursesStudents']->id) ?></td>
                             <td><?= h($student->_matchingData['SchoolCoursesStudents']->cost) ?></td>
+                            <td>
+                                <?php
+                                if ($student->_matchingData['SchoolCoursesStudents']->is_pagado == 1)
+                                    echo 'Sí';
+                                else {
+                                    echo 'No';
+                                    echo '&nbsp';
+                                    echo $this->Form->postLink('',
+                                                               ['controller' => 'SchoolCoursesStudents',
+                                                                'action' => 'updateIsPagado', $student->_matchingData['SchoolCoursesStudents']->id],
+                                                               ['class' => 'fa fa-money-bill',
+                                                                'title' => 'Marcar como pagado',
+                                                                'confirm' => __('Are you sure you want mark this course as paid?')]);
+                                }
+                                ?>
+                            </td>
                         </tr>
                         <?php endforeach; ?>
                     </tbody>

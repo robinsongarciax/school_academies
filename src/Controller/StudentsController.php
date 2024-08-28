@@ -255,6 +255,9 @@ class StudentsController extends AppController
         $this->set(compact('student', 'terms'));
     }
 
+    /**
+     * Delete All method
+     */
     private function deleteAll () {
         // delete user for the current period
         $term = $this->Students->Terms->find()
@@ -280,6 +283,162 @@ class StudentsController extends AppController
         $this->request->allowMethod(['post']);
         $searchOptions = $this->request->getData();
 
+        $conditions = $this->_buildConditions($searchOptions);
+
+        $this->request->getSession()->write('searchOptions', $searchOptions);
+        $this->request->getSession()->write('conditions', $conditions);
+        return $this->redirect(['action' => 'dashboard?search=true']);
+    }
+
+    /**
+     * 
+     * 
+     * @return \Cake\Http\Response|null|void Renders view
+     */
+    public function dashboard()
+    {
+        $this->Authorization->skipAuthorization();
+        $session = $this->request->getSession();
+
+        if ($this->request->is('get')) {
+            if (!$this->request->getQuery('search')) {
+                $session->delete('searchOptions');
+                $session->delete('conditions');
+            }
+        }
+        $searchOptions = $session->read('searchOptions') ?? $this->_dashboardDefaultOptions();
+        $conditions = $session->read('conditions') ?? [];
+
+        $term = $this->Students->Terms
+                               ->find()
+                               ->where(['active' => 1])
+                               ->first();
+        $conditions[] = ['Students.term_id' => $term->id];
+
+        $students = $this->_findStudetsPaginate($conditions);
+        $students->matching('SchoolCourses')
+                 ->order(['SchoolCoursesStudents.id' => 'asc']);
+
+        // Buscar Academias
+        $schoolCourses = $this->Students->SchoolCourses->find()
+                                                       ->contain('Terms')
+                                                       ->where(['Terms.id' => $term->id])
+                                                       ->all();
+
+        $this->set(compact('schoolCourses'));
+        $this->set(compact('searchOptions'));
+        $this->set('students', $this->paginate($students));
+    }
+
+    /**
+     * Download School Courses Students Method
+     */
+    public function downloadSchoolCoursesStudents () {
+        $this->Authorization->skipAuthorization();
+        $this->request->allowMethod(['post']);
+        $searchOptions = $this->request->getData();
+
+        $conditions = $this->_buildConditions($searchOptions);
+
+        $term = $this->Students->Terms
+                               ->find()
+                               ->where(['active' => 1])
+                               ->first();
+        $conditions[] = ['Students.term_id' => $term->id];
+
+        // pr($conditions);die();
+
+        $students = $this->_findStudets($conditions);
+        $students->matching('SchoolCourses')
+                 ->order(['Students.curp' => 'asc']);
+
+        $spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+        // $sheet->setTitle();
+
+        $sheet->getStyle("B1:B3")->getFont()->setBold(true);
+        //GENERAL INFO
+        $sheet->setCellValue("B1", "CUMBRES INTERNATIONAL SCHOOL MERIDA");
+        $sheet->setCellValue("B2", "CICLO ESCOLAR " . $term->description);
+        $sheet->setCellValue("B3", 'Academias');
+
+        // nombre, curp, grado, grupo, academia, cost, pagado
+        $row = 5;
+        $header = ['A' => 'Nombre', 
+                    'B' => 'CURP',
+                    'C' => 'Grado',
+                    'D' => 'Grupo',
+                    'E' => 'Academia',
+                    'F' => 'Folio',
+                    'G' => 'Costo',
+                    'H' => 'Estatus pago'];
+
+        // header for list
+        foreach ($header as $key => $value) {
+            $sheet->setCellValue($key . $row, $value);
+        }
+        $row++;
+        
+        foreach ($students as $student) {
+            $sheet->setCellValue('A' . $row , $student->name);
+            $sheet->setCellValue('B' . $row , $student->curp);
+            $sheet->setCellValue('C' . $row , $student->school_level);
+            $sheet->setCellValue('D' . $row , $student->school_group);
+            $sheet->setCellValue('E' . $row , $student->_matchingData['SchoolCourses']->name);
+            $sheet->setCellValue('F' . $row , '#'.$student->_matchingData['SchoolCoursesStudents']->id);
+            $sheet->setCellValue('G' . $row , $student->_matchingData['SchoolCoursesStudents']->cost);
+            $sheet->setCellValue('H' . $row , '');
+            $row++;
+        }
+
+        $sFileName = 'LISTA_ACADEMIAS_'.date("ymdHis").".xlsx";
+        $writer = new Xlsx($spreadsheet);
+
+        $stream = new CallbackStream(function () use ($writer) {
+            $writer->save('php://output');
+        });
+        $response = $this->response;
+        return $response->withType('xlsx')
+                        ->withHeader('Content-Disposition', "attachment;filename=\"{$sFileName}\"")
+                        ->withBody($stream);
+    }
+
+    private function _findStudets($conditions) {
+        $students = $this->Students->find()
+                                   ->where($conditions);
+
+        return $students;
+    }
+
+    private function _findStudetsPaginate($conditions) {
+        $students = $this->Students->find();
+        $this->paginate = [
+            'limit' => 10,
+            'sortableFields' => [
+                'id', 'name', 'curp', 'school_level', 'school_group', 'SchoolCourses.name', 'SchoolCoursesStudents.cost'
+            ],
+            'conditions' => $conditions
+        ];
+
+        return $students;
+    }
+
+    private function _dashboardDefaultOptions() {
+        return [
+            'inputSearch' => '',
+            'tipoAcacemia' => '',
+            'numCursos' => '',
+            'tipoCurso' => '',
+            'academia' => ''
+        ];
+    }
+
+    /**
+     * Build Conditions method
+     * @param Array $searchOptions
+     * @return $conditions
+     */
+    private function _buildConditions ($searchOptions) : array {
         $conditions = [];
         $students_result = null;
         // buscar por alumno
@@ -362,72 +521,7 @@ class StudentsController extends AppController
             $conditions[] = ['SchoolCourses.id' => $searchOptions['academia']];
         }
 
-        $this->request->getSession()->write('searchOptions', $searchOptions);
-        $this->request->getSession()->write('conditions', $conditions);
-        return $this->redirect(['action' => 'dashboard?search=true']);
-    }
-
-    /**
-     * 
-     * 
-     * @return \Cake\Http\Response|null|void Renders view
-     */
-    public function dashboard()
-    {
-        $this->Authorization->skipAuthorization();
-        $session = $this->request->getSession();
-
-        if ($this->request->is('get')) {
-            if (!$this->request->getQuery('search')) {
-                $session->delete('searchOptions');
-                $session->delete('conditions');
-            }
-        }
-        $searchOptions = $session->read('searchOptions') ?? $this->_dashboardDefaultOptions();
-        $conditions = $session->read('conditions') ?? [];
-
-        $term = $this->Students->Terms
-                               ->find()
-                               ->where(['active' => 1])
-                               ->first();
-        $conditions[] = ['Students.term_id' => $term->id];
-
-        $students = $this->_findStudets($conditions);
-        $students->matching('SchoolCourses')
-                 ->order(['Students.curp' => 'asc']);
-
-        // Buscar Academias
-        $schoolCourses = $this->Students->SchoolCourses->find()
-                                                       ->contain('Terms')
-                                                       ->where(['Terms.id' => $term->id])
-                                                       ->all();
-
-        $this->set(compact('schoolCourses'));
-        $this->set(compact('searchOptions'));
-        $this->set('students', $this->paginate($students));
-    }
-
-    private function _findStudets($conditions) {
-        $students = $this->Students->find();
-        $this->paginate = [
-            'limit' => 10,
-            'sortableFields' => [
-                'id', 'name', 'curp', 'school_level', 'school_group', 'SchoolCourses.name', 'SchoolCoursesStudents.cost'
-            ],
-            'conditions' => $conditions
-        ];
-
-        return $students;
-    }
-
-    private function _dashboardDefaultOptions() {
-        return [
-            'inputSearch' => '',
-            'tipoAcacemia' => '',
-            'numCursos' => '',
-            'tipoCurso' => '',
-            'academia' => ''
-        ];
+        return $conditions;
     }
 
 }

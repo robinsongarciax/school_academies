@@ -1120,3 +1120,12 @@ msgstr "Fecha de baja"
 msgid "No records found"
 msgstr "No se encontraron registros"
 
+msgid "The school course has been marked as paid."
+msgstr "La academía ha sido marcada como pagada."
+
+msgid "The school course could not be mark as paid. Please, try again."
+msgstr "La academía no pudo ser marcada como pagada. Por favor, intenta nuevamente."
+
+msgid "Are you sure you want mark this course as paid?"
+msgstr "¿Estás segura de que quieres marcar esta academía como pagada?"
+

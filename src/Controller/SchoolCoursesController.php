@@ -351,39 +351,8 @@ class SchoolCoursesController extends AppController
             'contain' => ['Students', 'Teachers', 'Terms', 'Schedules.Days']
         ]);
 
-        // horario
-        $monday = '';
-        $tuesday = '';
-        $wednesday = '';
-        $thursday = '';
-        $friday = '';
-        $saturday = '';
-        $horario = [];
-        $time_schedule = '';
-        foreach ($schoolCourse->schedules as $schedule) {
-            $start = substr($schedule->start, 0, 5);//$this->Time->format($schedule->start, [IntlDateFormatter::NONE, IntlDateFormatter::SHORT]);
-            $end = substr($schedule->end, 0, 5);//$this->Time->format($schedule->end, [IntlDateFormatter::NONE, IntlDateFormatter::SHORT]);
-            $time_schedule = $start . ' - ' . $end;
-            switch ($schedule->day_id) {
-                case 1:
-                    $horario[] = 'Lun';
-                    break;
-                case 2:
-                    $horario[] = 'Mar';
-                    break;
-                case 3:
-                    $horario[] = 'Miérc';
-                    break;
-                case 4:
-                    $horario[] = 'Juev';
-                    break;
-                case 5:
-                    $horario[] = 'Vier';
-                    break;
-            }
-        }
-        $horario = implode(', ', $horario);
-        $horario .= ' de ' .$time_schedule;
+        $horario = $this->_getSchedule($schoolCourse->schedules);
+
 
         // Create a new spreadsheet
         $spreadsheet = new Spreadsheet();
@@ -431,7 +400,7 @@ class SchoolCoursesController extends AppController
     public function exportListRelatedStudents($schoolCourseId){
         $this->Authorization->skipAuthorization();
 
-        $row = 8;
+        $row = 12;
         $headers = [
             "A" => "No",
             "B" => "NOMBRE",
@@ -477,7 +446,7 @@ class SchoolCoursesController extends AppController
         ];
 
         $schoolCourse = $this->SchoolCourses->get($schoolCourseId, [
-            'contain' => ['Students', 'Teachers', 'Terms']
+            'contain' => ['Students', 'Teachers', 'Terms', 'Schedules.Days']
         ]);
 
         // Create a new spreadsheet
@@ -485,6 +454,7 @@ class SchoolCoursesController extends AppController
         // Add value in a sheet inside of that spreadsheet.
         // // (It's possible to have multiple sheets in a single spreadsheet)
         $sheet = $spreadsheet->getActiveSheet();
+        $sheet->setTitle($schoolCourse->name);
 
         //DEFINIMOS EL FORMATO PARA LOs BORDES
         $styleArray = array(
@@ -500,44 +470,68 @@ class SchoolCoursesController extends AppController
                                     ->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)
                                     ->getStartColor()->setARGB('ffa59f9d');
 
-        //GENERAL INFO
-        $sheet->setCellValue("A1", "CUMBRES INTERNATIONAL SCHOOL MERIDA");
-        $sheet->setCellValue("A2", "CICLO ESCOLAR ".$schoolCourse->term['description']);
-        $sheet->setCellValue("A3", $schoolCourse["name"]);
+        // bold for titles
+        $sheet->getStyle("B1:B7")->getFont()->setBold(true);
 
-        $sheet->setCellValue("A5", "PROFESOR(A): ".$schoolCourse->teacher['name']);
+        // set column size
+        $sheet->getColumnDimension("A")->setWidth(28, 'px');
+        $sheet->getColumnDimension("B")->setWidth(274, 'px');
+        $sheet->getColumnDimension("C")->setWidth(16, 'px');
+        $sheet->getColumnDimension("D")->setWidth(16, 'px');
+        $sheet->getColumnDimension("E")->setWidth(16, 'px');
+        $sheet->getColumnDimension("F")->setWidth(16, 'px');
+        $sheet->getColumnDimension("G")->setWidth(16, 'px');
+        $sheet->getColumnDimension("H")->setWidth(16, 'px');
+        $sheet->getColumnDimension("I")->setWidth(16, 'px');
+        $sheet->getColumnDimension("J")->setWidth(16, 'px');
+        $sheet->getColumnDimension("K")->setWidth(16, 'px');
+        $sheet->getColumnDimension("L")->setWidth(16, 'px');
+        $sheet->getColumnDimension("M")->setWidth(16, 'px');
+        $sheet->getColumnDimension("N")->setWidth(16, 'px');
+        $sheet->getColumnDimension("O")->setWidth(16, 'px');
+        $sheet->getColumnDimension("P")->setWidth(16, 'px');
+        $sheet->getColumnDimension("Q")->setWidth(16, 'px');
+        $sheet->getColumnDimension("R")->setWidth(16, 'px');
+        $sheet->getColumnDimension("S")->setWidth(16, 'px');
+        $sheet->getColumnDimension("T")->setWidth(16, 'px');
+        
+
+        //GENERAL INFO
+        $sheet->setCellValue("B1", "CUMBRES INTERNATIONAL SCHOOL MERIDA");
+        $sheet->setCellValue("B2", "CICLO ESCOLAR " . $schoolCourse->term['description']);
+
+        $tipo_academia = $schoolCourse->tipo_academia;
+        $tipo_academia = 'ACADEMIAS ' . ($tipo_academia == 'CULTURAL' ? 'CULTURALES' : 'DEPORTIVAS'); 
+        $sheet->setCellValue("B3", $tipo_academia);
+
+        $sheet->setCellValue("B5", "DISCIPLINA:");
+        $sheet->setCellValue("B6", "DOCENTE:");
+        $sheet->setCellValue("B7", "HORARIO:");
+
+        $sheet->setCellValue("C5", $schoolCourse->name);
+        $sheet->setCellValue("C6", $schoolCourse->teacher->name);
+        $sheet->setCellValue("C7", $this->_getSchedule($schoolCourse->schedules));
 
         $sheet->setCellValue("B".$row-1, "LISTA DE ALUMNOS");
 
-        //COMBINAMOS LAS COLUMNAS DE LA INFO GENERAL
-        $sheet->mergeCells("A1:F1");
-        $sheet->mergeCells("A2:F2");
-        $sheet->mergeCells("A3:F3");
-        $sheet->mergeCells("A4:F4");
-        $sheet->mergeCells("A5:F5");
 
         //COMBINANDO CELDAS DE ENCABEZADOS
         $sheet->mergeCells("C$row:T$row");
 
-        //CENTRAMOS LA INFORMACION GENERAL
-        $sheet->getStyle("A1:A5")->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
-
         //HEADERS
-        foreach($headers as $key=>$header):
+        foreach($headers as $key => $header) {
             $sheet->setCellValue($key.$row, $header);
-            $sheet->getColumnDimension($key)->setAutoSize(true);
-        endforeach;
+        }
 
         //DATA
-        foreach($schoolCourse->students as $student):
+        foreach($schoolCourse->students as $student) {
             $row++;
             $sheet->setCellValue("A".$row, $row-8);
-            foreach($col_header as $key=>$col):
-                if(!empty($key)):
+            foreach($col_header as $key=>$col) {
+                if(!empty($key))
                     $sheet->setCellValue($col.$row, $student[$key]);
-                endif;
-            endforeach;
-        endforeach;
+            }
+        }
 
         $fileName = 'LISTA_'.$schoolCourse['name'].'_'.date("ymdHis").".xlsx";
         $writer = new Xlsx($spreadsheet);
@@ -1094,5 +1088,47 @@ class SchoolCoursesController extends AppController
         
         $this->redirect($this->referer());
 
-    } 
+    }
+
+    /**
+     * Get Schedule method
+     * @param Entity $schedules
+     * @return String $horario the schedule in a prety format
+     */
+    private function _getSchedule($schedules) {
+        // horario
+        $monday = '';
+        $tuesday = '';
+        $wednesday = '';
+        $thursday = '';
+        $friday = '';
+        $saturday = '';
+        $horario = [];
+        $time_schedule = '';
+        foreach ($schedules as $schedule) {
+            $start = substr($schedule->start, 0, 5);//$this->Time->format($schedule->start, [IntlDateFormatter::NONE, IntlDateFormatter::SHORT]);
+            $end = substr($schedule->end, 0, 5);//$this->Time->format($schedule->end, [IntlDateFormatter::NONE, IntlDateFormatter::SHORT]);
+            $time_schedule = $start . ' - ' . $end;
+            switch ($schedule->day_id) {
+                case 1:
+                    $horario[] = 'Lun';
+                    break;
+                case 2:
+                    $horario[] = 'Mar';
+                    break;
+                case 3:
+                    $horario[] = 'Miérc';
+                    break;
+                case 4:
+                    $horario[] = 'Juev';
+                    break;
+                case 5:
+                    $horario[] = 'Vier';
+                    break;
+            }
+        }
+        $horario = implode(', ', $horario);
+        $horario .= ' de ' .$time_schedule;
+        return $horario;
+    }
 }

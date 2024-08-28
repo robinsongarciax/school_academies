@@ -28,9 +28,20 @@
         $('#collapseSchoolGrade').addClass('show');
     }
 
-    $('form').on('submit', function(){
-        $("button[type=submit]").attr("disabled", "true");
-        $("button[type=submit]").html('<span id="loading-span" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Cargando...')
+    $('form').on('submit', function(e) {
+        let id = e.originalEvent.submitter.id;
+        if (id)
+        {
+            if (id != 'download-list') {
+                $("#" + id).attr("disabled", "true");
+                $("#" + id).html('<span id="loading-span" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Cargando...')
+            }
+        }
+        else
+        {
+            $("button[type=submit]").attr("disabled", "true");
+            $("button[type=submit]").html('<span id="loading-span" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Cargando...')
+        }
     });
 
     // $('.mobile-actions').height($('.mobile-actions').closest('td').height());

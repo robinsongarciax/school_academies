@@ -114,6 +114,7 @@ class SchoolCoursesStudentsTable extends Table
                 $free_courses_confirmed = $this->find('all')
                     ->where([
                         'student_id' => $entity->student_id,
+                        'id <>' => $entity->id,
                         'is_confirmed' => 1,
                         'cost' => 0
                     ])->count();
@@ -121,7 +122,9 @@ class SchoolCoursesStudentsTable extends Table
                 $cost = $free_courses_confirmed == 0 ? 0 : $schoolCourse->price;
 
             }
-
+            if ($cost == 0) {
+                $entity->is_pagado = 1;
+            }
             $entity->cost = $cost;
         }
     }

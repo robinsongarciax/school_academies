@@ -105,6 +105,28 @@ class SchoolCoursesStudentsController extends AppController
         return $this->redirect($this->referer());
     }
 
+    /**
+     * Update Is Pagado method
+     *
+     * @param string|null $id School Courses Student id.
+     * @return \Cake\Http\Response|null|void Redirects to dashboar.
+     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
+     */
+    public function updateIsPagado ($id = null)
+    {
+        $this->Authorization->skipAuthorization();
+        $this->request->allowMethod(['post']);
+        $schoolCoursesStudent = $this->SchoolCoursesStudents->get($id);
+        $schoolCoursesStudent->is_pagado = 1;
+        if ($this->SchoolCoursesStudents->save($schoolCoursesStudent)) {
+            $this->Flash->success(__('The school course has been marked as paid.'));
+        } else {
+            $this->Flash->error(__('The school course could not be mark as paid. Please, try again.'));
+        }
+
+        return $this->redirect($this->referer());
+    }
+
     public function printForm($id){
         $this->Authorization->skipAuthorization();
 
