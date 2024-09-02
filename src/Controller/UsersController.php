@@ -155,7 +155,11 @@ class UsersController extends AppController
         // regardless of POST or GET, redirect if user is logged in
         if ($result->isValid()) {
             if ($this->getRequest()->getAttribute('identity')->active) {
-                $target = $this->Authentication->getLoginRedirect() ?? '/';
+                $role_name = $this->getRequest()->getAttribute('identity')->role->name;
+                if ($role_name == 'ADMIN' || $role_name == 'COORDINADOR')
+                    $target = ['controller' => 'Students', 'action' => 'dashboard'];
+                else     
+                    $target = $this->Authentication->getLoginRedirect() ?? '/';
                 return $this->redirect($target);
             } else {
                 $this->Authentication->logout();

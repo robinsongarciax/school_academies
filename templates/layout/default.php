@@ -76,13 +76,26 @@ $cakeDescription = __('Cake Description');;
             <!-- Divider -->
             <hr class="sidebar-divider my-0">
 
-            <!-- Nav Item - Home -->
-            <li class="nav-item active">
+            <li class="nav-item <?= $controller == 'Pages' ? 'active' : '' ?>">
                 <?= $this->Html->link("<i class=\"fas fa-fw fa-home\"></i>
                     <span>" . __('Home') . "</span>",
                     ['controller' => 'Pages', 'action' => 'display', 'home'],
                     ['class' => 'nav-link', 'escape' => false]) ?>
             </li>
+
+            <?php
+            $role_name = $this->Identity->get('role')->get('name');
+            if ($role_name == 'ADMIN' || $role_name == 'COORDINADOR') :
+            ?>
+                <li class="nav-item <?= $action == 'Students_dashboard' ? 'active' : '' ?>">
+                    <?= $this->Html->link("<i class=\"fas fa-tachometer-alt\"></i>
+                        <span>" . __('Dashboard') . "</span>",
+                        ['controller' => 'Students', 'action' => 'dashboard'],
+                        ['class' => 'nav-link', 'escape' => false]) ?>
+                </li>
+            <?php
+            endif;
+            ?>
             <!-- Divider -->
             <hr class="sidebar-divider">
 
@@ -126,13 +139,13 @@ $cakeDescription = __('Cake Description');;
             </li>
 
             <!-- Nav Item - Pages Collapse Menu -->
-            <li class="nav-item <?= ($controller == 'Students') ? 'active' : ''?>">
+            <li class="nav-item <?= ($controller == 'Students' && $action != 'Students_dashboard') ? 'active' : ''?>">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
                     aria-expanded="true" aria-controls="collapseTwo">
                     <i class="fas fa-fw fa-user-graduate"></i>
                     <span><?= __('Students') ?></span>
                 </a>
-                <div id="collapseTwo" class="collapse <?= ($controller == 'Students') ? 'show' : ''?>" aria-labelledby="headingOne" data-parent="#accordionSidebar">
+                <div id="collapseTwo" class="collapse <?= ($controller == 'Students' && $action != 'Students_dashboard') ? 'show' : ''?>" aria-labelledby="headingOne" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header"><?= __('Students') ?></h6>
                         <?= $this->Html->link(__('Students List'), ['controller' => 'Students', 'action' => 'index'], ['class' => 'collapse-item' . ($action == 'Students_index' ? ' active' : '')]) ?>

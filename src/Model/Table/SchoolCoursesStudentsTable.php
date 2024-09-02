@@ -156,10 +156,10 @@ class SchoolCoursesStudentsTable extends Table
             $schoolCourse = $this->SchoolCourses->get($entity->school_course_id);
             $schoolCourse->occupancy -= 1;
             $this->SchoolCourses->save($schoolCourse);
-        }
 
-        // log
-        $this->_updateLog($entity, 'DELETED');
+            // log - add a record if it's a confirmed course
+            $this->_updateLog($entity, 'DELETED');
+        }
     }
 
     /**
@@ -188,6 +188,7 @@ class SchoolCoursesStudentsTable extends Table
                     $schoolCourse = $schoolCourses->first();
                     $newEntity = $this->findBySchoolCourseIdAndStudentId($schoolCourse->id, $entity->student_id)->first();
                     $newEntity->cost = 0;
+                    $newEntity->is_pagado = 1;
                     $this->save($newEntity);
                 }
             }

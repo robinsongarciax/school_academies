@@ -19,7 +19,7 @@
 <div class="container-fluid">
     <div class="card shadow mb-4">
         <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary-cm"><?= __('Students List')?></h6>
+            <h6 class="m-0 font-weight-bold text-primary-cm"><?= __('Lista de academías por alumno')?></h6>
         </div>
         <div class="card-body">
             <?= $this->Flash->render() ?>
@@ -69,6 +69,15 @@
                             <?php foreach($schoolCourses as $schoolCourse) : ?>
                                 <option value="<?= $schoolCourse->id ?>" <?= $searchOptions['academia'] == $schoolCourse->id ? 'selected' : ''?>><?= $schoolCourse->name ?></option>
                             <?php endforeach; ?>
+                        </select>
+                    </div>
+
+                    <div class="col-sm-3">
+                        <label class="mr-sm-2" for="academia">Pagado</label>
+                        <select class="custom-select mr-sm-2" id="pagado" name="pagado">
+                            <option value="" selected>Seleccione...</option>
+                            <option value="1" <?= $searchOptions['pagado'] == '1' ? 'selected' : ''?>>No</option>
+                            <option value="2" <?= $searchOptions['pagado'] == '2' ? 'selected' : ''?>>S&iacute;</option>
                         </select>
                     </div>
                 </div>

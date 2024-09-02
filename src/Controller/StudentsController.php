@@ -362,7 +362,7 @@ class StudentsController extends AppController
         $sheet->setCellValue("B2", "CICLO ESCOLAR " . $term->description);
         $sheet->setCellValue("B3", 'Academias');
 
-        // nombre, curp, grado, grupo, academia, cost, pagado
+        // nombre, curp, grado, grupo, academia, folio, cost, pagado
         $row = 5;
         $header = ['A' => 'Nombre', 
                     'B' => 'CURP',
@@ -429,7 +429,8 @@ class StudentsController extends AppController
             'tipoAcacemia' => '',
             'numCursos' => '',
             'tipoCurso' => '',
-            'academia' => ''
+            'academia' => '',
+            'pagado' => ''
         ];
     }
 
@@ -519,6 +520,11 @@ class StudentsController extends AppController
         // academia
         if (!empty ($searchOptions['academia'])) {
             $conditions[] = ['SchoolCourses.id' => $searchOptions['academia']];
+        }
+
+        // pagado
+        if (!empty($searchOptions['pagado'])) {
+            $conditions[] = ['SchoolCoursesStudents.is_pagado' => $searchOptions['pagado'] - 1];
         }
 
         return $conditions;

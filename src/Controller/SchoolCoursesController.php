@@ -322,29 +322,25 @@ class SchoolCoursesController extends AppController
         return $this->redirect(['controller' => 'Students', 'action' => 'view', $student_id]);
     }
 
-    public function exportRelatedStudents($schoolCourseId){
+    public function exportRelatedStudents($schoolCourseId, $contentType = 'xslx'){
         $this->Authorization->skipAuthorization();
 
         $row = 6;
         $headers = [
             "A" => "Colegio",
-            "B" => "Clave Identificacion Alumno",
-            "C" => "Nombre del Alumno",
-            "D" => "Sexo",
-            "E" => "Fecha Nacimiento",
-            "F" => "Seccion",
-            "G" => "Grado",
-            "H" => "Grupo"
+            "B" => "Nombre del Alumno",
+            "C" => "CURP",
+            "D" => "Grado",
+            "E" => "Grupo",
+            "F" => '2da. academía',
+            "G" => '3ra. academía'
         ];
         $col_header = [
             "institute" => "A",
-            "curp" => "B",
-            "name" => "C",
-            "sex" => "D",
-            "birth_date" => "E",
-            "level" => "F",
-            "school_level" => "G",
-            "school_group" => "H"
+            "name" => "B",
+            "curp" => "C",
+            "school_level" => "D",
+            "school_group" => "E"
         ];
 
         $schoolCourse = $this->SchoolCourses->get($schoolCourseId, [
@@ -356,8 +352,9 @@ class SchoolCoursesController extends AppController
 
         // Create a new spreadsheet
         $spreadsheet = new Spreadsheet();
-        // Add value in a sheet inside of that spreadsheet.
-        // // (It's possible to have multiple sheets in a single spreadsheet)
+
+        // font size
+        $spreadsheet->getDefaultStyle()->getFont()->setSize(10);
         $sheet = $spreadsheet->getActiveSheet();
 
         //SCHOOL COURSE INFO
@@ -370,30 +367,75 @@ class SchoolCoursesController extends AppController
         $sheet->setCellValue("B3", $schoolCourse->term['description']);
         $sheet->setCellValue("B4", $horario);
 
-        //HEADERS
-        foreach($headers as $key=>$header):
+        // bold for titles
+        $sheet->getStyle("A1:A4")->getFont()->setBold(true);
+
+        // HEADERS
+        foreach($headers as $key => $header) {
             $sheet->setCellValue($key.$row, $header);
             $sheet->getColumnDimension($key)->setAutoSize(true);
-        endforeach;
+        }
+
+        $sheet->getStyle("A6:G6")->getFill()
+                                 ->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)
+                                 ->getStartColor()->setARGB('ffa59f9d');
 
         //DATA
         foreach($schoolCourse->students as $student) {
             $row++;
-            foreach($col_header as $key=>$col) {
-                $sheet->setCellValue($col.$row, $student[$key]);
+            $aditionalSC = $this->SchoolCourses->find()
+                                               ->select('SchoolCourses.name')
+                                               ->matching('Students', function ($q) use ($student) {
+                                                    return $q->where(['Students.id' => $student->id]);
+                                               })
+                                               ->where(['SchoolCourses.id <>' => $schoolCourseId])
+                                               ->all();
+            foreach ($col_header as $key => $col) {
+                $sheet->setCellValue($col . $row, $student[$key]);
+            }
+            // aditional school courses
+            $col = 'F';
+            foreach ($aditionalSC as $rowSC) {
+                $sheet->setCellValue($col++ . $row, $rowSC->name);
             }
         }
 
-        $fileName = $schoolCourse['name'].'_'.date("ymdHis").".xlsx";
-        $writer = new Xlsx($spreadsheet);
+        //border style
+        $boderStyle = ['borders' => ['allBorders' => ['borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN]]];
 
-        $stream = new CallbackStream(function () use ($writer) {
-            $writer->save('php://output');
-        });
-        $response = $this->response;
-        return $response->withType('xlsx')
-            ->withHeader('Content-Disposition', "attachment;filename=\"{$fileName}\"")
-            ->withBody($stream);
+        // adding borders
+        $sheet->getStyle("A6:G$row")->applyFromArray($boderStyle);
+        
+
+        $fileName = $schoolCourse['name'].'_'.date("ymdHis");
+
+        switch ($contentType) {
+            case 'pdf':
+                $writer = IOFactory::createWriter($spreadsheet, 'Mpdf');
+                $writer->writeAllSheets();     
+                $stream = new CallbackStream(function () use ($writer) {
+                    $writer->save('php://output');
+                });
+
+                // download file
+                $response = $this->response;
+                return $response->withType('pdf')
+                    ->withHeader('Content-Disposition', "attachment;filename=\"{$fileName}\"")
+                    ->withBody($stream);
+                break;
+            case 'xslx':
+            default:
+                $writer = new Xlsx($spreadsheet);
+
+                $stream = new CallbackStream(function () use ($writer) {
+                    $writer->save('php://output');
+                });
+                $response = $this->response;
+                return $response->withType('xlsx')
+                    ->withHeader('Content-Disposition', "attachment;filename=\"{$fileName}\"")
+                    ->withBody($stream);
+        }
+        
     }
 
     //ASISTENCIA DE ALUMNOS POR ACADEMIA
@@ -524,13 +566,47 @@ class SchoolCoursesController extends AppController
         }
 
         //DATA
+        $i = 1;
         foreach($schoolCourse->students as $student) {
             $row++;
-            $sheet->setCellValue("A".$row, $row-8);
+            $sheet->setCellValue("A".$row, $i++);
             foreach($col_header as $key=>$col) {
                 if(!empty($key))
                     $sheet->setCellValue($col.$row, $student[$key]);
             }
+        }
+
+        // Adding new sheet with parents information
+        $spreadsheet->createSheet();
+        $sheet2 = $spreadsheet->getSheet(1);
+        $sheet2->setTitle ('Datos de contacto');
+
+        $sheet2->getStyle("A1:G1")->getFont()->setBold(true);
+        $row = 1;
+        $header = ['A' => 'Nombre del alumno', 
+                   'B' => 'Nombre de la madre',
+                   'C' => 'Teléfono',
+                   'D' => 'Email',
+                   'E' => 'Nombre del padre',
+                   'F' => 'Telefono',
+                   'G' => 'Email'];
+
+        // header for list
+        foreach ($header as $key => $value) {
+            $sheet2->getColumnDimension($key)->setAutoSize(true);
+            $sheet2->setCellValue($key . $row, $value);
+        }
+        $row++;
+        
+        foreach ($schoolCourse->students as $student) {
+            $sheet2->setCellValue('A' . $row , $student->name);
+            $sheet2->setCellValue('B' . $row , $student->mother_name);
+            $sheet2->setCellValue('C' . $row , $student->mother_phone);
+            $sheet2->setCellValue('D' . $row , $student->mother_email);
+            $sheet2->setCellValue('E' . $row , $student->father_name);
+            $sheet2->setCellValue('F' . $row , $student->father_phone);
+            $sheet2->setCellValue('G' . $row , $student->father_email);
+            $row++;
         }
 
         $fileName = 'LISTA_'.$schoolCourse['name'].'_'.date("ymdHis").".xlsx";

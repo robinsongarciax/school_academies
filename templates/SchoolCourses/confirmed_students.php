@@ -99,18 +99,29 @@
                     </tr>
                 </table>
             </div>
-            <?= $this->Html->link(__('Exportar alumnos'), ['action' => 'export-related-students', $schoolCourse->id], ['class' => 'btn btn-sm btn-outline-primary', 'escape' => true]) ?>
-            <?= $this->Html->link(__('Exportar lista'), ['action' => 'export-list-related-students', $schoolCourse->id], ['class' => 'btn btn-sm btn-outline-primary', 'escape' => true]) ?>
-            <?= $this->Html->link(__('Constancias de estudios'), ['action' => 'constancias-estudios', $schoolCourse->id], ['class' => 'btn btn-sm btn-outline-primary', 'escape' => true]) ?>
-            <?= $this->Html->link(
-                    __('Download all proof of study'),
-                    ['action' => 'download-all-proof-of-study', $schoolCourse->id],
-                    ['class' => 'btn btn-sm btn-outline-primary', 'escape' => true]
-                ) ?>
+            <nav>
+                <div class="btn-group">
+                    <button class="btn btn-primary dropdown-toggle btn-sm" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Descargar reporte
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <?= $this->Html->link(__('Excel'), ['action' => 'export-related-students', $schoolCourse->id], ['class' => 'dropdown-item', 'escape' => true]) ?>
+
+                        <?= $this->Html->link(__('PDF'), ['action' => 'export-related-students', $schoolCourse->id, 'pdf'], ['class' => 'dropdown-item', 'escape' => true]) ?>
+                    </div>
+                </div>
+                <?= $this->Html->link(__('Lista de asistencia'), ['action' => 'export-list-related-students', $schoolCourse->id], ['class' => 'btn btn-sm btn-outline-primary', 'escape' => true]) ?>
+                <?= $this->Html->link(__('Constancias de estudios'), ['action' => 'constancias-estudios', $schoolCourse->id], ['class' => 'btn btn-sm btn-outline-primary', 'escape' => true]) ?>
+                <?= $this->Html->link(
+                        __('Download all proof of study'),
+                        ['action' => 'download-all-proof-of-study', $schoolCourse->id],
+                        ['class' => 'btn btn-sm btn-outline-primary', 'escape' => true]
+                    ) ?>
+            </nav>
             <hr class="mt-0 mb-4">
             <?php if (!empty($schoolCourse->students)) : ?>
             <div class="table-responsive">
-                <table class="table table-bordered" width="100%" id="tableConfirmedStudents" cellspacing="0">
+                <table class="table table-bordered" width="100%" id="confirmedStudents" cellspacing="0">
                     <thead>
                         <tr>
                             <th><?= __('Name') ?></th>

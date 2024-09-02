@@ -104,10 +104,12 @@
                             
                             <td><?= $schoolCourse->has('term') ? $this->Html->link($schoolCourse->term->description, ['controller' => 'Terms', 'action' => 'view', $schoolCourse->term->id]) : '' ?></td>
                             <td class="actions" nowrap>
-                                <?= $this->Html->link("", ['action' => 'view', $schoolCourse->id], ['class'=>'fas fa-eye']) ?>
-                                <?= $this->Html->link("", ['action' => 'edit', $schoolCourse->id], ['class'=>'fas fa-pen']) ?>
-                                <?= $this->Form->postLink("", ['action' => 'delete', $schoolCourse->id], ['class'=>'fas fa-trash', 'confirm' => __('Are you sure you want to delete {0}?', $schoolCourse->name)]) ?>
-                                <?= $this->Html->link("", ['action' => 'studentRegistration', $schoolCourse->id], ['class'=>'fas fa-user-plus']) ?>
+                                <?= $this->Html->link("", ['action' => 'view', $schoolCourse->id], ['class'=>'fas fa-eye', 'title' => 'Ver']) ?>
+                                <?= $this->Html->link("", ['action' => 'edit', $schoolCourse->id], ['class'=>'fas fa-pen', 'title' => 'Editar']) ?>
+                                <?= $this->Form->postLink("", ['action' => 'delete', $schoolCourse->id], ['class'=>'fas fa-trash', 'title' => 'Eliminar', 'confirm' => __('Are you sure you want to delete {0}?', $schoolCourse->name)]) ?>
+                                <?= $this->Html->link("", ['action' => 'studentRegistration', $schoolCourse->id], ['class'=>'fas fa-user-plus', 'title' => 'Agregar alumnos']) ?>
+                                <?= $this->Html->link("", ['action' => 'export-related-students', $schoolCourse->id], ['class'=>'fas fa-file-excel', 'title' => 'Relación de alumnos en excel']) ?>
+                                <?= $this->Html->link("", ['action' => 'export-related-students', $schoolCourse->id, 'pdf'], ['class'=>'fas fa-file-pdf', 'title' => 'Relación de alumnos en pdf']) ?>
                             </td>
                         </tr>
                         <?php endforeach; ?>
