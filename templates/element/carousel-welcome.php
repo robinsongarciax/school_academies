@@ -7,44 +7,71 @@
         <li data-target="#carouselWelcome" data-slide-to="4"></li>
         <li data-target="#carouselWelcome" data-slide-to="5"></li>
         <li data-target="#carouselWelcome" data-slide-to="6"></li>
+        <li data-target="#carouselWelcome" data-slide-to="7"></li>
+        <li data-target="#carouselWelcome" data-slide-to="8"></li>
+        <li data-target="#carouselWelcome" data-slide-to="9"></li>
+        <li data-target="#carouselWelcome" data-slide-to="10"></li>
+        <li data-target="#carouselWelcome" data-slide-to="11"></li>
     </ol>
     <div class="carousel-inner">
         <div class="carousel-item active">
-            <?= $this->Html->image('carousel/carousel_1.jpg', [
+            <?= $this->Html->image('carousel/1.jpg', [
                 'class' => 'd-block w-100'
             ]) ?>
         </div>
         <div class="carousel-item">
-            <?= $this->Html->image('carousel/carousel_2.jpg', [
+            <?= $this->Html->image('carousel/2.jpg', [
                 'class' => 'd-block w-100'
             ]) ?>
         </div>
         <div class="carousel-item">
-            <?= $this->Html->image('carousel/carousel_3.jpg', [
-                'class' => 'd-block',
-                'style' => 'height:440px'
+            <?= $this->Html->image('carousel/3.jpg', [
+                'class' => 'd-block w-100'
             ]) ?>
         </div>
         <div class="carousel-item">
-            <?= $this->Html->image('carousel/carousel_4.jpg', [
+            <?= $this->Html->image('carousel/4.jpg', [
                 'class' => 'd-block w-100',
-                'style' => 'height:440px'
             ]) ?>
         </div>
         <div class="carousel-item">
-            <?= $this->Html->image('carousel/carousel_5.jpg', [
+            <?= $this->Html->image('carousel/5.jpg', [
                 'class' => 'd-block w-100'
             ]) ?>
         </div>
         <div class="carousel-item">
-            <?= $this->Html->image('carousel/carousel_6.jpg', [
+            <?= $this->Html->image('carousel/6.jpg', [
                 'class' => 'd-block w-100'
             ]) ?>
         </div>
         <div class="carousel-item">
-            <?= $this->Html->image('carousel/carousel_7.jpg', [
-                'class' => 'd-block w-100',
-                'style' => 'height:440px'
+            <?= $this->Html->image('carousel/7.jpg', [
+                'class' => 'd-block w-100'
+            ]) ?>
+        </div>
+        <div class="carousel-item">
+            <?= $this->Html->image('carousel/8.jpg', [
+                'class' => 'd-block w-100'
+            ]) ?>
+        </div>
+        <div class="carousel-item">
+            <?= $this->Html->image('carousel/9.jpg', [
+                'class' => 'd-block w-100'
+            ]) ?>
+        </div>
+        <div class="carousel-item">
+            <?= $this->Html->image('carousel/10.jpg', [
+                'class' => 'd-block w-100'
+            ]) ?>
+        </div>
+        <div class="carousel-item">
+            <?= $this->Html->image('carousel/11.jpg', [
+                'class' => 'd-block w-100'
+            ]) ?>
+        </div>
+        <div class="carousel-item">
+            <?= $this->Html->image('carousel/12.jpg', [
+                'class' => 'd-block w-100'
             ]) ?>
         </div>
     </div>
