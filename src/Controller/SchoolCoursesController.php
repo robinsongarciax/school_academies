@@ -249,7 +249,7 @@ class SchoolCoursesController extends AppController
 
             // Traer los cursos relacionados con el grado escolar, sexo y la edad del estudiante
             $schoolCourses = $this->SchoolCourses->find('CoursesAvailableForStudent', $options)
-                                                 ->contain(['Terms', 'Teachers', 'Terms', 'Schedules'])
+                                                 ->contain(['Terms', 'Teachers', 'Schedules'])
                                                  ->where(['Terms.active' => 1])
                                                  ->all();
             // pr($schoolCourses);die();
@@ -260,6 +260,23 @@ class SchoolCoursesController extends AppController
         ])->all()->first();
 
         $this->set(compact('schoolCourses', 'term', 'student_id'));
+    }
+
+    public function enrollStudentAnyAcademy ($student_id = null) {
+        $this->Authorization->skipAuthorization();
+        $schoolCourses = $this->SchoolCourses->find('all')
+                                             ->contain(['Terms', 'Teachers', 'Schedules'])
+                                             ->where(['Terms.active' => 1])
+                                             ->all();
+
+        $term = $this->SchoolCourses->Terms->find('all', [
+            'conditions' => ['active' => 1]
+        ])->all()->first();
+
+        $this->set(compact('schoolCourses', 'term', 'student_id'));
+
+        return $this->render('enroll_student');
+
     }
 
     public function signup($id = null) {
@@ -407,7 +424,7 @@ class SchoolCoursesController extends AppController
         $sheet->getStyle("A6:G$row")->applyFromArray($boderStyle);
         
 
-        $fileName = $schoolCourse['name'].'_'.date("ymdHis");
+        $fileName = $this->_encode($schoolCourse['name'].'_'.date("ymdHis"));
 
         switch ($contentType) {
             case 'pdf':
@@ -419,8 +436,8 @@ class SchoolCoursesController extends AppController
 
                 // download file
                 $response = $this->response;
-                return $response->withType('pdf')
-                    ->withHeader('Content-Disposition', "attachment;filename=\"{$fileName}\"")
+                return $response
+                    ->withHeader('Content-Disposition', "attachment;filename=\"{$fileName}.pdf\"")
                     ->withBody($stream);
                 break;
             case 'xslx':
@@ -432,7 +449,7 @@ class SchoolCoursesController extends AppController
                 });
                 $response = $this->response;
                 return $response->withType('xlsx')
-                    ->withHeader('Content-Disposition', "attachment;filename=\"{$fileName}\"")
+                    ->withHeader('Content-Disposition', "attachment;filename=\"{$fileName}.xlsx\"")
                     ->withBody($stream);
         }
         
@@ -609,7 +626,8 @@ class SchoolCoursesController extends AppController
             $row++;
         }
 
-        $fileName = 'LISTA_'.$schoolCourse['name'].'_'.date("ymdHis").".xlsx";
+        $spreadsheet->setActiveSheetIndex(0);
+        $fileName = $this->_encode('LISTA_'.$schoolCourse['name'].'_'.date("ymdHis").".xlsx");
         $writer = new Xlsx($spreadsheet);
 
         $stream = new CallbackStream(function () use ($writer) {
@@ -617,6 +635,7 @@ class SchoolCoursesController extends AppController
         });
         $response = $this->response;
         return $response->withType('xlsx')
+                        ->withCharset('UTF-8')
             ->withHeader('Content-Disposition', "attachment;filename=\"{$fileName}\"")
             ->withBody($stream);
     }
@@ -965,7 +984,7 @@ class SchoolCoursesController extends AppController
         foreach ($schoolCourse->students as $student) {
             if ($i > 0) {
                 $spreadsheet->createSheet();
-                $spreadsheet->setActiveSheetIndex($i++);
+                $spreadsheet->setActiveSheetIndex($i);
             }
             $i++;
             $sheet = $spreadsheet->getActiveSheet();
@@ -1149,7 +1168,7 @@ class SchoolCoursesController extends AppController
         } // end foreach
 
         //PREPARA LA DESCARGA DEL ARCHIVO
-        $fileName = 'CONSTANCIAS_ESTUDIOS_' . $schoolCourse['name'] . '_' . date("ymdHis") . ".pdf";
+        $fileName = $this->_encode('CONSTANCIAS_ESTUDIOS_' . $schoolCourse['name'] . '_' . date("ymdHis") . ".pdf");
         $writer = IOFactory::createWriter($spreadsheet, 'Mpdf');
         $writer->writeAllSheets();     
         $writer->save($fileName);
@@ -1206,5 +1225,11 @@ class SchoolCoursesController extends AppController
         $horario = implode(', ', $horario);
         $horario .= ' de ' .$time_schedule;
         return $horario;
+    }
+
+
+    // decode function
+    private function _encode($value = '') {
+        return mb_convert_encoding($value, 'ISO-8859-1', 'UTF-8');
     }
 }

@@ -31,7 +31,7 @@
     <?= $this->Form->end() ?>
 <?php else: ?>
     <legend><?= __('¡Información importante!') ?></legend>
-    <p>Estimados padres de familia, se les informa que el acceso a la plataforma de inscripción a las academias estará disponible a partir del día <b>lunes 11 de septiembre del 2023 a las 7:00 a.m.</b></p>
+    <p>Estimados padres de familia, se les informa que el acceso a la plataforma de inscripción a las academias estará disponible a partir del día <b>lunes 9 de septiembre del 2024 a las 7:00 a.m.</b></p>
 <?php endif; ?>
 <div class="text-center">
     <?= $this->Html->link(__('Admin Login'), ['action' => 'login', 'admin'], ['class' => 'small']) ?>

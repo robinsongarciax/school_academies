@@ -81,9 +81,9 @@
                         </select>
                     </div>
                 </div>
-                <?= $this->Form->button(__('Search'), ['id' => 'search-list']) ?>
+                <?= $this->Form->button(__('Buscar'), ['id' => 'search-list']) ?>
 
-                <?= $this->Form->button(__('Download'), ['type' => 'submit',
+                <?= $this->Form->button(__('Reporte de la búsqueda'), ['type' => 'submit',
                                                         'formAction' => 'downloadSchoolCoursesStudents',
                                                          'class' => 'btn btn-info',
                                                          'id' => 'download-list']) ?>

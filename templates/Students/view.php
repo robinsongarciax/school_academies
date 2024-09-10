@@ -95,6 +95,18 @@ $this->Html->script(['add-edit-modal'], ['block' => true]);
                         'data-toggle' => 'modal',
                         'data-target' => '#addEditModal'
                     ]) ?>
+
+                    <?= $this->Html->link(__('Agregar Academia especial'), [
+                        'controller' => 'SchoolCourses',
+                        'action' => 'enrollStudentAnyAcademy',
+                        $student->id
+                    ], [
+                        'class' => 'btn btn-sm btn-outline-primary btn-modal',
+                        'modal-title' => 'Inscribir Estudiante',
+                        'data-toggle' => 'modal',
+                        'data-target' => '#addEditModal'
+                    ]) ?>
+
                     <hr class="mt-0 mb-4">
                     <div class="table-responsive">
                         <table class="table" width="100%" cellspacing="0">

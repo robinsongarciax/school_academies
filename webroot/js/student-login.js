@@ -1,5 +1,7 @@
 $(document).ready(function() {
 	$("#student-form").submit(function() {
-		$("#student-pass").val($("#student-user").val());
+		var student_user = $('#student-user').val().toUpperCase();
+		$('#student-user').val(student_user);
+		$("#student-pass").val(student_user);
 	});
 });
