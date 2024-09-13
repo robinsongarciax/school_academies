@@ -165,10 +165,12 @@ class SchoolCoursesTable extends Table
                     'SchoolCoursesStudents.student_id' => $student_id,
                 ]);
         $query = $query->where([
-                'sex IN' => [
-                $sex, 'X'],
-                "({$year_of_birth} OR SchoolLevels.id = {$school_level_id})"
+                'OR' => [ ['SchoolCoursesStudents.is_confirmed' => 1],
+                          ['sex IN' => [$sex, 'X'], 
+                           "({$year_of_birth} OR SchoolLevels.id = {$school_level_id})"]
+                ]
             ])
+            ->group(['SchoolCourses.id'])
             ->order([
                 'SchoolCoursesStudents.is_confirmed' => 'desc'
             ]);
