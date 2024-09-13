@@ -269,7 +269,10 @@ foreach ($studentCourses as $studentCourse) {
                                                 if ($availability == 0) {
                                                     $message = __('El curso {0} no cuenta con lugares disponibles', $schoolCourse->name);
                                                 } else if ($term->courses_allowed - $num_confirmed_courses == 0) {
-                                                    $message = __('Ha seleccionado el número máximo de cursos por alumno y no puede seleccionar mas.');
+                                                    $message = "Ha seleccionado el número máximo de cursos permitidos por alumno y no puede seleccionar mas.
+                                                        Si desea agregar una academía adicional puede enviar un correo a:
+                                                        kmurillo@cumbresmerida.com ó
+                                                        tjgonzalez@cumbresmerida.com";
                                                 } else {
                                                     $url = [
                                                         'action' => 'signup', 
@@ -432,7 +435,10 @@ foreach ($studentCourses as $studentCourse) {
                                         if ($availability == 0) {
                                             $message = __('El curso {0} no cuenta con lugares disponibles', $schoolCourse->name);
                                         } else if ($term->courses_allowed - $num_confirmed_courses == 0) {
-                                            $message = __('Ha seleccionado el número máximo de cursos permitidos por alumno y no puede seleccionar mas.');
+                                            $message = "Ha seleccionado el número máximo de cursos permitidos por alumno y no puede seleccionar mas.
+                                                Si desea agregar una academía adicional puede enviar un correo a:
+                                                kmurillo@cumbresmerida.com ó
+                                                tjgonzalez@cumbresmerida.com";
                                         } else {
                                             $url = [
                                                 'action' => 'signup', 
