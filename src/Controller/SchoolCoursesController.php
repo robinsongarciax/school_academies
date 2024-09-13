@@ -220,10 +220,16 @@ class SchoolCoursesController extends AppController
                                                  ->contain(['Teachers', 'Terms', 'Schedules'])
                                                  ->where(['Terms.active' => 1])
                                                  ->all();
-            $studentCourses = $this->SchoolCourses->Students->find('StudentCourses', ['student_id' => $row->student_id])->all()->toList();
+            $studentCourses = $this->SchoolCourses->Students->find('StudentCourses', ['student_id' => $row->student_id])->all();
             $term = $this->SchoolCourses->Terms->find('all', ['conditions' => ['active' => 1]])
                                                ->all()
                                                ->first();
+            $session = $this->request->getSession();
+            if ($studentCourses->count() >= $term->courses_allowed && !$session->read('firstAccess')) {
+                $session->write('firstAccess', true);
+                $this->Flash->warning('Ha seleccionado el número máximo de cursos permitidos. Si desea agregar una academía adicional enviar un correo a kmurillo@cumbresmerida.com ó tjgonzalez@cumbresmerida.com');
+            }
+            $studentCourses = $studentCourses->toArray();
 
         }
 

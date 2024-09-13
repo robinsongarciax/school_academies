@@ -317,7 +317,8 @@ class StudentsController extends AppController
 
         $students = $this->_findStudetsPaginate($conditions);
         $students->matching('SchoolCourses')
-                 ->order(['SchoolCoursesStudents.id' => 'asc']);
+                 ->order(['SchoolCoursesStudents.id' => 'asc'])
+                 ->where(['SchoolCoursesStudents.is_confirmed' => 1]);
 
         // Buscar Academias
         $schoolCourses = $this->Students->SchoolCourses->find()
@@ -350,7 +351,8 @@ class StudentsController extends AppController
 
         $students = $this->_findStudets($conditions);
         $students->matching('SchoolCourses')
-                 ->order(['Students.curp' => 'asc']);
+                 ->order(['Students.curp' => 'asc'])
+                 ->where(['SchoolCoursesStudents.is_confirmed' => 1]);
 
         $spreadsheet = new Spreadsheet();
         $sheet = $spreadsheet->getActiveSheet();
