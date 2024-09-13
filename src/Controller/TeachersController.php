@@ -160,11 +160,15 @@ class TeachersController extends AppController
         return $this->redirect(['action' => 'index']);
     }
 
-    public function myAcademies(){
+    public function myAcademies() {
         $this->Authorization->skipAuthorization();
         $userId = $this->request->getAttribute('identity')->getIdentifier();
-        $teacher = $this->Teachers->find()->where(['user_id'=>$userId])->contain(['SchoolCourses.Terms'])->first()->toArray();
-        $schoolCourses = $teacher["school_courses"];
+
+        $schoolCourses = $this->Teachers->SchoolCourses->find()
+                                                       ->contain(['Teachers', 'Terms'])
+                                                       ->where(['Teachers.user_id' => $userId,
+                                                                'Terms.active' => 1])
+                                                       ->all();
         $this->set(compact('schoolCourses'));
     }
 }

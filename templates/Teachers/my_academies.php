@@ -30,14 +30,14 @@
                         <tr>
                             <th><?= $this->Paginator->sort('name') ?></th>
                             <th><?= $this->Paginator->sort('term') ?></th>
-                            <th class="actions"><?= __('Export students') ?></th>
+                            <th class="actions"><?= __('Listas escolares') ?></th>
                         </tr>
                     </thead>
                     <tbody>
                         <?php foreach ($schoolCourses as $schoolCourse): ?>
                         <tr>
                             <td><?= h($schoolCourse["name"]) ?></td>
-                            <td><?= $this->Number->format($schoolCourse["term"]["description"]) ?></td>
+                            <td><?= h($schoolCourse["term"]["description"]) ?></td>
                             <td class="actions">
                             <?= $this->Html->link("", ['controller' => 'SchoolCourses', 'action' => 'export-list-related-students', $schoolCourse["id"]], ['class' => 'fas fa-file-alt action-table', 'escape' => true]) ?>
                             </td>
