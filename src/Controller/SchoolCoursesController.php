@@ -469,7 +469,7 @@ class SchoolCoursesController extends AppController
         $headers = [
             "A" => "No",
             "B" => "NOMBRE",
-            "C" => "",
+            "C" => "Gdo/Gpo",
             "D" => "",
             "E" => "",
             "F" => "",
@@ -486,11 +486,12 @@ class SchoolCoursesController extends AppController
             "Q" => "",
             "R" => "",
             "S" => "",
-            "T" => ""
+            "T" => "",
+            "U" => ""
         ];
         $col_header = [
             "name" => "B",
-            "" => "C",
+            "school_group" => "C",
             "" => "D",
             "" => "E",
             "" => "F",
@@ -507,11 +508,13 @@ class SchoolCoursesController extends AppController
             "" => "Q",
             "" => "R",
             "" => "S",
-            "" => "T"
+            "" => "T",
+            "" => "U"
         ];
 
         $schoolCourse = $this->SchoolCourses->get($schoolCourseId, [
-            'contain' => ['Students', 'Teachers', 'Terms', 'Schedules.Days']
+            'contain' => ['Students' => ['sort' => ['Students.name' => 'asc']], 
+                          'Teachers', 'Terms', 'Schedules.Days']
         ]);
 
         // Create a new spreadsheet
@@ -519,7 +522,11 @@ class SchoolCoursesController extends AppController
         // Add value in a sheet inside of that spreadsheet.
         // // (It's possible to have multiple sheets in a single spreadsheet)
         $sheet = $spreadsheet->getActiveSheet();
-        $sheet->setTitle($schoolCourse->name);
+        $schoolCourseName = $schoolCourse->name;
+        if (strlen($schoolCourseName) > 30) {
+          $schoolCourseName = substr($schoolCourseName, 0, 30);
+        }
+        $sheet->setTitle($schoolCourseName);
 
         //DEFINIMOS EL FORMATO PARA LOs BORDES
         $styleArray = array(
@@ -530,7 +537,7 @@ class SchoolCoursesController extends AppController
             ),
         );
         //AGREGANDO BORDES A TODOS LOS DATOS INCLUYENDO LOS HEADERS
-        $sheet->getStyle("A$row:T11")->applyFromArray($styleArray);
+        $sheet->getStyle("A$row:U" . (count($schoolCourse->students) + 15))->applyFromArray($styleArray);
         $sheet->getStyle("A$row:T$row")->getFill()
                                     ->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)
                                     ->getStartColor()->setARGB('ffa59f9d');
@@ -541,7 +548,7 @@ class SchoolCoursesController extends AppController
         // set column size
         $sheet->getColumnDimension("A")->setWidth(28, 'px');
         $sheet->getColumnDimension("B")->setWidth(274, 'px');
-        $sheet->getColumnDimension("C")->setWidth(16, 'px');
+        $sheet->getColumnDimension("C")->setWidth(70, 'px');
         $sheet->getColumnDimension("D")->setWidth(16, 'px');
         $sheet->getColumnDimension("E")->setWidth(16, 'px');
         $sheet->getColumnDimension("F")->setWidth(16, 'px');
@@ -559,6 +566,7 @@ class SchoolCoursesController extends AppController
         $sheet->getColumnDimension("R")->setWidth(16, 'px');
         $sheet->getColumnDimension("S")->setWidth(16, 'px');
         $sheet->getColumnDimension("T")->setWidth(16, 'px');
+        $sheet->getColumnDimension("U")->setWidth(16, 'px');
         
 
         //GENERAL INFO
@@ -581,7 +589,7 @@ class SchoolCoursesController extends AppController
 
 
         //COMBINANDO CELDAS DE ENCABEZADOS
-        $sheet->mergeCells("C$row:T$row");
+        $sheet->mergeCells("D$row:U$row");
 
         //HEADERS
         foreach($headers as $key => $header) {
