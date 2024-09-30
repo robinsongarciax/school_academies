@@ -1200,6 +1200,233 @@ class SchoolCoursesController extends AppController
     }
 
     /**
+     * Download Single Proof Of Study method
+     * 
+     * @param string|null $id School Course id.
+     * @return \Cake\Http\Response|null|void Redirects to referer.
+     */
+    public function downloadSingleProofOfStudy ($id) {
+        // supress warning with Mpdf
+        error_reporting(0);
+        $this->Authorization->skipAuthorization();
+
+        $schoolCourse = $this->SchoolCourses->get($id, [
+            'contain' => ['Students.Terms.Institutes']
+        ]);
+
+        $spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+
+        $current_row = 1;
+        //CENTRA LAS CELDAS COMBINADAS DEL LOGO
+        $sheet->mergeCells("A$current_row:N$current_row");
+        $sheet->getStyle("A$current_row:N$current_row")->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
+        //DIBUJA EL LOGO
+        $drawing = new \PhpOffice\PhpSpreadsheet\Worksheet\Drawing();
+        $drawing->setName('Logo');
+        $drawing->setDescription('Logo');
+        $drawing->setPath('img/logo_cumbres.png'); /* put your path and image here */
+        $drawing->setCoordinates("A$current_row");
+        $drawing->setOffsetX(110);
+        $drawing->setHeight(211);
+        $drawing->setRotation(25);
+        $drawing->getShadow()->setVisible(true);
+        $drawing->getShadow()->setDirection(45);
+        $drawing->setWorksheet($sheet);
+        //FECHA
+        $current_row += 3;
+        $rangeCell = "F$current_row:N$current_row";
+        $now = FrozenTime::now();
+        $fecha = str_replace(',', '', $now->i18nFormat([\IntlDateFormatter::FULL, \IntlDateFormatter::NONE]));
+        $lugar_fecha = 'Mérida, Yucatán a ' . $fecha;
+        $sheet->setCellValue(substr($rangeCell, 0, strlen(strval($current_row))+1), $lugar_fecha);
+        $sheet->mergeCells($rangeCell);
+        $sheet->getStyle($rangeCell)->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_RIGHT);
+
+        $current_row += 4;
+        $rangeCell = "B$current_row:N$current_row";
+        $sheet->setCellValue(substr($rangeCell, 0, strlen(strval($current_row))+1), "A quien corresponda:");
+        $sheet->mergeCells($rangeCell);
+        $sheet->getStyle($rangeCell)->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_LEFT);
+
+        $current_row += 4;
+        $styleArray = ['font'  => [
+                'bold'  => false,
+                'size'  => 13,
+                'name'  => 'Arial',
+            ],
+            'alignment' => [
+                'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_JUSTIFY,
+                'vertical' => \PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_JUSTIFY,
+            ],
+        ];
+
+        $student_sex = $student['sex'];
+        $body_text1 = 'Por medio de la presente, se HACE CONSTAR que %s es %s regular de';
+        $body_text1_complement = $student_sex == 'M' ? 'el siguiente niño' : 'la siguiente niña';
+        $body_text1_complement2 = $student_sex == 'M' ? 'alumno' : 'alumna';
+        $body_text1 = sprintf($body_text1, $body_text1_complement, $body_text1_complement2);
+
+        $body_text2 = 'este instituto con clave 31PPR0004R, en el presente curso escolar %s.';
+        $body_text2 = sprintf($body_text2, $student->term->description);
+
+        $body_text1 .= ' ' . $body_text2;
+
+        $rangeCell = "B$current_row:N$current_row";
+        $sheet->setCellValue(substr($rangeCell, 0, strlen(strval($current_row))+1), $body_text1);
+        $sheet->mergeCells($rangeCell);
+        $sheet->getStyle($rangeCell)->applyFromArray($styleArray);
+        $spreadsheet->getActiveSheet()->getRowDimension($current_row)->setRowHeight(45, 'pt');
+        
+        // Agregar 3 alumnos por linea
+        $iCont = 0;
+        $iActiveRow = $current_row;
+        $aRangeCell = [['A', 'D'], ['F', 'I'], ['K', 'N']];
+        foreach ($schoolCourse->students as $student) {
+            // Datos del alumno
+            // Nombre
+            $current_row = $iActiveRow + 7;
+            $rowHeight = 23;
+            $rangeCell = "{$aRangeCell[$iCont][0]}$current_row:{$aRangeCell[$iCont][1]}$current_row";
+            $sheet->setCellValue(substr($rangeCell, 0, strlen(strval($current_row))+1), $student['name']);
+            $sheet->mergeCells($rangeCell);
+            $sheet->getStyle($rangeCell)->applyFromArray($styleArray);
+            $sheet->getStyle($rangeCell)->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
+            $spreadsheet->getActiveSheet()->getRowDimension($current_row)->setRowHeight($rowHeight, 'pt');
+
+            //CURP
+            $current_row += 1;
+            $rangeCell = "{$aRangeCell[$iCont][0]}$current_row:{$aRangeCell[$iCont][1]}$current_row";
+            $sheet->setCellValue(substr($rangeCell, 0, strlen(strval($current_row))+1), $student['curp']);
+            $sheet->mergeCells($rangeCell);
+            $sheet->getStyle($rangeCell)->applyFromArray($styleArray);
+            $sheet->getStyle($rangeCell)->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
+            $spreadsheet->getActiveSheet()->getRowDimension($current_row)->setRowHeight($rowHeight, 'pt');
+
+            // Fecha de nacimiento
+            $current_row += 1;
+            $rangeCell = "{$aRangeCell[$iCont][0]}$current_row:{$aRangeCell[$iCont][1]}$current_row";
+            $birth_date = new FrozenTime($student['birth_date']);
+            $birth_date = $birth_date->i18nFormat('yyyy-MM-dd');
+            $sheet->setCellValue(substr($rangeCell, 0, strlen(strval($current_row))+1), $birth_date);
+            $sheet->mergeCells($rangeCell);
+            $sheet->getStyle($rangeCell)->applyFromArray($styleArray);
+            $sheet->getStyle($rangeCell)->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
+            $spreadsheet->getActiveSheet()->getRowDimension($current_row)->setRowHeight($rowHeight, 'pt');
+
+            // Sexo
+            $sex = ["M"=>'Masculino', 'F'=>'FEMENINO'];
+            $current_row += 1;
+            $rangeCell = "{$aRangeCell[$iCont][0]}$current_row:{$aRangeCell[$iCont][1]}$current_row";
+            $sheet->setCellValue(substr($rangeCell, 0, strlen(strval($current_row))+1), $sex[$student['sex']]);
+            $sheet->mergeCells($rangeCell);
+            $sheet->getStyle($rangeCell)->applyFromArray($styleArray);
+            $sheet->getStyle($rangeCell)->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
+            $spreadsheet->getActiveSheet()->getRowDimension($current_row)->setRowHeight($rowHeight, 'pt');
+
+            // Grado y grupo
+            $current_row += 1;
+            $rangeCell = "{$aRangeCell[$iCont][0]}$current_row:{$aRangeCell[$iCont][1]}$current_row";
+            $sheet->setCellValue(substr($rangeCell, 0, strlen(strval($current_row))+1), $student['school_level']);
+            $sheet->mergeCells($rangeCell);
+            $sheet->getStyle($rangeCell)->applyFromArray($styleArray);
+            $sheet->getStyle($rangeCell)->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
+            $spreadsheet->getActiveSheet()->getRowDimension($current_row)->setRowHeight($rowHeight, 'pt');
+
+            $iCont++;
+            if ($iCont > 2) {
+                $iCont = 0;
+                $iActiveRow = $current_row;
+            }
+        
+        } // end foreach
+
+
+        $current_row += 7;
+        $rangeCell = "B$current_row:N$current_row";
+        $sheet->setCellValue(substr($rangeCell, 0, strlen(strval($current_row))+1), "Se expide la presente para los fines que corresponda.");
+        $sheet->mergeCells($rangeCell);
+        $sheet->getStyle($rangeCell)->applyFromArray($styleArray);
+        $sheet->getStyle($rangeCell)->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_LEFT);
+
+        $current_row += 3;
+        $rangeCell = "B$current_row:N$current_row";
+        $sheet->setCellValue(substr($rangeCell, 0, strlen(strval($current_row))+1), "Atentamente");
+        $sheet->mergeCells($rangeCell);
+        $sheet->getStyle($rangeCell)->applyFromArray($styleArray);
+        $sheet->getStyle($rangeCell)->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
+        $spreadsheet->getActiveSheet()->getRowDimension($current_row)->setRowHeight(35, 'pt');
+
+        $current_row += 3;
+        $rangeCell = "B$current_row:N$current_row";
+        $sheet->setCellValue(substr($rangeCell, 0, strlen(strval($current_row))+1), $student->term->institute->principal);
+        $sheet->mergeCells($rangeCell);
+        $sheet->getStyle($rangeCell)->applyFromArray($styleArray);
+        $sheet->getStyle($rangeCell)->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
+        $current_row += 1;
+        $rangeCell = "B$current_row:N$current_row";
+        $sheet->setCellValue(substr($rangeCell, 0, strlen(strval($current_row))+1), "Director");
+        $sheet->mergeCells($rangeCell);
+        $sheet->getStyle($rangeCell)->applyFromArray($styleArray);
+        $sheet->getStyle($rangeCell)->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
+
+
+        $current_row += 3;
+        $styleArray = ['font'  => [
+            'bold'  => true,
+            'size'  => 10,
+            'name'  => 'Arial'
+        ]];
+        $current_row += 1;
+        $rangeCell = "B$current_row:N$current_row";
+        $sheet->setCellValue(substr($rangeCell, 0, strlen(strval($current_row))+1), "CUMBRES INTERNATIONAL SCHOOL MÉRIDA");
+        $sheet->mergeCells($rangeCell);
+        $sheet->getStyle($rangeCell)->applyFromArray($styleArray);
+        $sheet->getStyle($rangeCell)->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
+        $spreadsheet->getActiveSheet()->getRowDimension($current_row)->setRowHeight(35, 'pt');
+
+        $styleArray = ['font'  => [
+            'bold'  => false,
+            'size'  => 7,
+            'name'  => 'Arial'
+        ]];
+        $current_row += 1;
+        $rangeCell = "B$current_row:N$current_row";
+        $sheet->setCellValue(substr($rangeCell, 0, strlen(strval($current_row))+1), "Calle 5 x 18 s/n Glorieta Cumbres, Fraccionamiento Montecristo, 97133. Mérida, Yucatán.\t\tT.(999) 801 86 60");
+        $sheet->mergeCells($rangeCell);
+        $sheet->getStyle($rangeCell)->applyFromArray($styleArray);
+        $sheet->getStyle($rangeCell)->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
+
+        $styleArray = ['font'  => [
+            'bold'  => true,
+            'size'  => 7,
+            'name'  => 'Arial'
+        ]];
+        $current_row += 1;
+        $rangeCell = "B$current_row:N$current_row";
+        $sheet->setCellValue(substr($rangeCell, 0, strlen(strval($current_row))+1), "cumbresmerida.com");
+        $sheet->mergeCells($rangeCell);
+        $sheet->getStyle($rangeCell)->applyFromArray($styleArray);
+        $sheet->getStyle($rangeCell)->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
+
+        //PREPARA LA DESCARGA DEL ARCHIVO
+        $fileName = $this->_encode('CONSTANCIAS_ESTUDIOS_' . $schoolCourse['name'] . '_' . date("ymdHis") . ".pdf");
+        $writer = IOFactory::createWriter($spreadsheet, 'Mpdf');
+        $writer->writeAllSheets();     
+        $writer->save($fileName);
+
+        // download file
+        header("Content-Type: application/pdf");
+        header("Content-Disposition: attachment; filename=\"$fileName\"");
+        header('Content-Length: ' . filesize($fileName));
+        readfile($fileName);
+
+        unlink($fileName);
+        
+        $this->redirect($this->referer());
+    }
+
+    /**
      * Get Schedule method
      * @param Entity $schedules
      * @return String $horario the schedule in a prety format

@@ -117,6 +117,11 @@
                         ['action' => 'download-all-proof-of-study', $schoolCourse->id],
                         ['class' => 'btn btn-sm btn-outline-primary', 'escape' => true]
                     ) ?>
+                <?= $this->Html->link(
+                        __('Constancia de estudios unificada'),
+                        ['action' => 'download-single-proof-of-study', $schoolCourse->id],
+                        ['class' => 'btn btn-sm btn-outline-primary', 'escape' => true]
+                    ) ?>
             </nav>
             <hr class="mt-0 mb-4">
             <?php if (!empty($schoolCourse->students)) : ?>
