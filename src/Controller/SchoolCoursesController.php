@@ -1262,9 +1262,9 @@ class SchoolCoursesController extends AppController
         ];
 
         $student_sex = $student['sex'];
-        $body_text1 = 'Por medio de la presente, se HACE CONSTAR que %s es %s regular de';
-        $body_text1_complement = $student_sex == 'M' ? 'el siguiente niño' : 'la siguiente niña';
-        $body_text1_complement2 = $student_sex == 'M' ? 'alumno' : 'alumna';
+        $body_text1 = 'Por medio de la presente, se HACE CONSTAR que %s son %s regulares de';
+        $body_text1_complement = 'los siguientes niños (as)';
+        $body_text1_complement2 = 'alumnos (as)';
         $body_text1 = sprintf($body_text1, $body_text1_complement, $body_text1_complement2);
 
         $body_text2 = 'este instituto con clave 31PPR0004R, en el presente curso escolar %s.';
