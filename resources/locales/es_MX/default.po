@@ -145,7 +145,7 @@ msgstr ""
 #: ./templates/Institutes/view.php:62
 #: ./templates/Terms/view.php:22
 msgid "Description"
-msgstr "Descripcion"
+msgstr "Descripción"
 
 #: ./templates/Institutes/view.php:63
 #: ./templates/SchoolCourses/view.php:53
@@ -272,6 +272,9 @@ msgstr "Lista de Academias"
 
 msgid "Add School Course"
 msgstr "Agregar Academia"
+
+msgid "School Course"
+msgstr "Academia"
 
 msgid "Edit School Course"
 msgstr "Editar Academia"
@@ -436,6 +439,9 @@ msgstr "Lista de Alumnos"
 
 msgid "Add Student"
 msgstr "Agregar Alumno"
+
+msgid "Student"
+msgstr "Alumno"
 
 msgid "Edit Student"
 msgstr "Editar Alumno"
@@ -1128,4 +1134,52 @@ msgstr "La academía no pudo ser marcada como pagada. Por favor, intenta nuevame
 
 msgid "Are you sure you want mark this course as paid?"
 msgstr "¿Estás segura de que quieres marcar esta academía como pagada?"
+
+msgid "Incident Reports"
+msgstr "Reportes de Incidentes"
+
+msgid "List Incident Reports"
+msgstr "Lista de Reportes de Incidentes"
+
+msgid "Incident Report #{0}"
+msgstr "Reportes de Incidente #{0}"
+
+msgid "Incident Report: {0}"
+msgstr "Reportes de Incidente: {0}"
+
+msgid "Incident Report #"
+msgstr "Reportes de Incidente #"
+
+msgid "New Incident Report"
+msgstr "Nuevo Reporte de Incidente"
+
+msgid "Issue"
+msgstr "Asunto"
+
+msgid "Incident Date"
+msgstr "Fecha del Incidente"
+
+msgid "Select Teacher"
+msgstr "Seleccionar Profesor(a)"
+
+msgid "Select Teacher First"
+msgstr "Seleccionar Profesor(a) Primero"
+
+msgid "Select School Course First"
+msgstr "Seleccionar Academia Primero"
+
+msgid "Select School Course"
+msgstr "Seleccionar Academia"
+
+msgid "Reported by"
+msgstr "Reportado por"
+
+msgid "Add Incident Report"
+msgstr "Agregar Reporte de Incidente"
+
+msgid "Edit Incident Report"
+msgstr "Editar Reporte de Incidente"
+
+msgid "View Incident Report"
+msgstr "Ver Reporte de Incidente"
 
