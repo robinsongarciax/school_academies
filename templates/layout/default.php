@@ -93,6 +93,14 @@ $cakeDescription = __('Cake Description');;
                         ['controller' => 'Students', 'action' => 'dashboard'],
                         ['class' => 'nav-link', 'escape' => false]) ?>
                 </li>
+
+
+                <li class="nav-item <?= $action == 'IncidentReports_index' ? 'active' : '' ?>">
+                    <?= $this->Html->link("<i class=\"fas fa-tachometer-alt\"></i>
+                        <span>" . __('Incident Reports') . "</span>",
+                        ['controller' => 'IncidentReports', 'action' => 'index'],
+                        ['class' => 'nav-link', 'escape' => false]) ?>
+                </li>
             <?php
             endif;
             ?>
