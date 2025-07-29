@@ -52,6 +52,10 @@ class SchoolLevelsTable extends Table
         $this->belongsToMany('SchoolCourses', [
             'joinTable' => 'school_courses_school_levels',
         ]);
+
+        $this->belongsToMany('Users', [
+            'joinTable' => 'users_school_levels',
+        ]);
     }
 
     /**

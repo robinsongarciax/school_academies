@@ -68,5 +68,9 @@ class AppController extends Controller
             $identity->role->name == 'MAESTRO') {
             $this->viewBuilder()->setLayout('default_teacher');
         }
+        else if ($identity != null &&
+            in_array($identity->role->id, [7, 8])) {
+            $this->viewBuilder()->setLayout('default_titular');
+        }
     }
 }

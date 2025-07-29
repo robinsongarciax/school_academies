@@ -60,6 +60,10 @@ class UsersTable extends Table
         $this->hasMany('Teachers', [
             'foreignKey' => 'user_id',
         ]);
+
+        $this->belongsToMany('SchoolLevels', [
+            'joinTable' => 'users_school_levels',
+        ]);
     }
 
     /**
@@ -123,7 +127,8 @@ class UsersTable extends Table
     public function findForAuthentication(Query $query, array $options): Query
     {
         return $query->contain(['Roles' =>
-                ['ModulesPermissions' => ['Permissions', 'Modules']]
+                ['ModulesPermissions' => ['Permissions', 'Modules']],
+                'SchoolLevels'
             ]);
     }
 

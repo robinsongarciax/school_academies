@@ -73,6 +73,7 @@ class User extends Entity implements IdentityInterface
         'role' => true,
         'students' => true,
         'teachers' => true,
+        'school_levels' => true
     ];
 
     /**

@@ -93,7 +93,8 @@ class UsersController extends AppController
         $roles = $this->Users->Roles->find('list', ['limit' => 200])
             ->where(['id > ' => $this->getRequest()->getAttribute('identity')->role_id])
             ->all();
-        $this->set(compact('user', 'roles'));
+        $schoolLevels = $this->Users->SchoolLevels->find('list')->all();
+        $this->set(compact('user', 'roles', 'schoolLevels'));
     }
 
     /**
@@ -106,7 +107,7 @@ class UsersController extends AppController
     public function edit($id = null)
     {
         $user = $this->Users->get($id, [
-            'contain' => [],
+            'contain' => ['SchoolLevels'],
         ]);
         $this->Authorization->authorize($user);
         if ($this->request->is(['patch', 'post', 'put'])) {
@@ -121,7 +122,8 @@ class UsersController extends AppController
         $roles = $this->Users->Roles->find('list', ['limit' => 200])
             ->where(['id > ' => $this->getRequest()->getAttribute('identity')->role_id])
             ->all();
-        $this->set(compact('user', 'roles'));
+        $schoolLevels = $this->Users->SchoolLevels->find('list')->all();
+        $this->set(compact('user', 'roles', 'schoolLevels'));
     }
 
     /**
