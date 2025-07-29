@@ -21,14 +21,14 @@ class IncidentReportsFixture extends TestFixture
             [
                 'id' => 1,
                 'subject' => 'Lorem ipsum dolor sit amet',
-                'description' => 'Lorem ipsum dolor sit amet',
-                'date' => '2025-07-26',
+                'description' => 'Lorem ipsum dolor sit amet, aliquet feugiat. Convallis morbi fringilla gravida, phasellus feugiat dapibus velit nunc, pulvinar eget sollicitudin venenatis cum nullam, vivamus ut a sed, mollitia lectus. Nulla vestibulum massa neque ut et, id hendrerit sit, feugiat in taciti enim proin nibh, tempor dignissim, rhoncus duis vestibulum nunc mattis convallis.',
+                'date' => '2025-07-28',
                 'students_id' => 1,
                 'users_id' => 1,
                 'teachers_id' => 1,
-                'created' => '2025-07-26 09:53:24',
+                'created' => '2025-07-28 20:48:53',
                 'school_courses_id' => 1,
-                'modified' => '2025-07-26 09:53:24',
+                'modified' => '2025-07-28 20:48:53',
             ],
         ];
         parent::init();

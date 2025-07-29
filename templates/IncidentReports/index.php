@@ -12,7 +12,9 @@
                     <h3 class="page-header-title"><?= __('Incident Reports') ?></h3>
                 </div>
                 <div class="col-12 col-xl-auto mb-3">
+                    <?php if (!in_array($this->Identity->get('role')->id, [7, 8])) : ?>
                     <?= $this->Html->link(__('New Incident Report'), ['action' => 'add'], ['class' => 'btn btn-sm btn-light text-primary', 'escape' => true]) ?>
+                    <?php endif; ?>
                 </div>
             </div>
         </div>
@@ -42,13 +44,17 @@
                         <tr>
                             <td><?= h($incidentReport->date) ?></td>
                             <td><?= h($incidentReport->subject) ?></td>
-                            <td><?= $incidentReport->has('student') ? $this->Html->link($incidentReport->student->name, ['controller' => 'Students', 'action' => 'view', $incidentReport->student->id]) : '' ?></td>
-                            <td><?= $incidentReport->has('user') ? $this->Html->link($incidentReport->user->name, ['controller' => 'Users', 'action' => 'view', $incidentReport->user->id]) : '' ?></td>
+                            <td><?= $incidentReport->has('student') ? $incidentReport->student->name : '' ?></td>
+                            <td><?= $incidentReport->has('user') ? $incidentReport->user->name : '' ?></td>
                             <td><?= $incidentReport->has('teacher') ? $incidentReport->teacher->name : '' ?></td>
                             <td><?= $incidentReport->has('school_course') ? $incidentReport->school_course->name : '' ?></td>
                             <td class="actions">
                                 <?= $this->Html->link(__('View'), ['action' => 'view', $incidentReport->id]) ?>
-                                <?= $this->Html->link(__('Edit'), ['action' => 'edit', $incidentReport->id]) ?>
+                                <?php
+                                if (!in_array($this->Identity->get('role')->id, [7, 8])) {
+                                    echo $this->Html->link(__('Edit'), ['action' => 'edit', $incidentReport->id]);
+                                }
+                                ?>
                             </td>
                         </tr>
                         <?php endforeach; ?>

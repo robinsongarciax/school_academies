@@ -8,6 +8,11 @@
  * @var \Cake\Collection\CollectionInterface|string[] $schoolCourses
  */
 ?>
+<style type="text/css">
+    #description {
+        resize: none;
+    }
+</style>
 <?php $this->Html->scriptStart(['block' => true]); ?>
 $('#teachers-id').on('change', function() {
     let selected = $(this).find("option:selected");
@@ -86,7 +91,7 @@ $('#school-courses-id').on('change', function() {
                 echo $this->Form->control('teachers_id', ['options' => $teachers, 'label' => __('Teacher'), 'empty' => __('Select Teacher')]);
                 echo $this->Form->control('school_courses_id', ['options' => [], 'Label' => __('School Course'), 'empty' => __('Select Teacher First')]);
                 echo $this->Form->control('students_id', ['options' => [], 'label' => __('Student'), 'empty' => __('Select School Course First')]);;
-                echo $this->Form->control('description');
+                echo $this->Form->control('description', ['type' => 'textarea']);
             ?>
         </fieldset>
         <?= $this->Form->button(__('Submit')) ?>

@@ -13,9 +13,13 @@
                     <h3 class="page-header-title"><?= __('View Incident Report') ?></h3>
                 </div>
                 <div class="col-12 col-xl-auto mb-3">
-                    <?= $this->Html->link(__('Edit Incident Report'), ['action' => 'edit', $incidentReport->id], ['class' => 'btn btn-sm btn-light text-primary', 'escape' => true]) ?>
+                    
                     <?= $this->Html->link(__('List Incident Reports'), ['action' => 'index'], ['class' => 'btn btn-sm btn-light text-primary', 'escape' => true]) ?>
-                    <?= $this->Html->link(__('New Incident Report'), ['action' => 'add'], ['class' => 'btn btn-sm btn-light text-primary', 'escape' => true]) ?>
+                    <?php if (!in_array($this->Identity->get('role')->id, [7, 8]) ) {
+                        echo $this->Html->link(__('Edit Incident Report'), ['action' => 'edit', $incidentReport->id], ['class' => 'btn btn-sm btn-light text-primary', 'escape' => true]);
+                        echo $this->Html->link(__('New Incident Report'), ['action' => 'add'], ['class' => 'btn btn-sm btn-light text-primary', 'escape' => true]);
+                    }
+                    ?>
                 </div>
             </div>
         </div>
@@ -45,7 +49,7 @@
                             </tr>
                             <tr>
                                 <th><?= __('Description') ?></th>
-                                <td><?= h($incidentReport->description) ?></td>
+                                <td><?= nl2br(h($incidentReport->description)) ?></td>
                             </tr>
                             
                             <tr>

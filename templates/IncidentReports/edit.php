@@ -8,6 +8,11 @@
  * @var string[]|\Cake\Collection\CollectionInterface $schoolCourses
  */
 ?>
+<style type="text/css">
+    #description {
+        resize: none;
+    }
+</style>
 
 <header class="page-header page-header-compact page-header-light border-bottom bg-white mb-4">
     <div class="container-fluid px-4">
@@ -39,7 +44,7 @@
                     echo $this->Form->control('teacher', ['value' => $incidentReport->teacher->name, 'disabled' => true]);
                     echo $this->Form->control('school_course', ['value' => $incidentReport->school_course->name, 'disabled' => true]);
                     echo $this->Form->control('student', ['value' => $incidentReport->student->name, 'disabled' => true]);
-                    echo $this->Form->control('description');
+                    echo $this->Form->control('description', ['type' => 'textarea']);
                 ?>
             </fieldset>
             <?= $this->Form->button(__('Submit')) ?>
