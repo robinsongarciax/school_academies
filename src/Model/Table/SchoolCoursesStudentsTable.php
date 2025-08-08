@@ -201,7 +201,9 @@ class SchoolCoursesStudentsTable extends Table
     private function _updateLog ($entity, $status) {
         $logs = $this->getTableLocator()->get('SchoolCoursesStudentsLogs');
         $new_registry = $logs->newEmptyEntity();
-        $new_registry = $logs->patchEntity($new_registry, $entity->toArray());
+        $data = $entity->toArray();
+        unset($data['created']);
+        $new_registry = $logs->patchEntity($new_registry, $data);
         $new_registry->status = $status;
         $new_registry->user_id = $_SESSION['Auth']['id'];
         $logs->save($new_registry);
