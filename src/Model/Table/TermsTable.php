@@ -112,14 +112,14 @@ class TermsTable extends Table
     }
 
     /**
-     * Disable active terms before save the new one
+     * Disable active terms after save the new one
      * 
      * 
      * @param Cake\Event\EventInterface $event
      * @param $entity
      * @param \ArrayObject $opcions
      */
-    public function beforeSave(EventInterface $event, $entity, \ArrayObject $options) {
+    public function afterSave(EventInterface $event, $entity, \ArrayObject $options) {
         $this->updateAll (
             [
                 'active' => 0
