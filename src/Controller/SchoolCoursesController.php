@@ -721,7 +721,7 @@ class SchoolCoursesController extends AppController
      * @return \Cake\Http\Response|null|void Redirects to studentRegistration.
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
-    public function preEnroll($id = null, array $students_id = null) {
+    public function preEnroll($id = null, ?array $students_id = null) {
         $schoolCourse = $this->SchoolCourses->get($id, [
             'contain' => ['Students' => ['conditions' => ['SchoolCoursesStudents.active' => 1]]]
         ]);
@@ -1233,6 +1233,7 @@ class SchoolCoursesController extends AppController
         $drawing->getShadow()->setVisible(true);
         $drawing->getShadow()->setDirection(45);
         $drawing->setWorksheet($sheet);
+
         //FECHA
         $current_row += 3;
         $rangeCell = "F$current_row:N$current_row";
@@ -1410,20 +1411,28 @@ class SchoolCoursesController extends AppController
         $sheet->getStyle($rangeCell)->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
 
         //PREPARA LA DESCARGA DEL ARCHIVO
-        $fileName = $this->_encode('CONSTANCIAS_ESTUDIOS_' . $schoolCourse['name'] . '_' . date("ymdHis") . ".pdf");
-        $writer = IOFactory::createWriter($spreadsheet, 'Mpdf');
-        $writer->writeAllSheets();     
-        $writer->save($fileName);
 
-        // download file
-        header("Content-Type: application/pdf");
-        header("Content-Disposition: attachment; filename=\"$fileName\"");
-        header('Content-Length: ' . filesize($fileName));
-        readfile($fileName);
+        $fileName = $this->_encode('CONSTANCIAS_ESTUDIOS_' . $schoolCourse['name'] . '_' . date("ymdHis") . ".xlsx");
 
-        unlink($fileName);
-        
+        $writer = IOFactory::createWriter($spreadsheet, 'Xlsx');
+        //$writer->save($fileName);
+        // redirect output to client browser
+        header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+        header('Content-Disposition: attachment;filename="'.$fileName.'"');
+        header('Cache-Control: max-age=0');
+        $writer->save('php://output');
+
         $this->redirect($this->referer());
+        /*$writer = new Xlsx($spreadsheet);
+
+        $stream = new CallbackStream(function () use ($writer) {
+            $writer->save('php://output');
+        });
+        $response = $this->response;
+        return $response->withType('xlsx')
+                        ->withCharset('UTF-8')
+            ->withHeader('Content-Disposition', "attachment;filename=\"{$fileName}\"")
+            ->withBody($stream);*/
     }
 
     /**
