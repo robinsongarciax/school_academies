@@ -1183,3 +1183,9 @@ msgstr "Editar Reporte de Incidente"
 msgid "View Incident Report"
 msgstr "Ver Reporte de Incidente"
 
+msgid "The incident report could not be saved. Please, try again."
+msgstr "El reporte de incidente no pudo ser guardado. Por favor intente nuevamente."
+
+msgid "The incident report has been saved."
+msgstr "El reporte de incidente ha sido guardado."
+

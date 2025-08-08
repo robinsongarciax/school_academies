@@ -21,14 +21,9 @@ class IncidentReportsController extends AppController
         $user = $this->Authentication->getIdentity();
         $this->Authorization->skipAuthorization();
         $incidentReports = $this->IncidentReports->find('all');
-        $incidentReports->contain(['Students', 'Users', 'Teachers', 'SchoolCourses']);
-        if (in_array($user->role->id, [7, 8]) ) {
-            $schoolLevels = [];
-            foreach ($user->school_levels as $school_lavel) {
-                $schoolLevels[] = $school_lavel->name;
-            }
-            $incidentReports->where(['Students.school_level in' => $schoolLevels]);
-        }
+        $incidentReports->contain(['Students' => ['Terms'], 'Users', 'Teachers', 'SchoolCourses']);
+        
+        $incidentReports->where(['Terms.active' => 1]);
         $incidentReports->order(['IncidentReports.id' => 'DESC']);
         $incidentReports->all();        
         $this->set(compact('incidentReports'));
@@ -128,7 +123,9 @@ class IncidentReportsController extends AppController
         $this->viewBuilder()->setClassName('Json');
 
         $teacherId = $this->request->getQuery('teacherId');
-        $schoolCourses = $this->IncidentReports->SchoolCourses->find('list')->where(['teacher_id' => $teacherId])->all();
+        $schoolCourses = $this->IncidentReports->SchoolCourses->find('list');
+        $schoolCourses->contain(['Terms']);
+        $schoolCourses->where(['teacher_id' => $teacherId, 'Terms.active' => 1])->all();
         
         
         $this->set([
