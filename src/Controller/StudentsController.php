@@ -165,7 +165,7 @@ class StudentsController extends AppController
     }
 
     public function importFile () {
-        set_time_limit(300);
+        set_time_limit(500);
         $student = $this->Students->newEmptyEntity();
         $this->Authorization->authorize($student);
 
