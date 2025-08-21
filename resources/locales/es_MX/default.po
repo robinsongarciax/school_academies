@@ -48,7 +48,7 @@ msgstr ""
 #: ./templates/Users/add.php:29
 #: ./templates/Users/edit.php:34
 msgid "Submit"
-msgstr ""
+msgstr "Enviar"
 
 msgid "Delete"
 msgstr "Eliminar"
@@ -393,7 +393,7 @@ msgstr ""
 #: ./templates/Terms/view.php:66
 #: ./templates/Users/view.php:70
 msgid "Birth Date"
-msgstr ""
+msgstr "Fecha de Nacimiento"
 
 msgid "Term Id"
 msgstr "Ciclo Escolar"
@@ -1188,4 +1188,25 @@ msgstr "El reporte de incidente no pudo ser guardado. Por favor intente nuevamen
 
 msgid "The incident report has been saved."
 msgstr "El reporte de incidente ha sido guardado."
+
+msgid "Mother Name"
+msgstr "Madre"
+
+msgid "Mother Phone"
+msgstr "Teléfono de la Madre"
+
+msgid "Father Name"
+msgstr "Padre"
+
+msgid "Father Phone"
+msgstr "Teléfono del Padre"
+
+msgid "Select Student"
+msgstr "Seleccionar Alumno"
+
+msgid "Select Student First"
+msgstr "Seleccionar Alumno(a) Primero"
+
+msgid "Select School Course First"
+msgstr "Seleccionar Academia Primero"
 

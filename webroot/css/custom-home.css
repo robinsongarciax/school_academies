@@ -104,3 +104,12 @@ h1, h2, h3, h4, h5, h6 {
 .actions button {
     padding: 0 0.4rem;
 }
+
+div.dataTables_wrapper div.dataTables_filter {
+    text-align: center !important;
+    font-size: 18px;
+}
+
+div.dataTables_wrapper div.dataTables_filter > label > input {
+    font-size: 20px;
+}

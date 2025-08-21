@@ -25,6 +25,18 @@ class IncidentReportPolicy
     }
 
     /**
+     * Check if $user can add IncidentReport
+     *
+     * @param \Authorization\IdentityInterface $user The user.
+     * @param \App\Model\Entity\IncidentReport $incidentReport
+     * @return bool
+     */
+    public function canAddEspecial(IdentityInterface $user, IncidentReport $incidentReport)
+    {
+        return $user->isModulePermission($this->module, 'Add');
+    }
+
+    /**
      * Check if $user can edit IncidentReport
      *
      * @param \Authorization\IdentityInterface $user The user.

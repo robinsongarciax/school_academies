@@ -13,7 +13,7 @@
                 </div>
                 <div class="col-12 col-xl-auto mb-3">
                     <?php if (!in_array($this->Identity->get('role')->id, [7, 8])) : ?>
-                    <?= $this->Html->link(__('New Incident Report'), ['action' => 'add'], ['class' => 'btn btn-sm btn-light text-primary', 'escape' => true]) ?>
+                    <?= $this->Html->link(__('New Incident Report'), ['action' => 'add'], ['class' => 'btn btn-md btn-primary text-white', 'escape' => true]) ?>
                     <?php endif; ?>
                 </div>
             </div>

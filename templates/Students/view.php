@@ -72,6 +72,22 @@ $this->Html->script(['add-edit-modal'], ['block' => true]);
                                 <th><?= __('Term') ?></th>
                                 <td><?= $student->has('term') ? $student->term->description : '' ?></td>
                             </tr>
+                            <tr>
+                                <th><?= __('Mother Name') ?></th>
+                                <td><?= $student->mother_name != null ? h($student->mother_name) : '' ?></td>
+                            </tr>
+                            <tr>
+                                <th><?= __('Mother Phone') ?></th>
+                                <td><?= $student->mother_phone != null ? h($student->mother_phone) : '' ?></td>
+                            </tr>
+                            <tr>
+                                <th><?= __('Father Name') ?></th>
+                                <td><?= $student->father_name != null ? h($student->father_name) : '' ?></td>
+                            </tr>
+                            <tr>
+                                <th><?= __('Father Phone') ?></th>
+                                <td><?= $student->father_phone != null ? h($student->father_phone) : '' ?></td>
+                            </tr>
                         </table>
                     </div>
                 </div>

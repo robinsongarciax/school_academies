@@ -71,6 +71,42 @@ class IncidentReportsController extends AppController
     }
 
     /**
+     * Add Especial method
+     * 
+     * @return \Cake\Http\Response|null|void Redirects on successful add, renders view otherwhise.
+     */
+    public function addEspecial()
+    {
+        $user = $this->Authentication->getIdentity();
+        $incidentReport = $this->IncidentReports->newEmptyEntity();
+        $this->Authorization->authorize($incidentReport);
+        if ($this->request->is('post')) {
+            $incidentReport = $this->IncidentReports->patchEntity($incidentReport, $this->request->getData());
+            $incidentReport['users_id'] = $user->getIdentifier();
+            if ($this->IncidentReports->save($incidentReport)) {
+                $this->Flash->success(__('The incident report has been saved.'));
+
+                return $this->redirect(['action' => 'index']);
+            }
+            $this->Flash->error(__('The incident report could not be saved. Please, try again.'));
+        }
+        $term = $this->IncidentReports->Students->Terms
+                               ->find()
+                               ->where(['active' => 1])
+                               ->first();
+        $conditions[] = ['Students.term_id' => $term->id];
+        $students = $this->IncidentReports->Students->find('list')
+            ->where(['Students.term_id' => $term->id]);
+
+        $students->matching('SchoolCourses')
+            ->order(['SchoolCoursesStudents.id' => 'asc'])
+            ->where(['SchoolCoursesStudents.is_confirmed' => 1, 'SchoolCourses.tipo_academia' => 'CULTURAL']);
+        $students->all();
+
+        $this->set(compact('incidentReport', 'students'));
+    } 
+
+    /**
      * Edit method
      *
      * @param string|null $id Incident Report id.
@@ -137,6 +173,35 @@ class IncidentReportsController extends AppController
         return;
     }
 
+    public function searchSchoolCoursesEspecial()
+    {
+        $this->Authorization->skipAuthorization();
+        
+        $this->request->allowMethod(['get', 'ajax']);
+        $this->viewBuilder()->setClassName('Json');
+
+        $studentId = $this->request->getQuery('studentId');
+        $schoolCourses = $this->IncidentReports->SchoolCourses->find('list');
+        $schoolCourses->contain(['Terms']);
+        $schoolCourses->where(['Terms.active' => 1]);
+
+        $schoolCourses->matching('Students')
+            ->order(['SchoolCoursesStudents.id' => 'asc'])
+            ->where(['SchoolCoursesStudents.is_confirmed' => 1, 
+                     'SchoolCourses.tipo_academia' => 'CULTURAL',
+                     'Students.id' => $studentId]);
+        $schoolCourses->all();
+        
+        
+        $this->set([
+            'success' => true,
+            'schoolCourses' => $schoolCourses
+        ]);
+
+        $this->viewBuilder()->setOption('serialize', ['success', 'schoolCourses']);
+        return;
+    }
+
     public function searchStudents()
     {
         $this->Authorization->skipAuthorization();
@@ -155,6 +220,27 @@ class IncidentReportsController extends AppController
         ]);
 
         $this->viewBuilder()->setOption('serialize', ['success', 'students']);
+        return;
+    }
+
+    public function searchTeachers()
+    {
+        $this->Authorization->skipAuthorization();
+        
+        $this->request->allowMethod(['get', 'ajax']);
+        $this->viewBuilder()->setClassName('Json');
+
+        $schoolCourseId = $this->request->getQuery('schoolCourseId');
+        $teachers = $this->IncidentReports->SchoolCourses->Teachers->find('list')
+            ->matching('SchoolCourses')
+            ->where(['SchoolCourses.id' => $schoolCourseId])->all();
+        
+        $this->set([
+            'success' => true,
+            'teachers' => $teachers
+        ]);
+
+        $this->viewBuilder()->setOption('serialize', ['success', 'teachers']);
         return;
     }
 }
