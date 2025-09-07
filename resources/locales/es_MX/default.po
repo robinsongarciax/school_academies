@@ -1210,3 +1210,9 @@ msgstr "Seleccionar Alumno(a) Primero"
 msgid "Select School Course First"
 msgstr "Seleccionar Academia Primero"
 
+msgid "Select"
+msgstr "Seleccionar"
+
+msgid "Teaching Assistant"
+msgstr "Asistente"
+

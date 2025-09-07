@@ -90,6 +90,7 @@ class SchedulesController extends AppController
      */
     public function edit($id = null)
     {
+        $this->Authorization->skipAuthorization();
         $schedule = $this->Schedules->get($id, [
             'contain' => ['SchoolCourses'],
         ]);
@@ -98,7 +99,7 @@ class SchedulesController extends AppController
             if ($this->Schedules->save($schedule)) {
                 $this->Flash->success(__('The schedule has been saved.'));
 
-                return $this->redirect(['action' => 'index']);
+                return $this->redirect($this->referer());
             }
             $this->Flash->error(__('The schedule could not be saved. Please, try again.'));
         }

@@ -14,6 +14,11 @@
     }
 </style>
 <?php $this->Html->scriptStart(['block' => true]); ?>
+
+$(window).bind('beforeunload', function(){
+  return '<?= __('Are you sure you want to leave?') ?>';
+});
+
 $('#teachers-id').on('change', function() {
     let selected = $(this).find("option:selected");
     let teacherId = selected.val();

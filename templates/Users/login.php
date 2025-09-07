@@ -1,7 +1,7 @@
 <?= $this->Html->script('student-login', ['block' => true]) ?>
 <?= $this->Flash->render() ?>
 
-<?php $allowed_access = true; ?>
+<?php $allowed_access = false; ?>
 <?php if ($allowed_access): ?>
     <?= $this->Form->create(null, ['class'=>'user', 'id' => 'student-form']) ?>
         <legend><?= __('Iniciar sesión') ?></legend>
@@ -31,7 +31,7 @@
     <?= $this->Form->end() ?>
 <?php else: ?>
     <legend><?= __('¡Información importante!') ?></legend>
-    <p>Estimados padres de familia, se les informa que el acceso a la plataforma de inscripción a las academias estará disponible a partir del día <b>lunes 9 de septiembre del 2024 a las 7:00 a.m.</b></p>
+    <p>Estimados padres de familia, se les informa que el acceso a la plataforma de inscripción a las academias estará disponible a partir del día <b>miércoles 17 de septiembre del 2025 a las 7:00 a.m.</b></p>
 <?php endif; ?>
 <div class="text-center">
     <?= $this->Html->link(__('Admin Login'), ['action' => 'login', 'admin'], ['class' => 'small']) ?>

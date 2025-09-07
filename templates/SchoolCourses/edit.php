@@ -95,6 +95,11 @@
                         <?= $this->Form->control('teacher_id', ['options' => $teachers]); ?>
                     </div>
                 </div>
+                <div class="form-row">
+                    <div class="form-group col-md-10">
+                        <?= $this->Form->control('teaching_assistant_id', ['options' => $teachers, 'empty' => __('Select')]); ?>
+                    </div>
+                </div>
                 <?php
                 echo $this->Form->control('criterio_academia', [
                     'type' => 'radio',

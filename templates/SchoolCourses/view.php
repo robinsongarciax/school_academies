@@ -159,6 +159,10 @@ $this->Html->script('add-edit-modal', ['block' => true]);
                                 <td><?= substr($schedules->end, 0, 5) ?></td>
                                 <td class="actions">
                                     <?= $this->Form->postLink("", ['controller' => 'Schedules', 'action' => 'delete', $schedules->id], ['class'=>'fas fa-trash', 'confirm' => __('Are you sure you want to delete # {0}?', $schedules->id)]) ?>
+                                    <?= $this->Html->link("", ['controller' => 'Schedules', 'action' => 'edit', $schedules->id], ['class'=>'fas fa-edit btn-modal',
+                                         'modal-title' => 'Editar Horario',
+                                         'data-toggle' => 'modal',
+                                         'data-target' => '#addEditModal']) ?>
                                 </td>
                             </tr>
                             <?php endforeach; ?>

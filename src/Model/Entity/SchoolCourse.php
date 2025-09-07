@@ -40,6 +40,7 @@ class SchoolCourse extends Entity
         'min_year_of_birth' => true,
         'max_year_of_birth' => true,
         'teacher_id' => true,
+        'teaching_assistant_id' => true,
         'term_id' => true,
         'sex' => true,
         'tipo_academia' => true,

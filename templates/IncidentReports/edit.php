@@ -13,6 +13,12 @@
         resize: none;
     }
 </style>
+<?php $this->Html->scriptEnd(['block' => true]); ?>
+
+$(window).bind('beforeunload', function(){
+  return '<?= __('Are you sure you want to leave?') ?>';
+});
+<?php $this->Html->scriptEnd(); ?>
 
 <header class="page-header page-header-compact page-header-light border-bottom bg-white mb-4">
     <div class="container-fluid px-4">

@@ -47,7 +47,7 @@ class SchoolCoursesController extends AppController
                 ->contain(['Teachers', 'Terms', 'Schedules.Days']);
         } else {
             $schoolCourses = $this->SchoolCourses->find('all');
-            $schoolCourses->contain(['Teachers', 'Terms', 'Schedules.Days']);
+            $schoolCourses->contain(['Teachers', 'TeachingAssistants', 'Terms', 'Schedules.Days']);
             if ($type != null) 
                 $schoolCourses->where(['SchoolCourses.tipo_academia' => $type, 'Terms.active' => 1]);
         }
@@ -156,12 +156,12 @@ class SchoolCoursesController extends AppController
             if ($this->SchoolCourses->save($schoolCourse)) {
                 $this->Flash->success(__('The school course has been updated.'));
 
-                return $this->redirect([
+                /*return $this->redirect([
                     'action' => 'view', 
                     $schoolCourse->id
-                ]);
+                ]);*/
             }
-            $this->Flash->error(__('The school course could not be saved. Please, try again.'));
+            //$this->Flash->error(__('The school course could not be saved. Please, try again.'));
         }
         $teachers = $this->SchoolCourses->Teachers->find('list', ['limit' => 200])->all();
         $terms = $this->SchoolCourses->Terms->find('list', ['conditions' => ['active' => 1]])->all();

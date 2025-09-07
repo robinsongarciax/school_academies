@@ -57,6 +57,10 @@ class TeachersTable extends Table
         $this->hasMany('SchoolCourses', [
             'foreignKey' => 'teacher_id',
         ]);
+        $this->hasMany('AssistantCourses', [
+            'className' => 'SchoolCourses',
+            'foreignKey' => 'teaching_assistant_id',
+        ]);
     }
 
     /**

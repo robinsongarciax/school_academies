@@ -52,6 +52,11 @@ class SchoolCoursesTable extends Table
             'foreignKey' => 'teacher_id',
             'joinType' => 'INNER',
         ]);
+        $this->belongsTo('TeachingAssistants', [
+            'className' => 'Teachers', // Usa la misma tabla "teachers"
+            'foreignKey' => 'teaching_assistant_id',
+            'joinType' => 'LEFT',
+        ]);
         $this->belongsTo('Terms', [
             'foreignKey' => 'term_id',
             'joinType' => 'INNER',
