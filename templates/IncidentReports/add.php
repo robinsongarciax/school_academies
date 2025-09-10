@@ -15,8 +15,17 @@
 </style>
 <?php $this->Html->scriptStart(['block' => true]); ?>
 
-$(window).bind('beforeunload', function(){
-  return '<?= __('Are you sure you want to leave?') ?>';
+let allowSubmit = false;
+
+$(window).bind('beforeunload', function (event) {
+    if (!allowSubmit) {
+        event.preventDefault();
+        event.returnValue = '<?= __('Are you sure you want to leave?') ?>';
+    }
+});
+
+$('form').on('submit', function () {
+    allowSubmit = true;
 });
 
 $('#teachers-id').on('change', function() {
