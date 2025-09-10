@@ -65,7 +65,7 @@ class SchoolCoursesController extends AppController
     public function view($id = null)
     {
         $schoolCourse = $this->SchoolCourses->get($id, [
-            'contain' => ['SchoolLevels', 'Teachers', 'Terms', 'Schedules.Days'
+            'contain' => ['SchoolLevels', 'Teachers', 'TeachingAssistants', 'Terms', 'Schedules.Days'
             ]
         ]);
         $this->Authorization->authorize($schoolCourse);

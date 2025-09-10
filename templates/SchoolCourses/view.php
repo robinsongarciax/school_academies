@@ -62,6 +62,12 @@ $this->Html->script('add-edit-modal', ['block' => true]);
                                 <th><?= __('Teacher') ?></th>
                                 <td><?= $schoolCourse->has('teacher') ? $this->Html->link($schoolCourse->teacher->name, ['controller' => 'Teachers', 'action' => 'view', $schoolCourse->teacher->id]) : '' ?></td>
                             </tr>
+                            <?php if ($schoolCourse->has('teaching_assistant')): ?>
+                                <tr>
+                                    <th><?= __('Teaching Assistant') ?></th>
+                                    <td><?= $schoolCourse->teaching_assistant->name ?></td>
+                                </tr>
+                            <?php endif; ?>
                             <tr>
                                 <th><?= __('Term') ?></th>
                                 <td><?= $schoolCourse->has('term') ? $this->Html->link($schoolCourse->term->description, ['controller' => 'Terms', 'action' => 'view', $schoolCourse->term->id]) : '' ?></td>
