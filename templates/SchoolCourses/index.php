@@ -47,9 +47,10 @@
                             <td><?= h($schoolCourse->id) ?></td>
                             <td><?= h($schoolCourse->name) ?></td>
                             <td><?= $schoolCourse->tipo_academia ?></td>
-                            <td><?= $schoolCourse->has('teacher') ? $this->Html->link($schoolCourse->teacher->name, ['controller' => 'Teachers', 'action' => 'view', $schoolCourse->teacher->id]) : '' ?>
+                            <td>
+                                <?= $schoolCourse->has('teacher') ? $this->Html->link($schoolCourse->teacher->name, ['controller' => 'Teachers', 'action' => 'view', $schoolCourse->teacher->id]) : '' ?>
                                 <?php if ($schoolCourse->has('teaching_assistant')) {
-                                    echo "<br/><b>Aistente:</b><br/>";
+                                    echo "<br/><b>Profesor (a) 2:</b><br/>";
                                     echo h($schoolCourse->teaching_assistant->name);
                                 }
                                 ?>

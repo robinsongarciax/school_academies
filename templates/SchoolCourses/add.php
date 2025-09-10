@@ -95,7 +95,8 @@
                 </div>
                 <div class="form-row">
                     <div class="form-group col-md-10">
-                        <?= $this->Form->control('teaching_assistant_id', ['options' => $teachers, 'empty' => __('Select')]); ?>
+                        <?= $this->Form->control('teaching_assistant_id', ['options' => $teachers, 'empty' => __('Select'), 
+                                'label' => 'Profesor (a) 2']); ?>
                     </div>
                 </div>
                 <?php

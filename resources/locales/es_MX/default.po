@@ -1214,5 +1214,5 @@ msgid "Select"
 msgstr "Seleccionar"
 
 msgid "Teaching Assistant"
-msgstr "Asistente"
+msgstr "Profesor (a) 2"
 
