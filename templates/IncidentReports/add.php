@@ -92,7 +92,7 @@ $('#school-courses-id').on('change', function() {
         <fieldset>
             <?php
                 echo $this->Form->control('subject', ['label' => __('Issue')]);
-                echo $this->Form->control('date', ['label' => __('Incident Date')]);
+                echo $this->Form->control('date', ['label' => __('Incident Date'), 'max' => date('Y-m-d')]);
                 echo $this->Form->control('teachers_id', ['options' => $teachers, 'label' => __('Teacher'), 'empty' => __('Select Teacher')]);
                 echo $this->Form->control('school_courses_id', ['options' => [], 'Label' => __('School Course'), 'empty' => __('Select Teacher First')]);
                 echo $this->Form->control('students_id', ['options' => [], 'label' => __('Student'), 'empty' => __('Select School Course First')]);;

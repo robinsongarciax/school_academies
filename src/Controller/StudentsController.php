@@ -189,7 +189,10 @@ class StudentsController extends AppController
             $worksheet->setCellValue('P1', 'role_id');
             $last_row = (int) $worksheet->getHighestRow();
             for ($i = 2; $i <= $last_row; $i++) {
-                $worksheet->setCellValue('O' . $i, $worksheet->getCell('B' . $i)->getValue());
+                if ($worksheet->getCell('B' . $i)->getValue() != null)
+                    $worksheet->setCellValue('O' . $i, trim($worksheet->getCell('B' . $i)->getValue()));
+                else 
+                    $worksheet->setCellValue('O' . $i, $worksheet->getCell('B' . $i)->getValue());
                 $worksheet->setCellValue('P' . $i, $this->studentsRole);
             }
 

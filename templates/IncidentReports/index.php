@@ -13,8 +13,14 @@
                 </div>
                 <div class="col-12 col-xl-auto mb-3">
                     <?php if (!in_array($this->Identity->get('role')->id, [7, 8])) : ?>
-                    <?= $this->Html->link(__('New Incident Report'), ['action' => 'add'], ['class' => 'btn btn-md btn-primary text-white', 'escape' => true]) ?>
+                        <?php if (in_array($this->Identity->get('username'), ['TJGONZALEZ', 'MCASTILLO'])) : ?>
+                            <?= $this->Html->link(__('New Incident Report'), ['action' => 'addEspecial'], ['class' => 'btn btn-md btn-primary text-white', 'escape' => true]) ?>
+                        <?php else: ?>
+                            <?= $this->Html->link(__('New Incident Report'), ['action' => 'add'], ['class' => 'btn btn-md btn-primary text-white', 'escape' => true]) ?>
+                        <?php endif; ?>
                     <?php endif; ?>
+
+
                 </div>
             </div>
         </div>

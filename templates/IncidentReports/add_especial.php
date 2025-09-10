@@ -14,6 +14,11 @@
     }
 </style>
 <?php $this->Html->scriptStart(['block' => true]); ?>
+
+$(window).bind('beforeunload', function(){
+  return '<?= __('Are you sure you want to leave?') ?>';
+});
+
 $('#students-id').on('change', function() {
     let selected = $(this).find("option:selected");
     let studentId = selected.val();
@@ -95,7 +100,7 @@ $('#description').on('focusout', function() {
             <?php
                 echo $this->Form->control('students_id', ['options' => $students, 'label' => __('Student'), 'empty' => __('Select Student')]);
                 echo $this->Form->control('description', ['type' => 'textarea']);
-                echo $this->Form->control('date', ['label' => __('Incident Date')]);
+                echo $this->Form->control('date', ['label' => __('Incident Date'), 'max' => date('Y-m-d')]);
                 echo $this->Form->control('school_courses_id', ['options' => [], 'Label' => __('School Course'), 'empty' => __('Select Student First')]);
                 echo $this->Form->control('teachers_id', ['options' => [], 'label' => __('Teacher'), 'empty' => __('Select School Course First')]);
                 echo $this->Form->control('subject', ['label' => __('Issue')]);

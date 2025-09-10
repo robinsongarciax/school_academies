@@ -16,7 +16,7 @@ class UsersController extends AppController
     {
         parent::beforeFilter($event);
 
-        $this->Authentication->allowUnauthenticated(['login', 'adminLogin']);
+        $this->Authentication->allowUnauthenticated(['login', 'adminLogin', 'temp_login']);
     }
 
     /**
@@ -149,11 +149,12 @@ class UsersController extends AppController
 
     public function login($type = null)
     {
-        $this->request->allowMethod(['get', 'post']);
+        $this->request->allowMethod(['get', 'post']);        
         // skip authorization
         $this->Authorization->skipAuthorization();
         
         $result = $this->Authentication->getResult();
+
         // regardless of POST or GET, redirect if user is logged in
         if ($result->isValid()) {
             if ($this->getRequest()->getAttribute('identity')->active) {
@@ -178,7 +179,11 @@ class UsersController extends AppController
         $this->viewBuilder()->setLayout('login');
         if ($type == 'admin') 
             $this->render('admin_login');
+
+        if ($type == 'temp') 
+            $this->render('temp_login');
     }
+
 
 
     public function logout()
