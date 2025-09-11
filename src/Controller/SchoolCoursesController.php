@@ -217,7 +217,7 @@ class SchoolCoursesController extends AppController
 
             // Traer los cursos relacionados con el grado escolar, sexo y la edad del estudiante
             $schoolCourses = $this->SchoolCourses->find('CoursesForStudent', $options)
-                                                 ->contain(['Teachers', 'Terms', 'Schedules'])
+                                                 ->contain(['Teachers', 'TeachingAssistants', 'Terms', 'Schedules'])
                                                  ->where(['Terms.active' => 1])
                                                  ->all();
             $studentCourses = $this->SchoolCourses->Students->find('StudentCourses', ['student_id' => $row->student_id])->all();

@@ -11,7 +11,6 @@
                 <div class="col-lg-7 d-none d-lg-block">
                     <div class="d-flex align-items-center justify-content-center" style="height: 440px;">
                         <?= $this->element('carousel-welcome') ?>
-                        <!-- <?= $this->Html->image('free-cakephp.png', ['alt' => 'Cumbres Mérida', 'id' => 'login_logo']) ?> -->
                     </div>
                     
                 </div>

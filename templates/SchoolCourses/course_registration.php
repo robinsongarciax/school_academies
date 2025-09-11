@@ -344,7 +344,15 @@ foreach ($studentCourses as $studentCourse) {
                                 ?>
                             <tr <?= $class ?>>
                                 <td><?= h($schoolCourse->name) ?></td>
-                                <td><?= $schoolCourse->has('teacher') ? $schoolCourse->teacher->name : '' ?></td>
+                                <td>
+                                    <?php
+                                    echo $schoolCourse->has('teacher') ? $schoolCourse->teacher->name : '';
+                                    if ($schoolCourse->has('teaching_assistant')) {
+                                        echo "<br/><b>Profesor (a) 2:</b><br/>";
+                                        echo $schoolCourse->teaching_assistant->name;
+                                    }
+                                    ?>
+                                </td>
                                 <td><?= $schoolCourse->tipo_academia ?></td>
                                 <td><?= $availability ?></td>
                                 <?php
