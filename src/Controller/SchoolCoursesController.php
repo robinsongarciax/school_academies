@@ -304,6 +304,12 @@ class SchoolCoursesController extends AppController
             return $this->redirect($this->referer());
         }
 
+        if ($this->SchoolCourses->hasSameSchoolCourse($id, $studentId))
+        {
+            $this->Flash->error(__('Ya estás inscrito a esta academia en otro horario.'));
+            return $this->redirect($this->referer());
+        }
+
         $availability = $schoolCourse->capacity - $schoolCourse->occupancy;
         if ($availability <= 0) {
             $this->Flash->info(__('There is no availability for this course.'));

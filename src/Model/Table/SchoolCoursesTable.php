@@ -231,7 +231,7 @@ class SchoolCoursesTable extends Table
         // 1. Check if student has any enrolled courses
         $enrolledCoursesCount = $this->find()
                                      ->matching('Students', function($q) use ($studentId) {
-                                        return $q->where(['students.id' => $studentId]);
+                                        return $q->where(['Students.id' => $studentId]);
                                      })
                                      ->count();
 
@@ -259,6 +259,36 @@ class SchoolCoursesTable extends Table
             if ($conflict) {
                 return true; // Conflict found
             }
+        }
+    }
+
+        // Verificar si existe conflicto con misma academía
+    public function hasSameSchoolCourse ($id, $studentId) {
+        // 1. Check if student has any enrolled courses
+        $enrolledCoursesCount = $this->find()
+                                     ->matching('Students', function($q) use ($studentId) {
+                                        return $q->where(['Students.id' => $studentId]);
+                                     })
+                                     ->count();
+
+        if ($enrolledCoursesCount == 0) {
+            // Student not enrolled in any courses, no conflict possible
+            return false;
+        }
+
+        // 2. Get School Courses Name to check it
+        $newSchoolCourse = $this->get($id);
+        $newSchoolCourseName = preg_replace('/\s*\(.*?\)/', '', $newSchoolCourse->name);
+        $conflict = $this->Students->find()
+            ->select('SchoolCourses.name')
+            ->matching('SchoolCourses', function($q) use ($newSchoolCourseName) {
+                return $q->where(['SchoolCourses.name like' => $newSchoolCourseName . '%']);
+            })
+            ->where(['Students.id' => $studentId])
+            ;//->first();
+        
+        if ($conflict) {
+            return true; // Conflict found
         }
     }
 }
