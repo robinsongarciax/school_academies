@@ -223,4 +223,42 @@ class SchoolCoursesTable extends Table
             ]);
         return $query;
     }
+
+
+    // Verificar si existe conflicto de horario
+    public function hasScheduleConflict ($id, $studentId)
+    {
+        // 1. Check if student has any enrolled courses
+        $enrolledCoursesCount = $this->find()
+                                     ->matching('Students', function($q) use ($studentId) {
+                                        return $q->where(['students.id' => $studentId]);
+                                     })
+                                     ->count();
+
+        if ($enrolledCoursesCount == 0) {
+            // Student not enrolled in any courses, no conflict possible
+            return false;
+        }
+
+        // 2. Get schedules for the new course
+        $newSchedules = $this->get($id, ['contain' => ['Schedules']]);
+        foreach ($newSchedules->schedules as $newSchedule) {
+            
+            $conflict = $this->Students->find()
+                ->select($this->Schedules)
+                ->matching('SchoolCourses.Schedules', function ($q) use ($newSchedule) {
+                    return $q->where(function (\Cake\Database\Expression\QueryExpression $exp) use ($newSchedule) {
+                        return $exp->eq('Schedules.day_id', $newSchedule->day_id)
+                                   ->lt('Schedules.start', $newSchedule->end)
+                                   ->gt('Schedules.end', $newSchedule->start);
+                    });
+                })
+                ->where(['Students.id' => $studentId])
+                ->first();
+
+            if ($conflict) {
+                return true; // Conflict found
+            }
+        }
+    }
 }

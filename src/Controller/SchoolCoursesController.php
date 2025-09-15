@@ -291,6 +291,19 @@ class SchoolCoursesController extends AppController
             'contain' => ['Students']
         ]);
         $this->Authorization->authorize($schoolCourse);
+
+        // Verificar si el horario no choca con otra academía
+        $student = $this->SchoolCourses->Students->find('all')
+                ->where(['user_id' => $this->request->getAttribute('identity')->getIdentifier()])
+                ->first();
+        $studentId = $student->id;
+        
+        if ($this->SchoolCourses->hasScheduleConflict($id, $studentId))
+        {
+            $this->Flash->error(__('Ya estás inscrito en otra academia con el mismo horario.'));
+            return $this->redirect($this->referer());
+        }
+
         $availability = $schoolCourse->capacity - $schoolCourse->occupancy;
         if ($availability <= 0) {
             $this->Flash->info(__('There is no availability for this course.'));
