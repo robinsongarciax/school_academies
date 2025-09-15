@@ -1,7 +1,12 @@
 <?= $this->Html->script('student-login', ['block' => true]) ?>
 <?= $this->Flash->render() ?>
 
-<?php $allowed_access = false; ?>
+<?php
+$openDate = (new DateTime('2025-09-17 08:00'))->format('Y-m-d H:i');
+$currentDate = (new DateTime())->format('Y-m-d H:i');
+$allowed_access = $currentDate >= $openDate ? true : false;
+
+?>
 <?php if ($allowed_access): ?>
     <?= $this->Form->create(null, ['class'=>'user', 'id' => 'student-form']) ?>
         <legend><?= __('Iniciar sesión') ?></legend>
