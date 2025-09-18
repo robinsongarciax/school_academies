@@ -285,9 +285,9 @@ class SchoolCoursesTable extends Table
                 return $q->where(['SchoolCourses.name like' => $newSchoolCourseName . '%']);
             })
             ->where(['Students.id' => $studentId])
-            ;//->first();
+            ->count();
         
-        if ($conflict) {
+        if ($conflict > 0) {
             return true; // Conflict found
         }
     }
