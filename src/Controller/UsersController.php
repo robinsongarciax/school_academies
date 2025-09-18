@@ -16,7 +16,7 @@ class UsersController extends AppController
     {
         parent::beforeFilter($event);
 
-        $this->Authentication->allowUnauthenticated(['login', 'adminLogin', 'temp_login']);
+        $this->Authentication->allowUnauthenticated(['login', 'adminLogin']);
     }
 
     /**
@@ -159,6 +159,14 @@ class UsersController extends AppController
         if ($result->isValid()) {
             if ($this->getRequest()->getAttribute('identity')->active) {
                 $role_name = $this->getRequest()->getAttribute('identity')->role->name;
+                if ($role_name == 'ALUMNO') {
+                    $currentDate = (new \DateTime())->format('Y-m-d H:i');
+                    $openDate = (new \DateTime('2025-09-17 08:00'))->format('Y-m-d H:i');
+                    if ($currentDate < $openDate) {
+                        $this->Authentication->logout();
+                        $this->Flash->error(__('El acceso aún no se encuentra permitido.'));
+                    }
+                }
                 if ($role_name == 'ADMIN' || $role_name == 'COORDINADOR')
                     $target = ['controller' => 'Students', 'action' => 'dashboard'];
                 else     
@@ -179,9 +187,6 @@ class UsersController extends AppController
         $this->viewBuilder()->setLayout('login');
         if ($type == 'admin') 
             $this->render('admin_login');
-
-        if ($type == 'temp') 
-            $this->render('temp_login');
     }
 
 
