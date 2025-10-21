@@ -87,6 +87,14 @@
                                                         'formAction' => 'downloadSchoolCoursesStudents',
                                                          'class' => 'btn btn-info',
                                                          'id' => 'download-list']) ?>
+                <?php if ($this->Identity->get('role')->get('name') == 'ADMIN')
+                {
+                    echo $this->Form->button(__('Reporte de la búsqueda'), ['type' => 'submit',
+                                                        'formAction' => 'downloadSpecial',
+                                                         'class' => 'btn btn-info',
+                                                         'id' => 'download-list']);
+                }
+                ?>
 
                 <?= $this->Form->end() ?>
             </div>
