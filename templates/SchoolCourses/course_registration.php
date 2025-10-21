@@ -19,6 +19,11 @@ foreach ($studentCourses as $studentCourse) {
         $total_a_pagar += $school_course['cost'];
     }
 }
+
+$closeDate = (new DateTime('2025-09-19 23:59'))->format('Y-m-d H:i');
+$currentDate = (new DateTime())->format('Y-m-d H:i');
+$visible = $currentDate < $closeDate ? true : false;
+
 ?>
 <header class="page-header page-header-compact page-header-light border-bottom bg-white mb-4">
     <div class="container-fluid px-4">
@@ -164,7 +169,7 @@ foreach ($studentCourses as $studentCourse) {
                     <tbody>
                         <?php foreach ($schoolCourses as $schoolCourse): ?>
 
-                            <?php if ($schoolCourse->visible
+                            <?php if (($schoolCourse->visible && $visible)
                                 || array_key_exists($schoolCourse->id, $arr_coursesSignedup)):?>
                                 <?php 
 
@@ -321,7 +326,7 @@ foreach ($studentCourses as $studentCourse) {
                     </thead>
                     <tbody>
                         <?php foreach ($schoolCourses as $schoolCourse): ?>
-                            <?php if ($schoolCourse->visible
+                            <?php if (($schoolCourse->visible && $visible)
                                 ||  array_key_exists($schoolCourse->id, $arr_coursesSignedup)):?>
                                 
                                 <?php 
