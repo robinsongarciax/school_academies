@@ -408,6 +408,92 @@ class StudentsController extends AppController
                         ->withBody($stream);
     }
 
+    /*
+     * Download Especial Method - Only for Admin
+     */ 
+    public function downloadSpecial()
+    {
+        $this->Authorization->skipAuthorization();
+        $this->request->allowMethod(['post']);
+        $searchOptions = $this->request->getData();
+
+        $conditions = $this->_buildConditions($searchOptions);
+
+        $term = $this->Students->Terms
+                               ->find()
+                               ->where(['active' => 1])
+                               ->first();
+        $conditions[] = ['Students.term_id' => $term->id];
+
+        $students = $this->_findStudets($conditions);
+        $students->contain('SchoolCourses')
+                 ->innerJoinWith('SchoolCourses')
+                 ->distinct(['Students.id'])
+                 ->order(['Students.curp' => 'asc', 'SchoolCoursesStudents.id' => 'ASC'])
+                 ->where(['SchoolCoursesStudents.is_confirmed' => 1]);
+
+        $spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+        // $sheet->setTitle();
+
+        $sheet->getStyle("B1:B3")->getFont()->setBold(true);
+        //GENERAL INFO
+        $sheet->setCellValue("B1", "CUMBRES INTERNATIONAL SCHOOL MERIDA");
+        $sheet->setCellValue("B2", "CICLO ESCOLAR " . $term->description);
+        $sheet->setCellValue("B3", 'Academias');
+
+        // nombre, curp, grado, grupo, academia, folio, cost, pagado
+        $row = 5;
+        $header = ['A' => 'Nombre', 
+                    'B' => 'CURP',
+                    'C' => 'Grado',
+                    'D' => 'Grupo',
+                    'E' => 'Academia 1',
+                    'F' => 'Academia 2',
+                    'G' => 'Academia 3'];
+
+        // header for list
+        foreach ($header as $key => $value) {
+            $sheet->setCellValue($key . $row, $value);
+        }
+        $row++;
+        
+        foreach ($students as $student) {
+            $sheet->setCellValue('A' . $row , $student->name);
+            $sheet->setCellValue('B' . $row , $student->curp);
+            $sheet->setCellValue('C' . $row , $student->school_level);
+            $sheet->setCellValue('D' . $row , $student->school_group);
+            $count = 0;
+            foreach ($student->school_courses as $schoolCourse) {
+                switch($count) {
+                    case 0:
+                        $sheet->setCellValue('E' . $row , $schoolCourse->name);
+                        break;
+                    case 1:
+                        $sheet->setCellValue('F' . $row , $schoolCourse->name);
+                        break;
+                    case 2:
+                        $sheet->setCellValue('G' . $row , $schoolCourse->name);
+                        break;
+                }
+                $count++;
+            }
+            $row++;
+        }
+
+        $sFileName = 'LISTA_ACADEMIAS_'.date("ymdHis").".xlsx";
+        $writer = new Xlsx($spreadsheet);
+
+        $stream = new CallbackStream(function () use ($writer) {
+            $writer->save('php://output');
+        });
+        $response = $this->response;
+        return $response->withType('xlsx')
+                        ->withHeader('Content-Disposition', "attachment;filename=\"{$sFileName}\"")
+                        ->withBody($stream);
+        
+    }
+
     private function _findStudets($conditions) {
         $students = $this->Students->find()
                                    ->where($conditions);
