@@ -85,7 +85,7 @@ $cakeDescription = __('Cake Description');;
 
             <?php
             $role_name = $this->Identity->get('role')->get('name');
-            if ($role_name == 'ADMIN' || $role_name == 'COORDINADOR' || $role_name == 'AUXILIAR') :
+            if ($role_name == 'ADMIN' || $role_name == 'COORDINADOR' || $role_name == 'PREFECTO(A)') :
             ?>
                 <li class="nav-item <?= $action == 'Students_dashboard' ? 'active' : '' ?>">
                     <?= $this->Html->link("<i class=\"fas fa-tachometer-alt\"></i>

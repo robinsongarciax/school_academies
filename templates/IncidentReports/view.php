@@ -39,10 +39,10 @@
                 <div class="card-body">
                     <div class="table-responsive">
                         <table class="table">
-                            <tr>
+                            <!--<tr>
                                 <th><?= __('Incident Report #') ?></th>
                                 <td><?= $incidentReport->id ?></td>
-                            </tr>
+                            </tr>-->
                             <tr>
                                 <th><?= __('Student') ?></th>
                                 <td><?= $incidentReport->has('student') ? $incidentReport->student->name : '' ?></td>

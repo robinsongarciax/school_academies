@@ -33,9 +33,10 @@
         
         <div class="card-body">
             <div class="table-responsive">
-                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <table class="table table-bordered" id="dataTable2" width="100%" cellspacing="0">
                     <thead>
                         <tr>
+                            <th></th>
                             <th><?= __('Incident Date') ?></th>
                             <th><?= __('Issue') ?></th>
                             <th><?= __('Student') ?></th>
@@ -48,6 +49,7 @@
                     <tbody>
                         <?php foreach ($incidentReports as $incidentReport): ?>
                         <tr>
+                            <td><?= h($incidentReport->id) ?></td>
                             <td><?= h($incidentReport->date) ?></td>
                             <td><?= h($incidentReport->subject) ?></td>
                             <td><?= $incidentReport->has('student') ? $incidentReport->student->name : '' ?></td>
