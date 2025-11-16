@@ -13,10 +13,18 @@
         resize: none;
     }
 </style>
-<?php $this->Html->scriptEnd(['block' => true]); ?>
+<?php $this->Html->scriptStart(['block' => true]); ?>
+let allowSubmit = false;
 
-$(window).bind('beforeunload', function(){
-  return '<?= __('Are you sure you want to leave?') ?>';
+$(window).bind('beforeunload', function (event) {
+    if (!allowSubmit) {
+        event.preventDefault();
+        event.returnValue = '<?= __('Are you sure you want to leave?') ?>';
+    }
+});
+
+$('form').on('submit', function () {
+    allowSubmit = true;
 });
 <?php $this->Html->scriptEnd(); ?>
 
@@ -42,7 +50,7 @@ $(window).bind('beforeunload', function(){
             <h6 class="m-0 font-weight-bold text-primary-cm"><?= __('Edit Incident Report') ?></h6>
         </div>
         <div class="card-body">
-            <?= $this->Form->create($incidentReport) ?>
+            <?= $this->Form->create($incidentReport, ['type' => 'file']) ?>
             <fieldset>
                 <?php
                     echo $this->Form->control('subject', ['label' => __('Issue')]);
@@ -51,6 +59,7 @@ $(window).bind('beforeunload', function(){
                     echo $this->Form->control('school_course', ['value' => $incidentReport->school_course->name, 'disabled' => true]);
                     echo $this->Form->control('student', ['value' => $incidentReport->student->name, 'disabled' => true]);
                     echo $this->Form->control('description', ['type' => 'textarea']);
+                    echo $this->Form->control('attachment', ['type' => 'file', 'label' => 'Reporte físico', 'required' => false, 'accept' => 'image/*']);
                 ?>
             </fieldset>
             <?= $this->Form->button(__('Submit')) ?>

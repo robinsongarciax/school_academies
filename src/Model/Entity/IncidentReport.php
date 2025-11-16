@@ -42,6 +42,7 @@ class IncidentReport extends Entity
         'students_id' => true,
         'users_id' => true,
         'teachers_id' => true,
+        'attachment_path' => true,
         'created' => true,
         'school_courses_id' => true,
         'modified' => true,

@@ -3,6 +3,8 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use Cake\Utility\Text;
+
 /**
  * IncidentReports Controller
  *
@@ -11,6 +13,9 @@ namespace App\Controller;
  */
 class IncidentReportsController extends AppController
 {
+
+    const UPLOAD_DIRECTORY = 'img/incident-reports/';
+
     /**
      * Index method
      *
@@ -58,6 +63,17 @@ class IncidentReportsController extends AppController
         $this->Authorization->authorize($incidentReport);
         if ($this->request->is('post')) {
             $incidentReport = $this->IncidentReports->patchEntity($incidentReport, $this->request->getData());
+            $attachedFile = $this->request->getData('attachment');
+
+            if ($attachedFile && $attachedFile->getError() === UPLOAD_ERR_OK) {
+                $uuid = Text::uuid();
+                $reportDestination = self::UPLOAD_DIRECTORY . $uuid . DS;
+                mkdir($reportDestination, 0777, true);
+                $reportDestination .= $attachedFile->getClientFilename();
+                $attachedFile->moveTo($reportDestination);
+                $incidentReport['attachment_path'] = $reportDestination;
+            }
+
             $incidentReport['users_id'] = $user->getIdentifier();
             if ($this->IncidentReports->save($incidentReport)) {
                 $this->Flash->success(__('The incident report has been saved.'));
@@ -82,6 +98,17 @@ class IncidentReportsController extends AppController
         $this->Authorization->authorize($incidentReport);
         if ($this->request->is('post')) {
             $incidentReport = $this->IncidentReports->patchEntity($incidentReport, $this->request->getData());
+            $attachedFile = $this->request->getData('attachment');
+
+            if ($attachedFile && $attachedFile->getError() === UPLOAD_ERR_OK) {
+                $uuid = Text::uuid();
+                $reportDestination = self::UPLOAD_DIRECTORY . $uuid . DS;
+                mkdir($reportDestination, 0777, true);
+                $reportDestination .= $attachedFile->getClientFilename();
+                $attachedFile->moveTo($reportDestination);
+                $incidentReport['attachment_path'] = $reportDestination;
+            }
+
             $incidentReport['users_id'] = $user->getIdentifier();
             if ($this->IncidentReports->save($incidentReport)) {
                 $this->Flash->success(__('The incident report has been saved.'));
@@ -121,6 +148,16 @@ class IncidentReportsController extends AppController
         $this->Authorization->authorize($incidentReport);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $incidentReport = $this->IncidentReports->patchEntity($incidentReport, $this->request->getData());
+            $attachedFile = $this->request->getData('attachment');
+
+            if ($attachedFile && $attachedFile->getError() === UPLOAD_ERR_OK) {
+                $uuid = Text::uuid();
+                $reportDestination = self::UPLOAD_DIRECTORY . $uuid . DS;
+                mkdir($reportDestination, 0777, true);
+                $reportDestination .= $attachedFile->getClientFilename();
+                $attachedFile->moveTo($reportDestination);
+                $incidentReport['attachment_path'] = $reportDestination;
+            }
             if ($this->IncidentReports->save($incidentReport)) {
                 $this->Flash->success(__('The incident report has been saved.'));
 

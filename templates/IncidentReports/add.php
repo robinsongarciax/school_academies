@@ -97,7 +97,7 @@ $('#school-courses-id').on('change', function() {
             <h6 class="m-0 font-weight-bold text-primary-cm"><?= __('Add Incident Report') ?></h6>
         </div>
         <div class="card-body">
-        <?= $this->Form->create($incidentReport) ?>
+        <?= $this->Form->create($incidentReport, ['type' => 'file']) ?>
         <fieldset>
             <?php
                 echo $this->Form->control('subject', ['label' => __('Issue')]);
@@ -106,6 +106,7 @@ $('#school-courses-id').on('change', function() {
                 echo $this->Form->control('school_courses_id', ['options' => [], 'Label' => __('School Course'), 'empty' => __('Select Teacher First')]);
                 echo $this->Form->control('students_id', ['options' => [], 'label' => __('Student'), 'empty' => __('Select School Course First')]);;
                 echo $this->Form->control('description', ['type' => 'textarea']);
+                echo $this->Form->control('attachment', ['type' => 'file', 'label' => 'Reporte físico', 'required' => false, 'accept' => 'image/*']);
             ?>
         </fieldset>
         <?= $this->Form->button(__('Submit')) ?>

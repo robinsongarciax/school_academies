@@ -104,7 +104,7 @@ $('#description').on('focusout', function() {
             <h6 class="m-0 font-weight-bold text-primary-cm"><?= __('Add Incident Report') ?></h6>
         </div>
         <div class="card-body">
-        <?= $this->Form->create($incidentReport) ?>
+        <?= $this->Form->create($incidentReport, ['type' => 'file']) ?>
         <fieldset>
             <?php
                 echo $this->Form->control('students_id', ['options' => $students, 'label' => __('Student'), 'empty' => __('Select Student')]);
@@ -113,6 +113,7 @@ $('#description').on('focusout', function() {
                 echo $this->Form->control('school_courses_id', ['options' => [], 'Label' => __('School Course'), 'empty' => __('Select Student First')]);
                 echo $this->Form->control('teachers_id', ['options' => [], 'label' => __('Teacher'), 'empty' => __('Select School Course First')]);
                 echo $this->Form->control('subject', ['label' => __('Issue')]);
+                echo $this->Form->control('attachment', ['type' => 'file', 'label' => 'Reporte físico', 'required' => false, 'accept' => 'image/*']);
             ?>
         </fieldset>
         <?= $this->Form->button(__('Submit')) ?>

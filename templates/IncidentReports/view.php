@@ -68,6 +68,16 @@
                                 <th><?= __('Incident Date') ?></th>
                                 <td><?= h($incidentReport->date) ?></td>
                             </tr>
+                            <?php if ($incidentReport->attachment_path != null): ?>
+                            <tr>
+                                <td colspan="2">
+                                    <?php
+                                    $path = str_replace('img/', '', $incidentReport->attachment_path);
+                                    echo $this->Html->image($path);
+                                    ?>
+                                </td>
+                            </tr>
+                            <?php endif; ?>
                         </table>
                     </div>
                 </div>
